@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="menuButtonIcon">
+        <Setter Property="Button.BorderBrush" Value="Black"></Setter>
+        <Setter Property="Button.Background" Value="White"></Setter>
+    </Style>
+
+    <Style x:Key="menuImageIcon">
+        <Setter Property="Image.HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Image.VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->
+    <Style x:Key="menuButton">
+        <Setter Property="Button.MinHeight" Value="50"></Setter>
+        <Setter Property="Button.Width" Value="{Binding ElementName=menu,Path=Width}"></Setter>
+        <Setter Property="Button.Background" Value="{Binding ElementName=menu,Path=Background}"></Setter>
+        <Setter Property="Button.BorderBrush" Value="{x:Null}"></Setter>
+        <Setter Property="Button.FontSize" Value="20"></Setter>
+        <Setter Property="Button.FontFamily" Value="Monotype Corsiva"></Setter>
+    </Style>
+    
+</ResourceDictionary>

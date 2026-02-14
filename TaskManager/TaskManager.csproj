@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\GreenPlus.png" />
+    <None Remove="Resources\Images\MenuIcon.png" />
+    <None Remove="Resources\Images\SettingsIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\GreenPlus.png" />
+    <Resource Include="Resources\Images\MenuIcon.png" />
+    <Resource Include="Resources\Images\SettingsIcon.png" />
+  </ItemGroup>
+
+</Project>

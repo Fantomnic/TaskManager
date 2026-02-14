@@ -1,0 +1,73 @@
+﻿<Window x:Class="TaskManager.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManager"
+        xmlns:views="clr-namespace:TaskManager.View"
+        mc:Ignorable="d"
+        Title="Трекер задач" Height="450" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="menuColumn" Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
+                      Width="0" HorizontalAlignment="Left" MouseLeave="menu_MouseLeave">
+            <StackPanel>
+                <Button Style="{StaticResource menuButton}">Кнопка 1</Button>
+                <Button Style="{StaticResource menuButton}">Кнопка 2</Button>
+                <Button Style="{StaticResource menuButton}">Кнопка 3</Button>
+                <Button Style="{StaticResource menuButton}">Кнопка 4</Button>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid x:Name="workspace" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.03*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel LastChildFill="False">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="{Binding NewSectionCommand}" ToolTip="Создать новый раздел">
+                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
+                </Button>
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="menu_Click" ToolTip="Действия">
+                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/MenuIcon.png"></Image>
+                </Button>
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки">
+                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
+                </Button>
+                <Button DockPanel.Dock="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Help" Margin="0,0,0,5">
+                    <TextBlock HorizontalAlignment="Center" TextDecorations="Underline" Foreground="#FF0034FF">Справка</TextBlock>
+                </Button>
+            </DockPanel>
+
+            <TabControl x:Name="sections" Grid.Column="1">
+                
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="Все">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{x:Static local:Commands0.DeleteSectionCommand}" />
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </TabItem.Header>
+
+                    <TabItem.CommandBindings>
+                        <CommandBinding Command="{x:Static local:Commands0.DeleteSectionCommand}"
+                                        Executed="CommandBinding_Executed"
+                                        CanExecute="CommandBinding_CanExecute" />
+                    </TabItem.CommandBindings>
+
+                    <views:SectionView></views:SectionView>
+                </TabItem>
+                
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
