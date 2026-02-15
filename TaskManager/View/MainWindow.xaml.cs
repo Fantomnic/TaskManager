@@ -40,67 +40,6 @@ namespace TaskManager.View
             menu.BeginAnimation(Button.WidthProperty, menuAnimation);
         }
 
-        private void newSection_Click(object sender, RoutedEventArgs e)
-        {
-            var windowProperty = new SectionPropertyWindow
-            {
-                Owner = this
-            };
-
-            if (windowProperty.ShowDialog() != true)
-                return;
-
-            string name = windowProperty.sectionName.Text;
-
-            var sectionViewModel = new SectionViewModel(name);
-
-            var textBlock = new TextBlock()
-            {
-                DataContext = sectionViewModel,
-                //Text = "New",
-                ContextMenu = CreateSectionContextMenu(),
-            };
-
-            var binding = new Binding
-            {
-                Path = new PropertyPath(nameof(sectionViewModel.Name))
-            };
-
-            textBlock.SetBinding(TextBlock.TextProperty, binding);
-
-            var newItem = new TabItem()
-            {
-                DataContext = sectionViewModel,
-                Header = textBlock,
-                Content = new SectionView(),
-            };
-
-            FillSectionCommandsBindings(newItem);
-
-            sections.Items.Add(newItem);
-            newItem.Focus();
-        }
-
-        private ContextMenu CreateSectionContextMenu()
-        {
-            var menu = new ContextMenu();
-            menu.Items.Add(new MenuItem() { Command = Commands0.DeleteSectionCommand });
-            menu.Items.Add(new MenuItem() { Header = "Свойства" });
-            return menu;
-        }
-
-        private void FillSectionCommandsBindings(TabItem section)
-        {
-            var deleteBinding = new CommandBinding()
-            {
-                Command = Commands0.DeleteSectionCommand,
-            };
-
-            deleteBinding.Executed += CommandBinding_Executed;
-            deleteBinding.CanExecute += CommandBinding_CanExecute;
-            section.CommandBindings.Add(deleteBinding);
-        }
-
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var tabItem = (TabItem)sender;

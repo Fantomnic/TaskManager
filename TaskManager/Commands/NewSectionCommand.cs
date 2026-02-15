@@ -46,8 +46,6 @@ namespace TaskManager.Commands
             var textBlock = new TextBlock()
             {
                 DataContext = sectionViewModel,
-                //Text = "New",
-                ContextMenu = CreateSectionContextMenu(),
             };
 
             var binding = new Binding
@@ -64,16 +62,17 @@ namespace TaskManager.Commands
                 Content = new SectionView(),
             };
 
+            textBlock.ContextMenu = CreateSectionHeaderContextMenu(newItem);
             FillSectionCommandsBindings(newItem);
 
             _mainWindow.sections.Items.Add(newItem);
             newItem.Focus();
         }
 
-        private ContextMenu CreateSectionContextMenu()
+        private ContextMenu CreateSectionHeaderContextMenu(TabItem tabItem)
         {
             var menu = new ContextMenu();
-            menu.Items.Add(new MenuItem() { Command = Commands0.DeleteSectionCommand });
+            menu.Items.Add(new MenuItem() { Header = "Удалить раздел", Command = MainViewModel.DeleteSectionCommand, CommandParameter = tabItem });
             menu.Items.Add(new MenuItem() { Header = "Свойства" });
             return menu;
         }
