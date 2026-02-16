@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManager.Model;
+using TaskManager.View;
 using TaskObject = TaskManager.Model.TaskObject;
 
 namespace TaskManager.ViewModel
@@ -40,8 +41,14 @@ namespace TaskManager.ViewModel
         public string Name
         {
             get => _section.Name;
-            set => _section.Name = value;
+            set
+            {
+                _section.Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
         }
+
+
 
         public ObservableCollection<TaskObject> Tasks { get; set; }
     }

@@ -20,5 +20,5 @@
         <Setter Property="Button.FontSize" Value="20"></Setter>
         <Setter Property="Button.FontFamily" Value="Monotype Corsiva"></Setter>
     </Style>
-    
+
 </ResourceDictionary>

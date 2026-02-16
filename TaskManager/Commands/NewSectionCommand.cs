@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml.Linq;
+using TaskManager.Helpers;
 using TaskManager.View;
 using TaskManager.ViewModel;
 
@@ -15,90 +17,100 @@ namespace TaskManager.Commands
     internal class NewSectionCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
-        private readonly MainWindow _mainWindow;
 
-        public NewSectionCommand() => _mainWindow = (MainWindow)Application.Current.MainWindow;
-
-        public bool CanExecute(object? parameter)
-        {
-            return true;
-        }
+        public bool CanExecute(object? parameter) => true;
 
         public void Execute(object? parameter)
         {
             AddSection();
         }
 
-        internal void AddSection()
+        internal void AddSection(bool baseSection = false)
         {
-            var windowProperty = new SectionPropertyWindow
+            SectionViewModel sectionViewModel;
+
+            if (baseSection)
             {
-                Owner = _mainWindow,
+                sectionViewModel = new SectionViewModel("Все");
+            }
+            else
+            {
+                sectionViewModel = new SectionViewModel("Новый раздел");
+
+                var windowProperty = new SectionPropertyWindow(sectionViewModel);
+
+                if (windowProperty.ShowDialog() != true)
+                    return;
+            }
+
+            var newItem = CreateTabItem(sectionViewModel, baseSection);
+            Helper.MainWindow.sections.Items.Add(newItem);
+            newItem.Focus();
+        }
+
+        private TabItem CreateTabItem(SectionViewModel sectionViewModel, bool baseSection = false)
+        {
+            var textBlock = CreateSectionHeader(sectionViewModel);
+
+            var section = new TabItem()
+            {
+                Header = textBlock,
+                Content = new SectionView(sectionViewModel),
             };
 
-            if (windowProperty.ShowDialog() != true)
-                return;
+            textBlock.ContextMenu = CreateSectionHeaderContextMenu();
 
-            string name = windowProperty.sectionName.Text;
+            return section;
 
-            var sectionViewModel = new SectionViewModel(name);
+            ContextMenu CreateSectionHeaderContextMenu()
+            {
+                var menuItems = baseSection
+                    ? CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel)
+                    : CreateNewSectionHeaderContextMenuItemsList(sectionViewModel, section);
 
+                menuItems = [.. menuItems.OrderBy(x => x.Header)];
+
+                var menu = new ContextMenu();
+
+                foreach (var menuItem in menuItems)
+                    menu.Items.Add(menuItem);
+
+                return menu;
+            }
+        }
+
+        private static TextBlock CreateSectionHeader(SectionViewModel sectionViewModel)
+        {
             var textBlock = new TextBlock()
             {
                 DataContext = sectionViewModel,
             };
 
-            var binding = new Binding
+            var headerNameBinding = new Binding
             {
                 Path = new PropertyPath(nameof(sectionViewModel.Name))
             };
 
-            textBlock.SetBinding(TextBlock.TextProperty, binding);
+            textBlock.SetBinding(TextBlock.TextProperty, headerNameBinding);
 
-            var newItem = new TabItem()
-            {
-                DataContext = sectionViewModel,
-                Header = textBlock,
-                Content = new SectionView(),
-            };
-
-            textBlock.ContextMenu = CreateSectionHeaderContextMenu(newItem);
-            FillSectionCommandsBindings(newItem);
-
-            _mainWindow.sections.Items.Add(newItem);
-            newItem.Focus();
+            return textBlock;
         }
 
-        private ContextMenu CreateSectionHeaderContextMenu(TabItem tabItem)
+        private List<MenuItem> CreateNewSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel, TabItem section)
         {
-            var menu = new ContextMenu();
-            menu.Items.Add(new MenuItem() { Header = "Удалить раздел", Command = MainViewModel.DeleteSectionCommand, CommandParameter = tabItem });
-            menu.Items.Add(new MenuItem() { Header = "Свойства" });
-            return menu;
+            var menuItems = CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel);
+
+            menuItems.AddRange(
+                [
+                    new() { Header = "Удалить раздел", Command = MainViewModel.DeleteSectionCommand, CommandParameter = section },
+                ]);
+
+            return menuItems;
         }
 
-        private void FillSectionCommandsBindings(TabItem section)
-        {
-            var deleteBinding = new CommandBinding()
-            {
-                Command = Commands0.DeleteSectionCommand,
-            };
-
-            deleteBinding.Executed += CommandBinding_Executed;
-            deleteBinding.CanExecute += CommandBinding_CanExecute;
-            section.CommandBindings.Add(deleteBinding);
-        }
-
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var tabItem = (TabItem)sender;
-
-            _mainWindow.sections.Items.Remove(tabItem);
-        }
-
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
+        private List<MenuItem> CreateBaseSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel) => 
+            [
+                new() { Header = "Свойства", Command = MainViewModel.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
+            ];
     }
 }

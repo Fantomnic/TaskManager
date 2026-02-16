@@ -45,29 +45,8 @@
                 </Button>
             </DockPanel>
 
-            <TabControl x:Name="sections" Grid.Column="1">
-                
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBlock Text="Все">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Command="{x:Static local:Commands0.DeleteSectionCommand}" />
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </TabItem.Header>
-
-                    <TabItem.CommandBindings>
-                        <CommandBinding Command="{x:Static local:Commands0.DeleteSectionCommand}"
-                                        Executed="CommandBinding_Executed"
-                                        CanExecute="CommandBinding_CanExecute" />
-                    </TabItem.CommandBindings>
-
-                    <views:SectionView></views:SectionView>
-                </TabItem>
-                
-            </TabControl>
+            <!-- Заполняется в коде -->
+            <TabControl x:Name="sections" Grid.Column="1" />
         </Grid>
     </Grid>
 </Window>

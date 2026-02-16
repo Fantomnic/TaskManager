@@ -16,7 +16,14 @@ namespace TaskManager.View
         {
             InitializeComponent();
 
+            DataInitialize();
+        }
+
+        private void DataInitialize()
+        {
             DataContext = new MainViewModel();
+
+            MainViewModel.NewSectionCommand.AddSection(true);
         }
 
         private void menu_Click(object sender, RoutedEventArgs e) => StartMenuAnimation();

@@ -21,11 +21,11 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionView : UserControl
     {
-        public SectionView()
+        internal SectionView(SectionViewModel sectionViewModel)
         {
             InitializeComponent();
 
-            DataContext = new SectionViewModel("Все");
+            DataContext = sectionViewModel;
         }
     }
 }

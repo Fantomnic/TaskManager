@@ -12,9 +12,6 @@ namespace TaskManager.Commands
 {
     internal class DeleteSectionCommand : ICommand
     {
-        //public static readonly RoutedEvent ChangeMyColor = EventManager.RegisterRoutedEvent(
-        //    "DeleteSectionCommand", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(DeleteSectionCommand));
-
         public event EventHandler? CanExecuteChanged;
 
         public bool CanExecute(object? parameter)

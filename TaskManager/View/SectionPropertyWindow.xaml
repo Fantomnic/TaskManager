@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
         mc:Ignorable="d"
-        Title="Новый раздел" Height="450" Width="800">
+        Title="Новый раздел" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>
@@ -21,7 +21,7 @@
         </StackPanel>
         
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="sectionName"></TextBox>
+            <TextBox x:Name="sectionName" Text="{Binding Name}"></TextBox>
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

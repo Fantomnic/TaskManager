@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TaskManager.Helpers;
+using TaskManager.ViewModel;
 
 namespace TaskManager.View
 {
@@ -19,9 +21,11 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionPropertyWindow : Window
     {
-        public SectionPropertyWindow()
+        internal SectionPropertyWindow(SectionViewModel sectionViewModel, Window? owner = null)
         {
             InitializeComponent();
+            Owner = owner ?? Helper.MainWindow;
+            DataContext = sectionViewModel;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)

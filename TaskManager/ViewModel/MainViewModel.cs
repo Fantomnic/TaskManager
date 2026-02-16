@@ -14,15 +14,14 @@ namespace TaskManager.ViewModel
         static MainViewModel()
         {
             DeleteSectionCommand = new DeleteSectionCommand();
-        }
-
-        public MainViewModel()
-        {
             NewSectionCommand = new NewSectionCommand();
+            ShowSectionPropertyCommand = new ShowSectionPropertyCommand();
         }
 
-        public NewSectionCommand NewSectionCommand { get; set; }
+        public static NewSectionCommand NewSectionCommand { get; set; }
 
         public static DeleteSectionCommand DeleteSectionCommand { get; set; }
+
+        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; set; }
     }
 }
