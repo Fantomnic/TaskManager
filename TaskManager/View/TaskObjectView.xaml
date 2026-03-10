@@ -15,45 +15,51 @@
 
         <Border BorderThickness="1" BorderBrush="Black">
             <Grid Background="White">
-                <!--
+                
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition MinWidth="95" MaxWidth="115"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                -->
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition MinHeight="35"></RowDefinition>
+                    <RowDefinition MinHeight="35"></RowDefinition>
+                    <RowDefinition MinHeight="35"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center">Info</TextBlock>
-                <!--
-                <TextBlock Grid.Row="1">Дата создания:</TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" IsReadOnly="True" Background="#FFFFFEDF">15.08.2000</TextBox>
-                <TextBlock Grid.Row="1" Grid.Column="2">Дата реализации:</TextBlock>
-                <DatePicker Grid.Row="1" Grid.Column="3" VerticalAlignment="Top"/>
-                -->
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-                    <TextBlock Grid.Row="1" Margin="5,0,5,0" VerticalAlignment="Center">Дата создания:</TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True" Background="#FFFFFEDF">15.08.2000</TextBox>
-                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="15,0,5,0" VerticalAlignment="Center">Дата реализации:</TextBlock>
-                    <DatePicker Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
-                </StackPanel>
+
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="3,8,3,4">Дата создания:</TextBlock>
+                <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="3,4,3,4">Приоритет:</TextBlock>
+                <TextBlock Grid.Row="3" VerticalAlignment="Center" Margin="3,4,3,4">Статус:</TextBlock>
+
+                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF">15.08.2000</TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4" Focusable="False" Background="#FFFFFEDF">Высокий</TextBox>
+                <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4" Focusable="False" Background="#FFFFFEDF">Еженедельная</TextBox>
+
+                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,8,3,4">Дата реализации:</TextBlock>
+                <DatePicker Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,8,3,4" Focusable="False"></DatePicker>
             </Grid>
         </Border>
 
         <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF1600FF">
             <Grid Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center">Описание</TextBlock>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True">15.08.2000</TextBox>
+                <Button Grid.Column="1" Margin="15,2,3,2" Click="EditDescription">Редактировать</Button>
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="descriptionField" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000</TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>
@@ -70,7 +76,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center">Комментарии</TextBlock>
-                <Button Grid.Column="1">Добавить комментарий</Button>
+                <Button Grid.Column="1" Margin="3,2,3,2">Добавить комментарий</Button>
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
                     <TextBox TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000456екнекнапрпавк</TextBox>
                 </ScrollViewer>

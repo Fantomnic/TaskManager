@@ -16,11 +16,13 @@ namespace TaskManager.ViewModel
     {
         private TaskObject _selectedObject;
         private Section _section;
+        private TaskObjectViewModel _taskObjectViewModel;
 
         public SectionViewModel(string name)
         {
-            _section = new Section(name);
-
+            _section = new(name);
+            _taskObjectViewModel = new();
+            
             Tasks =
                 [
                     new() { Name = "Test 1" },
@@ -34,6 +36,7 @@ namespace TaskManager.ViewModel
             set
             {
                 _selectedObject = value;
+                _taskObjectViewModel.TaskObject = _selectedObject;
                 OnPropertyChanged(nameof(SelectedObject));
             }
         }

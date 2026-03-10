@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaskManager.ViewModel;
 
 namespace TaskManager.View
 {
@@ -20,9 +21,32 @@ namespace TaskManager.View
     /// </summary>
     public partial class TaskObjectView : UserControl
     {
+        // public конструктор нужен для корректного отображения при использовании в xaml
         public TaskObjectView()
         {
             InitializeComponent();
+        }
+
+        internal TaskObjectView(TaskObjectViewModel taskObjectViewModel)
+        {
+            InitializeComponent();
+
+            DataContext = taskObjectViewModel;
+        }
+
+        private void EditDescription(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            bool isReadonlyNew = !descriptionField.IsReadOnly;
+
+            descriptionField.IsReadOnly = isReadonlyNew;
+
+            descriptionField.Background = isReadonlyNew
+                ? new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8))
+                : Brushes.White;
+
+            button.Content = isReadonlyNew ? "Редактировать" : "Сохранить";
         }
     }
 }

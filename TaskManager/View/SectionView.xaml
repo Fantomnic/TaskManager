@@ -25,7 +25,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TabControl Grid.Column="1" Grid.RowSpan="2">
+        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">
             <TabItem Header="Info">
                 <local:TaskObjectView></local:TaskObjectView>
             </TabItem>
