@@ -21,12 +21,15 @@ namespace TaskManager.View
     /// </summary>
     public partial class TaskObjectView : UserControl
     {
-        // public конструктор нужен для корректного отображения при использовании в xaml
+        private string _startDescription;
+
+        // Конструктор по умолчанию нужен для корректного отображения при использовании в xaml
         public TaskObjectView()
         {
             InitializeComponent();
         }
 
+        // TODO: Скрыть контекстное меню для текстблоков
         internal TaskObjectView(TaskObjectViewModel taskObjectViewModel)
         {
             InitializeComponent();
@@ -36,17 +39,33 @@ namespace TaskManager.View
 
         private void EditDescription(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
+            if (descriptionField.IsReadOnly)
+                OpenEditDescription();
+            else
+                CloseEditDescription();
+        }
 
-            bool isReadonlyNew = !descriptionField.IsReadOnly;
+        private void CancelEditDescription(object sender, RoutedEventArgs e) => CloseEditDescription(true);
 
-            descriptionField.IsReadOnly = isReadonlyNew;
+        private void OpenEditDescription()
+        {
+            _startDescription = descriptionField.Text;
+            descriptionField.IsReadOnly = false;
+            descriptionField.Background = Brushes.White;
+            cancelButton.Visibility = Visibility.Visible;
+            editButton.Content = "Сохранить";
+        }
 
-            descriptionField.Background = isReadonlyNew
-                ? new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8))
-                : Brushes.White;
+        private void CloseEditDescription(bool cancelChanges = false)
+        {
+            if (cancelChanges)
+                descriptionField.Text = _startDescription;
 
-            button.Content = isReadonlyNew ? "Редактировать" : "Сохранить";
+            _startDescription = String.Empty;
+            descriptionField.IsReadOnly = true;
+            descriptionField.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8)); // Светло-серый
+            cancelButton.Visibility = Visibility.Collapsed;
+            editButton.Content = "Редактировать";
         }
     }
 }

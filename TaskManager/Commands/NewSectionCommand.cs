@@ -14,6 +14,7 @@ using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
+    /// <summary>Команда "Создать новый раздел"</summary>
     internal class NewSectionCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
@@ -79,6 +80,7 @@ namespace TaskManager.Commands
             }
         }
 
+        // Создаёт заголовок для TabItam'а в виде контрола
         private static TextBlock CreateSectionHeader(SectionViewModel sectionViewModel)
         {
             var textBlock = new TextBlock()

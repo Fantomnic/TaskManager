@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock VerticalAlignment="Center" Background="White">Список задач</TextBlock>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Tasks}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}" />
@@ -27,10 +27,14 @@
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">
             <TabItem Header="Info">
-                <local:TaskObjectView></local:TaskObjectView>
+                <local:TaskObjectView DataContext="{Binding Path=TaskObjectViewModel}"></local:TaskObjectView>
             </TabItem>
 
             <TabItem Header="Файлы"></TabItem>
         </TabControl>
+
+        <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
+        <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityEmptyTaskImage}" Source="/Resources/Images/QuestionPromo.png" Stretch="Fill"></Image>
+
     </Grid>
 </UserControl>

@@ -9,27 +9,25 @@ using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
+    /// <summary>Модель представления свойств задачи</summary>
     internal class TaskObjectViewModel : BaseViewModel
     {
         private TaskObject _taskObject;
 
-        //internal TaskObjectViewModel(TaskObject taskObject)
-        //{
-        //    _taskObject = taskObject;
-        //}
-
-        public TaskObject TaskObject
+        internal TaskObjectViewModel()
         {
-            get => _taskObject;
-            set
-            {
-                _taskObject = value;
-            }
+            
         }
 
+        internal TaskObjectViewModel(TaskObject taskObject)
+        {
+            _taskObject = taskObject;
+        }
+
+        // Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
         public string CreationDate
         {
-            get => _taskObject.CreationDate.ToString("dd.mm.yyyy");
+            get => _taskObject?.CreationDate.ToString("dd.MM.yyyy");
         }
     }
 }

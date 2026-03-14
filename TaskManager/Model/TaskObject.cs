@@ -73,6 +73,7 @@ namespace TaskManager.Model
             }
         }
 
+        /// <summary>Раздел, к которому принадлежит задача</summary>
         public Section Section
         {
             get => _section;

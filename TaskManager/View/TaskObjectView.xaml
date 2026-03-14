@@ -13,6 +13,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <!-- Info -->
         <Border BorderThickness="1" BorderBrush="Black">
             <Grid Background="White">
                 
@@ -36,7 +37,8 @@
                 <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="3,4,3,4">Приоритет:</TextBlock>
                 <TextBlock Grid.Row="3" VerticalAlignment="Center" Margin="3,4,3,4">Статус:</TextBlock>
 
-                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF">15.08.2000</TextBox>
+                <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
+                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF" Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"></TextBox>
                 <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4" Focusable="False" Background="#FFFFFEDF">Высокий</TextBox>
                 <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4" Focusable="False" Background="#FFFFFEDF">Еженедельная</TextBox>
 
@@ -45,11 +47,12 @@
             </Grid>
         </Border>
 
+        <!-- Описание -->
         <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF1600FF">
             <Grid Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
@@ -57,13 +60,18 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center">Описание</TextBlock>
-                <Button Grid.Column="1" Margin="15,2,3,2" Click="EditDescription">Редактировать</Button>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button x:Name="cancelButton" Margin="5,2,3,2" Visibility="Collapsed" Click="CancelEditDescription">Отменить</Button>
+                    <Button x:Name="editButton" Margin="5,2,3,2" Click="EditDescription">Редактировать</Button>
+                </StackPanel>
+                
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
                     <TextBox x:Name="descriptionField" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000</TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>
 
+        <!-- Комментарии -->
         <Border Grid.Row="2" BorderThickness="1" BorderBrush="#FF0CFF00">
             <Grid Background="White">
                 <Grid.ColumnDefinitions>
