@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using static TaskManager.Enums;
+using TaskManager.Helpers;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {

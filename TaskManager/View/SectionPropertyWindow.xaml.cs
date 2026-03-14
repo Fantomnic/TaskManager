@@ -28,7 +28,7 @@ namespace TaskManager.View
             DataContext = sectionViewModel;
         }
 
-        private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        private void ButtonOKClick(object sender, RoutedEventArgs e)
         {
             if (!ValidateName())
                 return;
@@ -37,7 +37,7 @@ namespace TaskManager.View
             Close();
         }
 
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancelClick(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaskManager
+﻿namespace TaskManager.Helpers
 {
-    internal class Enums
+    public class Enums
     {
         /// <summary>Тип задачи</summary>
         public enum TaskType
@@ -48,5 +42,8 @@ namespace TaskManager
             /// <summary>Высокий</summary>
             High,
         }
+
+        public static IEnumerable<T> GetEnumValues<T>() where T : Enum
+            => Enum.GetValues(typeof(T)).Cast<T>();
     }
 }

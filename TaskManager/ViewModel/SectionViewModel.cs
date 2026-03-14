@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TaskManager.Model;
-using TaskManager.View;
 using TaskObject = TaskManager.Model.TaskObject;
 
 namespace TaskManager.ViewModel
@@ -24,13 +16,11 @@ namespace TaskManager.ViewModel
         public SectionViewModel(string name)
         {
             _section = new(name);
-            InitializeProperties();
+            InitializeViewModel();
         }
 
-        private void InitializeProperties()
+        private void InitializeViewModel()
         {
-            TaskObjectViewModel = new();
-
             Tasks =
                 [
                     new() { Name = "Test 1", CreationDate = DateTime.Now },

@@ -14,8 +14,9 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <!-- Выдвигающееся меню -->
         <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
-                      Width="0" HorizontalAlignment="Left" MouseLeave="menu_MouseLeave">
+                      Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
                 <Button Style="{StaticResource menuButton}">Кнопка 1</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 2</Button>
@@ -24,17 +25,19 @@
             </StackPanel>
         </ScrollViewer>
 
+        <!-- Рабочая зона -->
         <Grid x:Name="workspace" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.03*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+            <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="{Binding NewSectionCommand}" ToolTip="Создать новый раздел">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="menu_Click" ToolTip="Действия">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="MenuClick" ToolTip="Действия">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/MenuIcon.png"></Image>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки">
@@ -45,7 +48,7 @@
                 </Button>
             </DockPanel>
 
-            <!-- Заполняется в коде -->
+            <!-- Задачи (заполняется в коде) -->
             <TabControl x:Name="sections" Grid.Column="1" />
         </Grid>
     </Grid>

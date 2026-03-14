@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.ViewModel;
@@ -16,19 +15,19 @@ namespace TaskManager.View
         {
             InitializeComponent();
 
-            DataInitialize();
+            InitializeData();
         }
 
-        private void DataInitialize()
+        private void InitializeData()
         {
             DataContext = new MainViewModel();
 
             MainViewModel.NewSectionCommand.AddSection(true);
         }
 
-        private void menu_Click(object sender, RoutedEventArgs e) => StartMenuAnimation();
+        private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();
 
-        private void menu_MouseLeave(object sender, MouseEventArgs e) => StartMenuAnimation(true);
+        private void MenuMouseLeave(object sender, MouseEventArgs e) => StartMenuAnimation(true);
 
         private void StartMenuAnimation(bool closing = false)
         {
@@ -44,19 +43,7 @@ namespace TaskManager.View
             if (!closing)
                 menuAnimation.EasingFunction = new QuadraticEase();
 
-            menu.BeginAnimation(Button.WidthProperty, menuAnimation);
-        }
-
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var tabItem = (TabItem)sender;
-
-            sections.Items.Remove(tabItem);
-        }
-
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
+            menu.BeginAnimation(WidthProperty, menuAnimation);
         }
     }
 }
