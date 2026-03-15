@@ -14,9 +14,9 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" MinHeight="150" MaxHeight="250"></RowDefinition>
+            <RowDefinition Height="*" MinHeight="50"></RowDefinition>
+            <RowDefinition Height="*" MinHeight="50"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!-- Info -->
@@ -37,11 +37,11 @@
                     <RowDefinition MinHeight="35"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center">Info</TextBlock>
+                <TextBlock Style="{StaticResource titleDescription}">Info</TextBlock>
 
-                <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="3,8,3,4">Дата создания:</TextBlock>
-                <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="3,4,3,4">Приоритет:</TextBlock>
-                <TextBlock Grid.Row="3" VerticalAlignment="Center" Margin="3,4,3,4">Статус:</TextBlock>
+                <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Дата создания:</TextBlock>
+                <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>
+                <TextBlock Grid.Row="3" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
 
                 <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
                 <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF" Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"></TextBox>
@@ -83,10 +83,10 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center">Описание</TextBlock>
+                <TextBlock Style="{StaticResource titleDescription}">Описание</TextBlock>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Button x:Name="cancelButton" Margin="5,2,3,2" Visibility="Collapsed" Click="CancelEditDescription">Отменить</Button>
-                    <Button x:Name="editButton" Margin="5,2,3,2" Click="EditDescription">Редактировать</Button>
+                    <Button x:Name="cancelButton" Style="{StaticResource serviceButtonWithStandartWidth}" Visibility="Collapsed" Click="CancelEditDescription">Отменить</Button>
+                    <Button x:Name="editButton" Style="{StaticResource serviceButtonWithStandartWidth}" Click="EditDescription">Редактировать</Button>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
@@ -100,15 +100,15 @@
             <Grid Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center">Комментарии</TextBlock>
-                <Button Grid.Column="1" Margin="3,2,3,2">Добавить комментарий</Button>
+                <TextBlock Style="{StaticResource titleDescription}">Комментарии</TextBlock>
+                <Button Grid.Column="1" Style="{StaticResource serviceButtonBase}" Width="150" HorizontalAlignment="Right">Добавить комментарий</Button>
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
                     <TextBox TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000456екнекнапрпавк</TextBox>
                 </ScrollViewer>

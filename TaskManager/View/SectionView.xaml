@@ -16,7 +16,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock VerticalAlignment="Center" Background="White">Список задач</TextBlock>
+        <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
         <ListBox Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TaskManager"
         xmlns:views="clr-namespace:TaskManager.View"
         mc:Ignorable="d"
-        Title="Трекер задач" Height="450" Width="800">
+        Title="Трекер задач" Height="600" Width="900" MinHeight="300" MinWidth="500" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
         <!-- Рабочая зона -->
         <Grid x:Name="workspace" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.03*"></ColumnDefinition>
+                <ColumnDefinition Width="0.03*" MinWidth="30" MaxWidth="50"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -43,6 +43,7 @@
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
                 </Button>
+                <!-- TODO: Сделать значком -->
                 <Button DockPanel.Dock="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Help" Margin="0,0,0,5">
                     <TextBlock HorizontalAlignment="Center" TextDecorations="Underline" Foreground="#FF0034FF">Справка</TextBlock>
                 </Button>
