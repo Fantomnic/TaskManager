@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaskManager.Model
+﻿namespace TaskManager.Model
 {
     internal class Section : BaseObject
     {
-        public Section(string name)
+        public Section(string name, bool baseSection)
         {
             Name = name;
+            IsBaseSection = baseSection;
         }
+
+        internal bool IsBaseSection { get; }
     }
 }

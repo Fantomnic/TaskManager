@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using TaskManager.Helpers;
 using TaskManager.ViewModel;
 
@@ -21,11 +9,13 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionPropertyWindow : Window
     {
+        private readonly SectionViewModel _sectionViewModel;
+
         internal SectionPropertyWindow(SectionViewModel sectionViewModel, Window? owner = null)
         {
             InitializeComponent();
             Owner = owner ?? Helper.MainWindow;
-            DataContext = sectionViewModel;
+            DataContext = _sectionViewModel = sectionViewModel;
         }
 
         private void ButtonOKClick(object sender, RoutedEventArgs e)
@@ -53,7 +43,7 @@ namespace TaskManager.View
                 return false;
             }
 
-            if (name == "Test")
+            if (Helper.MainWindow.GetSectionsNames([_sectionViewModel.Section]).Contains(name))
             {
                 MessageBox.Show($"Раздел \"{name}\" уже существует");
                 return false;

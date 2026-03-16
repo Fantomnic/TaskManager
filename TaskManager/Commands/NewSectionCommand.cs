@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Xml.Linq;
 using TaskManager.Helpers;
 using TaskManager.View;
 using TaskManager.ViewModel;
@@ -44,8 +38,11 @@ namespace TaskManager.Commands
                     return;
             }
 
+            var mainWindow = Helper.MainWindow;
             var newItem = CreateTabItem(sectionViewModel, baseSection);
-            Helper.MainWindow.sections.Items.Add(newItem);
+
+            mainWindow.sections.Items.Add(newItem);
+            mainWindow.AddSection(sectionViewModel.Section);
             newItem.Focus();
         }
 

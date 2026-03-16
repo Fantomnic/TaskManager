@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.View;
 
 namespace TaskManager.Commands
@@ -25,9 +22,11 @@ namespace TaskManager.Commands
             if (parameter is not TabItem tabItem)
                 return;
 
-            var m = (MainWindow)Application.Current.MainWindow;
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.sections.Items.Remove(tabItem);
 
-            m.sections.Items.Remove(tabItem);
+            if (Helper.GetSectionFromTabItem(tabItem) is Section section)
+                mainWindow.RemoveSection(section);
         }
     }
 }

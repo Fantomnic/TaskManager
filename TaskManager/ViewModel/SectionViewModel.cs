@@ -13,9 +13,9 @@ namespace TaskManager.ViewModel
         private TaskObjectViewModel _taskObjectViewModel;
         private Visibility _visibilityEmptyTaskPropertyImage;
 
-        public SectionViewModel(string name)
+        public SectionViewModel(string name, bool baseSection = false)
         {
-            _section = new(name);
+            _section = new(name, baseSection);
             InitializeViewModel();
         }
 
@@ -29,6 +29,11 @@ namespace TaskManager.ViewModel
 
             SetVisibilityEmptyTaskImage();
         }
+
+        internal Section Section => _section;
+
+        /// <summary>Список задач раздела</summary>
+        public ObservableCollection<TaskObject> Tasks { get; set; } = [];
 
         /// <summary>Окно свойтсв для текущей выбранной задачи</summary>
         public TaskObjectViewModel TaskObjectViewModel
@@ -75,9 +80,6 @@ namespace TaskManager.ViewModel
                 OnPropertyChanged(nameof(Name));
             }
         }
-
-        /// <summary>Список задач раздела</summary>
-        public ObservableCollection<TaskObject> Tasks { get; set; }
 
         private void SetVisibilityEmptyTaskImage()
             => VisibilityEmptyTaskImage = SelectedObject is null ? Visibility.Visible : Visibility.Collapsed;

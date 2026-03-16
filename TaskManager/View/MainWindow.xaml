@@ -18,7 +18,7 @@
         <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
-                <Button Style="{StaticResource menuButton}">Кнопка 1</Button>
+                <Button Style="{StaticResource menuButton}" Command="{Binding NewTaskCommand}">Создать задачу</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 2</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 3</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 4</Button>
@@ -50,7 +50,7 @@
             </DockPanel>
 
             <!-- Задачи (заполняется в коде) -->
-            <TabControl x:Name="sections" Grid.Column="1" />
+            <TabControl x:Name="sections" Grid.Column="1" SelectionChanged="SectionsSelectionChanged" />
         </Grid>
     </Grid>
 </Window>
