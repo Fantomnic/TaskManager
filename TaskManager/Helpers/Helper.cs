@@ -8,7 +8,9 @@ namespace TaskManager.Helpers
 {
     public static class Helper
     {
-        internal static MainWindow MainWindow = (MainWindow)Application.Current.MainWindow;
+        internal static MainWindow MainWindow => (MainWindow)Application.Current.MainWindow;
+
+        internal static MainViewModel MainViewModel => MainWindow.MainViewModel;
 
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
             => ((tabItem?.Content as SectionView)?.DataContext as SectionViewModel)?.Section;

@@ -18,6 +18,9 @@ namespace TaskManager.View
 
         private void ButtonOKClick(object sender, RoutedEventArgs e)
         {
+            if (!ValidateName())
+                return;
+
             DialogResult = true;
             Close();
         }
@@ -27,5 +30,28 @@ namespace TaskManager.View
             DialogResult = false;
             Close();
         }
+
+        private bool ValidateName()
+        {
+            string name = taskName.Text;
+
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Наименование задачи не может быть пустым");
+                return false;
+            }
+
+            //if (Helper.MainWindow.GetSectionsNames([taskName.Section]).Contains(name))
+            //{
+            //    MessageBox.Show($"Раздел \"{name}\" уже существует");
+            //    return false;
+            //}
+
+            return true;
+        }
+
+        internal void OpenEditDescription() => taskProperty.OpenEditDescription();
+
+        //internal void CloseEditDescription() => taskProperty.CloseEditDescription();
     }
 }

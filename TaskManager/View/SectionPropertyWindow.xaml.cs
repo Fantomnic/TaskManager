@@ -37,7 +37,7 @@ namespace TaskManager.View
         {
             string name = sectionName.Text;
 
-            if (String.IsNullOrEmpty(name))
+            if (String.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Укажите название раздела");
                 return false;

@@ -44,11 +44,12 @@
                 <TextBlock Grid.Row="3" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
 
                 <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
-                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF" Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" Focusable="False" Background="#FFFFFEDF"
+                         Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"></TextBox>
                 
                 <!-- Приоритет -->
                 <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4"
-                          ItemsSource="{Binding Path=PriorityList}" SelectionChanged="PrioritySelectionChanged">
+                          ItemsSource="{Binding Path=PriorityList}" SelectedItem="{Binding TaskPriority}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource priorityConverter}}"/>
@@ -58,7 +59,7 @@
 
                 <!-- Статус -->
                 <ComboBox x:Name="statusList" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="3,4,3,4"
-                            ItemsSource="{Binding Path=StatusList}" SelectionChanged="StatusSelectionChanged">
+                            ItemsSource="{Binding Path=StatusList}" SelectedItem="{Binding TaskStatus}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource statusConverter}}"/>

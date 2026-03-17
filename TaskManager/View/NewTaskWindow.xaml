@@ -7,14 +7,23 @@
         mc:Ignorable="d"
         Title="NewTaskWindow" Height="450" Width="800" MinHeight="215" MinWidth="400" WindowStartupLocation="CenterOwner">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <local:TaskObjectView x:Name="taskProperty"></local:TaskObjectView>
-        
-        <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
+
+        <TextBox Grid.Column="1" x:Name="taskName" Text="{Binding Name}" VerticalAlignment="Center"></TextBox>
+
+        <local:TaskObjectView Grid.Row="1" Grid.ColumnSpan="2" x:Name="taskProperty"></local:TaskObjectView>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">Создать</Button>
         </StackPanel>

@@ -25,19 +25,38 @@ namespace TaskManager.ViewModel
 
         public static IEnumerable<Enums.TaskStatus> StatusList { get; private set; }
 
-        // Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
-        public string CreationDate => _taskObject?.CreationDate.ToString("dd.MM.yyyy");
-
-        internal void SetPriority(TaskPriority newPriority)
+        public string Name
         {
-            if (_taskObject is not null)
-                _taskObject.Priority = newPriority;
+            get => _taskObject.Name;
+            set
+            {
+                _taskObject.Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
         }
 
-        internal void SetStatus(Enums.TaskStatus newStatus)
+        // Прим.: Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
+        public string CreationDate => _taskObject?.CreationDate.ToString("dd.MM.yyyy");
+
+        // Прим.: Технически, можно настроить связь в событии SelectionChanged - например, если контрол принимает объекты другого типа
+        public TaskPriority TaskPriority
         {
-            if (_taskObject is not null)
-                _taskObject.Status = newStatus;
+            get => _taskObject.Priority;
+            set
+            {
+                _taskObject.Priority = value;
+                OnPropertyChanged(nameof(TaskPriority));
+            }
+        }
+
+        public Enums.TaskStatus TaskStatus
+        {
+            get => _taskObject.Status;
+            set
+            {
+                _taskObject.Status = value;
+                OnPropertyChanged(nameof(TaskStatus));
+            }
         }
     }
 }

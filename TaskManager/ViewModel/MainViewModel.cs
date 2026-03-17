@@ -14,6 +14,7 @@ namespace TaskManager.ViewModel
             NewSectionCommand = new NewSectionCommand();
             ShowSectionPropertyCommand = new ShowSectionPropertyCommand();
             NewTaskCommand = new NewTaskCommand();
+            DeleteTaskCommand = new DeleteTaskCommand();
         }
 
         public static NewSectionCommand NewSectionCommand { get; set; }
@@ -23,6 +24,8 @@ namespace TaskManager.ViewModel
         public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; set; }
 
         public static NewTaskCommand NewTaskCommand { get; set; }
+
+        public static DeleteTaskCommand DeleteTaskCommand { get; set; }
 
         //public SectionView CurrentSectionView
         //{
@@ -38,6 +41,9 @@ namespace TaskManager.ViewModel
         /// <summary>Список разделов</summary>
         public ObservableCollection<Section> Sections { get; set; } = [];
 
-        public Section? SelectedSection { get; set; }
+        // Не null, т.к. заполняется при инициализации главного окна
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public Section SelectedSection { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     }
 }

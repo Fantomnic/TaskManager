@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Model
+﻿using System.Collections.ObjectModel;
+
+namespace TaskManager.Model
 {
     internal class Section : BaseObject
     {
@@ -9,5 +11,7 @@
         }
 
         internal bool IsBaseSection { get; }
+
+        internal ObservableCollection<TaskObject> Tasks { get; } = [];
     }
 }

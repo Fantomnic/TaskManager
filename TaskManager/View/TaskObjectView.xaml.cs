@@ -36,8 +36,11 @@ namespace TaskManager.View
 
         private void CancelEditDescription(object sender, RoutedEventArgs e) => CloseEditDescription(true);
 
-        private void OpenEditDescription()
+        internal void OpenEditDescription()
         {
+            if (!descriptionField.IsReadOnly)
+                return;
+
             _startDescription = descriptionField.Text;
             descriptionField.IsReadOnly = false;
             descriptionField.Background = Brushes.White;
@@ -45,8 +48,11 @@ namespace TaskManager.View
             editButton.Content = "Сохранить";
         }
 
-        private void CloseEditDescription(bool cancelChanges = false)
+        internal void CloseEditDescription(bool cancelChanges = false)
         {
+            if (descriptionField.IsReadOnly)
+                return;
+
             if (cancelChanges)
                 descriptionField.Text = _startDescription;
 
@@ -55,22 +61,6 @@ namespace TaskManager.View
             descriptionField.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8)); // Светло-серый
             cancelButton.Visibility = Visibility.Collapsed;
             editButton.Content = "Редактировать";
-        }
-
-        private void PrioritySelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var addedItems = e.AddedItems.OfType<TaskPriority>();
-
-            if (addedItems.Any() && DataContext is TaskObjectViewModel taskObjectViewModel)
-                taskObjectViewModel.SetPriority(addedItems.First());
-        }
-
-        private void StatusSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var addedItems = e.AddedItems.OfType<Enums.TaskStatus>();
-
-            if (addedItems.Any() && DataContext is TaskObjectViewModel taskObjectViewModel)
-                taskObjectViewModel.SetStatus(addedItems.First());
         }
     }
 }

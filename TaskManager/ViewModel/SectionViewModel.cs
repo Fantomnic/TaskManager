@@ -8,9 +8,9 @@ namespace TaskManager.ViewModel
     /// <summary>Модель представления раздела</summary>
     internal class SectionViewModel : BaseViewModel
     {
-        private TaskObject _selectedObject;
         private Section _section;
-        private TaskObjectViewModel _taskObjectViewModel;
+        private TaskObject? _selectedObject;
+        private TaskObjectViewModel? _taskObjectViewModel;
         private Visibility _visibilityEmptyTaskPropertyImage;
 
         public SectionViewModel(string name, bool baseSection = false)
@@ -21,11 +21,11 @@ namespace TaskManager.ViewModel
 
         private void InitializeViewModel()
         {
-            Tasks =
-                [
-                    new() { Name = "Test 1", CreationDate = DateTime.Now },
-                    new() { Name = "Test 2", CreationDate = new DateTime(2000, 8, 15) }
-                ];
+            //Tasks =
+            //    [
+            //        new() { Name = "Test 1", CreationDate = DateTime.Now },
+            //        new() { Name = "Test 2", CreationDate = new DateTime(2000, 8, 15) }
+            //    ];
 
             SetVisibilityEmptyTaskImage();
         }
@@ -33,10 +33,10 @@ namespace TaskManager.ViewModel
         internal Section Section => _section;
 
         /// <summary>Список задач раздела</summary>
-        public ObservableCollection<TaskObject> Tasks { get; set; } = [];
+        public ObservableCollection<TaskObject> Tasks => Section.Tasks;
 
         /// <summary>Окно свойтсв для текущей выбранной задачи</summary>
-        public TaskObjectViewModel TaskObjectViewModel
+        public TaskObjectViewModel? TaskObjectViewModel
         {
             get => _taskObjectViewModel;
             set
@@ -47,13 +47,14 @@ namespace TaskManager.ViewModel
         }
 
         /// <summary>Выбранный объект в списке объектов</summary>
-        public TaskObject SelectedObject
+        public TaskObject? SelectedObject
         {
             get => _selectedObject;
             set
             {
                 _selectedObject = value;
-                TaskObjectViewModel = new(_selectedObject);
+                TaskObjectViewModel = _selectedObject is null ? null : new(_selectedObject);
+
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedObject));
             }

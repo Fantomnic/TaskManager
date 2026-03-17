@@ -14,15 +14,15 @@ namespace TaskManager.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MainViewModel _mainViewModel;
-
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = _mainViewModel = new MainViewModel();
+            DataContext = MainViewModel;
             InitializeData();
         }
+
+        internal MainViewModel MainViewModel { get; } = new MainViewModel();
 
         private void InitializeData()
         {
@@ -50,7 +50,7 @@ namespace TaskManager.View
             menu.BeginAnimation(WidthProperty, menuAnimation);
         }
 
-        private ObservableCollection<Section> GetSectionsCollection() => _mainViewModel.Sections;
+        private ObservableCollection<Section> GetSectionsCollection() => MainViewModel.Sections;
 
         internal void AddSection(Section section) => GetSectionsCollection().Add(section);
 
@@ -72,7 +72,7 @@ namespace TaskManager.View
             if (Helper.GetSectionFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not Section selectedSection)
                 return;
 
-            _mainViewModel.SelectedSection = selectedSection;
+            MainViewModel.SelectedSection = selectedSection;
         }
     }
 }
