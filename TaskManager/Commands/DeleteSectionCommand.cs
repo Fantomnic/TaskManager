@@ -7,7 +7,7 @@ using TaskManager.View;
 
 namespace TaskManager.Commands
 {
-    internal class DeleteSectionCommand : ICommand
+    public class DeleteSectionCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 

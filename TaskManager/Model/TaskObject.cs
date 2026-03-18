@@ -16,6 +16,9 @@ namespace TaskManager.Model
 
         #region Свойства
 
+        // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
+        public TaskObject Instance => this;
+
         // public, чтобы UI видел значение при биндинге
         public DateTime CreationDate
         {

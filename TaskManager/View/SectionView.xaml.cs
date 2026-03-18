@@ -20,15 +20,10 @@ namespace TaskManager.View
             DataContext = _sectionViewModel = sectionViewModel;
         }
 
-        private void ListBoxPreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListBoxMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            // Проверяем, что
-            if (sender is ListBox listBox // Кликаем по списку
-                && listBox.SelectedItem is TaskObject // Есть выбранная задача
-                && ItemsControl.ContainerFromElement(listBox, e.OriginalSource as DependencyObject) is not ListBoxItem) // Кликаем не по элементу списка
-            {
-                _sectionViewModel.SelectedObject = null;
-            }
+            if (sender is ListBox listBox)
+                listBox.UnselectAll();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.ViewModel;
@@ -26,7 +27,7 @@ namespace TaskManager.View
 
         private void InitializeData()
         {
-            MainViewModel.NewSectionCommand.AddSection(true);
+            CommandsInstances.NewSectionCommand.AddSection(true);
         }
 
         private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();

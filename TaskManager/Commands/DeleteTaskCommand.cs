@@ -4,7 +4,7 @@ using TaskManager.Model;
 
 namespace TaskManager.Commands
 {
-    internal class DeleteTaskCommand : ICommand
+    public class DeleteTaskCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 
@@ -12,10 +12,8 @@ namespace TaskManager.Commands
 
         public void Execute(object? parameter)
         {
-            if (parameter is not TaskObject taskObject)
-                return;
-
-            DeleteTask(taskObject);
+            if (parameter is TaskObject taskObject)
+                DeleteTask(taskObject);
         }
 
         internal void DeleteTask(TaskObject taskObject)

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TaskManager.View"
+             xmlns:cmd="clr-namespace:TaskManager.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -17,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}" PreviewMouseDown="ListBoxPreviewMouseDown">
+        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}" MouseDown="ListBoxMouseDown">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
@@ -28,8 +29,11 @@
                 <Style TargetType="ListBoxItem">
                     <Setter Property="ContextMenu">
                         <Setter.Value>
+                            <!-- У меню DataContext - это TaskObject (элемент списка) -->
                             <ContextMenu>
-                                <MenuItem Header="Удалить"></MenuItem>
+                                <MenuItem Header="Удалить"
+                                          Command="cmd:CommandsInstances.DeleteTaskCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
                                 <MenuItem Header="Команда 2"></MenuItem>
                             </ContextMenu>
                         </Setter.Value>

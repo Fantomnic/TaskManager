@@ -9,7 +9,7 @@ using TaskManager.ViewModel;
 namespace TaskManager.Commands
 {
     /// <summary>Команда "Создать новый раздел"</summary>
-    internal class NewSectionCommand : ICommand
+    public class NewSectionCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 
@@ -101,7 +101,7 @@ namespace TaskManager.Commands
 
             menuItems.AddRange(
                 [
-                    new() { Header = "Удалить раздел", Command = MainViewModel.DeleteSectionCommand, CommandParameter = section },
+                    new() { Header = "Удалить раздел", Command = CommandsInstances.DeleteSectionCommand, CommandParameter = section },
                 ]);
 
             return menuItems;
@@ -109,7 +109,7 @@ namespace TaskManager.Commands
 
         private List<MenuItem> CreateBaseSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel) => 
             [
-                new() { Header = "Свойства", Command = MainViewModel.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
+                new() { Header = "Свойства", Command = CommandsInstances.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
             ];
     }
 }

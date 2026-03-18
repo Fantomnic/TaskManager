@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager"
         xmlns:views="clr-namespace:TaskManager.View"
+        xmlns:cmd="clr-namespace:TaskManager.Commands"
         mc:Ignorable="d"
         Title="Трекер задач" Height="600" Width="900" MinHeight="300" MinWidth="500" WindowStartupLocation="CenterScreen">
 
@@ -18,7 +19,7 @@
         <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
-                <Button Style="{StaticResource menuButton}" Command="{Binding NewSectionCommand}">Добавить раздел</Button>
+                <Button Style="{StaticResource menuButton}" Command="cmd:CommandsInstances.NewSectionCommand">Добавить раздел</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 2</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 3</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 4</Button>
@@ -34,7 +35,7 @@
 
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="{Binding NewTaskCommand}" ToolTip="Создать задачу">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="cmd:CommandsInstances.NewTaskCommand" ToolTip="Создать задачу">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="MenuClick" ToolTip="Действия">

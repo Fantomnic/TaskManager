@@ -4,7 +4,7 @@ using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
-    internal class ShowSectionPropertyCommand : ICommand
+    public class ShowSectionPropertyCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 

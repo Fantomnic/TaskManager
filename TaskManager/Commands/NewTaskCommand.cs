@@ -6,7 +6,7 @@ using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
-    internal class NewTaskCommand : ICommand
+    public class NewTaskCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 
@@ -19,7 +19,7 @@ namespace TaskManager.Commands
 
         internal void AddTask()
         {
-            var newTask = new TaskObject();
+            var newTask = new TaskObject() { Name = "Новая задача" };
             var newTaskViewModel = new TaskObjectViewModel(newTask);
 
             var newTaskWindow = new NewTaskWindow(newTaskViewModel);

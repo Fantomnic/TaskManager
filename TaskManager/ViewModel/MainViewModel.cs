@@ -10,22 +10,22 @@ namespace TaskManager.ViewModel
 
         static MainViewModel()
         {
-            DeleteSectionCommand = new DeleteSectionCommand();
-            NewSectionCommand = new NewSectionCommand();
-            ShowSectionPropertyCommand = new ShowSectionPropertyCommand();
-            NewTaskCommand = new NewTaskCommand();
-            DeleteTaskCommand = new DeleteTaskCommand();
+            //DeleteSectionCommand = new DeleteSectionCommand();
+            //NewSectionCommand = new NewSectionCommand();
+            //ShowSectionPropertyCommand = new ShowSectionPropertyCommand();
+            //NewTaskCommand = new NewTaskCommand();
+            //DeleteTaskCommand = new DeleteTaskCommand();
         }
 
-        public static NewSectionCommand NewSectionCommand { get; set; }
+        //public static NewSectionCommand NewSectionCommand { get; set; }
 
-        public static DeleteSectionCommand DeleteSectionCommand { get; set; }
+        //public static DeleteSectionCommand DeleteSectionCommand { get; set; }
 
-        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; set; }
+        //public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; set; }
 
-        public static NewTaskCommand NewTaskCommand { get; set; }
+        //public static NewTaskCommand NewTaskCommand { get; set; }
 
-        public static DeleteTaskCommand DeleteTaskCommand { get; set; }
+        //public static DeleteTaskCommand DeleteTaskCommand { get; set; }
 
         //public SectionView CurrentSectionView
         //{
