@@ -13,18 +13,21 @@ namespace TaskManager.View
         private MainViewModel _mainViewModel;
 
         // TODO: Добавить обработку из основного раздела
-        internal ChangeSectionWindow(Section currentSection, List<Section> availableSections)
+        internal ChangeSectionWindow(List<Section> availableSections)
         {
             InitializeComponent();
 
             _mainViewModel = Helper.MainViewModel;
+            Owner = Helper.MainWindow;
             bool hasSectionsForChanging = availableSections.Count > 0;
+            bool isAdditionalSection = !Helper.IsBaseSection(_mainViewModel.SelectedSection);
 
             if (hasSectionsForChanging)
                 newSectionsList.ItemsSource = availableSections;
             
             changeButton.IsEnabled = hasSectionsForChanging;
-            deleteButton.IsChecked = deleteButton.IsEnabled = !Helper.IsBaseSection(currentSection);
+            deleteButton.IsChecked = !hasSectionsForChanging && isAdditionalSection;
+            deleteButton.IsEnabled = isAdditionalSection;
         }
 
         internal Section? NewSection;
