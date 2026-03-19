@@ -75,5 +75,15 @@ namespace TaskManager.View
 
             MainViewModel.SelectedSection = selectedSection;
         }
+
+        // Перезагружаем список, чтобы пересчиталась возможность выполнения команд контекстного меню
+        internal void RefreshAllSections()
+        {
+            foreach (TabItem tabItem in sections.Items)
+            {
+                var sectionView = Helper.GetSectionViewFromTabItem(tabItem);
+                sectionView?.RefreshTasksList();
+            }
+        }
     }
 }

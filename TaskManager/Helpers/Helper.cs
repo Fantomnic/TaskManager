@@ -13,6 +13,13 @@ namespace TaskManager.Helpers
         internal static MainViewModel MainViewModel => MainWindow.MainViewModel;
 
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
-            => ((tabItem?.Content as SectionView)?.DataContext as SectionViewModel)?.Section;
+            => GetSectionViewModelFromTabItem(tabItem)?.Section;
+
+        internal static SectionViewModel? GetSectionViewModelFromTabItem(TabItem? tabItem)
+            => GetSectionViewFromTabItem(tabItem)?.DataContext as SectionViewModel;
+
+        internal static SectionView? GetSectionViewFromTabItem(TabItem? tabItem) => tabItem?.Content as SectionView;
+
+        internal static bool IsBaseSection(Section? section) => section is null || section.IsBaseSection;
     }
 }

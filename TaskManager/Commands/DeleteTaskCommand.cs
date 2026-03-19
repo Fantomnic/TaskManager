@@ -19,7 +19,7 @@ namespace TaskManager.Commands
         internal void DeleteTask(TaskObject taskObject)
         {
             var currentSection = Helper.MainViewModel.SelectedSection;
-            currentSection.Tasks.Remove(taskObject);
+            currentSection.RemoveTask(taskObject);
         }
     }
 }

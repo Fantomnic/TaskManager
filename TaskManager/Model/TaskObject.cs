@@ -12,7 +12,7 @@ namespace TaskManager.Model
         private TaskType _type;
         private Enums.TaskStatus _status;
         private TaskPriority _priority;
-        private Section _section;
+        private Section? _section;
 
         #region Свойства
 
@@ -70,17 +70,27 @@ namespace TaskManager.Model
             }
         }
 
-        /// <summary>Раздел, к которому принадлежит задача</summary>
-        public Section Section
+        /// <summary>Неосновной раздел, к которому принадлежит задача</summary>
+        /// <remarks>По умолчанию все задачи хранятся в базовом разделе. Если значение = null, то, кроме базового, ни в каком другом разделе её нет</remarks> 
+        public Section? AdditionalSection
         {
             get => _section;
             set
             {
                 _section = value;
-                OnPropertyChanged(nameof(Section));
+                OnPropertyChanged(nameof(AdditionalSection));
             }
         }
 
         #endregion Свойства
+
+        internal void ChangeToSection(Section? newSection)
+        {
+            if (!Helper.IsBaseSection(AdditionalSection))
+                AdditionalSection!.RemoveTask(this);
+
+            if (!Helper.IsBaseSection(newSection))
+                newSection!.AddTask(this);
+        }
     }
 }

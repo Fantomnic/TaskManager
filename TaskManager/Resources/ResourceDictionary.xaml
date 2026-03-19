@@ -53,7 +53,7 @@
 
     <Style TargetType="TextBlock" x:Key="fieldDescription">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+        <Setter Property="Margin" Value="5,0,5,0"></Setter>
     </Style>
 
     <Style TargetType="TextBlock" BasedOn="{StaticResource fieldDescription}" x:Key="titleDescription">

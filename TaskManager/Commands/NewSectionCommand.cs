@@ -26,7 +26,7 @@ namespace TaskManager.Commands
 
             if (baseSection)
             {
-                sectionViewModel = new SectionViewModel("Все");
+                sectionViewModel = new SectionViewModel("Все", true);
             }
             else
             {
@@ -43,6 +43,7 @@ namespace TaskManager.Commands
 
             mainWindow.sections.Items.Add(newItem);
             mainWindow.AddSection(sectionViewModel.Section);
+            mainWindow.RefreshAllSections();
             newItem.Focus();
         }
 

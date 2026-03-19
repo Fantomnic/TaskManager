@@ -28,9 +28,8 @@ namespace TaskManager.Commands
             if (newTaskWindow.ShowDialog() != true)
                 return;
 
-            var currentSection = Helper.MainViewModel.SelectedSection;
-
-            currentSection.Tasks.Add(newTask);
+            Section currentSection = Helper.MainViewModel.SelectedSection;
+            currentSection.AddTask(newTask);
         }
     }
 }

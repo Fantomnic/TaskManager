@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Helpers;
 using TaskManager.Model;
@@ -24,6 +25,18 @@ namespace TaskManager.View
         {
             if (sender is ListBox listBox)
                 listBox.UnselectAll();
+        }
+
+        internal void RefreshTasksList()
+        {
+            var startIndex = tasksList.SelectedIndex;
+
+            if (startIndex != -1)
+            {
+                tasksList.UnselectAll();
+                tasksList.SelectedIndex = startIndex;
+            }
+                //tasksList.Items.Refresh();
         }
     }
 }

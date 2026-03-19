@@ -34,7 +34,9 @@
                                 <MenuItem Header="Удалить"
                                           Command="cmd:CommandsInstances.DeleteTaskCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Команда 2"></MenuItem>
+                                <MenuItem Header="Изменить раздел"
+                                          Command="cmd:CommandsInstances.ChangeSectionCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>
