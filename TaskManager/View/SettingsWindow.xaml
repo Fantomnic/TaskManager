@@ -17,44 +17,50 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <GroupBox Header="Разделы">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultSectionName}"
-                          Checked="SetDefaultSectionNameChecked" Unchecked="SetDefaultSectionNameUnchecked">Заполнять наименование раздела по умолчанию</CheckBox>
-                <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
-                
-                <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование нового раздела:</TextBlock>
-                <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultSectionName}"></TextBox>
-            </Grid>
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                    <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultSectionName}"
+                              Checked="SetDefaultSectionNameChecked" Unchecked="SetDefaultSectionNameUnchecked">Заполнять наименование раздела по умолчанию</CheckBox>
+                    <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование нового раздела:</TextBlock>
+                    <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultSectionName}"></TextBox>
+                </Grid>
+            </GroupBox>
 
-                <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultTaskName}">Заполнять наименование задачи по умолчанию</CheckBox>
-                <CheckBox x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
-                
-                <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование новой задачи:</TextBlock>
-                <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultTaskName}"></TextBox>
-            </Grid>
+
+            <GroupBox Header="Задачи">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultTaskName}"
+                          Checked="SetDefaultTaskNameChecked" Unchecked="SetDefaultTaskNameUnchecked">Заполнять наименование задачи по умолчанию</CheckBox>
+                    <CheckBox x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование новой задачи:</TextBlock>
+                    <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultTaskName}"></TextBox>
+                </Grid>
+            </GroupBox>
         </StackPanel>
 
         <StackPanel Grid.Column="1">

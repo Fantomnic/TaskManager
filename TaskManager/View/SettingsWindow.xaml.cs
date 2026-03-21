@@ -28,6 +28,6 @@ namespace TaskManager.View
             => incrementTaskName.IsEnabled = taskName.IsEnabled = true;
 
         private void SetDefaultTaskNameUnchecked(object sender, RoutedEventArgs e)
-            => SettingsViewModel.IncrementTaskName = taskName.IsEnabled = taskName.IsEnabled = false;
+            => SettingsViewModel.IncrementTaskName = incrementTaskName.IsEnabled = taskName.IsEnabled = false;
     }
 }

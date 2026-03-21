@@ -14,6 +14,11 @@ namespace TaskManager.Model
         private TaskPriority _priority;
         private Section? _section;
 
+        internal TaskObject()
+        {
+            _creationDate = DateTime.Now;
+        }
+
         #region Свойства
 
         // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
