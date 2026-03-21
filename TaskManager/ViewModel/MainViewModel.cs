@@ -19,6 +19,24 @@ namespace TaskManager.ViewModel
         // Не null, т.к. заполняется при инициализации главного окна
         public Section SelectedSection { get; set; }
 
-        internal Section BaseSection => Sections.First(s => s.IsBaseSection);
+        internal BaseSection BaseSection => (BaseSection)Sections.First(s => s.IsBaseSection);
+
+        internal void AddSection(Section section) => Sections.Add(section);
+
+        internal void RemoveSection(Section section) => Sections.Remove(section);
+
+        internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
+        {
+            var sections = Sections.ToList();
+
+            if (ignoredSections is not null)
+                sections = sections.FindAll(s => !ignoredSections.Contains(s));
+
+            return [.. sections.Select(s => s.Name)];
+        }
+
+        /// <summary>Возвращает неосновные разделы, в которые не входит переданная задача</summary>
+        internal List<Section> GetSectionsForChanging(Section? taskSection)
+            => [.. Sections.Where(s => !s.IsBaseSection && s != taskSection)];
     }
 }

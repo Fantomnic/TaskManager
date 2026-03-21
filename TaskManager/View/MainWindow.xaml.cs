@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -51,22 +50,6 @@ namespace TaskManager.View
             menu.BeginAnimation(WidthProperty, menuAnimation);
         }
 
-        private ObservableCollection<Section> GetSectionsCollection() => MainViewModel.Sections;
-
-        internal void AddSection(Section section) => GetSectionsCollection().Add(section);
-
-        internal void RemoveSection(Section section) => GetSectionsCollection().Remove(section);
-
-        internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
-        {
-            var sections = GetSectionsCollection().ToList();
-
-            if (ignoredSections is not null)
-                sections = [.. sections.Where(s => !ignoredSections.Contains(s))];
-
-            return [.. sections.Select(s => s.Name)];
-        }
-
         // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -74,16 +57,6 @@ namespace TaskManager.View
                 return;
 
             MainViewModel.SelectedSection = selectedSection;
-        }
-
-        // Перезагружаем список, чтобы пересчиталась возможность выполнения команд контекстного меню
-        internal void RefreshAllSections()
-        {
-            foreach (TabItem tabItem in sections.Items)
-            {
-                var sectionView = Helper.GetSectionViewFromTabItem(tabItem);
-                sectionView?.RefreshTasksList();
-            }
         }
     }
 }

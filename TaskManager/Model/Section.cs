@@ -1,25 +1,27 @@
 ﻿using System.Collections.ObjectModel;
+using TaskManager.Helpers;
 
 namespace TaskManager.Model
 {
     internal class Section : BaseObject
     {
-        public Section(string name, bool baseSection)
+        public Section(string name)
         {
             Name = name;
-            IsBaseSection = baseSection;
         }
 
-        internal bool IsBaseSection { get; }
+        internal virtual bool IsBaseSection => false;
 
         internal ObservableCollection<TaskObject> Tasks { get; } = [];
 
-        internal void AddTask(TaskObject newTask)
+        internal virtual void AddTask(TaskObject newTask)
         {
+            if (!Helper.GetAllTasks().Contains(newTask))
+                Helper.BaseSection.AddTask(newTask);
+
             Tasks.Add(newTask);
 
-            if (!IsBaseSection)
-                newTask.AdditionalSection = this;
+            newTask.AdditionalSection = this;
         }
 
         internal void RemoveTask(TaskObject task)

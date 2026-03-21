@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
-        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}" MouseDown="ListBoxMouseDown">
+        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}" MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
@@ -35,6 +35,7 @@
                                           Command="cmd:CommandsInstances.DeleteTaskCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
                                 <MenuItem Header="Изменить раздел"
+                                          IsEnabled="{Binding ChangeSectionEnabled}"
                                           Command="cmd:CommandsInstances.ChangeSectionCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
                             </ContextMenu>

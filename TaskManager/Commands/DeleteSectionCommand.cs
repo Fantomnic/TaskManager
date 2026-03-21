@@ -18,7 +18,7 @@ namespace TaskManager.Commands
             mainWindow.sections.Items.Remove(tabItem);
 
             if (Helper.GetSectionFromTabItem(tabItem) is Section section)
-                mainWindow.RemoveSection(section);
+                mainWindow.MainViewModel.RemoveSection(section);
         }
     }
 }

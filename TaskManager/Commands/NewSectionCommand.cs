@@ -40,8 +40,7 @@ namespace TaskManager.Commands
             var newItem = CreateTabItem(sectionViewModel, baseSection);
 
             mainWindow.sections.Items.Add(newItem);
-            mainWindow.AddSection(sectionViewModel.Section);
-            mainWindow.RefreshAllSections();
+            mainWindow.MainViewModel.AddSection(sectionViewModel.Section);
             newItem.Focus();
         }
 

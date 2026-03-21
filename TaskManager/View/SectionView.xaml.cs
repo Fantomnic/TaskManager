@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
-using TaskManager.Helpers;
+﻿using System.Windows.Controls;
 using TaskManager.Model;
 using TaskManager.ViewModel;
 
@@ -27,16 +24,10 @@ namespace TaskManager.View
                 listBox.UnselectAll();
         }
 
-        internal void RefreshTasksList()
+        private void TasksListContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            var startIndex = tasksList.SelectedIndex;
-
-            if (startIndex != -1)
-            {
-                tasksList.UnselectAll();
-                tasksList.SelectedIndex = startIndex;
-            }
-                //tasksList.Items.Refresh();
+            if (sender is ListBox listBox && listBox.SelectedItem is TaskObject taskObject)
+                SectionViewModel.RefreshChangeSectionEnabled(taskObject);
         }
     }
 }

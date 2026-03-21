@@ -12,6 +12,8 @@ namespace TaskManager.Helpers
 
         internal static MainViewModel MainViewModel => MainWindow.MainViewModel;
 
+        internal static BaseSection BaseSection => MainViewModel.BaseSection;
+
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
             => GetSectionViewModelFromTabItem(tabItem)?.Section;
 
@@ -22,7 +24,7 @@ namespace TaskManager.Helpers
 
         internal static bool IsBaseSection(Section? section) => section is null || section.IsBaseSection;
 
-        internal static List<TaskObject> GetAllTasks() => [.. MainViewModel.BaseSection.Tasks];
+        internal static List<TaskObject> GetAllTasks() => [.. BaseSection.Tasks];
 
         internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
         {

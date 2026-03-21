@@ -13,12 +13,13 @@ namespace TaskManager.View
         private MainViewModel _mainViewModel;
 
         // TODO: Добавить обработку из основного раздела
-        internal ChangeSectionWindow(List<Section> availableSections)
+        internal ChangeSectionWindow(TaskObject taskObject)
         {
             InitializeComponent();
 
             _mainViewModel = Helper.MainViewModel;
             Owner = Helper.MainWindow;
+            var availableSections = _mainViewModel.GetSectionsForChanging(taskObject.AdditionalSection);
             bool hasSectionsForChanging = availableSections.Count > 0;
             bool isAdditionalSection = !Helper.IsBaseSection(_mainViewModel.SelectedSection);
 
