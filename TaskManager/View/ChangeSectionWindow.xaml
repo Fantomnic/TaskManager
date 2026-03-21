@@ -1,4 +1,4 @@
-﻿<Window x:Class="TaskManager.View.ChangeSectionWindow"
+﻿<local:WindowWithBottomButtons x:Class="TaskManager.View.ChangeSectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -46,4 +46,4 @@
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
-</Window>
+</local:WindowWithBottomButtons>

@@ -1,16 +1,11 @@
-﻿using System.Windows.Input;
-using TaskManager.View;
+﻿using TaskManager.View;
 using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
-    public class ShowSectionPropertyCommand : ICommand
+    public class ShowSectionPropertyCommand : BaseCommand
     {
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter) => true;
-
-        public void Execute(object? parameter)
+        internal override void ExecuteImplement(object? parameter)
         {
             if (parameter is not SectionViewModel sectionViewModel)
                 return;

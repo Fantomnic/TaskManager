@@ -7,7 +7,7 @@ namespace TaskManager.View
     /// <summary>
     /// Interaction logic for SectionPropertyWindow.xaml
     /// </summary>
-    public partial class SectionPropertyWindow : Window
+    public partial class SectionPropertyWindow : WindowWithBottomButtons
     {
         private readonly SectionViewModel _sectionViewModel;
 
@@ -18,22 +18,7 @@ namespace TaskManager.View
             DataContext = _sectionViewModel = sectionViewModel;
         }
 
-        private void ButtonOKClick(object sender, RoutedEventArgs e)
-        {
-            if (!ValidateName())
-                return;
-
-            DialogResult = true;
-            Close();
-        }
-
-        private void ButtonCancelClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private bool ValidateName()
+        protected override bool ValidateOK()
         {
             string name = sectionName.Text;
 

@@ -1,22 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.View;
 
 namespace TaskManager.Commands
 {
-    public class DeleteSectionCommand : ICommand
+    public class DeleteSectionCommand : BaseCommand
     {
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object? parameter)
+        internal override void ExecuteImplement(object? parameter)
         {
             // TODO: Добавить уведомление?
             if (parameter is not TabItem tabItem)

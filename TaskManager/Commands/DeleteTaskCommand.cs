@@ -1,16 +1,11 @@
-﻿using System.Windows.Input;
-using TaskManager.Helpers;
+﻿using TaskManager.Helpers;
 using TaskManager.Model;
 
 namespace TaskManager.Commands
 {
-    public class DeleteTaskCommand : ICommand
+    public class DeleteTaskCommand : BaseCommand
     {
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter) => true;
-
-        public void Execute(object? parameter)
+        internal override void ExecuteImplement(object? parameter)
         {
             if (parameter is TaskObject taskObject)
                 DeleteTask(taskObject);

@@ -12,18 +12,21 @@
             NewTaskCommand = new NewTaskCommand();
             DeleteTaskCommand = new DeleteTaskCommand();
             ChangeSectionCommand = new ChangeSectionCommand();
+            OpenSettingsCommand = new OpenSettingsCommand();
         }
 
-        public static NewSectionCommand NewSectionCommand { get; set; }
+        public static NewSectionCommand NewSectionCommand { get; }
 
-        public static DeleteSectionCommand DeleteSectionCommand { get; set; }
+        public static DeleteSectionCommand DeleteSectionCommand { get; }
 
-        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; set; }
+        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; }
 
-        public static NewTaskCommand NewTaskCommand { get; set; }
+        public static NewTaskCommand NewTaskCommand { get; }
 
-        public static DeleteTaskCommand DeleteTaskCommand { get; set; }
+        public static DeleteTaskCommand DeleteTaskCommand { get; }
 
-        public static ChangeSectionCommand ChangeSectionCommand { get; set; }
+        public static ChangeSectionCommand ChangeSectionCommand { get; }
+
+        public static OpenSettingsCommand OpenSettingsCommand { get; }
     }
 }

@@ -41,7 +41,7 @@
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="MenuClick" ToolTip="Действия">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/MenuIcon.png"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="cmd:CommandsInstances.OpenSettingsCommand" ToolTip="Настройки">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
                 </Button>
                 <!-- TODO: Сделать значком -->

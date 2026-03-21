@@ -21,5 +21,23 @@ namespace TaskManager.Helpers
         internal static SectionView? GetSectionViewFromTabItem(TabItem? tabItem) => tabItem?.Content as SectionView;
 
         internal static bool IsBaseSection(Section? section) => section is null || section.IsBaseSection;
+
+        internal static List<TaskObject> GetAllTasks() => [.. MainViewModel.BaseSection.Tasks];
+
+        internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
+        {
+            for (int i = 0; i < 1000;)
+            {
+                string result = $"{targetString} {++i}";
+
+                if (sourceStrings.Contains(result))
+                    continue;
+
+                return result;
+            }
+
+            // TODO: Обработка исключений
+            throw new Exception("Ааааа!");
+        }
     }
 }

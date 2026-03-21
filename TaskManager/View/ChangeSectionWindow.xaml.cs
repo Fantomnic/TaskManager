@@ -8,7 +8,7 @@ namespace TaskManager.View
     /// <summary>
     /// Interaction logic for ChangeSectionWindow.xaml
     /// </summary>
-    public partial class ChangeSectionWindow : Window
+    public partial class ChangeSectionWindow : WindowWithBottomButtons
     {
         private MainViewModel _mainViewModel;
 
@@ -32,7 +32,7 @@ namespace TaskManager.View
 
         internal Section? NewSection;
 
-        private void ButtonOKClick(object sender, RoutedEventArgs e)
+        protected override void ButtonOKClick(object sender, RoutedEventArgs e)
         {
             bool checkedChanging = changeButton.IsChecked == true;
             var newSectionFromList = newSectionsList.SelectedItem as Section;
@@ -54,12 +54,6 @@ namespace TaskManager.View
 
                 return true;
             }
-        }
-
-        private void ButtonCancelClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace TaskManager.View
     /// <summary>
     /// Interaction logic for NewTaskWindow.xaml
     /// </summary>
-    public partial class NewTaskWindow : Window
+    public partial class NewTaskWindow : WindowWithBottomButtons
     {
         internal NewTaskWindow(TaskObjectViewModel taskObjectViewModel)
         {
@@ -16,22 +16,7 @@ namespace TaskManager.View
             DataContext = taskObjectViewModel;
         }
 
-        private void ButtonOKClick(object sender, RoutedEventArgs e)
-        {
-            if (!ValidateName())
-                return;
-
-            DialogResult = true;
-            Close();
-        }
-
-        private void ButtonCancelClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private bool ValidateName()
+        protected override bool ValidateOK()
         {
             string name = taskName.Text;
 
@@ -41,11 +26,11 @@ namespace TaskManager.View
                 return false;
             }
 
-            //if (Helper.MainWindow.GetSectionsNames([taskName.Section]).Contains(name))
-            //{
-            //    MessageBox.Show($"Раздел \"{name}\" уже существует");
-            //    return false;
-            //}
+            if (Helper.GetAllTasks().Select(t => t.Name).Contains(name))
+            {
+                MessageBox.Show($"Задача с наименованием \"{name}\" уже существует");
+                return false;
+            }
 
             return true;
         }

@@ -1,21 +1,17 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.View;
 using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
     /// <summary>Команда "Создать новый раздел"</summary>
-    public class NewSectionCommand : ICommand
+    public class NewSectionCommand : BaseCommand
     {
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter) => true;
-
-        public void Execute(object? parameter)
+        internal override void ExecuteImplement(object? parameter)
         {
             AddSection();
         }
@@ -27,10 +23,12 @@ namespace TaskManager.Commands
             if (baseSection)
             {
                 sectionViewModel = new SectionViewModel("Все", true);
+                var startTask = new TaskObject() { Name = "Тестовая" };
+                sectionViewModel.Section.AddTask(startTask);
             }
             else
             {
-                sectionViewModel = new SectionViewModel("Новый раздел");
+                sectionViewModel = new SectionViewModel(GetDefaultSectionName());
 
                 var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
@@ -112,5 +110,21 @@ namespace TaskManager.Commands
             [
                 new() { Header = "Свойства", Command = CommandsInstances.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
             ];
+
+        private static string GetDefaultSectionName()
+        {
+            if (Settings.SetDefaultSectionName != true)
+                return String.Empty;
+
+            string result = Settings.DefaultSectionName;
+
+            if (Settings.IncrementSectionName == true)
+            {
+                var existingNames = Helper.MainViewModel.Sections.Select(s => s.Name);
+                result = Helper.GetStringWithCounter(result, existingNames);
+            }
+
+            return result;
+        }
     }
 }

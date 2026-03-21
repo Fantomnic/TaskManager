@@ -1,18 +1,15 @@
-﻿using System.Windows.Input;
-using TaskManager.Helpers;
+﻿using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.View;
 
 namespace TaskManager.Commands
 {
-    public class ChangeSectionCommand : ICommand
+    public class ChangeSectionCommand : BaseCommand
     {
         private List<Section> _availableSections;
 
-        public event EventHandler? CanExecuteChanged;
-
         // Для элементов списка не вызывается пересчёта, если объект уже в фокусе, поэтому нужно другое решение
-        public bool CanExecute(object? parameter)
+        internal override bool CanExecuteImplement(object? parameter)
         {
             if (parameter is not TaskObject taskObject)
                 return false;
@@ -23,7 +20,7 @@ namespace TaskManager.Commands
             return !Helper.IsBaseSection(taskSection) || _availableSections.Count > 0;
         }
 
-        public void Execute(object? parameter)
+        internal override void ExecuteImplement(object? parameter)
         {
             if (parameter is not TaskObject taskObject)
                 return;
