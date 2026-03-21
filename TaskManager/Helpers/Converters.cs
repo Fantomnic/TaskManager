@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
@@ -27,20 +28,29 @@ namespace TaskManager.Helpers
     public class StatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => GetStatusString(value as Enums.TaskStatus?);
+            => (value as TaskStatusBase)?.DisplayName ?? "null";
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => DependencyProperty.UnsetValue;
-
-        public static string GetStatusString(Enums.TaskStatus? status)
-            => status switch
-            {
-                Enums.TaskStatus.None => "Ожидает принятия",
-                Enums.TaskStatus.Begining => "Текущее",
-                Enums.TaskStatus.Completed => "Выполнено",
-                Enums.TaskStatus.Deferred => "Отложено",
-                Enums.TaskStatus.Rejected => "Отклонено",
-                _ => "Значение не определено"
-            };
     }
+
+    //public class StatusConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //        => GetStatusString(value as Enums.TaskStatus?);
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //        => DependencyProperty.UnsetValue;
+
+    //    public static string GetStatusString(Enums.TaskStatus? status)
+    //        => status switch
+    //        {
+    //            Enums.TaskStatus.None => "Ожидает принятия",
+    //            Enums.TaskStatus.Begining => "Текущее",
+    //            Enums.TaskStatus.Completed => "Выполнено",
+    //            Enums.TaskStatus.Deferred => "Отложено",
+    //            Enums.TaskStatus.Rejected => "Отклонено",
+    //            _ => "Значение не определено"
+    //        };
+    //}
 }

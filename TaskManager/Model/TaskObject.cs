@@ -1,4 +1,5 @@
 ﻿using TaskManager.Helpers;
+using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -10,7 +11,7 @@ namespace TaskManager.Model
         private DateTime _creationDate;
         private DateTime _endDate;
         private TaskType _type;
-        private Enums.TaskStatus _status;
+        private TaskStatusBase _status;
         private TaskPriority _priority;
         private Section? _section;
         private bool _changeSectionEnabled;
@@ -18,6 +19,7 @@ namespace TaskManager.Model
         internal TaskObject()
         {
             _creationDate = DateTime.Now;
+            _status = TaskStatusesInstances.WaitingStatus;
         }
 
         #region Свойства
@@ -56,7 +58,7 @@ namespace TaskManager.Model
             }
         }
 
-        public Enums.TaskStatus Status
+        public TaskStatusBase Status
         {
             get => _status;
             set
@@ -98,6 +100,8 @@ namespace TaskManager.Model
                 OnPropertyChanged(nameof(ChangeSectionEnabled));
             }
         }
+
+        public bool AcceptCommandVisibility => Status.IsAcceptCommandVisible();
 
         #endregion Свойства
 

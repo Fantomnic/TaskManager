@@ -32,12 +32,30 @@
                             <!-- У меню DataContext - это TaskObject (элемент списка) -->
                             <ContextMenu>
                                 <MenuItem Header="Удалить"
+                                          IsEnabled="False"
                                           Command="cmd:CommandsInstances.DeleteTaskCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
                                 <MenuItem Header="Изменить раздел"
                                           IsEnabled="{Binding ChangeSectionEnabled}"
                                           Command="cmd:CommandsInstances.ChangeSectionCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
+                                <MenuItem Header="Принять"
+                                          Command="cmd:CommandsInstances.AcceptTaskCommand"
+                                          CommandParameter="{Binding Instance}">
+                                    <MenuItem.Style>
+                                        <Style TargetType="{x:Type MenuItem}">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            <Style.Triggers>
+                                                <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню. В данном случае - это TaskObject (элемент списка) -->
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                                                                Path=PlacementTarget.DataContext.AcceptCommandVisibility}"
+                                                             Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>

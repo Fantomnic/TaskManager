@@ -1,0 +1,10 @@
+﻿namespace TaskManager.Model.TaskStatuses
+{
+    /// <summary>Статус задачи "Текущее"</summary>
+    public class BeginningStatus : TaskStatusBase
+    {
+        public override string DisplayName => "Текущее";
+
+        internal override List<TaskStatusBase> Transitions => [];
+    }
+}

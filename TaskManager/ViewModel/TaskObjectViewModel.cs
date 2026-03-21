@@ -1,5 +1,7 @@
-﻿using TaskManager.Helpers;
+﻿using System.Collections.ObjectModel;
+using TaskManager.Helpers;
 using TaskManager.Model;
+using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.ViewModel
@@ -13,7 +15,7 @@ namespace TaskManager.ViewModel
         static TaskObjectViewModel()
         {
             PriorityList = GetEnumValues<TaskPriority>();
-            StatusList = GetEnumValues<Enums.TaskStatus>();
+            //StatusList = GetEnumValues<Enums.TaskStatus>();
         }
 
         internal TaskObjectViewModel(TaskObject taskObject)
@@ -23,7 +25,7 @@ namespace TaskManager.ViewModel
 
         public static IEnumerable<TaskPriority> PriorityList { get; private set; }
 
-        public static IEnumerable<Enums.TaskStatus> StatusList { get; private set; }
+        public List<TaskStatusBase> StatusList => _taskObject.Status.Transitions;
 
         public string Name
         {
@@ -36,7 +38,9 @@ namespace TaskManager.ViewModel
         }
 
         // Прим.: Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
+#pragma warning disable CS8603 // Possible null reference return.
         public string CreationDate => _taskObject?.CreationDate.ToString("dd.MM.yyyy");
+#pragma warning restore CS8603 // Possible null reference return.
 
         // Прим.: Технически, можно настроить связь в событии SelectionChanged - например, если контрол принимает объекты другого типа
         public TaskPriority TaskPriority
@@ -49,7 +53,7 @@ namespace TaskManager.ViewModel
             }
         }
 
-        public Enums.TaskStatus TaskStatus
+        public TaskStatusBase TaskStatus
         {
             get => _taskObject.Status;
             set
@@ -58,5 +62,15 @@ namespace TaskManager.ViewModel
                 OnPropertyChanged(nameof(TaskStatus));
             }
         }
+
+        //public List<TaskStatusBase> StatusList
+        //{
+        //    get => _taskObject.GetStatusesToTransition();
+        //    set
+        //    {
+        //        _taskObject.Status = value;
+        //        OnPropertyChanged(nameof(StatusList));
+        //    }
+        //}
     }
 }

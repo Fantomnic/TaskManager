@@ -1,32 +1,25 @@
-﻿namespace TaskManager.Commands
+﻿using static TaskManager.Commands.ChangeStatusCommands;
+
+namespace TaskManager.Commands
 {
     // Прим.: Можно делать команды internal, помещать их экземпляры в DataContext и через привязку использовать в соответствующем представлении
     // Но чтобы можно было задавать их в xaml (как реализовано), нужен public
-    public class CommandsInstances
+    public static class CommandsInstances
     {
-        static CommandsInstances()
-        {
-            DeleteSectionCommand = new DeleteSectionCommand();
-            NewSectionCommand = new NewSectionCommand();
-            ShowSectionPropertyCommand = new ShowSectionPropertyCommand();
-            NewTaskCommand = new NewTaskCommand();
-            DeleteTaskCommand = new DeleteTaskCommand();
-            ChangeSectionCommand = new ChangeSectionCommand();
-            OpenSettingsCommand = new OpenSettingsCommand();
-        }
+        public static NewSectionCommand NewSectionCommand { get; } = new NewSectionCommand();
 
-        public static NewSectionCommand NewSectionCommand { get; }
+        public static DeleteSectionCommand DeleteSectionCommand { get; } = new DeleteSectionCommand();
 
-        public static DeleteSectionCommand DeleteSectionCommand { get; }
+        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; } = new ShowSectionPropertyCommand();
 
-        public static ShowSectionPropertyCommand ShowSectionPropertyCommand { get; }
+        public static NewTaskCommand NewTaskCommand { get; } = new NewTaskCommand();
 
-        public static NewTaskCommand NewTaskCommand { get; }
+        public static DeleteTaskCommand DeleteTaskCommand { get; } = new DeleteTaskCommand();
 
-        public static DeleteTaskCommand DeleteTaskCommand { get; }
+        public static ChangeSectionCommand ChangeSectionCommand { get; } = new ChangeSectionCommand();
 
-        public static ChangeSectionCommand ChangeSectionCommand { get; }
+        public static OpenSettingsCommand OpenSettingsCommand { get; } = new OpenSettingsCommand();
 
-        public static OpenSettingsCommand OpenSettingsCommand { get; }
+        public static AcceptTaskCommand AcceptTaskCommand { get; } = new AcceptTaskCommand();
     }
 }

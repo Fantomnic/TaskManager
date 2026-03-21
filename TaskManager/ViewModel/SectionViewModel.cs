@@ -25,6 +25,8 @@ namespace TaskManager.ViewModel
             SetVisibilityEmptyTaskImage();
         }
 
+        public bool Test => true;
+
         internal Section Section => _section;
 
         /// <summary>Список задач раздела</summary>
