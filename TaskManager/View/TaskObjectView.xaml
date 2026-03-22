@@ -48,7 +48,7 @@
                 <!-- Статус -->
                 <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
                 <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,8,3,4" IsReadOnly="True" Focusable="False" Cursor="Arrow"
-                         Text="{Binding Path=TaskStatus, Converter={StaticResource statusConverter}}" Background="#FFFFD5D5"/>
+                         Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}" Background="#FFFFD5D5"/>
 
                 <!-- Приоритет -->
                 <TextBlock Grid.Row="3" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>

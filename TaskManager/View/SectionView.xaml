@@ -7,6 +7,10 @@
              xmlns:cmd="clr-namespace:TaskManager.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Resources/ContextMenuResources.xaml" />
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.1*"></ColumnDefinition>
@@ -18,52 +22,13 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
-        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding TasksViewModels}" SelectedItem="{Binding SelectedTaskViewModel}" MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
+        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding TasksViewModels}" SelectedItem="{Binding SelectedTaskViewModel}" ItemContainerStyle="{StaticResource tasksContextMenu}"
+                 MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <!-- TODO: Перенести в ресурсы -->
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
-                            <ContextMenu>
-                                <MenuItem Header="Удалить"
-                                          IsEnabled="False"
-                                          Command="cmd:CommandsInstances.DeleteTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Изменить раздел"
-                                          IsEnabled="{Binding ChangeSectionEnabled}"
-                                          Command="cmd:CommandsInstances.ChangeSectionCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Принять"
-                                          Style="{StaticResource acceptCommandMenuItem}"
-                                          Command="cmd:CommandsInstances.AcceptTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Отклонить"
-                                          Style="{StaticResource rejectCommandMenuItem}"
-                                          Command="cmd:CommandsInstances.RejectTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Отложить"
-                                          Style="{StaticResource deferCommandMenuItem}"
-                                          Command="cmd:CommandsInstances.DeferTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Выполнить"
-                                          Style="{StaticResource doneCommandMenuItem}"
-                                          Command="cmd:CommandsInstances.DoneTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                                <MenuItem Header="Завершить"
-                                          Style="{StaticResource completeCommandMenuItem}"
-                                          Command="cmd:CommandsInstances.CompleteTaskCommand"
-                                          CommandParameter="{Binding Instance}"></MenuItem>
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
         </ListBox>
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">

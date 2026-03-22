@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
         mc:Ignorable="d"
-        Title="Новый раздел" Height="400" Width="600" WindowStartupLocation="CenterOwner">
+        Title="Новый раздел" WindowStartupLocation="CenterOwner"
+        Style="{StaticResource middleWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>

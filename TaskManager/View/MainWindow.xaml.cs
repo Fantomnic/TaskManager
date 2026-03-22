@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.Commands;
 using TaskManager.Helpers;
+using TaskManager.Resources;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -16,6 +17,9 @@ namespace TaskManager.View
         public MainWindow()
         {
             InitializeComponent();
+
+            //Height = Constants.StartHeightMainWindow;
+            //Width = Constants.StartWidthMainWindow;
 
             DataContext = MainViewModel = new MainViewModel();
             InitializeData();

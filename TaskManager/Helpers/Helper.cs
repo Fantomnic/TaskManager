@@ -1,7 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using TaskManager.Model;
-using TaskManager.View;
 using TaskManager.ViewModel;
 
 namespace TaskManager.Helpers

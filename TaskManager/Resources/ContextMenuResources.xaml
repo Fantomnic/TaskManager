@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cmd="clr-namespace:TaskManager.Commands">
+
+    <Style TargetType="{x:Type MenuItem}" x:Key="collapsedMenuItem">
+        <Setter Property="Visibility" Value="Collapsed"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="acceptCommandMenuItem">
+        <Style.Triggers>
+            <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню. В данном случае - это TaskObjectViewModel (элемент списка) -->
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                    Path=PlacementTarget.DataContext.AcceptCommandVisibility}"
+                 Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="rejectCommandMenuItem">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.RejectCommandVisibility}"
+             Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="deferCommandMenuItem">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.DeferCommandVisibility}"
+             Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="doneCommandMenuItem">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+            Path=PlacementTarget.DataContext.DoneCommandVisibility}"
+         Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="completeCommandMenuItem">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+            Path=PlacementTarget.DataContext.CompleteCommandVisibility}"
+         Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ListBoxItem" x:Key="tasksContextMenu">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
+                <ContextMenu>
+                    <MenuItem Header="Удалить"
+                          IsEnabled="False"
+                          Command="cmd:CommandsInstances.DeleteTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Изменить раздел"
+                          IsEnabled="{Binding ChangeSectionEnabled}"
+                          Command="cmd:CommandsInstances.ChangeSectionCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Принять"
+                          Style="{StaticResource acceptCommandMenuItem}"
+                          Command="cmd:CommandsInstances.AcceptTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Отклонить"
+                          Style="{StaticResource rejectCommandMenuItem}"
+                          Command="cmd:CommandsInstances.RejectTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Отложить"
+                          Style="{StaticResource deferCommandMenuItem}"
+                          Command="cmd:CommandsInstances.DeferTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Выполнить"
+                          Style="{StaticResource doneCommandMenuItem}"
+                          Command="cmd:CommandsInstances.DoneTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                    <MenuItem Header="Завершить"
+                          Style="{StaticResource completeCommandMenuItem}"
+                          Command="cmd:CommandsInstances.CompleteTaskCommand"
+                          CommandParameter="{Binding Instance}"></MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

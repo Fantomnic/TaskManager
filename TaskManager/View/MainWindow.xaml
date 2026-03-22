@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:TaskManager"
         xmlns:views="clr-namespace:TaskManager.View"
         xmlns:cmd="clr-namespace:TaskManager.Commands"
+        xmlns:res="clr-namespace:TaskManager.Resources"
         mc:Ignorable="d"
-        Title="Трекер задач" Height="600" Width="900" MinHeight="300" MinWidth="500" WindowStartupLocation="CenterScreen">
+        Title="Трекер задач" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource mainWindow}">
+    <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,7 +32,7 @@
         <!-- Рабочая зона -->
         <Grid x:Name="workspace" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.03*" MinWidth="30" MaxWidth="50"></ColumnDefinition>
+                <ColumnDefinition Width="0.04*" MinWidth="30" MaxWidth="50"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 

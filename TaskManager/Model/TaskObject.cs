@@ -1,6 +1,4 @@
-﻿using TaskManager.Helpers;
-using TaskManager.Model.TaskStatuses;
-using TaskManager.ViewModel;
+﻿using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -23,9 +21,6 @@ namespace TaskManager.Model
         }
 
         #region Свойства
-
-        // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
-        public TaskObject Instance => this;
 
         // public, чтобы UI видел значение при биндинге
         public DateTime CreationDate
