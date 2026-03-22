@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
+        xmlns:model="clr-namespace:TaskManager.Model"
+        xmlns:h="clr-namespace:TaskManager.Helpers"
         mc:Ignorable="d"
         Title="Настройки" WindowStartupLocation="CenterOwner"
         Style="{StaticResource settingsWindow}">
+
+    <local:WindowWithBottomButtons.Resources>
+        <h:FontIDConverter x:Key="fontIDConverter" />
+    </local:WindowWithBottomButtons.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -14,11 +21,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <GroupBox Header="Разделы">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Разделы</TextBlock>
+                </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -31,17 +41,24 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultSectionName}"
+                    <CheckBox Grid.ColumnSpan="2"
+                              Style="{StaticResource baseFontCheckBox}"
+                              IsChecked="{Binding SetDefaultSectionName}"
                               Checked="SetDefaultSectionNameChecked" Unchecked="SetDefaultSectionNameUnchecked">Заполнять наименование раздела по умолчанию</CheckBox>
-                    <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
+                    <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="2"
+                              Style="{StaticResource baseFontCheckBox}"
+                              IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование нового раздела:</TextBlock>
-                    <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultSectionName}"></TextBox>
+                    <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="1"
+                             Style="{StaticResource lineTextBox}" Text="{Binding DefaultSectionName}"></TextBox>
                 </Grid>
             </GroupBox>
 
-
-            <GroupBox Header="Задачи">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Задачи</TextBlock>
+                </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -54,13 +71,45 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding SetDefaultTaskName}"
-                          Checked="SetDefaultTaskNameChecked" Unchecked="SetDefaultTaskNameUnchecked">Заполнять наименование задачи по умолчанию</CheckBox>
-                    <CheckBox x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
+                    <CheckBox Grid.ColumnSpan="2"
+                              Style="{StaticResource baseFontCheckBox}"
+                              IsChecked="{Binding SetDefaultTaskName}"
+                              Checked="SetDefaultTaskNameChecked" Unchecked="SetDefaultTaskNameUnchecked">Заполнять наименование задачи по умолчанию</CheckBox>
+                    <CheckBox x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2"
+                              Style="{StaticResource baseFontCheckBox}"
+                              IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование новой задачи:</TextBlock>
-                    <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding DefaultTaskName}"></TextBox>
+                    <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1"
+                             Style="{StaticResource lineTextBox}" Text="{Binding DefaultTaskName}"></TextBox>
                 </Grid>
+            </GroupBox>
+
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные масштабы:</TextBlock>
+                    <ComboBox Grid.Column="1" ItemsSource="{x:Static model:Settings.AvailableFonts}" SelectedItem="{Binding FontSettings}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ID,Converter={StaticResource fontIDConverter}}"
+                                           FontSize="{Binding Path=BaseFont}">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Text="{Binding Path=BaseFont, StringFormat=\{0\} pt}"></TextBlock>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                
             </GroupBox>
         </StackPanel>
 

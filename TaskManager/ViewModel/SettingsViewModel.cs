@@ -1,4 +1,5 @@
 ﻿using TaskManager.Model;
+using static TaskManager.Model.Settings;
 
 namespace TaskManager.ViewModel
 {
@@ -10,6 +11,7 @@ namespace TaskManager.ViewModel
         private bool? _incrementTaskName;
         private string _defaultSectionName;
         private string _defaultTaskName;
+        private FontSet _fontSettings;
 
         internal SettingsViewModel()
         {
@@ -19,6 +21,10 @@ namespace TaskManager.ViewModel
             _incrementTaskName = Settings.IncrementTaskName;
             _defaultSectionName = Settings.DefaultSectionName;
             _defaultTaskName = Settings.DefaultTaskName;
+
+            var currentFont = Settings.FontSettings;
+            var allFonts = Settings.AvailableFonts;
+            _fontSettings = allFonts.FirstOrDefault(f => f.ID == currentFont.ID) ?? allFonts.First();
         }
 
         public bool? SetDefaultSectionName
@@ -78,6 +84,16 @@ namespace TaskManager.ViewModel
             {
                 _defaultTaskName = value;
                 OnPropertyChanged(nameof(DefaultTaskName));
+            }
+        }
+
+        public FontSet FontSettings
+        {
+            get => _fontSettings;
+            set
+            {
+                _fontSettings = value;
+                OnPropertyChanged(nameof(FontSettings));
             }
         }
     }

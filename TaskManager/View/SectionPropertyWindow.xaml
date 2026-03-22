@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
+        xmlns:model="clr-namespace:TaskManager.Model"
         mc:Ignorable="d"
         Title="Новый раздел" WindowStartupLocation="CenterOwner"
         Style="{StaticResource middleWindow}">
@@ -14,12 +15,12 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
 
-        <TextBox x:Name="sectionName" Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"></TextBox>
+        <TextBox x:Name="sectionName" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource lineTextBox}"></TextBox>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>

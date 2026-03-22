@@ -1,16 +1,42 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:TaskManager.Model">
 
-    <Style TargetType="TextBlock" x:Key="fieldDescription">
+    <!-- Для всех подсказок -->
+    <Style TargetType="ToolTip">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="RadioButton" x:Key="baseFontRadioButton">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="CheckBox" x:Key="baseFontCheckBox">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="baseFontTextBox">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseFontTextBox}" x:Key="lineTextBox">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="3,0,3,0"></Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="baseFontTextBlock">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+    
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseFontTextBlock}" x:Key="fieldDescription">
         <Setter Property="Margin" Value="5,0,5,0"></Setter>
     </Style>
 
     <Style TargetType="TextBlock" BasedOn="{StaticResource fieldDescription}" x:Key="titleDescription">
         <Setter Property="FontWeight" Value="Bold"></Setter>
-        <Setter Property="FontSize" Value="14"></Setter>
-        <Setter Property="Margin" Value="10,0,0,0"></Setter>
-        <!-- Переопределяем -->
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=TitleFont}"></Setter>
+        <Setter Property="Margin" Value="10,0,0,0"></Setter> <!-- Переопределяем -->
     </Style>
 
 </ResourceDictionary>

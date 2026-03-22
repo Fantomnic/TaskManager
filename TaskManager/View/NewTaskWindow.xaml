@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
+        xmlns:model="clr-namespace:TaskManager.Model"
         mc:Ignorable="d"
         Title="Новая задача" WindowStartupLocation="CenterOwner"
         Style="{StaticResource middleWindow}">
@@ -13,14 +14,14 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
 
-        <TextBox Grid.Column="1" x:Name="taskName" Text="{Binding Name}" VerticalAlignment="Center"></TextBox>
+        <TextBox Grid.Column="1" x:Name="taskName" Text="{Binding Name}" Style="{StaticResource lineTextBox}"></TextBox>
 
         <local:TaskObjectView Grid.Row="1" Grid.ColumnSpan="2" x:Name="taskProperty"></local:TaskObjectView>
 

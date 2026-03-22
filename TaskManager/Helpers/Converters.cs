@@ -34,23 +34,25 @@ namespace TaskManager.Helpers
             => DependencyProperty.UnsetValue;
     }
 
-    //public class StatusConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //        => GetStatusString(value as Enums.TaskStatus?);
+    public class FontIDConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is not int id)
+                return "Ошибка отображения";
 
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //        => DependencyProperty.UnsetValue;
+            return id switch
+            {
+                1 => "Малый",
+                2 => "Средний",
+                3 => "Побольше",
+                4 => "Большой жесть",
+                5 => "Огромный ААА",
+                _ => "Не придумано"
+            };
+        }
 
-    //    public static string GetStatusString(Enums.TaskStatus? status)
-    //        => status switch
-    //        {
-    //            Enums.TaskStatus.None => "Ожидает принятия",
-    //            Enums.TaskStatus.Begining => "Текущее",
-    //            Enums.TaskStatus.Completed => "Выполнено",
-    //            Enums.TaskStatus.Deferred => "Отложено",
-    //            Enums.TaskStatus.Rejected => "Отклонено",
-    //            _ => "Значение не определено"
-    //        };
-    //}
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => DependencyProperty.UnsetValue;
+    }
 }

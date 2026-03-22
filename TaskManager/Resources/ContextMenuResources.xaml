@@ -1,8 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cmd="clr-namespace:TaskManager.Commands">
+                    xmlns:cmd="clr-namespace:TaskManager.Commands"
+                    xmlns:model="clr-namespace:TaskManager.Model">
 
-    <Style TargetType="{x:Type MenuItem}" x:Key="collapsedMenuItem">
+    <Style TargetType="{x:Type MenuItem}" x:Key="baseFontMenuItem">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseFontMenuItem}" x:Key="collapsedMenuItem">
         <Setter Property="Visibility" Value="Collapsed"></Setter>
     </Style>
 
@@ -63,33 +68,35 @@
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
                 <ContextMenu>
                     <MenuItem Header="Удалить"
-                          IsEnabled="False"
-                          Command="cmd:CommandsInstances.DeleteTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource baseFontMenuItem}"
+                              IsEnabled="False"
+                              Command="cmd:CommandsInstances.DeleteTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Изменить раздел"
-                          IsEnabled="{Binding ChangeSectionEnabled}"
-                          Command="cmd:CommandsInstances.ChangeSectionCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource baseFontMenuItem}"
+                              IsEnabled="{Binding ChangeSectionEnabled}"
+                              Command="cmd:CommandsInstances.ChangeSectionCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Принять"
-                          Style="{StaticResource acceptCommandMenuItem}"
-                          Command="cmd:CommandsInstances.AcceptTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource acceptCommandMenuItem}"
+                              Command="cmd:CommandsInstances.AcceptTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Отклонить"
-                          Style="{StaticResource rejectCommandMenuItem}"
-                          Command="cmd:CommandsInstances.RejectTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource rejectCommandMenuItem}"
+                              Command="cmd:CommandsInstances.RejectTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Отложить"
-                          Style="{StaticResource deferCommandMenuItem}"
-                          Command="cmd:CommandsInstances.DeferTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource deferCommandMenuItem}"
+                              Command="cmd:CommandsInstances.DeferTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Выполнить"
-                          Style="{StaticResource doneCommandMenuItem}"
-                          Command="cmd:CommandsInstances.DoneTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource doneCommandMenuItem}"
+                              Command="cmd:CommandsInstances.DoneTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Завершить"
-                          Style="{StaticResource completeCommandMenuItem}"
-                          Command="cmd:CommandsInstances.CompleteTaskCommand"
-                          CommandParameter="{Binding Instance}"></MenuItem>
+                              Style="{StaticResource completeCommandMenuItem}"
+                              Command="cmd:CommandsInstances.CompleteTaskCommand"
+                              CommandParameter="{Binding Instance}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>

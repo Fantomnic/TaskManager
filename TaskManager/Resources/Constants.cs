@@ -43,9 +43,9 @@ namespace TaskManager.Resources
 
         public const double MinWidthMiddleWindow = 600;
 
-        public static double StartHeightMiddleWindow => _workingAreaHeight / 3;
+        public static double StartHeightMiddleWindow => _workingAreaHeight / 2.5;
 
-        public static double StartWidthMiddleWindow => _workingAreaWidth / 3;
+        public static double StartWidthMiddleWindow => _workingAreaWidth / 2.5;
 
         #endregion Среднее окно
     }

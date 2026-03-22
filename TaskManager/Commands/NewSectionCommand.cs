@@ -74,10 +74,8 @@ namespace TaskManager.Commands
         // Создаёт заголовок для TabItam'а в виде контрола
         private static TextBlock CreateSectionHeader(SectionViewModel sectionViewModel)
         {
-            var textBlock = new TextBlock()
-            {
-                DataContext = sectionViewModel,
-            };
+            var textBlock = CreateFontTextBlock(String.Empty);
+            textBlock.DataContext = sectionViewModel;
 
             var headerNameBinding = new Binding
             {
@@ -95,7 +93,7 @@ namespace TaskManager.Commands
 
             menuItems.AddRange(
                 [
-                    new() { Header = "Удалить раздел", Command = CommandsInstances.DeleteSectionCommand, CommandParameter = sectionTabItem },
+                    new() { Header = CreateFontTextBlock("Удалить раздел"), Command = CommandsInstances.DeleteSectionCommand, CommandParameter = sectionTabItem },
                 ]);
 
             return menuItems;
@@ -103,8 +101,15 @@ namespace TaskManager.Commands
 
         private List<MenuItem> CreateBaseSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel) => 
             [
-                new() { Header = "Свойства", Command = CommandsInstances.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
+                new() { Header = CreateFontTextBlock("Свойства"), Command = CommandsInstances.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
             ];
+
+        private static TextBlock CreateFontTextBlock(string name) =>
+            new()
+            {
+                Text = name,
+                Style = Application.Current.Resources["baseFontTextBlock"] as Style,
+            };
 
         private static string GetDefaultSectionName()
         {
