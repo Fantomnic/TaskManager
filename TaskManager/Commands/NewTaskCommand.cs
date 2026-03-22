@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
 using TaskManager.Helpers;
 using TaskManager.View;
-using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
@@ -9,16 +8,16 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            var newTaskViewModel = new TaskObjectViewModel();
-
-            var newTaskWindow = new NewTaskWindow(newTaskViewModel);
+            var newTaskWindow = new NewTaskWindow();
             newTaskWindow.OpenEditDescription();
 
             if (newTaskWindow.ShowDialog() != true)
                 return;
 
+            var newTaskViewModel = newTaskWindow.NewTaskObjectViewModel;
+
             var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
-            currentSection.AddTask(newTaskViewModel);
+            currentSection.AddTask(newTaskViewModel.TaskObject, newTaskViewModel);
 
             if (parameter is ListBox tasksList)
                 tasksList.SelectedItem = newTaskViewModel;

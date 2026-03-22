@@ -1,5 +1,4 @@
 ﻿using TaskManager.Helpers;
-using TaskManager.Model;
 using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
@@ -8,14 +7,11 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is TaskObjectViewModel taskObjectViewModel)
-                DeleteTask(taskObjectViewModel);
-        }
+            //if (parameter is not TaskObjectViewModel taskObjectViewModel)
+            //    return;
 
-        internal void DeleteTask(TaskObjectViewModel taskObjectViewModel)
-        {
-            var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
-            currentSection.RemoveTask(taskObjectViewModel);
+            //var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
+            //currentSection.RemoveTask(taskObjectViewModel.TaskObject);
         }
     }
 }

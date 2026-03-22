@@ -20,9 +20,11 @@ namespace TaskManager.Helpers
         internal static SectionViewModel? GetSectionViewModelFromTabItem(TabItem? tabItem)
             => UIHelper.GetSectionViewFromTabItem(tabItem)?.DataContext as SectionViewModel;
 
-        internal static bool IsBaseSection(SectionViewModel? section) => section is null || section.IsBaseSection;
+        internal static bool IsBaseSection(Section? section) => section is null || section.IsBaseSection;
 
         internal static List<TaskObjectViewModel> GetAllTasksViewModels() => [.. BaseSectionViewModel.TasksViewModels];
+
+        internal static List<TaskObject> GetAllTasks() => [.. ModelData.BaseSection.Tasks];
 
         internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
         {
@@ -39,5 +41,8 @@ namespace TaskManager.Helpers
             // TODO: Обработка исключений
             throw new Exception("Ааааа!");
         }
+
+        internal static SectionViewModel? FindSectionViewModel(Section section)
+            => MainViewModel.SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
     }
 }

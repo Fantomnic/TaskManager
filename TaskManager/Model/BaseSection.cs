@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaskManager.Model
+﻿namespace TaskManager.Model
 {
     internal sealed class BaseSection(string name) : Section(name)
     {
@@ -14,6 +7,11 @@ namespace TaskManager.Model
         internal override void AddTask(TaskObject newTask)
         {
             Tasks.Add(newTask);
+        }
+
+        internal override bool RemoveTask(TaskObject task)
+        {
+            throw new InvalidOperationException("Нельзя удалить задачу из основного раздела");
         }
     }
 }

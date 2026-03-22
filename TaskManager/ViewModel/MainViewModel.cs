@@ -27,21 +27,24 @@ namespace TaskManager.ViewModel
 
         public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
 
-        internal void AddSection(SectionViewModel sectionViewModel)
+        /// <summary>Создать раздел (с моделью представления)</summary>
+        internal SectionViewModel CreateSection(string name, bool daseSection = false)
         {
-            SectionsViewModels.Add(sectionViewModel);
-            ModelData.AddSection(sectionViewModel.Section);
+            var newSection = daseSection ? ModelData.CreateBaseSection(name) : ModelData.CreateSection(name);
+            var newSectionViewModel = new SectionViewModel(newSection);
+            SectionsViewModels.Add(newSectionViewModel);
+            return newSectionViewModel;
         }
 
-        internal void DeleteSection(SectionViewModel sectionViewModel)
-        {
-            SectionsViewModels.Remove(sectionViewModel);
-            ModelData.DeleteSection(sectionViewModel.Section);
-        }
+        /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
+        internal bool RemoveSection(Section section)
+            => ModelData.RemoveSection(section)
+                && Helper.FindSectionViewModel(section) is SectionViewModel sectionViewModel
+                && SectionsViewModels.Remove(sectionViewModel);
 
-        internal List<string> GetSectionsNames(IEnumerable<SectionViewModel>? ignoredSections = null)
+        internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
         {
-            var sections = SectionsViewModels.ToList();
+            var sections = ModelData.AllSections;
 
             if (ignoredSections is not null)
                 sections = sections.FindAll(s => !ignoredSections.Contains(s));
@@ -49,8 +52,8 @@ namespace TaskManager.ViewModel
             return [.. sections.Select(s => s.Name)];
         }
 
-        /// <summary>Возвращает неосновные разделы, в которые не входит переданная задача</summary>
-        internal List<SectionViewModel> GetSectionsViewModelsForChanging(SectionViewModel? taskSectionViewModel)
-            => [.. SectionsViewModels.Where(s => !s.IsBaseSection && s != taskSectionViewModel)];
+        /// <summary>Возвращает модели представления неосновных разделов, в которые не входит переданная задача</summary>
+        internal List<SectionViewModel> GetSectionsViewModelsForChanging(TaskObject taskObject)
+            => [.. SectionsViewModels.Where(vm => !vm.IsBaseSection && vm.Section != taskObject.AdditionalSection)];
     }
 }

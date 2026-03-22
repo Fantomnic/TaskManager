@@ -18,29 +18,25 @@ namespace TaskManager.Commands
 
         internal void AddSection(bool baseSection = false)
         {
-            SectionViewModel sectionViewModel;
+            string name = baseSection ? "Все" : GetDefaultSectionName();
+            var mainWindow = UIHelper.MainWindow;
+            var sectionViewModel = mainWindow.MainViewModel.CreateSection(name, baseSection);
 
             if (baseSection)
             {
-                sectionViewModel = new SectionViewModel("Все", true);
-                
-                var startTaskViewModel = new TaskObjectViewModel("Тестовая");
-                sectionViewModel.AddTask(startTaskViewModel);
+                var startTask = Section.CreateTask("Тестовая");
+                sectionViewModel.AddTask(startTask);
             }
             else
             {
-                sectionViewModel = new SectionViewModel(GetDefaultSectionName());
                 var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
                 if (windowProperty.ShowDialog() != true)
                     return;
             }
 
-            var mainWindow = UIHelper.MainWindow;
             var newItem = CreateTabItem(sectionViewModel, baseSection);
-
             mainWindow.sections.Items.Add(newItem);
-            mainWindow.MainViewModel.AddSection(sectionViewModel);
             newItem.Focus();
         }
 
@@ -93,13 +89,13 @@ namespace TaskManager.Commands
             return textBlock;
         }
 
-        private List<MenuItem> CreateNewSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel, TabItem section)
+        private List<MenuItem> CreateNewSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel, TabItem sectionTabItem)
         {
             var menuItems = CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel);
 
             menuItems.AddRange(
                 [
-                    new() { Header = "Удалить раздел", Command = CommandsInstances.DeleteSectionCommand, CommandParameter = section },
+                    new() { Header = "Удалить раздел", Command = CommandsInstances.DeleteSectionCommand, CommandParameter = sectionTabItem },
                 ]);
 
             return menuItems;

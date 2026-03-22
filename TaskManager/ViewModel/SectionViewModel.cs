@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using TaskManager.Helpers;
 using TaskManager.Model;
@@ -10,12 +8,12 @@ namespace TaskManager.ViewModel
     /// <summary>Модель представления раздела</summary>
     internal class SectionViewModel : BaseViewModel
     {
-        private TaskObjectViewModel? _selectedTask;
+        private TaskObjectViewModel? _selectedTaskViewModel;
         private Visibility _visibilityEmptyTaskPropertyImage;
 
-        public SectionViewModel(string name, bool baseSection = false)
+        public SectionViewModel(Section section)
         {
-            Section = baseSection ? new BaseSection(name) : new Section(name);
+            Section = section;
             InitializeViewModel();
         }
 
@@ -28,7 +26,7 @@ namespace TaskManager.ViewModel
 
         internal bool IsBaseSection => Section.IsBaseSection;
 
-        /// <summary>Список задач раздела</summary>
+        /// <summary>Список моделей представления задач раздела</summary>
         public ObservableCollection<TaskObjectViewModel> TasksViewModels { get; } = [];
 
         /// <summary>Наименование раздела</summary>
@@ -42,13 +40,13 @@ namespace TaskManager.ViewModel
             }
         }
 
-        /// <summary>Выбранная задача</summary>
+        /// <summary>Выбранная задача (модель представления)</summary>
         public TaskObjectViewModel? SelectedTaskViewModel
         {
-            get => _selectedTask;
+            get => _selectedTaskViewModel;
             set
             {
-                _selectedTask = value;
+                _selectedTaskViewModel = value;
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedTaskViewModel));
             }
@@ -65,24 +63,43 @@ namespace TaskManager.ViewModel
             }
         }
 
-        internal void AddTask(TaskObjectViewModel newTaskViewModel)
+        /// <summary>Создать новую задачу без привязки к разделу (с соответствующей моделью представления)</summary>
+        internal static TaskObjectViewModel CreateTask(string? name = null)
+        {
+            var newTask = name is null ? Section.CreateTask() : Section.CreateTask(name);
+            return new(newTask);
+        }
+
+        /// <summary>Добавить задачу в раздел (с соответствующими моделями представления)</summary>
+        internal void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null)
+        {
+            Section.AddTask(newTask);
+
+            newTaskViewModel ??= new TaskObjectViewModel(newTask);
+            AddTaskViewModel(newTaskViewModel);
+        }
+
+        private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
             if (!IsBaseSection)
             {
                 if (!Helper.GetAllTasksViewModels().Contains(newTaskViewModel))
-                    Helper.BaseSectionViewModel.AddTask(newTaskViewModel);
+                    Helper.BaseSectionViewModel.AddTaskViewModel(newTaskViewModel);
 
                 newTaskViewModel.AdditionalSection = this;
             }
 
             TasksViewModels.Add(newTaskViewModel);
-            Section.AddTask(newTaskViewModel.TaskObject);
         }
 
-        internal void RemoveTask(TaskObjectViewModel taskViewModel)
+        /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
+        internal bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null)
         {
-            if (TasksViewModels.Remove(taskViewModel))
-                taskViewModel.AdditionalSection = null;
+            taskViewModel ??= FindTaskViewModel(taskObject);
+
+            return Section.RemoveTask(taskObject)
+                && taskViewModel is not null
+                && TasksViewModels.Remove(taskViewModel);
         }
 
         private void SetVisibilityEmptyTaskImage()
@@ -91,16 +108,17 @@ namespace TaskManager.ViewModel
         /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
         internal static void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
         {
-            var taskSectionViewModel = taskObjectViewModel.AdditionalSection;
             var mainViewModel = Helper.MainViewModel;
-            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskSectionViewModel);
+            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
 
             // --- Доступность ---
             // Из основного раздела:
             // - Должны быть неосновные разделы, в которых не содержится переданная задача
             // Из неосновного раздела:
             // - Всегда
-            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel) || availableSections.Count > 0;
+            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section) || availableSections.Count > 0;
         }
+
+        private TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => TasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);
     }
 }

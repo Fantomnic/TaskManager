@@ -9,15 +9,17 @@ namespace TaskManager.View
     /// </summary>
     public partial class ChangeSectionWindow : WindowWithBottomButtons
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         internal ChangeSectionWindow(TaskObjectViewModel taskObjectViewModel)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
             InitializeComponent();
 
             var mainViewModel = Helper.MainViewModel;
             
-            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.AdditionalSection);
+            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
             bool hasSectionsForChanging = availableSections.Count > 0;
-            bool isAdditionalSection = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel);
+            bool isAdditionalSection = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section);
 
             if (hasSectionsForChanging)
                 newSectionsList.ItemsSource = availableSections;
@@ -27,7 +29,7 @@ namespace TaskManager.View
             deleteButton.IsEnabled = isAdditionalSection;
         }
 
-        internal SectionViewModel? NewSectionViewModel;
+        internal SectionViewModel NewSectionViewModel;
 
         protected override void ButtonOKClick(object sender, RoutedEventArgs e)
         {
@@ -37,7 +39,9 @@ namespace TaskManager.View
             if (!ValidateNewSection())
                 return;
 
-            NewSectionViewModel = checkedChanging ? newSectionViewModelFromList : null;
+#pragma warning disable CS8601 // Possible null reference assignment.
+            NewSectionViewModel = checkedChanging ? newSectionViewModelFromList : Helper.MainViewModel.BaseSectionViewModel;
+#pragma warning restore CS8601 // Possible null reference assignment.
             DialogResult = true;
             Close();
 

@@ -27,7 +27,7 @@ namespace TaskManager.View
                 return false;
             }
 
-            if (Helper.MainViewModel.GetSectionsNames([_sectionViewModel]).Contains(name))
+            if (Helper.MainViewModel.GetSectionsNames([_sectionViewModel.Section]).Contains(name))
             {
                 MessageBox.Show($"Раздел \"{name}\" уже существует");
                 return false;

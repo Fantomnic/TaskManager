@@ -9,11 +9,14 @@ namespace TaskManager.View
     /// </summary>
     public partial class NewTaskWindow : WindowWithBottomButtons
     {
-        internal NewTaskWindow(TaskObjectViewModel taskObjectViewModel)
+        internal NewTaskWindow()
         {
             InitializeComponent();
-            DataContext = taskObjectViewModel;
+            var newTaskObjectViewModel = SectionViewModel.CreateTask();
+            DataContext = NewTaskObjectViewModel = newTaskObjectViewModel;
         }
+
+        internal TaskObjectViewModel NewTaskObjectViewModel { get; }
 
         protected override bool ValidateOK()
         {
@@ -25,7 +28,7 @@ namespace TaskManager.View
                 return false;
             }
 
-            if (Helper.GetAllTasksViewModels().Select(t => t.Name).Contains(name))
+            if (Helper.GetAllTasks().Select(t => t.Name).Contains(name))
             {
                 MessageBox.Show($"Задача с наименованием \"{name}\" уже существует");
                 return false;

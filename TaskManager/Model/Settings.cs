@@ -1,4 +1,5 @@
-﻿using TaskManager.ViewModel;
+﻿using TaskManager.Helpers;
+using TaskManager.ViewModel;
 
 namespace TaskManager.Model
 {
@@ -24,6 +25,22 @@ namespace TaskManager.Model
             IncrementTaskName = settingsViewModel.IncrementTaskName;
             DefaultSectionName = settingsViewModel.DefaultSectionName;
             DefaultTaskName = settingsViewModel.DefaultTaskName;
+        }
+
+        internal static string GetDefaultTaskName()
+        {
+            if (SetDefaultTaskName != true)
+                return String.Empty;
+
+            string result = DefaultTaskName;
+
+            if (IncrementTaskName == true)
+            {
+                var existingNames = Helper.GetAllTasks().Select(s => s.Name);
+                result = Helper.GetStringWithCounter(result, existingNames);
+            }
+
+            return result;
         }
     }
 }

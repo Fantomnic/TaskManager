@@ -19,14 +19,19 @@ namespace TaskManager.ViewModel
             //StatusList = GetEnumValues<Enums.TaskStatus>();
         }
 
-        public TaskObjectViewModel() : this(GetDefaultTaskName())
+        public TaskObjectViewModel() : this(Settings.GetDefaultTaskName())
         {
 
         }
 
         internal TaskObjectViewModel(string name)
         {
-            TaskObject = new() { Name = name }; ;
+            TaskObject = new() { Name = name };
+        }
+
+        internal TaskObjectViewModel(TaskObject taskObject)
+        {
+            TaskObject = taskObject;
         }
 
         // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
@@ -115,29 +120,15 @@ namespace TaskManager.ViewModel
 
         public bool CompleteCommandVisibility => CommandsInstances.CompleteTaskCommand.CanChange(TaskObject);
 
-        internal void MoveToSection(SectionViewModel? newSection)
+        internal void MoveToSection(SectionViewModel newSectionViewModel)
         {
-            if (!Helper.IsBaseSection(AdditionalSection))
-                AdditionalSection!.RemoveTask(this);
+            var additionalSection = TaskObject.AdditionalSection;
 
-            if (!Helper.IsBaseSection(newSection))
-                newSection!.AddTask(this);
-        }
+            if (!Helper.IsBaseSection(additionalSection) && Helper.FindSectionViewModel(additionalSection) is SectionViewModel additionalSectionViewModel)
+                additionalSectionViewModel.RemoveTask(TaskObject, this);
 
-        private static string GetDefaultTaskName()
-        {
-            if (Settings.SetDefaultTaskName != true)
-                return String.Empty;
-
-            string result = Settings.DefaultTaskName;
-
-            if (Settings.IncrementTaskName == true)
-            {
-                var existingNames = Helper.GetAllTasksViewModels().Select(s => s.Name);
-                result = Helper.GetStringWithCounter(result, existingNames);
-            }
-
-            return result;
+            if (!Helper.IsBaseSection(newSectionViewModel.Section))
+                newSectionViewModel!.AddTask(TaskObject, this);
         }
     }
 }

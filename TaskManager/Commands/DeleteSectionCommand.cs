@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using TaskManager.Helpers;
-using TaskManager.ViewModel;
+using TaskManager.Model;
 
 namespace TaskManager.Commands
 {
@@ -9,14 +9,13 @@ namespace TaskManager.Commands
         internal override void ExecuteImplement(object? parameter)
         {
             // TODO: Добавить уведомление?
-            if (parameter is not TabItem tabItem)
+            if (parameter is not TabItem tabItem || Helper.GetSectionFromTabItem(tabItem) is not Section section)
                 return;
 
             var mainWindow = UIHelper.MainWindow;
-            mainWindow.sections.Items.Remove(tabItem);
-
-            if (Helper.GetSectionViewModelFromTabItem(tabItem) is SectionViewModel sectionViewModel)
-                mainWindow.MainViewModel.DeleteSection(sectionViewModel);
+                
+            if (mainWindow.MainViewModel.RemoveSection(section))
+                mainWindow.sections.Items.Remove(tabItem);
         }
     }
 }

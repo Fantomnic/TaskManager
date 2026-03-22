@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Xml.Linq;
 using TaskManager.Helpers;
 
 namespace TaskManager.Model
@@ -14,20 +15,30 @@ namespace TaskManager.Model
 
         internal ObservableCollection<TaskObject> Tasks { get; } = [];
 
+        /// <summary>Создать новую задачу без привязки к разделу</summary>
+        internal static TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());
+
+        /// <summary>Создать новую задачу без привязки к разделу</summary>
+        internal static TaskObject CreateTask(string name) => new() { Name = name };
+
         internal virtual void AddTask(TaskObject newTask)
         {
-            if (!Helper.GetAllTasksViewModels().Select(vm => vm.TaskObject).Contains(newTask))
-                Helper.BaseSectionViewModel.Section.AddTask(newTask);
+            if (!Helper.GetAllTasks().Contains(newTask))
+                Helper.ModelData.BaseSection.AddTask(newTask);
 
             Tasks.Add(newTask);
 
             newTask.AdditionalSection = this;
         }
 
-        internal void RemoveTask(TaskObject task)
+        internal virtual bool RemoveTask(TaskObject task)
         {
-            if (Tasks.Remove(task))
+            bool result;
+
+            if (result = Tasks.Remove(task))
                 task.AdditionalSection = null;
+
+            return result;
         }
     }
 }

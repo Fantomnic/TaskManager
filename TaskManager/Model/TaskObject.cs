@@ -1,4 +1,6 @@
-﻿using TaskManager.Model.TaskStatuses;
+﻿using TaskManager.Helpers;
+using TaskManager.Model.TaskStatuses;
+using TaskManager.ViewModel;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace TaskManager.Model
+﻿namespace TaskManager.Model
 {
     internal class MainModel() //: INotifyPropertyChanged
     {
@@ -9,19 +6,29 @@ namespace TaskManager.Model
 
         internal List<Section> AllSections { get; } = [];
 
-        internal void AddSection(Section section)
+        /// <summary>Создать основной раздел</summary>
+        internal BaseSection CreateBaseSection(string name)
         {
-            if (section is BaseSection baseSection)
-                BaseSection = baseSection;
+            if (BaseSection is not null)
+                throw new InvalidOperationException("Основной раздел уже создан");
 
-            AllSections.Add(section);
+            var baseSection = new BaseSection(name);
+            BaseSection = baseSection;
+            AllSections.Add(baseSection);
+            return baseSection;
         }
 
-        internal void DeleteSection(Section section)
+        /// <summary>Создать неосновной раздел</summary>
+        internal Section CreateSection(string name)
         {
-            if (!section.IsBaseSection)
-                AllSections.Remove(section);
+            var newSection = new Section(name);
+            AllSections.Add(newSection);
+            return newSection;
         }
+
+        /// <summary>Удалить основной раздел, если он неосновной</summary>
+        internal bool RemoveSection(Section section)
+            => !section.IsBaseSection && AllSections.Remove(section);
 
         //private BaseSection _baseSection;
 
