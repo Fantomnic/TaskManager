@@ -1,5 +1,5 @@
-﻿using TaskManager.Helpers;
-using TaskManager.Model;
+﻿using System.Windows.Controls;
+using TaskManager.Helpers;
 using TaskManager.View;
 using TaskManager.ViewModel;
 
@@ -9,13 +9,7 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            AddTask();
-        }
-
-        internal void AddTask()
-        {
-            var newTask = new TaskObject() { Name = GetDefaultTaskName() };
-            var newTaskViewModel = new TaskObjectViewModel(newTask);
+            var newTaskViewModel = new TaskObjectViewModel();
 
             var newTaskWindow = new NewTaskWindow(newTaskViewModel);
             newTaskWindow.OpenEditDescription();
@@ -23,24 +17,14 @@ namespace TaskManager.Commands
             if (newTaskWindow.ShowDialog() != true)
                 return;
 
-            Section currentSection = Helper.MainViewModel.SelectedSection;
-            currentSection.AddTask(newTask);
-        }
+            var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
+            currentSection.AddTask(newTaskViewModel);
 
-        private static string GetDefaultTaskName()
-        {
-            if (Settings.SetDefaultTaskName != true)
-                return String.Empty;
+            if (parameter is ListBox tasksList)
+                tasksList.SelectedItem = newTaskViewModel;
 
-            string result = Settings.DefaultTaskName;
-
-            if (Settings.IncrementTaskName == true)
-            {
-                var existingNames = Helper.GetAllTasks().Select(s => s.Name);
-                result = Helper.GetStringWithCounter(result, existingNames);
-            }
-
-            return result;
+            // Прим.: Получение элемента списка из объекта другого типа
+            //var taskItem = (ListBoxItem)tasksList.ItemContainerGenerator.ContainerFromItem(tasksList.Items[0]);
         }
     }
 }

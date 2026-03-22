@@ -23,24 +23,24 @@ namespace TaskManager.Commands
             if (baseSection)
             {
                 sectionViewModel = new SectionViewModel("Все", true);
-                var startTask = new TaskObject() { Name = "Тестовая" };
-                sectionViewModel.Section.AddTask(startTask);
+                
+                var startTaskViewModel = new TaskObjectViewModel("Тестовая");
+                sectionViewModel.AddTask(startTaskViewModel);
             }
             else
             {
                 sectionViewModel = new SectionViewModel(GetDefaultSectionName());
-
                 var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
                 if (windowProperty.ShowDialog() != true)
                     return;
             }
 
-            var mainWindow = Helper.MainWindow;
+            var mainWindow = UIHelper.MainWindow;
             var newItem = CreateTabItem(sectionViewModel, baseSection);
 
             mainWindow.sections.Items.Add(newItem);
-            mainWindow.MainViewModel.AddSection(sectionViewModel.Section);
+            mainWindow.MainViewModel.AddSection(sectionViewModel);
             newItem.Focus();
         }
 
@@ -48,7 +48,7 @@ namespace TaskManager.Commands
         {
             var textBlock = CreateSectionHeader(sectionViewModel);
 
-            var section = new TabItem()
+            var sectionTabItem = new TabItem()
             {
                 Header = textBlock,
                 Content = new SectionView(sectionViewModel),
@@ -56,13 +56,13 @@ namespace TaskManager.Commands
 
             textBlock.ContextMenu = CreateSectionHeaderContextMenu();
 
-            return section;
+            return sectionTabItem;
 
             ContextMenu CreateSectionHeaderContextMenu()
             {
                 var menuItems = baseSection
                     ? CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel)
-                    : CreateNewSectionHeaderContextMenuItemsList(sectionViewModel, section);
+                    : CreateNewSectionHeaderContextMenuItemsList(sectionViewModel, sectionTabItem);
 
                 menuItems = [.. menuItems.OrderBy(x => x.Header)];
 
@@ -119,7 +119,7 @@ namespace TaskManager.Commands
 
             if (Settings.IncrementSectionName == true)
             {
-                var existingNames = Helper.MainViewModel.Sections.Select(s => s.Name);
+                var existingNames = Helper.MainViewModel.SectionsViewModels.Select(s => s.Name);
                 result = Helper.GetStringWithCounter(result, existingNames);
             }
 

@@ -1,5 +1,5 @@
-﻿using TaskManager.Model;
-using TaskManager.View;
+﻿using TaskManager.View;
+using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
@@ -10,15 +10,15 @@ namespace TaskManager.Commands
 
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is not TaskObject taskObject)
+            if (parameter is not TaskObjectViewModel taskObjectViewModel)
                 return;
 
-            var taskSectionManagerWindow = new ChangeSectionWindow(taskObject);
+            var changeSectionWindow = new ChangeSectionWindow(taskObjectViewModel);
 
-            if (taskSectionManagerWindow.ShowDialog() != true)
+            if (changeSectionWindow.ShowDialog() != true)
                 return;
 
-            taskObject.MoveToSection(taskSectionManagerWindow.NewSection);
+            taskObjectViewModel.MoveToSection(changeSectionWindow.NewSectionViewModel);
         }
     }
 }

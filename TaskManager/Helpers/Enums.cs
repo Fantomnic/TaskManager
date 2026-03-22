@@ -7,29 +7,10 @@
         {
             /// <summary>Одноразовая</summary>
             Once,
-            /// <summary>Ежедневная</summary>
-            Daily,
-            /// <summary>Еженедельная</summary>
-            Weekly,
-            /// <summary>Периодическая</summary>
+            /// <summary>Многоразовая</summary>
             Regular,
             /// <summary>Долгосрочная</summary>
             LongTime,
-        }
-
-        /// <summary>Статус задачи</summary>
-        public enum TaskStatus
-        {
-            /// <summary>Ожидание принятия</summary>
-            None,
-            /// <summary>Текущее</summary>
-            Begining,
-            /// <summary>Выполнено</summary>
-            Completed,
-            /// <summary>Отложено</summary>
-            Deferred,
-            /// <summary>Отклонено</summary>
-            Rejected,
         }
 
         /// <summary>Приоритет задачи</summary>

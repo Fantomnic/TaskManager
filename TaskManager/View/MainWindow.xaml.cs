@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.Commands;
 using TaskManager.Helpers;
-using TaskManager.Model;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -18,12 +17,13 @@ namespace TaskManager.View
         {
             InitializeComponent();
 
-            DataContext = MainViewModel;
+            DataContext = MainViewModel = new MainViewModel();
             InitializeData();
         }
 
-        internal MainViewModel MainViewModel { get; } = new MainViewModel();
+        internal MainViewModel MainViewModel { get; }
 
+        // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
         {
             CommandsInstances.NewSectionCommand.AddSection(true);
@@ -53,10 +53,10 @@ namespace TaskManager.View
         // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Helper.GetSectionFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not Section selectedSection)
+            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not SectionViewModel selectedSectionViewModel)
                 return;
 
-            MainViewModel.SelectedSection = selectedSection;
+            MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
         }
     }
 }

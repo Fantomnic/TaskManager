@@ -5,6 +5,6 @@
     {
         public override string DisplayName => "Текущее";
 
-        internal override List<TaskStatusBase> Transitions => [];
+        internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.DeferredStatus, TaskStatusesInstances.DoneStatus, TaskStatusesInstances.CompletedStatus];
     }
 }

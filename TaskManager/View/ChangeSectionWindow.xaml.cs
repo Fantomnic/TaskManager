@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
-using TaskManager.Model;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -10,18 +9,15 @@ namespace TaskManager.View
     /// </summary>
     public partial class ChangeSectionWindow : WindowWithBottomButtons
     {
-        private MainViewModel _mainViewModel;
-
-        // TODO: Добавить обработку из основного раздела
-        internal ChangeSectionWindow(TaskObject taskObject)
+        internal ChangeSectionWindow(TaskObjectViewModel taskObjectViewModel)
         {
             InitializeComponent();
 
-            _mainViewModel = Helper.MainViewModel;
-            Owner = Helper.MainWindow;
-            var availableSections = _mainViewModel.GetSectionsForChanging(taskObject.AdditionalSection);
+            var mainViewModel = Helper.MainViewModel;
+            
+            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.AdditionalSection);
             bool hasSectionsForChanging = availableSections.Count > 0;
-            bool isAdditionalSection = !Helper.IsBaseSection(_mainViewModel.SelectedSection);
+            bool isAdditionalSection = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel);
 
             if (hasSectionsForChanging)
                 newSectionsList.ItemsSource = availableSections;
@@ -31,23 +27,23 @@ namespace TaskManager.View
             deleteButton.IsEnabled = isAdditionalSection;
         }
 
-        internal Section? NewSection;
+        internal SectionViewModel? NewSectionViewModel;
 
         protected override void ButtonOKClick(object sender, RoutedEventArgs e)
         {
             bool checkedChanging = changeButton.IsChecked == true;
-            var newSectionFromList = newSectionsList.SelectedItem as Section;
+            var newSectionViewModelFromList = newSectionsList.SelectedItem as SectionViewModel;
 
             if (!ValidateNewSection())
                 return;
 
-            NewSection = checkedChanging ? newSectionFromList : null;
+            NewSectionViewModel = checkedChanging ? newSectionViewModelFromList : null;
             DialogResult = true;
             Close();
 
             bool ValidateNewSection()
             {
-                if (checkedChanging && newSectionFromList is null)
+                if (checkedChanging && newSectionViewModelFromList is null)
                 {
                     MessageBox.Show("Укажите новый раздел");
                     return false;

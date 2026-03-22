@@ -16,8 +16,8 @@ namespace TaskManager.Model
 
         internal virtual void AddTask(TaskObject newTask)
         {
-            if (!Helper.GetAllTasks().Contains(newTask))
-                Helper.BaseSection.AddTask(newTask);
+            if (!Helper.GetAllTasksViewModels().Select(vm => vm.TaskObject).Contains(newTask))
+                Helper.BaseSectionViewModel.Section.AddTask(newTask);
 
             Tasks.Add(newTask);
 

@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
-        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedObject}" MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
+        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding TasksViewModels}" SelectedItem="{Binding SelectedTaskViewModel}" MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
@@ -29,7 +29,7 @@
                 <Style TargetType="ListBoxItem">
                     <Setter Property="ContextMenu">
                         <Setter.Value>
-                            <!-- У меню DataContext - это TaskObject (элемент списка) -->
+                            <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
                             <ContextMenu>
                                 <MenuItem Header="Удалить"
                                           IsEnabled="False"
@@ -40,22 +40,25 @@
                                           Command="cmd:CommandsInstances.ChangeSectionCommand"
                                           CommandParameter="{Binding Instance}"></MenuItem>
                                 <MenuItem Header="Принять"
+                                          Style="{StaticResource acceptCommandMenuItem}"
                                           Command="cmd:CommandsInstances.AcceptTaskCommand"
-                                          CommandParameter="{Binding Instance}">
-                                    <MenuItem.Style>
-                                        <Style TargetType="{x:Type MenuItem}">
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                            <Style.Triggers>
-                                                <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню. В данном случае - это TaskObject (элемент списка) -->
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
-                                                                Path=PlacementTarget.DataContext.AcceptCommandVisibility}"
-                                                             Value="True">
-                                                    <Setter Property="Visibility" Value="Visible"></Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </MenuItem.Style>
-                                </MenuItem>
+                                          CommandParameter="{Binding Instance}"></MenuItem>
+                                <MenuItem Header="Отклонить"
+                                          Style="{StaticResource rejectCommandMenuItem}"
+                                          Command="cmd:CommandsInstances.RejectTaskCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
+                                <MenuItem Header="Отложить"
+                                          Style="{StaticResource deferCommandMenuItem}"
+                                          Command="cmd:CommandsInstances.DeferTaskCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
+                                <MenuItem Header="Выполнить"
+                                          Style="{StaticResource doneCommandMenuItem}"
+                                          Command="cmd:CommandsInstances.DoneTaskCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
+                                <MenuItem Header="Завершить"
+                                          Style="{StaticResource completeCommandMenuItem}"
+                                          Command="cmd:CommandsInstances.CompleteTaskCommand"
+                                          CommandParameter="{Binding Instance}"></MenuItem>
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>
@@ -65,7 +68,7 @@
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">
             <TabItem Header="Info">
-                <local:TaskObjectView DataContext="{Binding Path=TaskObjectViewModel}"></local:TaskObjectView>
+                <local:TaskObjectView DataContext="{Binding Path=SelectedTaskViewModel}"></local:TaskObjectView>
             </TabItem>
 
             <TabItem Header="Файлы"></TabItem>

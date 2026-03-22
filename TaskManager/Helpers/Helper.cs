@@ -8,23 +8,21 @@ namespace TaskManager.Helpers
 {
     public static class Helper
     {
-        internal static MainWindow MainWindow => (MainWindow)Application.Current.MainWindow;
+        internal static MainViewModel MainViewModel => UIHelper.MainWindow.MainViewModel;
 
-        internal static MainViewModel MainViewModel => MainWindow.MainViewModel;
+        internal static SectionViewModel BaseSectionViewModel => MainViewModel.BaseSectionViewModel;
 
-        internal static BaseSection BaseSection => MainViewModel.BaseSection;
+        internal static MainModel ModelData => MainViewModel.ModelData;
 
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
             => GetSectionViewModelFromTabItem(tabItem)?.Section;
 
         internal static SectionViewModel? GetSectionViewModelFromTabItem(TabItem? tabItem)
-            => GetSectionViewFromTabItem(tabItem)?.DataContext as SectionViewModel;
+            => UIHelper.GetSectionViewFromTabItem(tabItem)?.DataContext as SectionViewModel;
 
-        internal static SectionView? GetSectionViewFromTabItem(TabItem? tabItem) => tabItem?.Content as SectionView;
+        internal static bool IsBaseSection(SectionViewModel? section) => section is null || section.IsBaseSection;
 
-        internal static bool IsBaseSection(Section? section) => section is null || section.IsBaseSection;
-
-        internal static List<TaskObject> GetAllTasks() => [.. BaseSection.Tasks];
+        internal static List<TaskObjectViewModel> GetAllTasksViewModels() => [.. BaseSectionViewModel.TasksViewModels];
 
         internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
         {

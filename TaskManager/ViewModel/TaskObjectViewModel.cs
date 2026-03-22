@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
@@ -9,7 +9,8 @@ namespace TaskManager.ViewModel
     /// <summary>Модель представления свойств задачи</summary>
     internal class TaskObjectViewModel : BaseViewModel
     {
-        private TaskObject _taskObject;
+        private SectionViewModel? _additionalSection;
+        private bool _changeSectionEnabled;
 
         // TODO: можно поместить куда-нибудь в глобальную статику
         static TaskObjectViewModel()
@@ -18,59 +19,125 @@ namespace TaskManager.ViewModel
             //StatusList = GetEnumValues<Enums.TaskStatus>();
         }
 
-        internal TaskObjectViewModel(TaskObject taskObject)
+        public TaskObjectViewModel() : this(GetDefaultTaskName())
         {
-            _taskObject = taskObject;
+
         }
+
+        internal TaskObjectViewModel(string name)
+        {
+            TaskObject = new() { Name = name }; ;
+        }
+
+        // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
+        public TaskObjectViewModel Instance => this;
+
+        internal TaskObject TaskObject { get; }
 
         public static IEnumerable<TaskPriority> PriorityList { get; private set; }
 
-        public List<TaskStatusBase> StatusList => _taskObject.Status.Transitions;
+        public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;
 
         public string Name
         {
-            get => _taskObject.Name;
+            get => TaskObject.Name;
             set
             {
-                _taskObject.Name = value;
+                TaskObject.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
         // Прим.: Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
 #pragma warning disable CS8603 // Possible null reference return.
-        public string CreationDate => _taskObject?.CreationDate.ToString("dd.MM.yyyy");
+        public string CreationDate => TaskObject?.CreationDate.ToString("dd.MM.yyyy");
 #pragma warning restore CS8603 // Possible null reference return.
 
         // Прим.: Технически, можно настроить связь в событии SelectionChanged - например, если контрол принимает объекты другого типа
         public TaskPriority TaskPriority
         {
-            get => _taskObject.Priority;
+            get => TaskObject.Priority;
             set
             {
-                _taskObject.Priority = value;
+                TaskObject.Priority = value;
                 OnPropertyChanged(nameof(TaskPriority));
             }
         }
 
         public TaskStatusBase TaskStatus
         {
-            get => _taskObject.Status;
+            get => TaskObject.Status;
             set
             {
-                _taskObject.Status = value;
+                TaskObject.Status = value;
                 OnPropertyChanged(nameof(TaskStatus));
             }
         }
 
-        //public List<TaskStatusBase> StatusList
-        //{
-        //    get => _taskObject.GetStatusesToTransition();
-        //    set
-        //    {
-        //        _taskObject.Status = value;
-        //        OnPropertyChanged(nameof(StatusList));
-        //    }
-        //}
+        public TaskType TaskType
+        {
+            get => TaskObject.Type;
+            set
+            {
+                TaskObject.Type = value;
+                OnPropertyChanged(nameof(TaskType));
+            }
+        }
+
+        public SectionViewModel? AdditionalSection
+        {
+            get => _additionalSection;
+            set
+            {
+                _additionalSection = value;
+                OnPropertyChanged(nameof(AdditionalSection));
+            }
+        }
+
+        /// <summary>Доступность команды контекстного меню "Изменить раздел"</summary>
+        public bool ChangeSectionEnabled
+        {
+            get => _changeSectionEnabled;
+            set
+            {
+                _changeSectionEnabled = value;
+                OnPropertyChanged(nameof(ChangeSectionEnabled));
+            }
+        }
+
+        public bool AcceptCommandVisibility => CommandsInstances.AcceptTaskCommand.CanChange(TaskObject);
+
+        public bool RejectCommandVisibility => CommandsInstances.RejectTaskCommand.CanChange(TaskObject);
+
+        public bool DeferCommandVisibility => CommandsInstances.DeferTaskCommand.CanChange(TaskObject);
+
+        public bool DoneCommandVisibility => CommandsInstances.DoneTaskCommand.CanChange(TaskObject);
+
+        public bool CompleteCommandVisibility => CommandsInstances.CompleteTaskCommand.CanChange(TaskObject);
+
+        internal void MoveToSection(SectionViewModel? newSection)
+        {
+            if (!Helper.IsBaseSection(AdditionalSection))
+                AdditionalSection!.RemoveTask(this);
+
+            if (!Helper.IsBaseSection(newSection))
+                newSection!.AddTask(this);
+        }
+
+        private static string GetDefaultTaskName()
+        {
+            if (Settings.SetDefaultTaskName != true)
+                return String.Empty;
+
+            string result = Settings.DefaultTaskName;
+
+            if (Settings.IncrementTaskName == true)
+            {
+                var existingNames = Helper.GetAllTasksViewModels().Select(s => s.Name);
+                result = Helper.GetStringWithCounter(result, existingNames);
+            }
+
+            return result;
+        }
     }
 }

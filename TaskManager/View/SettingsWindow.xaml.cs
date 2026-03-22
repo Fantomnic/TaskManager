@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TaskManager.Helpers;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -12,7 +11,6 @@ namespace TaskManager.View
         public SettingsWindow()
         {
             InitializeComponent();
-            Owner = Helper.MainWindow;
             DataContext = SettingsViewModel = new();
         }
 

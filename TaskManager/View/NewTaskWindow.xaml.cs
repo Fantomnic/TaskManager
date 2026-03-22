@@ -12,7 +12,6 @@ namespace TaskManager.View
         internal NewTaskWindow(TaskObjectViewModel taskObjectViewModel)
         {
             InitializeComponent();
-            Owner = Helper.MainWindow;
             DataContext = taskObjectViewModel;
         }
 
@@ -26,7 +25,7 @@ namespace TaskManager.View
                 return false;
             }
 
-            if (Helper.GetAllTasks().Select(t => t.Name).Contains(name))
+            if (Helper.GetAllTasksViewModels().Select(t => t.Name).Contains(name))
             {
                 MessageBox.Show($"Задача с наименованием \"{name}\" уже существует");
                 return false;

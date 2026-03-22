@@ -5,6 +5,6 @@
     {
         public override string DisplayName => "Отклонено";
 
-        internal override List<TaskStatusBase> Transitions => [];
+        internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus];
     }
 }

@@ -1,5 +1,4 @@
-﻿using TaskManager.Helpers;
-using TaskManager.Model.TaskStatuses;
+﻿using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -14,7 +13,6 @@ namespace TaskManager.Model
         private TaskStatusBase _status;
         private TaskPriority _priority;
         private Section? _section;
-        private bool _changeSectionEnabled;
 
         internal TaskObject()
         {
@@ -90,28 +88,6 @@ namespace TaskManager.Model
             }
         }
 
-        /// <summary>Доступность команды контекстного меню "Изменить раздел"</summary>
-        public bool ChangeSectionEnabled
-        {
-            get => _changeSectionEnabled;
-            set
-            {
-                _changeSectionEnabled = value;
-                OnPropertyChanged(nameof(ChangeSectionEnabled));
-            }
-        }
-
-        public bool AcceptCommandVisibility => Status.IsAcceptCommandVisible();
-
         #endregion Свойства
-
-        internal void MoveToSection(Section? newSection)
-        {
-            if (!Helper.IsBaseSection(AdditionalSection))
-                AdditionalSection!.RemoveTask(this);
-
-            if (!Helper.IsBaseSection(newSection))
-                newSection!.AddTask(this);
-        }
     }
 }

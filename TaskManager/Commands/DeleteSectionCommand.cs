@@ -1,8 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using TaskManager.Helpers;
-using TaskManager.Model;
-using TaskManager.View;
+using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
@@ -14,11 +12,11 @@ namespace TaskManager.Commands
             if (parameter is not TabItem tabItem)
                 return;
 
-            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            var mainWindow = UIHelper.MainWindow;
             mainWindow.sections.Items.Remove(tabItem);
 
-            if (Helper.GetSectionFromTabItem(tabItem) is Section section)
-                mainWindow.MainViewModel.RemoveSection(section);
+            if (Helper.GetSectionViewModelFromTabItem(tabItem) is SectionViewModel sectionViewModel)
+                mainWindow.MainViewModel.DeleteSection(sectionViewModel);
         }
     }
 }

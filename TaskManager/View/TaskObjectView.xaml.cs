@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TaskManager.Helpers;
 using TaskManager.ViewModel;
-using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.View
 {

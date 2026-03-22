@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TaskManager.Helpers;
 
 namespace TaskManager.View
 {
@@ -7,7 +8,7 @@ namespace TaskManager.View
     {
         public WindowWithBottomButtons() : base()
         {
-            
+            Owner = UIHelper.MainWindow;
         }
 
         protected virtual void ButtonOKClick(object sender, RoutedEventArgs e)

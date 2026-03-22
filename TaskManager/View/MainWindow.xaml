@@ -35,7 +35,8 @@
 
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="cmd:CommandsInstances.NewTaskCommand" ToolTip="Создать задачу">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Создать задачу"
+                        Command="cmd:CommandsInstances.NewTaskCommand" CommandParameter="{Binding TasksList}">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="MenuClick" ToolTip="Действия">

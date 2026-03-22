@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using TaskManager.Model;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -26,8 +25,8 @@ namespace TaskManager.View
 
         private void TasksListContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (sender is ListBox listBox && listBox.SelectedItem is TaskObject taskObject)
-                SectionViewModel.RefreshChangeSectionEnabled(taskObject);
+            if (sender is ListBox listBox && listBox.SelectedItem is TaskObjectViewModel taskObjectViewModel)
+                SectionViewModel.RefreshChangeSectionEnabled(taskObjectViewModel);
         }
     }
 }

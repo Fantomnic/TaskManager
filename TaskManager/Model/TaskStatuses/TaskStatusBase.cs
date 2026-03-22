@@ -8,6 +8,14 @@
         /// <summary>Статусы, в которые можно перейти из текущего статуса</summary>
         internal virtual List<TaskStatusBase> Transitions => [];
 
-        internal bool IsAcceptCommandVisible() => Transitions.Contains(TaskStatusesInstances.BeginingStatus);
+        internal bool HasAcceptCommandTransition() => Transitions.Contains(TaskStatusesInstances.BeginingStatus);
+
+        internal bool HasRejectCommandTransition() => Transitions.Contains(TaskStatusesInstances.RejectedStatus);
+
+        internal bool HasDeferCommandTransition() => Transitions.Contains(TaskStatusesInstances.DeferredStatus);
+
+        internal bool HasDoneCommandTransition() => Transitions.Contains(TaskStatusesInstances.DoneStatus);
+
+        internal bool HasCompleteCommandTransition() => Transitions.Contains(TaskStatusesInstances.CompletedStatus);
     }
 }

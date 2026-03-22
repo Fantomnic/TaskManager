@@ -1,22 +1,21 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using TaskManager.Helpers;
 using TaskManager.Model;
-using TaskObject = TaskManager.Model.TaskObject;
 
 namespace TaskManager.ViewModel
 {
     /// <summary>Модель представления раздела</summary>
     internal class SectionViewModel : BaseViewModel
     {
-        private Section _section;
-        private TaskObject? _selectedObject;
-        private TaskObjectViewModel? _taskObjectViewModel;
+        private TaskObjectViewModel? _selectedTask;
         private Visibility _visibilityEmptyTaskPropertyImage;
 
         public SectionViewModel(string name, bool baseSection = false)
         {
-            _section = baseSection ? new BaseSection(name) : new Section(name);
+            Section = baseSection ? new BaseSection(name) : new Section(name);
             InitializeViewModel();
         }
 
@@ -25,46 +24,33 @@ namespace TaskManager.ViewModel
             SetVisibilityEmptyTaskImage();
         }
 
-        public bool Test => true;
+        internal Section Section { get; }
 
-        internal Section Section => _section;
+        internal bool IsBaseSection => Section.IsBaseSection;
 
         /// <summary>Список задач раздела</summary>
-        public ObservableCollection<TaskObject> Tasks => Section.Tasks;
+        public ObservableCollection<TaskObjectViewModel> TasksViewModels { get; } = [];
 
         /// <summary>Наименование раздела</summary>
         public string Name
         {
-            get => _section.Name;
+            get => Section.Name;
             set
             {
-                _section.Name = value;
+                Section.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
-        /// <summary>Окно свойтсв для текущей выбранной задачи</summary>
-        public TaskObjectViewModel? TaskObjectViewModel
+        /// <summary>Выбранная задача</summary>
+        public TaskObjectViewModel? SelectedTaskViewModel
         {
-            get => _taskObjectViewModel;
+            get => _selectedTask;
             set
             {
-                _taskObjectViewModel = value;
-                OnPropertyChanged(nameof(TaskObjectViewModel));
-            }
-        }
-
-        /// <summary>Выбранный объект в списке объектов</summary>
-        public TaskObject? SelectedObject
-        {
-            get => _selectedObject;
-            set
-            {
-                _selectedObject = value;
-                TaskObjectViewModel = _selectedObject is null ? null : new(_selectedObject);
-
+                _selectedTask = value;
                 SetVisibilityEmptyTaskImage();
-                OnPropertyChanged(nameof(SelectedObject));
+                OnPropertyChanged(nameof(SelectedTaskViewModel));
             }
         }
 
@@ -79,22 +65,42 @@ namespace TaskManager.ViewModel
             }
         }
 
+        internal void AddTask(TaskObjectViewModel newTaskViewModel)
+        {
+            if (!IsBaseSection)
+            {
+                if (!Helper.GetAllTasksViewModels().Contains(newTaskViewModel))
+                    Helper.BaseSectionViewModel.AddTask(newTaskViewModel);
+
+                newTaskViewModel.AdditionalSection = this;
+            }
+
+            TasksViewModels.Add(newTaskViewModel);
+            Section.AddTask(newTaskViewModel.TaskObject);
+        }
+
+        internal void RemoveTask(TaskObjectViewModel taskViewModel)
+        {
+            if (TasksViewModels.Remove(taskViewModel))
+                taskViewModel.AdditionalSection = null;
+        }
+
         private void SetVisibilityEmptyTaskImage()
-            => VisibilityEmptyTaskImage = SelectedObject is null ? Visibility.Visible : Visibility.Collapsed;
+            => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
 
         /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
-        internal static void RefreshChangeSectionEnabled(TaskObject taskObject)
+        internal static void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
         {
-            var taskSection = taskObject.AdditionalSection;
+            var taskSectionViewModel = taskObjectViewModel.AdditionalSection;
             var mainViewModel = Helper.MainViewModel;
-            var availableSections = mainViewModel.GetSectionsForChanging(taskSection);
+            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskSectionViewModel);
 
             // --- Доступность ---
             // Из основного раздела:
             // - Должны быть неосновные разделы, в которых не содержится переданная задача
             // Из неосновного раздела:
             // - Всегда
-            taskObject.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSection) || availableSections.Count > 0;
+            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel) || availableSections.Count > 0;
         }
     }
 }
