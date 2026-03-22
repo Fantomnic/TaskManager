@@ -6,24 +6,23 @@
 
         internal List<Section> AllSections { get; } = [];
 
-        /// <summary>Создать основной раздел</summary>
-        internal BaseSection CreateBaseSection(string name)
+        /// <summary>Создать раздел</summary>
+        internal Section CreateSection(string name, bool baseSection = false)
         {
-            if (BaseSection is not null)
+            if (baseSection && BaseSection is not null)
                 throw new InvalidOperationException("Основной раздел уже создан");
 
-            var baseSection = new BaseSection(name);
-            BaseSection = baseSection;
-            AllSections.Add(baseSection);
-            return baseSection;
+            var newSection = baseSection ? new BaseSection(name) : new Section(name);
+            return newSection;
         }
 
-        /// <summary>Создать неосновной раздел</summary>
-        internal Section CreateSection(string name)
+        /// <summary>Добавить раздел</summary>
+        internal void AddSection(Section newSection)
         {
-            var newSection = new Section(name);
+            if (newSection.IsBaseSection)
+                BaseSection = (BaseSection)newSection;
+
             AllSections.Add(newSection);
-            return newSection;
         }
 
         /// <summary>Удалить основной раздел, если он неосновной</summary>

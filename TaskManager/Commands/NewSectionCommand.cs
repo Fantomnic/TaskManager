@@ -20,7 +20,8 @@ namespace TaskManager.Commands
         {
             string name = baseSection ? "Все" : GetDefaultSectionName();
             var mainWindow = UIHelper.MainWindow;
-            var sectionViewModel = mainWindow.MainViewModel.CreateSection(name, baseSection);
+            var mainViewModel = mainWindow.MainViewModel;
+            var sectionViewModel = mainViewModel.CreateSection(name, baseSection);
 
             if (baseSection)
             {
@@ -36,6 +37,7 @@ namespace TaskManager.Commands
             }
 
             var newItem = CreateTabItem(sectionViewModel, baseSection);
+            mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
             mainWindow.sections.Items.Add(newItem);
             newItem.Focus();
         }
@@ -60,7 +62,7 @@ namespace TaskManager.Commands
                     ? CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel)
                     : CreateNewSectionHeaderContextMenuItemsList(sectionViewModel, sectionTabItem);
 
-                menuItems = [.. menuItems.OrderBy(x => x.Header)];
+                menuItems = [.. menuItems.OrderBy(x => ((TextBlock)x.Header).Text)];
 
                 var menu = new ContextMenu();
 

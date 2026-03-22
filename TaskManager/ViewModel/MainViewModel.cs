@@ -28,12 +28,20 @@ namespace TaskManager.ViewModel
         public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
 
         /// <summary>Создать раздел (с моделью представления)</summary>
-        internal SectionViewModel CreateSection(string name, bool daseSection = false)
+        internal SectionViewModel CreateSection(string name, bool baseSection = false)
         {
-            var newSection = daseSection ? ModelData.CreateBaseSection(name) : ModelData.CreateSection(name);
+            var newSection = ModelData.CreateSection(name, baseSection);
             var newSectionViewModel = new SectionViewModel(newSection);
-            SectionsViewModels.Add(newSectionViewModel);
             return newSectionViewModel;
+        }
+
+        /// <summary>Добавить раздел (с моделью представления)</summary>
+        internal void AddSection(Section newSection, SectionViewModel? newSectionViewModel)
+        {
+            ModelData.AddSection(newSection);
+
+            newSectionViewModel ??= new SectionViewModel(newSection);
+            SectionsViewModels.Add(newSectionViewModel);
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
