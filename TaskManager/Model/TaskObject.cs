@@ -13,11 +13,13 @@ namespace TaskManager.Model
         private TaskStatusBase _status;
         private TaskPriority _priority;
         private Section? _section;
+        private bool _isNew;
 
         internal TaskObject()
         {
             _creationDate = DateTime.Now;
             _status = TaskStatusesInstances.WaitingStatus;
+            _isNew = true;
         }
 
         #region Свойства
@@ -82,6 +84,16 @@ namespace TaskManager.Model
             {
                 _section = value;
                 OnPropertyChanged(nameof(AdditionalSection));
+            }
+        }
+
+        public bool IsNew
+        {
+            get => _isNew;
+            set
+            {
+                _isNew = value;
+                OnPropertyChanged(nameof(IsNew));
             }
         }
 

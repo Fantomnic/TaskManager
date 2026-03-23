@@ -15,6 +15,10 @@
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
     </Style>
 
+    <Style TargetType="DatePicker" x:Key="baseFontDatePicker">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
     <Style TargetType="TextBox" x:Key="baseFontTextBox">
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
     </Style>
@@ -22,6 +26,12 @@
     <Style TargetType="TextBox" BasedOn="{StaticResource baseFontTextBox}" x:Key="lineTextBox">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="Margin" Value="3,0,3,0"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource lineTextBox}" x:Key="fullReadOnlyLine">
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Cursor" Value="Arrow"></Setter>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="baseFontTextBlock">

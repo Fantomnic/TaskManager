@@ -42,6 +42,5 @@
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
         <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityEmptyTaskImage}" Source="/Resources/Images/QuestionPromo.png" Stretch="Fill"></Image>
-
     </Grid>
 </UserControl>

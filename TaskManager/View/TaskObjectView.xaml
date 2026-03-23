@@ -11,8 +11,36 @@
     <UserControl.Resources>
         <h:PriorityConverter x:Key="priorityConverter" />
         <h:StatusConverter x:Key="statusConverter" />
+        <h:TypeConverter x:Key="typeConverter" />
+
+        <Style TargetType="ComboBox" x:Key="typeComboBoxStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsNew}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="realizationDateStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=TaskType}" Value="LongTime">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="completedCountStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=TaskType}" Value="Once">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=TaskType}" Value="LongTime">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="150" MaxHeight="250"></RowDefinition>
@@ -25,9 +53,9 @@
             <Grid Background="White">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="150"></ColumnDefinition>
                     <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="250"></ColumnDefinition>
                     <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
@@ -48,7 +76,7 @@
 
                 <!-- Статус -->
                 <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource lineTextBox}" IsReadOnly="True" Focusable="False" Cursor="Arrow"
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource fullReadOnlyLine}"
                          Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}" Background="#FFFFD5D5"/>
 
                 <!-- Приоритет -->
@@ -62,8 +90,35 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,8,3,4">Дата реализации:</TextBlock>
-                <DatePicker Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,8,3,4" Focusable="False"></DatePicker>
+                <!-- Тип -->
+                <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Тип:</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource fullReadOnlyLine}"
+                         Text="{Binding Path=TaskType,Converter={StaticResource typeConverter}}"/>
+                <ComboBox Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="3,0,3,0"
+                          Style="{StaticResource typeComboBoxStyle}"
+                          ItemsSource="{Binding Path=TypeList}" SelectedItem="{Binding TaskType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Converter={StaticResource typeConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                
+
+                <!-- Дата реализации -->
+                <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                            Style="{StaticResource realizationDateStyle}">
+                    <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Дата реализации:</TextBlock>
+                    <DatePicker Style="{StaticResource baseFontDatePicker}" VerticalAlignment="Center"></DatePicker>
+                </StackPanel>
+                
+                <!-- Количество выполнений -->
+                <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                            Style="{StaticResource completedCountStyle}">
+                    <TextBlock Style="{StaticResource fieldDescription}">Количество выполнений:</TextBlock>
+                    <TextBox Style="{StaticResource fullReadOnlyLine}"
+                        BorderThickness="1.5" Background="White" Foreground="Red" BorderBrush="Black">0</TextBox>
+                </StackPanel>
             </Grid>
         </Border>
 

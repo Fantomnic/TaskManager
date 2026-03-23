@@ -16,17 +16,12 @@ namespace TaskManager.ViewModel
         static TaskObjectViewModel()
         {
             PriorityList = GetEnumValues<TaskPriority>();
-            //StatusList = GetEnumValues<Enums.TaskStatus>();
+            TypeList = GetEnumValues<TaskType>();
         }
 
-        public TaskObjectViewModel() : this(Settings.GetDefaultTaskName())
+        public TaskObjectViewModel()
         {
-
-        }
-
-        internal TaskObjectViewModel(string name)
-        {
-            TaskObject = new() { Name = name };
+            TaskObject = new() { Name = Settings.GetDefaultTaskName() };
         }
 
         internal TaskObjectViewModel(TaskObject taskObject)
@@ -40,6 +35,8 @@ namespace TaskManager.ViewModel
         internal TaskObject TaskObject { get; }
 
         public static IEnumerable<TaskPriority> PriorityList { get; private set; }
+
+        public static IEnumerable<TaskType> TypeList { get; private set; }
 
         public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;
 
@@ -107,6 +104,16 @@ namespace TaskManager.ViewModel
             {
                 _changeSectionEnabled = value;
                 OnPropertyChanged(nameof(ChangeSectionEnabled));
+            }
+        }
+
+        public bool IsNew
+        {
+            get => TaskObject.IsNew;
+            set
+            {
+                TaskObject.IsNew = value;
+                OnPropertyChanged(nameof(IsNew));
             }
         }
 

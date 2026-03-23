@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/Resources/ResourceDictionary.xaml" />
                 <ResourceDictionary Source="/Resources/TextsResources.xaml" />
                 <ResourceDictionary Source="/Resources/WindowsResources.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

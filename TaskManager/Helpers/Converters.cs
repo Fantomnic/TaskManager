@@ -25,6 +25,24 @@ namespace TaskManager.Helpers
             };
     }
 
+    public class TypeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => GetTypeString(value as TaskType?);
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => DependencyProperty.UnsetValue;
+
+        public static string GetTypeString(TaskType? priority)
+            => priority switch
+            {
+                TaskType.Once => "Одноразовая",
+                TaskType.Regular => "Многоразовая",
+                TaskType.LongTime => "Долгосрочная",
+                _ => "Значение не определено"
+            };
+    }
+
     public class StatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

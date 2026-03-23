@@ -49,8 +49,8 @@
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
                 </Button>
                 <!-- TODO: Сделать значком -->
-                <Button DockPanel.Dock="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Help" Margin="0,0,0,5">
-                    <TextBlock HorizontalAlignment="Center" TextDecorations="Underline" Foreground="#FF0034FF">Справка</TextBlock>
+                <Button DockPanel.Dock="Bottom" Style="{StaticResource menuButtonIcon}" ToolTip="Справка">
+                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/AppInfo.png"></Image>
                 </Button>
             </DockPanel>
 

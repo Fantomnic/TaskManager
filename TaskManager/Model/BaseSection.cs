@@ -7,6 +7,9 @@
         internal override void AddTask(TaskObject newTask)
         {
             Tasks.Add(newTask);
+
+            if (newTask.IsNew)
+                newTask.IsNew = false;
         }
 
         internal override bool RemoveTask(TaskObject task)

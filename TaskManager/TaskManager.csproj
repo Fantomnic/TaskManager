@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\AppInfo.png" />
     <None Remove="Resources\Images\GreenPlus.png" />
     <None Remove="Resources\Images\MenuIcon.png" />
     <None Remove="Resources\Images\QuestionPromo.png" />
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\AppInfo.png" />
     <Resource Include="Resources\Images\GreenPlus.png" />
     <Resource Include="Resources\Images\MenuIcon.png" />
     <Resource Include="Resources\Images\QuestionPromo.png" />
