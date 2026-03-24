@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
-    internal abstract class BaseObject : INotifyPropertyChanged
+    public abstract class BaseObject : INotifyPropertyChanged
     {
         private Guid _guid;
         private string _name;

@@ -7,23 +7,13 @@
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
     </Style>
 
-    <Style TargetType="RadioButton" x:Key="baseFontRadioButton">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    <!-- Пояснения: https://translated.turbopages.org/proxy_u/en-ru.ru.f98dd4d1-69c302e2-86bb2ad1-74722d776562/https/stackoverflow.com/questions/29697807/why-doesnt-my-textblock-style-inherit-from-my-base-style -->
+    <Style TargetType="FrameworkElement" x:Key="baseStyle">
+        <Setter Property="TextBlock.FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource textForeground}"></Setter>
     </Style>
 
-    <Style TargetType="CheckBox" x:Key="baseFontCheckBox">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-    </Style>
-
-    <Style TargetType="DatePicker" x:Key="baseFontDatePicker">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-    </Style>
-
-    <Style TargetType="TextBox" x:Key="baseFontTextBox">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-    </Style>
-
-    <Style TargetType="TextBox" BasedOn="{StaticResource baseFontTextBox}" x:Key="lineTextBox">
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyle}" x:Key="lineTextBox">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="Margin" Value="3,0,3,0"></Setter>
     </Style>
@@ -34,16 +24,16 @@
         <Setter Property="Cursor" Value="Arrow"></Setter>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="baseFontTextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseStyle}" x:Key="baseTextBlock">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
     </Style>
-    
-    <Style TargetType="TextBlock" BasedOn="{StaticResource baseFontTextBlock}" x:Key="fieldDescription">
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseTextBlock}" x:Key="fieldDescription">
         <Setter Property="Margin" Value="5,0,5,0"></Setter>
     </Style>
 
     <Style TargetType="TextBlock" BasedOn="{StaticResource fieldDescription}" x:Key="titleDescription">
+        <Setter Property="Foreground" Value="{DynamicResource titleForeground}"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=TitleFont}"></Setter>
         <Setter Property="Margin" Value="10,0,0,0"></Setter> <!-- Переопределяем -->

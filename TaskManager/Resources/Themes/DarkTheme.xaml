@@ -1,5 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush Color="Black" x:Key="windowBackgroungColor" />
+    <SolidColorBrush Color="White" x:Key="textForeground" />
+    <SolidColorBrush Color="Red" x:Key="titleForeground" />
+    <SolidColorBrush Color="Black" x:Key="windowBackgroung" />
+    <SolidColorBrush Color="BurlyWood" x:Key="fieldBackgroung" />
+
+    <!-- Цвета статусов -->
+    <SolidColorBrush Color="#7F7F7F" x:Key="waitingStatusBackground" />
+    <SolidColorBrush Color="#00823B" x:Key="beginningStatusBackground" />
+    <SolidColorBrush Color="#EEB500" x:Key="deferredStatusBackground" />
+    <SolidColorBrush Color="#A50021" x:Key="rejectedStatusBackground" />
+    <SolidColorBrush Color="#003FBC" x:Key="doneStatusBackground" />
+    <SolidColorBrush Color="#7030A0" x:Key="completedStatusBackground" />
 </ResourceDictionary>

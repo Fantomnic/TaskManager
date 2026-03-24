@@ -70,10 +70,10 @@
                 <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource lineTextBox}" IsReadOnly="True" Background="#FFFFFEDF"
                          Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"/>
 
-                <!-- Статус -->
+                <!-- Статус Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}"-->
                 <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
                 <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource fullReadOnlyLine}"
-                         Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}" Background="#FFFFD5D5"/>
+                         Text="{Binding Path=TaskStatus.DisplayName,Mode=OneWay}" Background="{Binding Path=TaskStatus.Background}"/>
 
                 <!-- Приоритет -->
                 <TextBlock Grid.Row="3" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>
@@ -81,7 +81,7 @@
                           ItemsSource="{x:Static h:Enums.AllPriorities}" SelectedItem="{Binding TaskPriority}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
+                            <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -95,7 +95,7 @@
                           ItemsSource="{x:Static h:Enums.AllTypes}" SelectedItem="{Binding TaskType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Converter={StaticResource typeConverter}}"/>
+                            <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Converter={StaticResource typeConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -105,7 +105,7 @@
                 <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
                             Style="{StaticResource realizationDateStyle}">
                     <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Дата реализации:</TextBlock>
-                    <DatePicker Style="{StaticResource baseFontDatePicker}" VerticalAlignment="Center"></DatePicker>
+                    <DatePicker Style="{StaticResource baseStyle}" VerticalAlignment="Center"></DatePicker>
                 </StackPanel>
                 
                 <!-- Количество выполнений -->
@@ -137,7 +137,7 @@
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox x:Name="descriptionField" Style="{StaticResource baseFontTextBox}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000</TextBox>
+                    <TextBox x:Name="descriptionField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000</TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>
@@ -157,7 +157,7 @@
                 <TextBlock Style="{StaticResource titleDescription}">Комментарии</TextBlock>
                 <Button Grid.Column="1" Style="{StaticResource serviceButtonBase}" MinWidth="150" MaxWidth="250" HorizontalAlignment="Right">Добавить комментарий</Button>
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox Style="{StaticResource baseFontTextBox}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000456екнекнапрпавк</TextBox>
+                    <TextBox Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000456екнекнапрпавк</TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>

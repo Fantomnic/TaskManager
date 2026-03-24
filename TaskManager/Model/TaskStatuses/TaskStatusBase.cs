@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Model.TaskStatuses
+﻿using System.Windows.Media;
+
+namespace TaskManager.Model.TaskStatuses
 {
     /// <summary>Базовый класс статуса задачи</summary>
     public abstract class TaskStatusBase
@@ -7,6 +9,8 @@
 
         /// <summary>Статусы, в которые можно перейти из текущего статуса</summary>
         internal virtual List<TaskStatusBase> Transitions => [];
+
+        public virtual SolidColorBrush Background => new();
 
         internal bool HasAcceptCommandTransition() => Transitions.Contains(TaskStatusesInstances.BeginingStatus);
 

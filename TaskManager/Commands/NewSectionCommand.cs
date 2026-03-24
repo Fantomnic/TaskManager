@@ -110,7 +110,7 @@ namespace TaskManager.Commands
             new()
             {
                 Text = name,
-                Style = Application.Current.Resources["baseFontTextBlock"] as Style,
+                Style = Application.Current.Resources["baseTextBlock"] as Style,
             };
 
         private static string GetDefaultSectionName()

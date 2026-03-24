@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:TaskManager.Resources">
 
     <Style TargetType="Window" x:Key="windowStyle">
-        <Setter Property="Background" Value="{DynamicResource windowBackgroungColor}" />
+        <Setter Property="Background" Value="{DynamicResource windowBackgroung}" />
     </Style>
 
     <Style TargetType="Window" BasedOn="{StaticResource windowStyle}" x:Key="mainWindow">

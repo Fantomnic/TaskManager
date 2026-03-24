@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <RadioButton x:Name="changeButton" Style="{StaticResource baseFontRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
+            <RadioButton x:Name="changeButton" Style="{StaticResource baseStyle}" IsChecked="True">Сменить раздел:</RadioButton>
             <Border BorderThickness="1" BorderBrush="Black">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -33,13 +33,13 @@
                     <ComboBox x:Name="newSectionsList" Grid.Column="1" IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}" VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Path=Name}"></TextBlock>
+                                <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
             </Border>
-            <RadioButton x:Name="deleteButton" Style="{StaticResource baseFontRadioButton}">Удалить из текущего раздела</RadioButton>
+            <RadioButton x:Name="deleteButton" Style="{StaticResource baseStyle}">Удалить из текущего раздела</RadioButton>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

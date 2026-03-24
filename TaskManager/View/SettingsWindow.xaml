@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Настройки" WindowStartupLocation="CenterOwner"
         Style="{StaticResource settingsWindow}">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -27,8 +27,9 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="28*"></ColumnDefinition>
+                        <ColumnDefinition Width="97*"/>
+                        <ColumnDefinition Width="125*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -37,17 +38,17 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <CheckBox Grid.ColumnSpan="2"
-                              Style="{StaticResource baseFontCheckBox}"
+                    <CheckBox Grid.ColumnSpan="3"
+                              Style="{StaticResource baseStyle}"
                               IsChecked="{Binding SetDefaultSectionName}"
                               Checked="SetDefaultSectionNameChecked" Unchecked="SetDefaultSectionNameUnchecked">Заполнять наименование раздела по умолчанию</CheckBox>
-                    <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="2"
-                              Style="{StaticResource baseFontCheckBox}"
+                    <CheckBox x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="3"
+                              Style="{StaticResource baseStyle}"
                               IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование нового раздела:</TextBlock>
-                    <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="1"
-                             Style="{StaticResource lineTextBox}" Text="{Binding DefaultSectionName}"></TextBox>
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование нового раздела:</TextBlock>
+                    <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="2"
+                             Style="{StaticResource lineTextBox}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
                 </Grid>
             </GroupBox>
 
@@ -68,11 +69,11 @@
                     </Grid.RowDefinitions>
 
                     <CheckBox Grid.ColumnSpan="2"
-                              Style="{StaticResource baseFontCheckBox}"
+                              Style="{StaticResource baseStyle}"
                               IsChecked="{Binding SetDefaultTaskName}"
                               Checked="SetDefaultTaskNameChecked" Unchecked="SetDefaultTaskNameUnchecked">Заполнять наименование задачи по умолчанию</CheckBox>
                     <CheckBox x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2"
-                              Style="{StaticResource baseFontCheckBox}"
+                              Style="{StaticResource baseStyle}"
                               IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование новой задачи:</TextBlock>
@@ -120,7 +121,7 @@
                     <ComboBox Grid.Column="1" ItemsSource="{x:Static h:Enums.AllThemes}" SelectedItem="{Binding Path=Theme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
+                                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

@@ -46,7 +46,6 @@ namespace TaskManager.Helpers
         internal static SectionViewModel? FindSectionViewModel(Section section)
             => MainViewModel.SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
 
-
         internal static T GetCommandInstance<T>() where T : BaseCommand
         {
             string key;
@@ -80,7 +79,10 @@ namespace TaskManager.Helpers
             else 
                 throw new NotImplementedException();
 
-            return Application.Current.Resources[key] as T ?? throw new InvalidOperationException("Не удалось получить команду из ресурсов");
+            return GetResource<T>(key);
         }
+
+        internal static T GetResource<T>(string key) where T : class
+            => Application.Current.Resources[key] as T ?? throw new InvalidOperationException("Не удалось получить команду из ресурсов");
     }
 }
