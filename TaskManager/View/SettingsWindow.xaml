@@ -9,11 +9,7 @@
         mc:Ignorable="d"
         Title="Настройки" WindowStartupLocation="CenterOwner"
         Style="{StaticResource settingsWindow}">
-
-    <local:WindowWithBottomButtons.Resources>
-        <h:FontIDConverter x:Key="fontIDConverter" />
-    </local:WindowWithBottomButtons.Resources>
-
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -109,7 +105,26 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
-                
+            </GroupBox>
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Тема</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные темы:</TextBlock>
+                    <ComboBox Grid.Column="1" ItemsSource="{x:Static h:Enums.AllThemes}" SelectedItem="{Binding Path=Theme}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource baseFontTextBlock}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
             </GroupBox>
         </StackPanel>
 

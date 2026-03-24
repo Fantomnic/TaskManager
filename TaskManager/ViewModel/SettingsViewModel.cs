@@ -1,4 +1,5 @@
 ﻿using TaskManager.Model;
+using static TaskManager.Helpers.Enums;
 using static TaskManager.Model.Settings;
 
 namespace TaskManager.ViewModel
@@ -12,6 +13,7 @@ namespace TaskManager.ViewModel
         private string _defaultSectionName;
         private string _defaultTaskName;
         private FontSet _fontSettings;
+        private Themes _theme;
 
         internal SettingsViewModel()
         {
@@ -21,6 +23,7 @@ namespace TaskManager.ViewModel
             _incrementTaskName = Settings.IncrementTaskName;
             _defaultSectionName = Settings.DefaultSectionName;
             _defaultTaskName = Settings.DefaultTaskName;
+            _theme = Settings.Theme;
 
             var currentFont = Settings.FontSettings;
             var allFonts = Settings.AvailableFonts;
@@ -94,6 +97,16 @@ namespace TaskManager.ViewModel
             {
                 _fontSettings = value;
                 OnPropertyChanged(nameof(FontSettings));
+            }
+        }
+
+        public Themes Theme
+        {
+            get => _theme;
+            set
+            {
+                _theme = value;
+                OnPropertyChanged(nameof(Theme));
             }
         }
     }

@@ -16,7 +16,7 @@ namespace TaskManager.Commands
             AddSection();
         }
 
-        internal void AddSection(bool baseSection = false)
+        internal static void AddSection(bool baseSection = false)
         {
             string name = baseSection ? "Все" : GetDefaultSectionName();
             var mainWindow = UIHelper.MainWindow;
@@ -42,7 +42,7 @@ namespace TaskManager.Commands
             newItem.Focus();
         }
 
-        private TabItem CreateTabItem(SectionViewModel sectionViewModel, bool baseSection = false)
+        private static TabItem CreateTabItem(SectionViewModel sectionViewModel, bool baseSection = false)
         {
             var textBlock = CreateSectionHeader(sectionViewModel);
 
@@ -89,21 +89,21 @@ namespace TaskManager.Commands
             return textBlock;
         }
 
-        private List<MenuItem> CreateNewSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel, TabItem sectionTabItem)
+        private static List<MenuItem> CreateNewSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel, TabItem sectionTabItem)
         {
             var menuItems = CreateBaseSectionHeaderContextMenuItemsList(sectionViewModel);
 
             menuItems.AddRange(
                 [
-                    new() { Header = CreateFontTextBlock("Удалить раздел"), Command = CommandsInstances.DeleteSectionCommand, CommandParameter = sectionTabItem },
+                    new() { Header = CreateFontTextBlock("Удалить раздел"), Command = Helper.GetCommandInstance<DeleteSectionCommand>(), CommandParameter = sectionTabItem },
                 ]);
 
             return menuItems;
         }
 
-        private List<MenuItem> CreateBaseSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel) => 
+        private static List<MenuItem> CreateBaseSectionHeaderContextMenuItemsList(SectionViewModel sectionViewModel) => 
             [
-                new() { Header = CreateFontTextBlock("Свойства"), Command = CommandsInstances.ShowSectionPropertyCommand, CommandParameter = sectionViewModel },
+                new() { Header = CreateFontTextBlock("Свойства"), Command = Helper.GetCommandInstance<ShowSectionPropertyCommand>(), CommandParameter = sectionViewModel },
             ];
 
         private static TextBlock CreateFontTextBlock(string name) =>

@@ -2,6 +2,15 @@
 {
     public class Enums
     {
+        public static IEnumerable<TaskType> AllTypes { get; } = GetEnumValues<TaskType>();
+
+        public static IEnumerable<TaskPriority> AllPriorities { get; } = GetEnumValues<TaskPriority>();
+
+        public static IEnumerable<Themes> AllThemes { get; } = GetEnumValues<Themes>();
+
+        public static IEnumerable<T> GetEnumValues<T>() where T : Enum
+            => Enum.GetValues(typeof(T)).Cast<T>();
+
         /// <summary>Тип задачи</summary>
         public enum TaskType
         {
@@ -24,7 +33,10 @@
             High,
         }
 
-        public static IEnumerable<T> GetEnumValues<T>() where T : Enum
-            => Enum.GetValues(typeof(T)).Cast<T>();
+        public enum Themes
+        {
+            Light,
+            Dark,
+        }
     }
 }

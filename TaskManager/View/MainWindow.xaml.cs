@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.Commands;
 using TaskManager.Helpers;
-using TaskManager.Resources;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -18,9 +17,6 @@ namespace TaskManager.View
         {
             InitializeComponent();
 
-            //Height = Constants.StartHeightMainWindow;
-            //Width = Constants.StartWidthMainWindow;
-
             DataContext = MainViewModel = new MainViewModel();
             InitializeData();
         }
@@ -30,7 +26,7 @@ namespace TaskManager.View
         // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
         {
-            CommandsInstances.NewSectionCommand.AddSection(true);
+            NewSectionCommand.AddSection(true);
         }
 
         private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();

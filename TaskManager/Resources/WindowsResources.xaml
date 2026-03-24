@@ -2,14 +2,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TaskManager.Resources">
 
-    <Style TargetType="Window" x:Key="mainWindow">
+    <Style TargetType="Window" x:Key="windowStyle">
+        <Setter Property="Background" Value="{DynamicResource windowBackgroungColor}" />
+    </Style>
+
+    <Style TargetType="Window" BasedOn="{StaticResource windowStyle}" x:Key="mainWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMainWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMainWindow}"></Setter>
         <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthMainWindow}"></Setter>
     </Style>
 
-    <Style TargetType="Window" x:Key="littleWindow">
+    <Style TargetType="Window" BasedOn="{StaticResource windowStyle}" x:Key="littleWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightLittleWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthLittleWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightLittleWindow}"></Setter>
@@ -17,7 +21,7 @@
         <Setter Property="ResizeMode" Value="NoResize"></Setter>
     </Style>
 
-    <Style TargetType="{x:Type Window}" x:Key="middleWindow">
+    <Style TargetType="{x:Type Window}" BasedOn="{StaticResource windowStyle}" x:Key="middleWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMiddleWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMiddleWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMiddleWindow}"></Setter>

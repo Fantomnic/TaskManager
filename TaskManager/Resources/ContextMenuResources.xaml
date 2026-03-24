@@ -3,6 +3,10 @@
                     xmlns:cmd="clr-namespace:TaskManager.Commands"
                     xmlns:model="clr-namespace:TaskManager.Model">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/Instances.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <Style TargetType="{x:Type MenuItem}" x:Key="baseFontMenuItem">
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
     </Style>
@@ -70,32 +74,32 @@
                     <MenuItem Header="Удалить"
                               Style="{StaticResource baseFontMenuItem}"
                               IsEnabled="False"
-                              Command="cmd:CommandsInstances.DeleteTaskCommand"
+                              Command="{StaticResource deleteTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Изменить раздел"
                               Style="{StaticResource baseFontMenuItem}"
                               IsEnabled="{Binding ChangeSectionEnabled}"
-                              Command="cmd:CommandsInstances.ChangeSectionCommand"
+                              Command="{StaticResource changeSectionCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Принять"
                               Style="{StaticResource acceptCommandMenuItem}"
-                              Command="cmd:CommandsInstances.AcceptTaskCommand"
+                              Command="{StaticResource acceptTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Отклонить"
                               Style="{StaticResource rejectCommandMenuItem}"
-                              Command="cmd:CommandsInstances.RejectTaskCommand"
+                              Command="{StaticResource rejectTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Отложить"
                               Style="{StaticResource deferCommandMenuItem}"
-                              Command="cmd:CommandsInstances.DeferTaskCommand"
+                              Command="{StaticResource deferTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Выполнить"
                               Style="{StaticResource doneCommandMenuItem}"
-                              Command="cmd:CommandsInstances.DoneTaskCommand"
+                              Command="{StaticResource doneTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Завершить"
                               Style="{StaticResource completeCommandMenuItem}"
-                              Command="cmd:CommandsInstances.CompleteTaskCommand"
+                              Command="{StaticResource completeTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>

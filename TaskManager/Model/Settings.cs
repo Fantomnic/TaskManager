@@ -1,5 +1,7 @@
-﻿using TaskManager.Helpers;
+﻿using System.Windows;
+using TaskManager.Helpers;
 using TaskManager.ViewModel;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
@@ -19,6 +21,8 @@ namespace TaskManager.Model
 
             FontSettings.CopyFrom(AvailableFonts[1]);
         }
+
+        public static Themes Theme { get; set; } = Themes.Light;
 
         public static List<FontSet> AvailableFonts { get; set; }
 
@@ -45,6 +49,7 @@ namespace TaskManager.Model
             DefaultSectionName = settingsViewModel.DefaultSectionName;
             DefaultTaskName = settingsViewModel.DefaultTaskName;
             FontSettings.CopyFrom(settingsViewModel.FontSettings);
+            ChangeTheme(settingsViewModel.Theme);
         }
 
         internal static string GetDefaultTaskName()
@@ -61,6 +66,38 @@ namespace TaskManager.Model
             }
 
             return result;
+        }
+
+        private static void ChangeTheme(Themes newTheme)
+        {
+            if (Theme == newTheme)
+                return;
+
+            var dictionaries = Application.Current.Resources.MergedDictionaries;
+            var currentDictionaryPath = GetResourceDictionaryPath(Theme);
+
+            if (dictionaries.FirstOrDefault(d => d.Source == currentDictionaryPath) is not ResourceDictionary currentDictionaryTheme)
+                return;
+
+            var newDictionaryPath = GetResourceDictionaryPath(newTheme);
+            var newDictionaryTheme = new ResourceDictionary() { Source = newDictionaryPath };
+
+            dictionaries.Remove(currentDictionaryTheme);
+            dictionaries.Add(newDictionaryTheme);
+
+            Theme = newTheme;
+        }
+
+        private static Uri GetResourceDictionaryPath(Themes theme)
+        {
+            string name = theme switch
+            {
+                Themes.Light => "/Resources/Themes/LightTheme.xaml",
+                Themes.Dark => "/Resources/Themes/DarkTheme.xaml",
+                _ => throw new NotImplementedException()
+            };
+
+            return new(name, UriKind.Relative);
         }
 
         // Т.к. элементы привязаны к свойствам, нужно уведомлять интерфейс, что значения поменялись

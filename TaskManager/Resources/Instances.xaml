@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:h="clr-namespace:TaskManager.Helpers"
+                    xmlns:cmd="clr-namespace:TaskManager.Commands">
+
+    <!-- Конвертеры -->
+    <h:PriorityConverter x:Key="priorityConverter" />
+    <h:StatusConverter x:Key="statusConverter" />
+    <h:TypeConverter x:Key="typeConverter" />
+    <h:ThemeConverter x:Key="themeConverter" />
+    <h:FontIDConverter x:Key="fontIDConverter" />
+    
+    <!-- Команды -->
+    <!-- Прим.: Таким способом нельзя создать экземпляр вложенного класса.
+    Более того, название класса должно совпадать с названием файла, в котором он определён.
+    Плюс такой реализации: меньше кода в xaml-файлах + все экземпляры приложения в одном месте -->
+    <!-- Прим.: Если делать через создание статических экземпляров в отдельном классе:
+    Можно делать команды internal, помещать их экземпляры в DataContext и через привязку использовать в соответствующем представлении.
+    Но чтобы можно было задавать их в xaml, нужен public -->
+    <!-- TODO: Возможно, реализация через свойства будет лучше, т.к. не придётся следить за корректностью ключей (в 2 местах - тут и в словаре) -->
+    <cmd:ChangeSectionCommand x:Key="changeSectionCommand" />
+    <cmd:AcceptTaskCommand x:Key="acceptTaskCommand" />
+    <cmd:RejectTaskCommand x:Key="rejectTaskCommand" />
+    <cmd:DeferTaskCommand x:Key="deferTaskCommand" />
+    <cmd:DoneTaskCommand x:Key="doneTaskCommand" />
+    <cmd:CompleteTaskCommand x:Key="completeTaskCommand" />
+    <cmd:DeleteSectionCommand x:Key="deleteSectionCommand" />
+    <cmd:DeleteTaskCommand x:Key="deleteTaskCommand" />
+    <cmd:NewSectionCommand x:Key="newSectionCommand" />
+    <cmd:NewTaskCommand x:Key="newTaskCommand" />
+    <cmd:OpenSettingsCommand x:Key="openSettingsCommand" />
+    <cmd:ShowSectionPropertyCommand x:Key="showSectionPropertyCommand" />
+
+</ResourceDictionary>

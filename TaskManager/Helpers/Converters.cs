@@ -43,6 +43,23 @@ namespace TaskManager.Helpers
             };
     }
 
+    public class ThemeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => GetThemeString(value as Themes?);
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => DependencyProperty.UnsetValue;
+
+        public static string GetThemeString(Themes? priority)
+            => priority switch
+            {
+                Themes.Light => "Светлая",
+                Themes.Dark => "Тёмная",
+                _ => "Значение не определено"
+            };
+    }
+
     public class StatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

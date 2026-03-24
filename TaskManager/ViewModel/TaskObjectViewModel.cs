@@ -12,13 +12,6 @@ namespace TaskManager.ViewModel
         private SectionViewModel? _additionalSection;
         private bool _changeSectionEnabled;
 
-        // TODO: можно поместить куда-нибудь в глобальную статику
-        static TaskObjectViewModel()
-        {
-            PriorityList = GetEnumValues<TaskPriority>();
-            TypeList = GetEnumValues<TaskType>();
-        }
-
         public TaskObjectViewModel()
         {
             TaskObject = new() { Name = Settings.GetDefaultTaskName() };
@@ -33,10 +26,6 @@ namespace TaskManager.ViewModel
         public TaskObjectViewModel Instance => this;
 
         internal TaskObject TaskObject { get; }
-
-        public static IEnumerable<TaskPriority> PriorityList { get; private set; }
-
-        public static IEnumerable<TaskType> TypeList { get; private set; }
 
         public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;
 
@@ -117,15 +106,15 @@ namespace TaskManager.ViewModel
             }
         }
 
-        public bool AcceptCommandVisibility => CommandsInstances.AcceptTaskCommand.CanChange(TaskObject);
+        public bool AcceptCommandVisibility => Helper.GetCommandInstance<AcceptTaskCommand>().CanChange(TaskObject);
 
-        public bool RejectCommandVisibility => CommandsInstances.RejectTaskCommand.CanChange(TaskObject);
+        public bool RejectCommandVisibility => Helper.GetCommandInstance<RejectTaskCommand>().CanChange(TaskObject);
 
-        public bool DeferCommandVisibility => CommandsInstances.DeferTaskCommand.CanChange(TaskObject);
+        public bool DeferCommandVisibility => Helper.GetCommandInstance<DeferTaskCommand>().CanChange(TaskObject);
 
-        public bool DoneCommandVisibility => CommandsInstances.DoneTaskCommand.CanChange(TaskObject);
+        public bool DoneCommandVisibility => Helper.GetCommandInstance<DoneTaskCommand>().CanChange(TaskObject);
 
-        public bool CompleteCommandVisibility => CommandsInstances.CompleteTaskCommand.CanChange(TaskObject);
+        public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
 
         internal void MoveToSection(SectionViewModel newSectionViewModel)
         {

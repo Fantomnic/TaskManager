@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager"
         xmlns:views="clr-namespace:TaskManager.View"
-        xmlns:cmd="clr-namespace:TaskManager.Commands"
         xmlns:res="clr-namespace:TaskManager.Resources"
         mc:Ignorable="d"
         Title="Трекер задач" WindowStartupLocation="CenterScreen"
@@ -22,7 +21,7 @@
         <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
-                <Button Style="{StaticResource menuButton}" Command="cmd:CommandsInstances.NewSectionCommand">Добавить раздел</Button>
+                <Button Style="{StaticResource menuButton}" Command="{StaticResource newSectionCommand}">Добавить раздел</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 2</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 3</Button>
                 <Button Style="{StaticResource menuButton}">Кнопка 4</Button>
@@ -39,13 +38,15 @@
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Создать задачу"
-                        Command="cmd:CommandsInstances.NewTaskCommand" CommandParameter="{Binding TasksList}">
+                        Command="{StaticResource newTaskCommand}" CommandParameter="{Binding TasksList}">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Click="MenuClick" ToolTip="Действия">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Действия"
+                        Click="MenuClick">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/MenuIcon.png"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" Command="cmd:CommandsInstances.OpenSettingsCommand" ToolTip="Настройки">
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}"  ToolTip="Настройки"
+                        Command="{StaticResource openSettingsCommand}">
                     <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
                 </Button>
                 <!-- TODO: Сделать значком -->
