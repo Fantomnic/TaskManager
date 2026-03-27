@@ -48,20 +48,6 @@ namespace TaskManager.ViewModel
             //    && TasksViewModels.Remove(taskViewModel);
         }
 
-        // TODO: Переделать
-        internal override void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
-        {
-            var mainViewModel = Helper.MainViewModel;
-            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
-
-            // --- Доступность ---
-            // Из основного раздела:
-            // - Должны быть неосновные разделы, в которых не содержится переданная задача
-            // Из неосновного раздела:
-            // - Всегда
-            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section) || availableSections.Count > 0;
-        }
-
         internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject)
         {
             throw new NotImplementedException();

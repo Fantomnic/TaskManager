@@ -68,9 +68,6 @@ namespace TaskManager.ViewModel
         /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
         internal abstract bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null);
 
-        /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
-        internal abstract void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel);
-
         internal abstract TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject);
     }
 }

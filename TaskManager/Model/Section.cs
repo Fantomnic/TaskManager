@@ -1,18 +1,17 @@
 ﻿using System.Collections.ObjectModel;
-using System.Xml.Linq;
-using TaskManager.Helpers;
 
 namespace TaskManager.Model
 {
-    internal class Section : BaseObject
+    internal abstract class Section : BaseObject
     {
         public Section(string name)
         {
             Name = name;
         }
 
-        internal virtual bool IsMasterSection => false;
+        internal abstract bool IsMasterSection { get; }
 
+        /// <summary>Все задачи раздела</summary>
         internal ObservableCollection<TaskObject> Tasks { get; } = [];
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
@@ -21,24 +20,10 @@ namespace TaskManager.Model
         /// <summary>Создать новую задачу без привязки к разделу</summary>
         internal static TaskObject CreateTask(string name) => new() { Name = name };
 
-        internal virtual void AddTask(TaskObject newTask)
-        {
-            if (!Helper.GetAllTasks().Contains(newTask))
-                Helper.ModelData.BaseSection.AddTask(newTask);
+        /// <summary>Добавить задачу в раздел</summary>
+        internal virtual void AddTask(TaskObject newTask) => Tasks.Add(newTask);
 
-            Tasks.Add(newTask);
-
-            newTask.AdditionalSection = this;
-        }
-
-        internal virtual bool RemoveTask(TaskObject task)
-        {
-            bool result;
-
-            if (result = Tasks.Remove(task))
-                task.AdditionalSection = null;
-
-            return result;
-        }
+        /// <summary>Удалить задачу из раздела</summary>
+        internal virtual bool RemoveTask(TaskObject task) => Tasks.Remove(task);
     }
 }

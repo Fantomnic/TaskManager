@@ -2,8 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Xml.Linq;
-using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.ViewModel;
@@ -33,8 +31,9 @@ namespace TaskManager.View
             var startTask = Section.CreateTask("Тестовая");
             masterSectionViewModel.AddTask(startTask);
 
-            MainViewModel.AddSection(masterSectionViewModel.Section, masterSectionViewModel);
             masterSection.DataContext = masterSectionViewModel;
+            MainViewModel.AddSection(masterSectionViewModel.Section, masterSectionViewModel);
+            MainViewModel.SelectedSectionViewModel = masterSectionViewModel;
             //NewSectionCommand.AddSection(true);
         }
 

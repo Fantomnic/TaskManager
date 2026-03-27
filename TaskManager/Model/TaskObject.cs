@@ -12,7 +12,7 @@ namespace TaskManager.Model
         private TaskType _type;
         private TaskStatusBase _status;
         private TaskPriority _priority;
-        private Section? _section;
+        private AdditionalSection? _additionalSection;
         private bool _isNew;
         private TaskObject? _parent;
         private List<TaskObject> _children = [];
@@ -79,12 +79,12 @@ namespace TaskManager.Model
 
         /// <summary>Неосновной раздел, к которому принадлежит задача</summary>
         /// <remarks>По умолчанию все задачи хранятся в базовом разделе. Если значение = null, то, кроме базового, ни в каком другом разделе её нет</remarks> 
-        public Section? AdditionalSection
+        public AdditionalSection? AdditionalSection
         {
-            get => _section;
+            get => _additionalSection;
             set
             {
-                _section = value;
+                _additionalSection = value;
                 OnPropertyChanged(nameof(AdditionalSection));
             }
         }

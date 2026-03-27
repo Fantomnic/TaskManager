@@ -8,11 +8,7 @@
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type MenuItem}" x:Key="baseFontMenuItem">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-    </Style>
-
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseFontMenuItem}" x:Key="collapsedMenuItem">
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="collapsedMenuItem">
         <Setter Property="Visibility" Value="Collapsed"></Setter>
     </Style>
 
@@ -73,12 +69,12 @@
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
                 <ContextMenu>
                     <MenuItem Header="Удалить"
-                              Style="{StaticResource baseFontMenuItem}"
+                              Style="{StaticResource baseStyle}"
                               IsEnabled="False"
                               Command="{StaticResource deleteTaskCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
                     <MenuItem Header="Изменить раздел"
-                              Style="{StaticResource baseFontMenuItem}"
+                              Style="{StaticResource baseStyle}"
                               IsEnabled="{Binding ChangeSectionEnabled}"
                               Command="{StaticResource changeSectionCommand}"
                               CommandParameter="{Binding Instance}"></MenuItem>
@@ -107,25 +103,32 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="propertyMenuItem">
+        <Setter Property="Header" Value="Свойства"></Setter>
+        <Setter Property="Command" Value="{StaticResource showSectionPropertyCommand}"></Setter>
+    </Style>
+
     <Style TargetType="TextBlock" BasedOn="{StaticResource baseTextBlock}" x:Key="masterSectionHeaderContextMenu">
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
-                    <MenuItem Header="Свойства"></MenuItem>
+                    <MenuItem Style="{StaticResource propertyMenuItem}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style TargetType="TextBlock" BasedOn="{StaticResource masterSectionHeaderContextMenu}" x:Key="sectionHeaderContextMenu">
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseTextBlock}" x:Key="sectionHeaderContextMenu">
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
-                    <MenuItem Header="Удалить раздел"></MenuItem>
-                    <MenuItem Header="Свойства"></MenuItem>
+                    <MenuItem Header="Удалить раздел" Style="{StaticResource baseStyle}"></MenuItem>
+                    <MenuItem Style="{StaticResource propertyMenuItem}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>
     </Style>
+
+    
 
 </ResourceDictionary>

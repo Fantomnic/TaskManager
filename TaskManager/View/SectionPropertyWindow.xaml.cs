@@ -9,13 +9,16 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionPropertyWindow : WindowWithBottomButtons
     {
-        private readonly AdditionalSectionViewModel _sectionViewModel;
+        private readonly SectionViewModel _sectionViewModel;
 
-        internal SectionPropertyWindow(AdditionalSectionViewModel sectionViewModel, Window? owner = null)
+        internal SectionPropertyWindow(SectionViewModel sectionViewModel)
         {
             InitializeComponent();
             DataContext = _sectionViewModel = sectionViewModel;
+            sectionName.Text = NewSectionName = sectionViewModel.Name;
         }
+
+        internal string NewSectionName { get; set; }
 
         protected override bool ValidateOK()
         {
@@ -32,6 +35,8 @@ namespace TaskManager.View
                 MessageBox.Show($"Раздел \"{name}\" уже существует");
                 return false;
             }
+
+            NewSectionName = name;
 
             return true;
         }

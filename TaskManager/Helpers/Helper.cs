@@ -11,7 +11,7 @@ namespace TaskManager.Helpers
     {
         internal static MainViewModel MainViewModel => UIHelper.MainWindow.MainViewModel;
 
-        internal static MasterSectionViewModel MasterSectionViewModel => MainViewModel.BaseSectionViewModel;
+        internal static MasterSectionViewModel MasterSectionViewModel => MainViewModel.MasterSectionViewModel;
 
         internal static MainModel ModelData => MainViewModel.ModelData;
 
@@ -42,9 +42,6 @@ namespace TaskManager.Helpers
             // TODO: Обработка исключений
             throw new Exception("Ааааа!");
         }
-
-        internal static SectionViewModel? FindSectionViewModel(Section section)
-            => MainViewModel.SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
 
         internal static T GetCommandInstance<T>() where T : BaseCommand
         {

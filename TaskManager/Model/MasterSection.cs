@@ -6,7 +6,7 @@
 
         internal override void AddTask(TaskObject newTask)
         {
-            Tasks.Add(newTask);
+            base.AddTask(newTask);
 
             if (newTask.IsNew)
                 newTask.IsNew = false;

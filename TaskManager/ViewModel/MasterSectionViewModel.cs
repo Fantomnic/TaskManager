@@ -34,20 +34,15 @@ namespace TaskManager.ViewModel
                 && AllTasksViewModels.Remove(taskViewModel);
         }
 
-        // TODO: Переделать
-        internal override void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
+        internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => AllTasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);
+
+        /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
+        internal static void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
         {
             var mainViewModel = Helper.MainViewModel;
             var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
 
-            // --- Доступность ---
-            // Из основного раздела:
-            // - Должны быть неосновные разделы, в которых не содержится переданная задача
-            // Из неосновного раздела:
-            // - Всегда
-            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section) || availableSections.Count > 0;
+            taskObjectViewModel.ChangeSectionEnabled = availableSections.Count > 0;
         }
-
-        internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => AllTasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);
     }
 }

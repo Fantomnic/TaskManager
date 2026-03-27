@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using TaskManager.Helpers;
-using TaskManager.Model;
+﻿using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
@@ -15,14 +13,13 @@ namespace TaskManager.ViewModel
 
         internal MainModel ModelData { get; }
 
-        // TODO: Вообще, ObservableCollection тут не нужно, т.к. не выводится в интерфейс
         /// <summary>Список всех разделов трекера</summary>
-        public ObservableCollection<SectionViewModel> SectionsViewModels { get; set; } = [];
+        public List<SectionViewModel> SectionsViewModels { get; set; } = [];
 
         // Не null, т.к. заполняется при инициализации главного окна
         public SectionViewModel SelectedSectionViewModel { get; set; }
 
-        internal MasterSectionViewModel BaseSectionViewModel => SectionsViewModels.OfType<MasterSectionViewModel>().First();
+        internal MasterSectionViewModel MasterSectionViewModel => SectionsViewModels.OfType<MasterSectionViewModel>().First();
 
         //public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
 
@@ -34,9 +31,9 @@ namespace TaskManager.ViewModel
         }
 
         /// <summary>Создать неосновной раздел (с моделью представления)</summary>
-        internal AdditionalSectionViewModel CreateSection(string name)
+        internal static AdditionalSectionViewModel CreateSection(string name)
         {
-            var newSection = ModelData.CreateSection(name);
+            var newSection = MainModel.CreateSection(name);
             var newSectionViewModel = new AdditionalSectionViewModel(newSection);
             return newSectionViewModel;
         }
@@ -46,15 +43,21 @@ namespace TaskManager.ViewModel
         {
             ModelData.AddSection(newSection);
 
-            newSectionViewModel ??= new AdditionalSectionViewModel(newSection);
+            newSectionViewModel ??= newSection.IsMasterSection
+                ? new MasterSectionViewModel(newSection)
+                : new AdditionalSectionViewModel(newSection);
+
             SectionsViewModels.Add(newSectionViewModel);
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
         internal bool RemoveSection(Section section)
             => ModelData.RemoveSection(section)
-                && Helper.FindSectionViewModel(section) is AdditionalSectionViewModel sectionViewModel
+                && FindSectionViewModel(section) is AdditionalSectionViewModel sectionViewModel
                 && SectionsViewModels.Remove(sectionViewModel);
+
+        internal SectionViewModel? FindSectionViewModel(Section section)
+            => SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
 
         internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
         {
@@ -67,7 +70,7 @@ namespace TaskManager.ViewModel
         }
 
         /// <summary>Возвращает модели представления неосновных разделов, в которые не входит переданная задача</summary>
-        internal List<SectionViewModel> GetSectionsViewModelsForChanging(TaskObject taskObject)
-            => [.. SectionsViewModels.Where(vm => !vm.IsMasterSection && vm.Section != taskObject.AdditionalSection)];
+        internal List<AdditionalSectionViewModel> GetSectionsViewModelsForChanging(TaskObject taskObject)
+            => [.. SectionsViewModels.OfType<AdditionalSectionViewModel>().Where(vm => vm.Section != taskObject.AdditionalSection)];
     }
 }

@@ -20,7 +20,7 @@
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
 
-        <TextBox x:Name="sectionName" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource lineTextBox}"></TextBox>
+        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource lineTextBox}"></TextBox>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>

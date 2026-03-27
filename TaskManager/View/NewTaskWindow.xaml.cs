@@ -12,7 +12,7 @@ namespace TaskManager.View
         internal NewTaskWindow()
         {
             InitializeComponent();
-            var newTaskObjectViewModel = AdditionalSectionViewModel.CreateTask();
+            var newTaskObjectViewModel = SectionViewModel.CreateTask();
             DataContext = NewTaskObjectViewModel = newTaskObjectViewModel;
         }
 
@@ -38,7 +38,5 @@ namespace TaskManager.View
         }
 
         internal void OpenEditDescription() => taskProperty.OpenEditDescription();
-
-        //internal void CloseEditDescription() => taskProperty.CloseEditDescription();
     }
 }

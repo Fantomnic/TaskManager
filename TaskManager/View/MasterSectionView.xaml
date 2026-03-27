@@ -20,8 +20,12 @@
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
         
-        <ListBox x:Name="tasksList" Grid.Row="1" ItemsSource="{Binding TasksViewModels}" SelectedItem="{Binding SelectedTaskViewModel}" ItemContainerStyle="{StaticResource tasksContextMenu}"
-                 MouseDown="ListBoxMouseDown" ContextMenuOpening="TasksListContextMenuOpening">
+        <ListBox x:Name="tasksList" Grid.Row="1"
+                 ItemsSource="{Binding AllTasksViewModels}"
+                 SelectedItem="{Binding SelectedTaskViewModel}"
+                 ItemContainerStyle="{StaticResource tasksContextMenu}"
+                 MouseDown="ListBoxMouseDown"
+                 ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"/>
@@ -30,11 +34,18 @@
         </ListBox>
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">
-            <TabItem Header="Info">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource baseTextBlock}">Info</TextBlock>
+                </TabItem.Header>
                 <local:TaskObjectView DataContext="{Binding Path=SelectedTaskViewModel}"></local:TaskObjectView>
             </TabItem>
 
-            <TabItem Header="Файлы"></TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource baseTextBlock}">Файлы</TextBlock>
+                </TabItem.Header>
+            </TabItem>
         </TabControl>
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->

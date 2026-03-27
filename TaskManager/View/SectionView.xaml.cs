@@ -22,11 +22,5 @@ namespace TaskManager.View
             if (sender is ListBox listBox)
                 listBox.UnselectAll();
         }
-
-        private void TasksListContextMenuOpening(object sender, ContextMenuEventArgs e)
-        {
-            //if (sender is ListBox listBox && listBox.SelectedItem is TaskObjectViewModel taskObjectViewModel)
-            //    SectionViewModel.RefreshChangeSectionEnabled(taskObjectViewModel);
-        }
     }
 }

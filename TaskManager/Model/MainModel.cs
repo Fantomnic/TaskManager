@@ -16,7 +16,7 @@
         }
 
         /// <summary>Создать неосновной раздел</summary>
-        internal Section CreateSection(string name) => new(name);
+        internal static AdditionalSection CreateSection(string name) => new(name);
 
         /// <summary>Добавить раздел</summary>
         internal void AddSection(Section newSection)
@@ -27,7 +27,7 @@
             AllSections.Add(newSection);
         }
 
-        /// <summary>Удалить основной раздел, если он неосновной</summary>
+        /// <summary>Удалить раздел, если он неосновной</summary>
         internal bool RemoveSection(Section section)
             => !section.IsMasterSection && AllSections.Remove(section);
 

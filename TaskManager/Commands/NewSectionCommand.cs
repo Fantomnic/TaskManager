@@ -16,7 +16,7 @@ namespace TaskManager.Commands
             string name = GetDefaultSectionName();
             var mainWindow = UIHelper.MainWindow;
             var mainViewModel = mainWindow.MainViewModel;
-            var sectionViewModel = mainViewModel.CreateSection(name);
+            var sectionViewModel = MainViewModel.CreateSection(name);
 
             var windowProperty = new SectionPropertyWindow(sectionViewModel);
 

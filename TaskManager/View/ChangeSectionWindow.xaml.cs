@@ -40,7 +40,7 @@ namespace TaskManager.View
                 return;
 
 #pragma warning disable CS8601 // Possible null reference assignment.
-            NewSectionViewModel = checkedChanging ? newSectionViewModelFromList : Helper.MainViewModel.BaseSectionViewModel;
+            NewSectionViewModel = checkedChanging ? newSectionViewModelFromList : Helper.MainViewModel.MasterSectionViewModel;
 #pragma warning restore CS8601 // Possible null reference assignment.
             DialogResult = true;
             Close();

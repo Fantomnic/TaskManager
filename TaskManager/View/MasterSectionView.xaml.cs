@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TaskManager.ViewModel;
 
 namespace TaskManager.View
 {
@@ -26,7 +15,7 @@ namespace TaskManager.View
             InitializeComponent();
         }
 
-        private void ListBoxMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListBoxMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListBox listBox)
                 listBox.UnselectAll();
@@ -34,8 +23,8 @@ namespace TaskManager.View
 
         private void TasksListContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            //if (sender is ListBox listBox && listBox.SelectedItem is TaskObjectViewModel taskObjectViewModel)
-            //    SectionViewModel.RefreshChangeSectionEnabled(taskObjectViewModel);
+            if (sender is ListBox listBox && listBox.SelectedItem is TaskObjectViewModel taskObjectViewModel)
+                MasterSectionViewModel.RefreshChangeSectionEnabled(taskObjectViewModel);
         }
     }
 }
