@@ -1,66 +1,76 @@
-﻿using System.Collections.ObjectModel;
-using TaskManager.Helpers;
+﻿using System.Windows;
 using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
-    /// <summary>Модель представления неосновного раздела</summary>
-    internal class SectionViewModel(Section section) : TemplateSectionViewModel(section)
+    internal abstract class SectionViewModel : BaseViewModel
     {
-        public ObservableCollection<TaskObjectViewModel> RootTasksViewModels { get; } = [];
+        private TaskObjectViewModel? _selectedTaskViewModel;
+        private Visibility _visibilityEmptyTaskPropertyImage;
 
-        /// <summary>Список моделей представления задач раздела</summary>
-        public ObservableCollection<TaskObjectViewModel> TasksViewModels { get; } = [];
-
-        /// <summary>Добавить задачу в раздел (с соответствующими моделями представления)</summary>
-        internal void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null)
+        public SectionViewModel(Section section)
         {
-            Section.AddTask(newTask);
-
-            newTaskViewModel ??= new TaskObjectViewModel(newTask);
-            AddTaskViewModel(newTaskViewModel);
+            Section = section;
+            SetVisibilityEmptyTaskImage();
         }
 
-        private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
+        internal Section Section { get; }
+
+        internal bool IsMasterSection => Section.IsMasterSection;
+
+        /// <summary>Наименование раздела</summary>
+        public string Name
         {
-            if (!IsMasterSection)
+            get => Section.Name;
+            set
             {
-                if (!Helper.GetAllTasksViewModels().Contains(newTaskViewModel))
-                    Helper.BaseSectionViewModel.AddTaskViewModel(newTaskViewModel);
-
-                newTaskViewModel.AdditionalSection = this;
+                Section.Name = value;
+                OnPropertyChanged(nameof(Name));
             }
-
-            TasksViewModels.Add(newTaskViewModel);
-
-            if (newTaskViewModel.ParentViewModel is null)
-                RootTasksViewModels.Add(newTaskViewModel);
         }
+
+        /// <summary>Выбранная задача (модель представления)</summary>
+        public TaskObjectViewModel? SelectedTaskViewModel
+        {
+            get => _selectedTaskViewModel;
+            set
+            {
+                _selectedTaskViewModel = value;
+                SetVisibilityEmptyTaskImage();
+                OnPropertyChanged(nameof(SelectedTaskViewModel));
+            }
+        }
+
+        /// <summary>Видимость "пустого" окна свойств</summary>
+        public Visibility VisibilityEmptyTaskImage
+        {
+            get => _visibilityEmptyTaskPropertyImage;
+            set
+            {
+                _visibilityEmptyTaskPropertyImage = value;
+                OnPropertyChanged(nameof(VisibilityEmptyTaskImage));
+            }
+        }
+
+        /// <summary>Создать новую задачу без привязки к разделу (с соответствующей моделью представления)</summary>
+        internal static TaskObjectViewModel CreateTask(string? name = null)
+        {
+            var newTask = name is null ? Section.CreateTask() : Section.CreateTask(name);
+            return new(newTask);
+        }
+
+        private void SetVisibilityEmptyTaskImage()
+            => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
+
+        /// <summary>Добавить задачу в раздел (с соответствующей моделью представления)</summary>
+        internal abstract void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null);
 
         /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
-        internal bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null)
-        {
-            taskViewModel ??= FindTaskViewModel(taskObject);
+        internal abstract bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null);
 
-            return Section.RemoveTask(taskObject)
-                && taskViewModel is not null
-                && TasksViewModels.Remove(taskViewModel);
-        }
+        /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
+        internal abstract void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel);
 
-        // TODO: Переделать
-        internal override void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
-        {
-            var mainViewModel = Helper.MainViewModel;
-            var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
-
-            // --- Доступность ---
-            // Из основного раздела:
-            // - Должны быть неосновные разделы, в которых не содержится переданная задача
-            // Из неосновного раздела:
-            // - Всегда
-            taskObjectViewModel.ChangeSectionEnabled = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section) || availableSections.Count > 0;
-        }
-
-        private TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => TasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);
+        internal abstract TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject);
     }
 }

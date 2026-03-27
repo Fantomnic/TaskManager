@@ -6,15 +6,17 @@
 
         internal List<Section> AllSections { get; } = [];
 
-        /// <summary>Создать раздел</summary>
-        internal Section CreateSection(string name, bool baseSection = false)
+        /// <summary>Создать основной раздел</summary>
+        internal MasterSection CreateMasterSection()
         {
-            if (baseSection && BaseSection is not null)
+            if (BaseSection is not null)
                 throw new InvalidOperationException("Основной раздел уже создан");
 
-            var newSection = baseSection ? new MasterSection(name) : new Section(name);
-            return newSection;
+            return new("Все");
         }
+
+        /// <summary>Создать неосновной раздел</summary>
+        internal Section CreateSection(string name) => new(name);
 
         /// <summary>Добавить раздел</summary>
         internal void AddSection(Section newSection)

@@ -111,7 +111,17 @@
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
-                    <MenuItem Header="Удалить раздел" ></MenuItem>
+                    <MenuItem Header="Свойства"></MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource masterSectionHeaderContextMenu}" x:Key="sectionHeaderContextMenu">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="Удалить раздел"></MenuItem>
                     <MenuItem Header="Свойства"></MenuItem>
                 </ContextMenu>
             </Setter.Value>

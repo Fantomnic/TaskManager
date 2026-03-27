@@ -7,7 +7,7 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is not SectionViewModel sectionViewModel)
+            if (parameter is not AdditionalSectionViewModel sectionViewModel)
                 return;
 
             var windowProperty = new SectionPropertyWindow(sectionViewModel);

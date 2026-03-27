@@ -8,9 +8,9 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionView : UserControl
     {
-        private readonly SectionViewModel _sectionViewModel;
+        private readonly AdditionalSectionViewModel _sectionViewModel;
 
-        internal SectionView(SectionViewModel sectionViewModel)
+        internal SectionView(AdditionalSectionViewModel sectionViewModel)
         {
             InitializeComponent();
 

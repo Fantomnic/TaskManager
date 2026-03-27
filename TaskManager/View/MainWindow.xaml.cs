@@ -28,11 +28,13 @@ namespace TaskManager.View
         // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
         {
-            var sectionViewModel = MainViewModel.CreateSection("Все", true);
+            var masterSectionViewModel = MainViewModel.CreateMasterSection();
+
             var startTask = Section.CreateTask("Тестовая");
-            sectionViewModel.AddTask(startTask);
-            MainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
-            masterSection.DataContext = sectionViewModel;
+            masterSectionViewModel.AddTask(startTask);
+
+            MainViewModel.AddSection(masterSectionViewModel.Section, masterSectionViewModel);
+            masterSection.DataContext = masterSectionViewModel;
             //NewSectionCommand.AddSection(true);
         }
 
@@ -60,7 +62,7 @@ namespace TaskManager.View
         // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not SectionViewModel selectedSectionViewModel)
+            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not AdditionalSectionViewModel selectedSectionViewModel)
                 return;
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;

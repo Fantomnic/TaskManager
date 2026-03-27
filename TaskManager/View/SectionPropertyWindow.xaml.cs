@@ -9,9 +9,9 @@ namespace TaskManager.View
     /// </summary>
     public partial class SectionPropertyWindow : WindowWithBottomButtons
     {
-        private readonly SectionViewModel _sectionViewModel;
+        private readonly AdditionalSectionViewModel _sectionViewModel;
 
-        internal SectionPropertyWindow(SectionViewModel sectionViewModel, Window? owner = null)
+        internal SectionPropertyWindow(AdditionalSectionViewModel sectionViewModel, Window? owner = null)
         {
             InitializeComponent();
             DataContext = _sectionViewModel = sectionViewModel;

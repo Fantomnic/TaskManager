@@ -18,7 +18,7 @@ namespace TaskManager.Commands
             if (changeSectionWindow.ShowDialog() != true)
                 return;
 
-            taskObjectViewModel.MoveToSection(changeSectionWindow.NewSectionViewModel);
+            //taskObjectViewModel.MoveToSection(changeSectionWindow.NewSectionViewModel);
         }
     }
 }

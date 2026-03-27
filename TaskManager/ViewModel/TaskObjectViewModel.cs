@@ -9,7 +9,7 @@ namespace TaskManager.ViewModel
     /// <summary>Модель представления свойств задачи</summary>
     internal class TaskObjectViewModel : BaseViewModel
     {
-        private SectionViewModel? _additionalSection;
+        private AdditionalSectionViewModel? _additionalSection;
         private bool _changeSectionEnabled;
         private TaskObjectViewModel? _parentViewModel;
         private List<TaskObjectViewModel> _childrenViewModels = [];
@@ -77,7 +77,7 @@ namespace TaskManager.ViewModel
             }
         }
 
-        public SectionViewModel? AdditionalSection
+        public AdditionalSectionViewModel? AdditionalSection
         {
             get => _additionalSection;
             set
@@ -138,11 +138,11 @@ namespace TaskManager.ViewModel
 
         public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
 
-        internal void MoveToSection(SectionViewModel newSectionViewModel)
+        internal void MoveToSection(AdditionalSectionViewModel newSectionViewModel)
         {
             var additionalSection = TaskObject.AdditionalSection;
 
-            if (!Helper.IsBaseSection(additionalSection) && Helper.FindSectionViewModel(additionalSection) is SectionViewModel additionalSectionViewModel)
+            if (!Helper.IsBaseSection(additionalSection) && Helper.FindSectionViewModel(additionalSection) is AdditionalSectionViewModel additionalSectionViewModel)
                 additionalSectionViewModel.RemoveTask(TaskObject, this);
 
             if (!Helper.IsBaseSection(newSectionViewModel.Section))

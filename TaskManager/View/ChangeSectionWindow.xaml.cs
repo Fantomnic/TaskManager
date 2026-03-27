@@ -34,7 +34,7 @@ namespace TaskManager.View
         protected override void ButtonOKClick(object sender, RoutedEventArgs e)
         {
             bool checkedChanging = changeButton.IsChecked == true;
-            var newSectionViewModelFromList = newSectionsList.SelectedItem as SectionViewModel;
+            var newSectionViewModelFromList = newSectionsList.SelectedItem as AdditionalSectionViewModel;
 
             if (!ValidateNewSection())
                 return;
