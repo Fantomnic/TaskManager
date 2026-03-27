@@ -96,7 +96,8 @@
                     <ComboBox Grid.Column="1" ItemsSource="{x:Static model:Settings.AvailableFonts}" SelectedItem="{Binding FontSettings}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ID,Converter={StaticResource fontIDConverter}}"
+                                <TextBlock Style="{StaticResource baseStyle}"
+                                           Text="{Binding Path=ID,Converter={StaticResource fontIDConverter}}"
                                            FontSize="{Binding Path=BaseFont}">
                                     <TextBlock.ToolTip>
                                         <TextBlock Text="{Binding Path=BaseFont, StringFormat=\{0\} pt}"></TextBlock>

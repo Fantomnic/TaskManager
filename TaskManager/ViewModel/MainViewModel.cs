@@ -23,9 +23,9 @@ namespace TaskManager.ViewModel
         // Не null, т.к. заполняется при инициализации главного окна
         public SectionViewModel SelectedSectionViewModel { get; set; }
 
-        internal SectionViewModel BaseSectionViewModel => SectionsViewModels.First(s => s.IsBaseSection);
+        internal SectionViewModel BaseSectionViewModel => SectionsViewModels.First(s => s.IsMasterSection);
 
-        public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
+        //public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
 
         /// <summary>Создать раздел (с моделью представления)</summary>
         internal SectionViewModel CreateSection(string name, bool baseSection = false)
@@ -62,6 +62,6 @@ namespace TaskManager.ViewModel
 
         /// <summary>Возвращает модели представления неосновных разделов, в которые не входит переданная задача</summary>
         internal List<SectionViewModel> GetSectionsViewModelsForChanging(TaskObject taskObject)
-            => [.. SectionsViewModels.Where(vm => !vm.IsBaseSection && vm.Section != taskObject.AdditionalSection)];
+            => [.. SectionsViewModels.Where(vm => !vm.IsMasterSection && vm.Section != taskObject.AdditionalSection)];
     }
 }

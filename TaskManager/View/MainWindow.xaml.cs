@@ -2,8 +2,10 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using System.Xml.Linq;
 using TaskManager.Commands;
 using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -26,7 +28,12 @@ namespace TaskManager.View
         // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
         {
-            NewSectionCommand.AddSection(true);
+            var sectionViewModel = MainViewModel.CreateSection("Все", true);
+            var startTask = Section.CreateTask("Тестовая");
+            sectionViewModel.AddTask(startTask);
+            MainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
+            masterSection.DataContext = sectionViewModel;
+            //NewSectionCommand.AddSection(true);
         }
 
         private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();

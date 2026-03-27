@@ -2,7 +2,7 @@
 {
     internal class MainModel() //: INotifyPropertyChanged
     {
-        internal BaseSection BaseSection { get; private set; }
+        internal MasterSection BaseSection { get; private set; }
 
         internal List<Section> AllSections { get; } = [];
 
@@ -12,22 +12,22 @@
             if (baseSection && BaseSection is not null)
                 throw new InvalidOperationException("Основной раздел уже создан");
 
-            var newSection = baseSection ? new BaseSection(name) : new Section(name);
+            var newSection = baseSection ? new MasterSection(name) : new Section(name);
             return newSection;
         }
 
         /// <summary>Добавить раздел</summary>
         internal void AddSection(Section newSection)
         {
-            if (newSection.IsBaseSection)
-                BaseSection = (BaseSection)newSection;
+            if (newSection.IsMasterSection)
+                BaseSection = (MasterSection)newSection;
 
             AllSections.Add(newSection);
         }
 
         /// <summary>Удалить основной раздел, если он неосновной</summary>
         internal bool RemoveSection(Section section)
-            => !section.IsBaseSection && AllSections.Remove(section);
+            => !section.IsMasterSection && AllSections.Remove(section);
 
         //private BaseSection _baseSection;
 

@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Resources/TextsResources.xaml" />
                 <ResourceDictionary Source="/Resources/WindowsResources.xaml" />
                 <ResourceDictionary Source="/Resources/Instances.xaml" />
+                <ResourceDictionary Source="/Resources/ContextMenuResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

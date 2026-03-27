@@ -1,20 +1,29 @@
-﻿using System.Windows.Controls;
-using TaskManager.ViewModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace TaskManager.View
 {
     /// <summary>
-    /// Interaction logic for TasksControl.xaml
+    /// Interaction logic for MasterSectionView.xaml
     /// </summary>
-    public partial class SectionView : UserControl
+    public partial class MasterSectionView : UserControl
     {
-        private readonly SectionViewModel _sectionViewModel;
-
-        internal SectionView(SectionViewModel sectionViewModel)
+        // DataContext задаётся в MainView
+        public MasterSectionView()
         {
             InitializeComponent();
-
-            DataContext = _sectionViewModel = sectionViewModel;
         }
 
         private void ListBoxMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -11,6 +11,8 @@ namespace TaskManager.ViewModel
     {
         private SectionViewModel? _additionalSection;
         private bool _changeSectionEnabled;
+        private TaskObjectViewModel? _parentViewModel;
+        private List<TaskObjectViewModel> _childrenViewModels = [];
 
         public TaskObjectViewModel()
         {
@@ -106,6 +108,26 @@ namespace TaskManager.ViewModel
             }
         }
 
+        public TaskObjectViewModel? ParentViewModel
+        {
+            get => _parentViewModel;
+            set
+            {
+                _parentViewModel = value;
+                OnPropertyChanged(nameof(ParentViewModel));
+            }
+        }
+
+        public List<TaskObjectViewModel> ChildrenViewModels
+        {
+            get => _childrenViewModels;
+            set
+            {
+                _childrenViewModels = value;
+                OnPropertyChanged(nameof(ChildrenViewModels));
+            }
+        }
+
         public bool AcceptCommandVisibility => Helper.GetCommandInstance<AcceptTaskCommand>().CanChange(TaskObject);
 
         public bool RejectCommandVisibility => Helper.GetCommandInstance<RejectTaskCommand>().CanChange(TaskObject);
@@ -125,6 +147,14 @@ namespace TaskManager.ViewModel
 
             if (!Helper.IsBaseSection(newSectionViewModel.Section))
                 newSectionViewModel!.AddTask(TaskObject, this);
+        }
+
+        internal void AddChild(TaskObject child)
+        {
+            var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
+
+            //Children.Add(child);
+            //child.Parent = this;
         }
     }
 }

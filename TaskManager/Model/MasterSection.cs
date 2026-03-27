@@ -1,8 +1,8 @@
 ﻿namespace TaskManager.Model
 {
-    internal sealed class BaseSection(string name) : Section(name)
+    internal sealed class MasterSection(string name) : Section(name)
     {
-        internal override bool IsBaseSection => true;
+        internal override bool IsMasterSection => true;
 
         internal override void AddTask(TaskObject newTask)
         {

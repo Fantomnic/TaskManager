@@ -14,6 +14,8 @@ namespace TaskManager.Model
         private TaskPriority _priority;
         private Section? _section;
         private bool _isNew;
+        private TaskObject? _parent;
+        private List<TaskObject> _children = [];
 
         internal TaskObject()
         {
@@ -97,6 +99,32 @@ namespace TaskManager.Model
             }
         }
 
+        public TaskObject? Parent
+        {
+            get => _parent;
+            set
+            {
+                _parent = value;
+                OnPropertyChanged(nameof(Parent));
+            }
+        }
+
+        public List<TaskObject> Children
+        {
+            get => _children;
+            set
+            {
+                _children = value;
+                OnPropertyChanged(nameof(Children));
+            }
+        }
+
         #endregion Свойства
+
+        internal void AddChild(TaskObject child)
+        {
+            Children.Add(child);
+            child.Parent = this;
+        }
     }
 }

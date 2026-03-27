@@ -11,7 +11,7 @@ namespace TaskManager.Model
             Name = name;
         }
 
-        internal virtual bool IsBaseSection => false;
+        internal virtual bool IsMasterSection => false;
 
         internal ObservableCollection<TaskObject> Tasks { get; } = [];
 

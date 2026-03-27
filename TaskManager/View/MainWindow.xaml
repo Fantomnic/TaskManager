@@ -55,8 +55,17 @@
                 </Button>
             </DockPanel>
 
-            <!-- Задачи (заполняется в коде) -->
-            <TabControl x:Name="sections" Grid.Column="1" SelectionChanged="SectionsSelectionChanged" />
+            <!-- Задачи (разделы добавляются в коде) -->
+            <TabControl x:Name="sections" Grid.Column="1" SelectionChanged="SectionsSelectionChanged">
+                <TabItem x:Name="masterSection">
+                    <TabItem.Header>
+                        <TextBlock Style="{StaticResource masterSectionHeaderContextMenu}" Text="{Binding Path=Name}"></TextBlock>
+                    </TabItem.Header>
+                    <ContentControl>
+                        <views:MasterSectionView></views:MasterSectionView>
+                    </ContentControl>
+                </TabItem>
+            </TabControl>
         </Grid>
     </Grid>
 </Window>

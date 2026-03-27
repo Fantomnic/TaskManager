@@ -1,74 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 using TaskManager.Helpers;
 using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
-    /// <summary>Модель представления раздела</summary>
-    internal class SectionViewModel : BaseViewModel
+    /// <summary>Модель представления неосновного раздела</summary>
+    internal class SectionViewModel(Section section) : TemplateSectionViewModel(section)
     {
-        private TaskObjectViewModel? _selectedTaskViewModel;
-        private Visibility _visibilityEmptyTaskPropertyImage;
-
-        public SectionViewModel(Section section)
-        {
-            Section = section;
-            InitializeViewModel();
-        }
-
-        private void InitializeViewModel()
-        {
-            SetVisibilityEmptyTaskImage();
-        }
-
-        internal Section Section { get; }
-
-        internal bool IsBaseSection => Section.IsBaseSection;
+        public ObservableCollection<TaskObjectViewModel> RootTasksViewModels { get; } = [];
 
         /// <summary>Список моделей представления задач раздела</summary>
         public ObservableCollection<TaskObjectViewModel> TasksViewModels { get; } = [];
-
-        /// <summary>Наименование раздела</summary>
-        public string Name
-        {
-            get => Section.Name;
-            set
-            {
-                Section.Name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
-        /// <summary>Выбранная задача (модель представления)</summary>
-        public TaskObjectViewModel? SelectedTaskViewModel
-        {
-            get => _selectedTaskViewModel;
-            set
-            {
-                _selectedTaskViewModel = value;
-                SetVisibilityEmptyTaskImage();
-                OnPropertyChanged(nameof(SelectedTaskViewModel));
-            }
-        }
-
-        /// <summary>Видимость "пустого" окна свойств</summary>
-        public Visibility VisibilityEmptyTaskImage
-        {
-            get => _visibilityEmptyTaskPropertyImage;
-            set
-            {
-                _visibilityEmptyTaskPropertyImage = value;
-                OnPropertyChanged(nameof(VisibilityEmptyTaskImage));
-            }
-        }
-
-        /// <summary>Создать новую задачу без привязки к разделу (с соответствующей моделью представления)</summary>
-        internal static TaskObjectViewModel CreateTask(string? name = null)
-        {
-            var newTask = name is null ? Section.CreateTask() : Section.CreateTask(name);
-            return new(newTask);
-        }
 
         /// <summary>Добавить задачу в раздел (с соответствующими моделями представления)</summary>
         internal void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null)
@@ -81,7 +23,7 @@ namespace TaskManager.ViewModel
 
         private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
-            if (!IsBaseSection)
+            if (!IsMasterSection)
             {
                 if (!Helper.GetAllTasksViewModels().Contains(newTaskViewModel))
                     Helper.BaseSectionViewModel.AddTaskViewModel(newTaskViewModel);
@@ -90,6 +32,9 @@ namespace TaskManager.ViewModel
             }
 
             TasksViewModels.Add(newTaskViewModel);
+
+            if (newTaskViewModel.ParentViewModel is null)
+                RootTasksViewModels.Add(newTaskViewModel);
         }
 
         /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
@@ -102,11 +47,8 @@ namespace TaskManager.ViewModel
                 && TasksViewModels.Remove(taskViewModel);
         }
 
-        private void SetVisibilityEmptyTaskImage()
-            => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
-
-        /// <summary>Пересчитать видимость команды контекстного меню "Изменить раздел" для указанной задачи</summary>
-        internal static void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
+        // TODO: Переделать
+        internal override void RefreshChangeSectionEnabled(TaskObjectViewModel taskObjectViewModel)
         {
             var mainViewModel = Helper.MainViewModel;
             var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
