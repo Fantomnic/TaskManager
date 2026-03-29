@@ -19,8 +19,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
-        
-        <local:StretchingTreeView Grid.Row="1" ItemsSource="{Binding TasksViewModels}">
+
+        <local:StretchingTreeView Grid.Row="1"
+                                  ItemsSource="{Binding RootTasksViewModels}"
+                                  SelectedItemChanged="StretchingTreeViewSelectedItemChanged">
             <local:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
                     <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"></TextBlock>

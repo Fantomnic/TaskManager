@@ -123,6 +123,9 @@ namespace TaskManager.Model
 
         internal void AddChild(TaskObject child)
         {
+            if (Children.Contains(child))
+                throw new InvalidOperationException("Нельзя добавить одну и ту де подзадачу несколько раз");
+
             Children.Add(child);
             child.Parent = this;
         }

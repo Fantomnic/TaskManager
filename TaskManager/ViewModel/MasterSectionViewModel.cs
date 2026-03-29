@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using TaskManager.Helpers;
 using TaskManager.Model;
 
@@ -10,30 +11,22 @@ namespace TaskManager.ViewModel
         /// <summary>Список моделей представления всех задач</summary>
         public ObservableCollection<TaskObjectViewModel> AllTasksViewModels { get; } = [];
 
-        internal override void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null)
+        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
+            var newTask = newTaskViewModel.TaskObject;
+
             if (Section.Tasks.Contains(newTask))
                 return;
 
             Section.AddTask(newTask);
 
-            newTaskViewModel ??= new TaskObjectViewModel(newTask);
-            AddTaskViewModel(newTaskViewModel);
-        }
-
-        private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
-        {
             AllTasksViewModels.Add(newTaskViewModel);
         }
 
-        internal override bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null)
-        {
-            taskViewModel ??= FindTaskViewModel(taskObject);
-
-            return Section.RemoveTask(taskObject)
+        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel)
+            => Section.RemoveTask(taskViewModel.TaskObject)
                 && taskViewModel is not null
                 && AllTasksViewModels.Remove(taskViewModel);
-        }
 
         internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => AllTasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);
 

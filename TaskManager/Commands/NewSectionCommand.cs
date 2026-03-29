@@ -35,6 +35,20 @@ namespace TaskManager.Commands
             var mainViewModel = mainWindow.MainViewModel;
             var sectionViewModel = MainViewModel.CreateSection("Раздел 2");
 
+
+
+            var startTaskViewModel = SectionViewModel.CreateTask("Тест Родитель 1");
+            var startChildTaskViewModel = SectionViewModel.CreateTask("Тест Дочь 1");
+            var startUnderchildTaskViewModel = SectionViewModel.CreateTask("Тест Поддочь 1");
+            sectionViewModel.AddTaskViewModel(startTaskViewModel);
+            mainViewModel.MasterSectionViewModel.AddTaskViewModel(startChildTaskViewModel);
+            mainViewModel.MasterSectionViewModel.AddTaskViewModel(startUnderchildTaskViewModel);
+
+            startTaskViewModel.AddChildViewModel(startChildTaskViewModel);
+            startChildTaskViewModel.AddChildViewModel(startUnderchildTaskViewModel);
+
+
+
             var newItem = CreateTabItem(sectionViewModel);
             mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
             mainWindow.sections.Items.Add(newItem);

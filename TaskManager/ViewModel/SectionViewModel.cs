@@ -64,10 +64,10 @@ namespace TaskManager.ViewModel
             => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
 
         /// <summary>Добавить задачу в раздел (с соответствующей моделью представления)</summary>
-        internal abstract void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null);
+        internal abstract void AddTaskViewModel(TaskObjectViewModel newTaskViewModel);
 
         /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
-        internal abstract bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null);
+        internal abstract bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel);
 
         internal abstract TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject);
     }

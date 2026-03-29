@@ -9,27 +9,24 @@ namespace TaskManager.ViewModel
     {
         public ObservableCollection<TaskObjectViewModel> RootTasksViewModels { get; } = [];
 
-        internal override void AddTask(TaskObject newTask, TaskObjectViewModel? newTaskViewModel = null)
+        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
+            var newTask = newTaskViewModel.TaskObject;
+
+            // TODO: убрать логику проверки внутрь
             if (Section.Tasks.Contains(newTask))
                 return;
 
-            Helper.MasterSectionViewModel.AddTask(newTask, newTaskViewModel);
+            Helper.MasterSectionViewModel.AddTaskViewModel(newTaskViewModel);
 
             Section.AddTask(newTask);
 
-            newTaskViewModel ??= new TaskObjectViewModel(newTask);
-
+            // Если добавляем из основного раздела
             if (newTask.Parent is null)
-                AddTaskViewModel(newTaskViewModel);
+                RootTasksViewModels.Add(newTaskViewModel);
         }
 
-        private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
-        {
-            RootTasksViewModels.Add(newTaskViewModel);
-        }
-
-        internal override bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null)
+        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel)
         {
             return false;
             //taskViewModel ??= FindTaskViewModel(taskObject);

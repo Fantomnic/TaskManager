@@ -17,7 +17,7 @@ namespace TaskManager.Commands
             var newTaskViewModel = newTaskWindow.NewTaskObjectViewModel;
 
             var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
-            currentSection.AddTask(newTaskViewModel.TaskObject, newTaskViewModel);
+            currentSection.AddTaskViewModel(newTaskViewModel);
 
             if (parameter is ListBox tasksList)
                 tasksList.SelectedItem = newTaskViewModel;

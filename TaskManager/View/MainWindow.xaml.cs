@@ -29,10 +29,21 @@ namespace TaskManager.View
         {
             var masterSectionViewModel = MainViewModel.CreateMasterSection();
 
-            var startTask = Section.CreateTask("Тестовая");
-            masterSectionViewModel.AddTask(startTask);
+            //var startTaskViewModel = SectionViewModel.CreateTask("Тест Родитель 1");
+            //var startChildTaskViewModel = SectionViewModel.CreateTask("Тест Дочь 1");
+            //var startUnderchildTaskViewModel = SectionViewModel.CreateTask("Тест Поддочь 1");
+            //masterSectionViewModel.AddTaskViewModel(startTaskViewModel);
+            //masterSectionViewModel.AddTaskViewModel(startChildTaskViewModel);
+            //masterSectionViewModel.AddTaskViewModel(startUnderchildTaskViewModel);
 
+            //startTaskViewModel.AddChildViewModel(startChildTaskViewModel);
+            //startChildTaskViewModel.AddChildViewModel(startUnderchildTaskViewModel);
+            
+            // Устанавливаем для вкладки, чтобы распространялось ещё и на хедер
             masterSection.DataContext = masterSectionViewModel;
+            var masterSectionView = UIHelper.GetSectionViewFromTabItem(masterSection);
+            masterSectionView.InitializeData(masterSectionViewModel);
+
             MainViewModel.AddSection(masterSectionViewModel.Section, masterSectionViewModel);
             MainViewModel.SelectedSectionViewModel = masterSectionViewModel;
             NewSectionCommand.Test();

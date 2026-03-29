@@ -8,18 +8,21 @@ namespace TaskManager.Helpers
     {
         internal static MainWindow MainWindow => (MainWindow)Application.Current.MainWindow;
 
-        internal static SectionView? GetSectionViewFromTabItem(TabItem? tabItem)
+        // У основного раздела ListBox, и там ContentControl
+        // У неосновного сразу AdditionalSectionView
+        internal static SectionView GetSectionViewFromTabItem(TabItem? tabItem)
         {
             var content = tabItem?.Content;
 
             if (content is AdditionalSectionView additionalSectionView)
                 return additionalSectionView;
-            else if (content is MasterSectionView masterSectionView)
+
+            if (content is ContentControl contentControl && contentControl.Content is MasterSectionView masterSectionView)
                 return masterSectionView;
 
-            return null;
+            throw new InvalidOperationException("Не удалось получить представление раздела из вкладки");
         }
 
-        internal static SectionView? GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
+        internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
     }
 }

@@ -143,15 +143,21 @@ namespace TaskManager.ViewModel
             var additionalSection = TaskObject.AdditionalSection;
 
             if (!Helper.IsMasterSection(additionalSection) && Helper.MainViewModel.FindSectionViewModel(additionalSection) is AdditionalSectionViewModel additionalSectionViewModel)
-                additionalSectionViewModel.RemoveTask(TaskObject, this);
+                additionalSectionViewModel.RemoveTaskViewModel(this);
 
             if (!Helper.IsMasterSection(newSectionViewModel.Section))
-                newSectionViewModel!.AddTask(TaskObject, this);
+                newSectionViewModel!.AddTaskViewModel(this);
         }
 
-        internal void AddChild(TaskObject child)
+        /// <summary>Добавить подзадачу к задаче (с соответствующей моделью представления)</summary>
+        internal void AddChildViewModel(TaskObjectViewModel childViewModel)
         {
-            var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
+            TaskObject.AddChild(childViewModel.TaskObject);
+
+            ChildrenViewModels.Add(childViewModel);
+            childViewModel.ParentViewModel = this;
+
+            //var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
 
             //Children.Add(child);
             //child.Parent = this;

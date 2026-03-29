@@ -8,7 +8,7 @@ namespace TaskManager.View
     /// </summary>
     public partial class MasterSectionView : SectionView
     {
-        // DataContext задаётся в MainView
+        // DataContext задаётся в MainWindow (вызывается InitializeData)
         public MasterSectionView() : base()
         {
             InitializeComponent();

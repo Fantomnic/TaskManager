@@ -8,6 +8,9 @@
         {
             base.AddTask(newTask);
             newTask.AdditionalSection = this;
+
+            foreach (var child in newTask.Children)
+                AddTask(child);
         }
 
         internal override bool RemoveTask(TaskObject task)
