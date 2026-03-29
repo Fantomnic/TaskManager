@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Input;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -7,18 +6,12 @@ namespace TaskManager.View
     /// <summary>
     /// Interaction logic for MasterSectionView.xaml
     /// </summary>
-    public partial class MasterSectionView : UserControl
+    public partial class MasterSectionView : SectionView
     {
         // DataContext задаётся в MainView
-        public MasterSectionView()
+        public MasterSectionView() : base()
         {
             InitializeComponent();
-        }
-
-        private void ListBoxMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is ListBox listBox)
-                listBox.UnselectAll();
         }
 
         private void TasksListContextMenuOpening(object sender, ContextMenuEventArgs e)

@@ -8,7 +8,7 @@ using TaskManager.ViewModel;
 
 namespace TaskManager.Commands
 {
-    /// <summary>Команда "Создать новый раздел"</summary>
+    /// <summary>Команда "Создать новый раздел" (неосновной)</summary>
     public class NewSectionCommand : BaseCommand
     {
         internal override void ExecuteImplement(object? parameter)
@@ -27,6 +27,17 @@ namespace TaskManager.Commands
             mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
             mainWindow.sections.Items.Add(newItem);
             newItem.Focus();
+        }
+
+        internal static void Test()
+        {
+            var mainWindow = UIHelper.MainWindow;
+            var mainViewModel = mainWindow.MainViewModel;
+            var sectionViewModel = MainViewModel.CreateSection("Раздел 2");
+
+            var newItem = CreateTabItem(sectionViewModel);
+            mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
+            mainWindow.sections.Items.Add(newItem);
         }
 
         private static string GetDefaultSectionName()
@@ -52,7 +63,7 @@ namespace TaskManager.Commands
             var sectionTabItem = new TabItem()
             {
                 Header = textBlock,
-                Content = new SectionView(sectionViewModel),
+                Content = new AdditionalSectionView(sectionViewModel),
             };
 
             return sectionTabItem;

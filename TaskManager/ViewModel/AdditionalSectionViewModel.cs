@@ -19,24 +19,15 @@ namespace TaskManager.ViewModel
             Section.AddTask(newTask);
 
             newTaskViewModel ??= new TaskObjectViewModel(newTask);
-            //AddTaskViewModel(newTaskViewModel);
+
+            if (newTask.Parent is null)
+                AddTaskViewModel(newTaskViewModel);
         }
 
-        //private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
-        //{
-        //    if (!IsMasterSection)
-        //    {
-        //        if (!Helper.GetAllTasksViewModels().Contains(newTaskViewModel))
-        //            Helper.MasterSectionViewModel.AddTaskViewModel(newTaskViewModel);
-
-        //        newTaskViewModel.AdditionalSection = this;
-        //    }
-
-        //    TasksViewModels.Add(newTaskViewModel);
-
-        //    if (newTaskViewModel.ParentViewModel is null)
-        //        RootTasksViewModels.Add(newTaskViewModel);
-        //}
+        private void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
+        {
+            RootTasksViewModels.Add(newTaskViewModel);
+        }
 
         internal override bool RemoveTask(TaskObject taskObject, TaskObjectViewModel? taskViewModel = null)
         {

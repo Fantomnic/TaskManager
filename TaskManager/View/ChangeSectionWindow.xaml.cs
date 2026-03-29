@@ -19,7 +19,7 @@ namespace TaskManager.View
             
             var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);
             bool hasSectionsForChanging = availableSections.Count > 0;
-            bool isAdditionalSection = !Helper.IsBaseSection(mainViewModel.SelectedSectionViewModel.Section);
+            bool isAdditionalSection = !Helper.IsMasterSection(mainViewModel.SelectedSectionViewModel.Section);
 
             if (hasSectionsForChanging)
                 newSectionsList.ItemsSource = availableSections;

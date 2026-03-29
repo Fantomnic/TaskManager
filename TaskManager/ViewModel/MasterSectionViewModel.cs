@@ -4,6 +4,7 @@ using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
+    /// <summary>Модель представления основного раздела</summary>
     internal class MasterSectionViewModel(Section section) : SectionViewModel(section)
     {
         /// <summary>Список моделей представления всех задач</summary>

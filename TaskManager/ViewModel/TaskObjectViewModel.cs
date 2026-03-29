@@ -142,10 +142,10 @@ namespace TaskManager.ViewModel
         {
             var additionalSection = TaskObject.AdditionalSection;
 
-            if (!Helper.IsBaseSection(additionalSection) && Helper.MainViewModel.FindSectionViewModel(additionalSection) is AdditionalSectionViewModel additionalSectionViewModel)
+            if (!Helper.IsMasterSection(additionalSection) && Helper.MainViewModel.FindSectionViewModel(additionalSection) is AdditionalSectionViewModel additionalSectionViewModel)
                 additionalSectionViewModel.RemoveTask(TaskObject, this);
 
-            if (!Helper.IsBaseSection(newSectionViewModel.Section))
+            if (!Helper.IsMasterSection(newSectionViewModel.Section))
                 newSectionViewModel!.AddTask(TaskObject, this);
         }
 

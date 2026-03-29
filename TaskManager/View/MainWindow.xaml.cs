@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.ViewModel;
@@ -34,7 +35,7 @@ namespace TaskManager.View
             masterSection.DataContext = masterSectionViewModel;
             MainViewModel.AddSection(masterSectionViewModel.Section, masterSectionViewModel);
             MainViewModel.SelectedSectionViewModel = masterSectionViewModel;
-            //NewSectionCommand.AddSection(true);
+            NewSectionCommand.Test();
         }
 
         private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();
@@ -61,7 +62,7 @@ namespace TaskManager.View
         // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not AdditionalSectionViewModel selectedSectionViewModel)
+            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not SectionViewModel selectedSectionViewModel)
                 return;
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;

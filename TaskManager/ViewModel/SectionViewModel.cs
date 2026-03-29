@@ -3,6 +3,7 @@ using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
+    /// <summary>Общий класс для моделей представления разделов</summary>
     internal abstract class SectionViewModel : BaseViewModel
     {
         private TaskObjectViewModel? _selectedTaskViewModel;

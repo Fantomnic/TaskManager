@@ -18,10 +18,10 @@ namespace TaskManager.Helpers
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
             => GetSectionViewModelFromTabItem(tabItem)?.Section;
 
-        internal static AdditionalSectionViewModel? GetSectionViewModelFromTabItem(TabItem? tabItem)
-            => UIHelper.GetSectionViewFromTabItem(tabItem)?.DataContext as AdditionalSectionViewModel;
+        internal static SectionViewModel? GetSectionViewModelFromTabItem(TabItem? tabItem)
+            => UIHelper.GetSectionViewFromTabItem(tabItem)?.DataContext as SectionViewModel;
 
-        internal static bool IsBaseSection(Section? section) => section is null || section.IsMasterSection;
+        internal static bool IsMasterSection(Section? section) => section is null || section.IsMasterSection;
 
         internal static List<TaskObjectViewModel> GetAllTasksViewModels() => [.. MasterSectionViewModel.AllTasksViewModels];
 
