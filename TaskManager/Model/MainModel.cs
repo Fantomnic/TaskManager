@@ -21,6 +21,9 @@
         /// <summary>Добавить раздел</summary>
         internal void AddSection(Section newSection)
         {
+            if (AllSections.Contains(newSection))
+                throw new InvalidOperationException($"Раздел {newSection} уже добавлен");
+
             if (newSection.IsMasterSection)
                 BaseSection = (MasterSection)newSection;
 

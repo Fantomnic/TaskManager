@@ -39,21 +39,15 @@ namespace TaskManager.ViewModel
         }
 
         /// <summary>Добавить раздел (с моделью представления)</summary>
-        internal void AddSection(Section newSection, SectionViewModel? newSectionViewModel)
+        internal void AddSectionViewModel(SectionViewModel newSectionViewModel)
         {
-            ModelData.AddSection(newSection);
-
-            newSectionViewModel ??= newSection.IsMasterSection
-                ? new MasterSectionViewModel(newSection)
-                : new AdditionalSectionViewModel(newSection);
-
+            ModelData.AddSection(newSectionViewModel.Section);
             SectionsViewModels.Add(newSectionViewModel);
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
-        internal bool RemoveSection(Section section)
-            => ModelData.RemoveSection(section)
-                && FindSectionViewModel(section) is AdditionalSectionViewModel sectionViewModel
+        internal bool RemoveSectionViewModel(SectionViewModel sectionViewModel)
+            => ModelData.RemoveSection(sectionViewModel.Section)
                 && SectionsViewModels.Remove(sectionViewModel);
 
         internal SectionViewModel? FindSectionViewModel(Section section)

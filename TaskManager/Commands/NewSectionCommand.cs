@@ -23,8 +23,8 @@ namespace TaskManager.Commands
             if (windowProperty.ShowDialog() != true)
                 return;
 
+            mainViewModel.AddSectionViewModel(sectionViewModel);
             var newItem = CreateTabItem(sectionViewModel);
-            mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
             mainWindow.sections.Items.Add(newItem);
             newItem.Focus();
         }
@@ -49,8 +49,8 @@ namespace TaskManager.Commands
 
 
 
+            mainViewModel.AddSectionViewModel(sectionViewModel);
             var newItem = CreateTabItem(sectionViewModel);
-            mainViewModel.AddSection(sectionViewModel.Section, sectionViewModel);
             mainWindow.sections.Items.Add(newItem);
         }
 

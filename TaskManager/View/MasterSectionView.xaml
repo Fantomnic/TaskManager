@@ -23,7 +23,7 @@
         <ListBox x:Name="tasksList" Grid.Row="1"
                  ItemsSource="{Binding AllTasksViewModels}"
                  SelectedItem="{Binding SelectedTaskViewModel}"
-                 ItemContainerStyle="{StaticResource tasksContextMenu}"
+                 ItemContainerStyle="{StaticResource tasksMasterContextMenu}"
                  MouseDown="ListBoxMouseDown"
                  ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>

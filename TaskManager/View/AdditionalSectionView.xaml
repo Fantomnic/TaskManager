@@ -22,6 +22,7 @@
 
         <local:StretchingTreeView Grid.Row="1"
                                   ItemsSource="{Binding RootTasksViewModels}"
+                                  ItemContainerStyle="{StaticResource tasksAdditionalContextMenu}"
                                   SelectedItemChanged="StretchingTreeViewSelectedItemChanged">
             <local:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">

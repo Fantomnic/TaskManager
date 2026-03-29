@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -18,7 +19,7 @@ namespace TaskManager.View
         // Альтернативный вариант: https://stackoverflow.com/questions/1000040/data-binding-to-selecteditem-in-a-wpf-treeview
         private void StretchingTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            SectionViewModel.SelectedTaskViewModel = (TaskObjectViewModel)e.NewValue;
         }
     }
 }
