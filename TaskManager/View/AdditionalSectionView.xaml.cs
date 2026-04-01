@@ -25,8 +25,8 @@ namespace TaskManager.View
 
         protected override void TasksContainerMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is StretchingTreeView treeView && treeView.SelectedItem is not null && e.OriginalSource is Grid)
-                Helper.MainViewModel.SelectedSectionViewModel.SelectedTaskViewModel = null;
+            if (sender is StretchingTreeView { SelectedItem: not null } && e.OriginalSource is Grid)
+                SectionViewModel.SelectedTaskViewModel = null;
         }
     }
 }
