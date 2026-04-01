@@ -19,8 +19,7 @@ namespace TaskManager.Commands
             var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
             currentSection.AddTaskViewModel(newTaskViewModel);
 
-            if (parameter is ListBox tasksList)
-                tasksList.SelectedItem = newTaskViewModel;
+            currentSection.SelectedTaskViewModel = newTaskViewModel;
 
             // Прим.: Получение элемента списка из объекта другого типа
             //var taskItem = (ListBoxItem)tasksList.ItemContainerGenerator.ContainerFromItem(tasksList.Items[0]);

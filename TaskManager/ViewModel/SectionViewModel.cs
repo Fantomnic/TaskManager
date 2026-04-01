@@ -38,7 +38,6 @@ namespace TaskManager.ViewModel
             {
                 SetTaskIsSelected(false);
                 _selectedTaskViewModel = value;
-                SetTaskIsSelected(true);
 
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedTaskViewModel));
