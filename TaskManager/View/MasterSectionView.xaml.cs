@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -18,6 +19,12 @@ namespace TaskManager.View
         {
             if (sender is ListBox listBox && listBox.SelectedItem is TaskObjectViewModel taskObjectViewModel)
                 MasterSectionViewModel.RefreshChangeSectionEnabled(taskObjectViewModel);
+        }
+
+        protected override void TasksContainerMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListBox listBox && listBox.SelectedItem is not null)
+                listBox.UnselectAll();
         }
     }
 }

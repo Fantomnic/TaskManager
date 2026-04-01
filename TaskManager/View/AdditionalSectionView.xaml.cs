@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TaskManager.Helpers;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
@@ -20,6 +21,12 @@ namespace TaskManager.View
         private void StretchingTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SectionViewModel.SelectedTaskViewModel = (TaskObjectViewModel)e.NewValue;
+        }
+
+        protected override void TasksContainerMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is StretchingTreeView treeView && treeView.SelectedItem is not null && e.OriginalSource is Grid)
+                Helper.MainViewModel.SelectedSectionViewModel.SelectedTaskViewModel = null;
         }
     }
 }

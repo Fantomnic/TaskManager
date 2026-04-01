@@ -24,7 +24,7 @@
                  ItemsSource="{Binding AllTasksViewModels}"
                  SelectedItem="{Binding SelectedTaskViewModel}"
                  ItemContainerStyle="{StaticResource tasksMasterContextMenu}"
-                 MouseDown="ListBoxMouseDown"
+                 MouseDown="TasksContainerMouseDown"
                  ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>

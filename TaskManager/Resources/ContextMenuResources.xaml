@@ -116,6 +116,7 @@
                 </ContextMenu>
             </Setter.Value>
         </Setter>
+        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
         <EventSetter Event="v:StretchingTreeViewItem.PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"/>
     </Style>
 

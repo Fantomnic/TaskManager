@@ -27,10 +27,6 @@ namespace TaskManager.View
             DataContext = SectionViewModel = masterSectionViewModel;
         }
 
-        protected void ListBoxMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is ListBox listBox)
-                listBox.UnselectAll();
-        }
+        protected abstract void TasksContainerMouseDown(object sender, MouseButtonEventArgs e);
     }
 }

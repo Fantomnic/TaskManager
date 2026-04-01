@@ -36,10 +36,19 @@ namespace TaskManager.ViewModel
             get => _selectedTaskViewModel;
             set
             {
+                SetTaskIsSelected(false);
                 _selectedTaskViewModel = value;
+                SetTaskIsSelected(true);
+
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedTaskViewModel));
             }
+        }
+
+        private void SetTaskIsSelected(bool isSelected)
+        {
+            if (_selectedTaskViewModel is not null)
+                _selectedTaskViewModel.IsSelected = isSelected;
         }
 
         /// <summary>Видимость "пустого" окна свойств</summary>

@@ -13,6 +13,7 @@ namespace TaskManager.ViewModel
         private bool _changeSectionEnabled;
         private TaskObjectViewModel? _parentViewModel;
         private List<TaskObjectViewModel> _childrenViewModels = [];
+        private bool _isSelected;
 
         public TaskObjectViewModel()
         {
@@ -128,6 +129,17 @@ namespace TaskManager.ViewModel
             }
         }
 
+        // Используется только для дерева
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
         public bool AcceptCommandVisibility => Helper.GetCommandInstance<AcceptTaskCommand>().CanChange(TaskObject);
 
         public bool RejectCommandVisibility => Helper.GetCommandInstance<RejectTaskCommand>().CanChange(TaskObject);
@@ -162,5 +174,8 @@ namespace TaskManager.ViewModel
             //Children.Add(child);
             //child.Parent = this;
         }
+
+        internal TaskObjectViewModel GetRootTaskViewModel()
+            => ParentViewModel is null ? this : ParentViewModel.GetRootTaskViewModel();
     }
 }
