@@ -36,8 +36,17 @@ namespace TaskManager.ViewModel
             get => _selectedTaskViewModel;
             set
             {
-                SetTaskIsSelected(false);
+                if (_selectedTaskViewModel == value)
+                    return;
+
+                // Нужно для снятия фокуса при щелчке по пустому месту
+                if (value is null)
+                    SetTaskIsSelected(false);
+
                 _selectedTaskViewModel = value;
+
+                // Нужно для установки фокуса при добавлении задачи
+                SetTaskIsSelected(true);
 
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedTaskViewModel));

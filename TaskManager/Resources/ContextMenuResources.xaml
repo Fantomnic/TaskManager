@@ -117,7 +117,11 @@
             </Setter.Value>
         </Setter>
         <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
-        <EventSetter Event="v:StretchingTreeViewItem.PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"/>
+        <Setter Property="AllowDrop" Value="True"></Setter>
+        <EventSetter Event="PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"/>
+        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PreviewMouseLeftButtonDownItem"></EventSetter>
+        <EventSetter Event="PreviewMouseMove" Handler="PreviewMouseMoveItem"></EventSetter>
+        <EventSetter Event="Drop" Handler="DropItem"></EventSetter>
     </Style>
 
     <!-- Команды контекстного меню для заголовков -->

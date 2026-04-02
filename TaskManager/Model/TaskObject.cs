@@ -124,10 +124,28 @@ namespace TaskManager.Model
         internal void AddChild(TaskObject child)
         {
             if (Children.Contains(child))
-                throw new InvalidOperationException("Нельзя добавить одну и ту де подзадачу несколько раз");
+                throw new InvalidOperationException("Данная подзадача уже добавлена");
+
+            if (GetAllParents(this).Contains(child))
+                throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
 
             Children.Add(child);
+
+            if (child.Parent is TaskObject parent)
+                parent.Children.Remove(child);
+
             child.Parent = this;
+        }
+
+        private static List<TaskObject> GetAllParents(TaskObject taskObject)
+        {
+            if (taskObject.Parent is not TaskObject parent)
+                return [];
+
+            var result = new List<TaskObject>() { parent };
+            result.AddRange(GetAllParents(parent));
+
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TaskManager.Commands;
+﻿using System.Collections.ObjectModel;
+using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
@@ -9,10 +10,10 @@ namespace TaskManager.ViewModel
     /// <summary>Модель представления свойств задачи</summary>
     internal class TaskObjectViewModel : BaseViewModel
     {
-        private AdditionalSectionViewModel? _additionalSection;
+        private AdditionalSectionViewModel? _additionalSectionViewModel;
         private bool _changeSectionEnabled;
         private TaskObjectViewModel? _parentViewModel;
-        private List<TaskObjectViewModel> _childrenViewModels = [];
+        private ObservableCollection<TaskObjectViewModel> _childrenViewModels = [];
         private bool _isSelected;
 
         public TaskObjectViewModel()
@@ -78,13 +79,13 @@ namespace TaskManager.ViewModel
             }
         }
 
-        public AdditionalSectionViewModel? AdditionalSection
+        public AdditionalSectionViewModel? AdditionalSectionViewModel
         {
-            get => _additionalSection;
+            get => _additionalSectionViewModel;
             set
             {
-                _additionalSection = value;
-                OnPropertyChanged(nameof(AdditionalSection));
+                _additionalSectionViewModel = value;
+                OnPropertyChanged(nameof(AdditionalSectionViewModel));
             }
         }
 
@@ -119,7 +120,7 @@ namespace TaskManager.ViewModel
             }
         }
 
-        public List<TaskObjectViewModel> ChildrenViewModels
+        public ObservableCollection<TaskObjectViewModel> ChildrenViewModels
         {
             get => _childrenViewModels;
             set
@@ -167,12 +168,14 @@ namespace TaskManager.ViewModel
             TaskObject.AddChild(childViewModel.TaskObject);
 
             ChildrenViewModels.Add(childViewModel);
+
+            if (childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
+                currentSectionViewModel.RemoveRootTaskViewModel(childViewModel);
+
+            if (childViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
+                parentViewModel.ChildrenViewModels.Remove(childViewModel);
+
             childViewModel.ParentViewModel = this;
-
-            //var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
-
-            //Children.Add(child);
-            //child.Parent = this;
         }
 
         internal TaskObjectViewModel GetRootTaskViewModel()

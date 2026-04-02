@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TaskManager.Helpers;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View

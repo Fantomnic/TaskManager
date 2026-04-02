@@ -21,6 +21,8 @@ namespace TaskManager.ViewModel
 
             Section.AddTask(newTask);
 
+            newTaskViewModel.AdditionalSectionViewModel = this;
+
             // Если добавляем из основного раздела
             if (newTask.Parent is null)
                 RootTasksViewModels.Add(newTaskViewModel);
@@ -35,6 +37,8 @@ namespace TaskManager.ViewModel
             //    && taskViewModel is not null
             //    && TasksViewModels.Remove(taskViewModel);
         }
+
+        internal bool RemoveRootTaskViewModel(TaskObjectViewModel taskViewModel) => RootTasksViewModels.Remove(taskViewModel);
 
         internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject)
         {
