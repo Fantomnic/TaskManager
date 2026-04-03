@@ -33,22 +33,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2">
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Style="{StaticResource baseTextBlock}">Info</TextBlock>
-                </TabItem.Header>
-                <local:TaskObjectView DataContext="{Binding Path=SelectedTaskViewModel}"></local:TaskObjectView>
-            </TabItem>
-
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Style="{StaticResource baseTextBlock}">Файлы</TextBlock>
-                </TabItem.Header>
-            </TabItem>
+        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2"
+                    ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
-        <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityEmptyTaskImage}" Source="/Resources/Images/QuestionPromo.png" Stretch="Fill"></Image>
+        <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
     </Grid>
 </local:SectionView>

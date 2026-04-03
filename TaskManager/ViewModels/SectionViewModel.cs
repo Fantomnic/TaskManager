@@ -46,7 +46,8 @@ namespace TaskManager.ViewModels
                 _selectedTaskViewModel = value;
 
                 // Нужно для установки фокуса при добавлении задачи
-                SetTaskIsSelected(true);
+                if (!IsMasterSection)
+                    SetTaskIsSelected(true);
 
                 SetVisibilityEmptyTaskImage();
                 OnPropertyChanged(nameof(SelectedTaskViewModel));
