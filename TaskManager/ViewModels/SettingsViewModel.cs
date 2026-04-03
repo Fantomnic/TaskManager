@@ -2,7 +2,7 @@
 using static TaskManager.Helpers.Enums;
 using static TaskManager.Model.Settings;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     internal class SettingsViewModel : BaseViewModel
     {

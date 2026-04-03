@@ -5,7 +5,7 @@ using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления свойств задачи</summary>
     internal class TaskObjectViewModel : BaseViewModel

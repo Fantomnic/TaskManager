@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>Общий класс для представлений разделов</summary>
     public abstract class SectionView : UserControl

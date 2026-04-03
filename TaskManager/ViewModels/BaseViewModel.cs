@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     /// <summary>Базовый класс для всех моделей представления приложения</summary>
     internal abstract class BaseViewModel : INotifyPropertyChanged

@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using TaskManager.View;
-using TaskManager.ViewModel;
+using TaskManager.Views;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Resources
 {
     // Этот класс нужен, чтобы была возможность использовать EventTrigger
     // Для обработки логики можно задать любой класс в x:Class для ResourceDictionary (который не будет противоречить наследованию)
-    public partial class ContextMenuResources
+    public partial class TasksAndSectionsResources
     {
         // Пока извне не используется
         internal static StretchingTreeViewItem? DraggingItem { get; private set; }

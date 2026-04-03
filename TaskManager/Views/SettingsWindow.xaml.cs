@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

@@ -1,5 +1,5 @@
 ﻿using TaskManager.Model;
-using TaskManager.View;
+using TaskManager.Views;
 
 namespace TaskManager.Commands
 {

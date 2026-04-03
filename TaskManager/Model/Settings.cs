@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model

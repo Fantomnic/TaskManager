@@ -1,8 +1,8 @@
-﻿<ResourceDictionary x:Class="TaskManager.Resources.ContextMenuResources"
+﻿<ResourceDictionary x:Class="TaskManager.Resources.TasksAndSectionsResources"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:cmd="clr-namespace:TaskManager.Commands"
-                    xmlns:v="clr-namespace:TaskManager.View">
+                    xmlns:v="clr-namespace:TaskManager.Views">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/Instances.xaml" />

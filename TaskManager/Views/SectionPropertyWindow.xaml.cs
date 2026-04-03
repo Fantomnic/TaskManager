@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>
     /// Interaction logic for SectionPropertyWindow.xaml

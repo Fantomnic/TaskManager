@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using TaskManager.Model;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     /// <summary>Общий класс для моделей представления разделов</summary>
     internal abstract class SectionViewModel : BaseViewModel

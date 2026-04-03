@@ -1,12 +1,12 @@
-﻿<local:WindowWithBottomButtons x:Class="TaskManager.View.NewTaskWindow"
+﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.SectionPropertyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskManager.View"
+        xmlns:local="clr-namespace:TaskManager.Views"
         xmlns:model="clr-namespace:TaskManager.Model"
         mc:Ignorable="d"
-        Title="Новая задача" WindowStartupLocation="CenterOwner"
+        Title="Новый раздел" WindowStartupLocation="CenterOwner"
         Style="{StaticResource middleWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,20 +14,17 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
 
-        <TextBox Grid.Column="1" x:Name="taskName" Text="{Binding Name}" Style="{StaticResource lineTextBox}"></TextBox>
+        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource lineTextBox}"></TextBox>
 
-        <local:TaskObjectView Grid.Row="1" Grid.ColumnSpan="2" x:Name="taskProperty"></local:TaskObjectView>
-
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">Создать</Button>
+            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>
     /// Interaction logic for TaskObjectView.xaml

@@ -3,7 +3,7 @@ using System.Linq;
 using TaskManager.Helpers;
 using TaskManager.Model;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления основного раздела</summary>
     internal class MasterSectionViewModel(Section section) : SectionViewModel(section)

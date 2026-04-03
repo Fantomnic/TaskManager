@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>
     /// Interaction logic for MasterSectionView.xaml

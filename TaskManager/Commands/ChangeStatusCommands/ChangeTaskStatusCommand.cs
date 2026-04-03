@@ -1,6 +1,6 @@
 ﻿using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Commands
 {

@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using TaskManager.Commands;
 using TaskManager.Model;
 using TaskManager.Resources;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Helpers
 {

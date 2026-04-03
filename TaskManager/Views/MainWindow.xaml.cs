@@ -5,9 +5,9 @@ using System.Windows.Media.Animation;
 using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
-using TaskManager.ViewModel;
+using TaskManager.ViewModels;
 
-namespace TaskManager.View
+namespace TaskManager.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

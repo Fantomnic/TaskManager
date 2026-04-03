@@ -3,8 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using TaskManager.Helpers;
 using TaskManager.Model;
-using TaskManager.View;
-using TaskManager.ViewModel;
+using TaskManager.Views;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Commands
 {

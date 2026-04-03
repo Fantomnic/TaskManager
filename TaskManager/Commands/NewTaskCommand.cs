@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using TaskManager.Helpers;
-using TaskManager.View;
+using TaskManager.Views;
 
 namespace TaskManager.Commands
 {

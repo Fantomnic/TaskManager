@@ -1,7 +1,7 @@
 ﻿using TaskManager.Helpers;
 using TaskManager.Model;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     internal class MainViewModel : BaseViewModel
     {

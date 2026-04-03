@@ -2,7 +2,7 @@
 using TaskManager.Helpers;
 using TaskManager.Model;
 
-namespace TaskManager.ViewModel
+namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления неосновного раздела</summary>
     internal class AdditionalSectionViewModel(Section section) : SectionViewModel(section)

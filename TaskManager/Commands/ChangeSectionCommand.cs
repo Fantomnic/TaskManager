@@ -1,5 +1,5 @@
-﻿using TaskManager.View;
-using TaskManager.ViewModel;
+﻿using TaskManager.Views;
+using TaskManager.ViewModels;
 
 namespace TaskManager.Commands
 {
