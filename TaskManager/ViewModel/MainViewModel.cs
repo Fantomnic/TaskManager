@@ -1,4 +1,5 @@
-﻿using TaskManager.Model;
+﻿using TaskManager.Helpers;
+using TaskManager.Model;
 
 namespace TaskManager.ViewModel
 {
@@ -41,8 +42,11 @@ namespace TaskManager.ViewModel
         /// <summary>Добавить раздел (с моделью представления)</summary>
         internal void AddSectionViewModel(SectionViewModel newSectionViewModel)
         {
-            ModelData.AddSection(newSectionViewModel.Section);
-            SectionsViewModels.Add(newSectionViewModel);
+            Logger.ExecuteWithTryCatch(() =>
+            {
+                ModelData.AddSection(newSectionViewModel.Section);
+                SectionsViewModels.Add(newSectionViewModel);
+            });
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>

@@ -4,13 +4,13 @@
     {
         internal override bool IsMasterSection => false;
 
-        internal override void AddTask(TaskObject newTask)
+        internal override void AddTask(TaskObject newTask, bool throwOnError = false)
         {
-            base.AddTask(newTask);
+            base.AddTask(newTask, throwOnError);
             newTask.AdditionalSection = this;
 
             foreach (var child in newTask.Children)
-                AddTask(child);
+                AddTask(child, throwOnError);
         }
 
         internal override bool RemoveTask(TaskObject task)

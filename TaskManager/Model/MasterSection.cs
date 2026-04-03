@@ -4,9 +4,9 @@
     {
         internal override bool IsMasterSection => true;
 
-        internal override void AddTask(TaskObject newTask)
+        internal override void AddTask(TaskObject newTask, bool throwOnError = false)
         {
-            base.AddTask(newTask);
+            base.AddTask(newTask, throwOnError);
 
             if (newTask.IsNew)
                 newTask.IsNew = false;

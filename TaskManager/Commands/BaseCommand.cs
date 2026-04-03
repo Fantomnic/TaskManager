@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 
 namespace TaskManager.Commands
 {
@@ -9,13 +10,20 @@ namespace TaskManager.Commands
 
         public bool CanExecute(object? parameter) => CanExecuteImplement(parameter);
 
-        public void Execute(object? parameter) => ExecuteImplement(parameter);
+        public void Execute(object? parameter)
+        {
+            try
+            {
+                ExecuteImplement(parameter);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         internal virtual bool CanExecuteImplement(object? parameter) => true;
 
-        internal virtual void ExecuteImplement(object? parameter)
-        {
-
-        }
+        internal abstract void ExecuteImplement(object? parameter);
     }
 }

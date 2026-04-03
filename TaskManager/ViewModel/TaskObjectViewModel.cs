@@ -165,17 +165,20 @@ namespace TaskManager.ViewModel
         /// <summary>Добавить подзадачу к задаче (с соответствующей моделью представления)</summary>
         internal void AddChildViewModel(TaskObjectViewModel childViewModel)
         {
-            TaskObject.AddChild(childViewModel.TaskObject);
+            Logger.ExecuteWithTryCatch(() =>
+            {
+                TaskObject.AddChild(childViewModel.TaskObject);
 
-            ChildrenViewModels.Add(childViewModel);
+                ChildrenViewModels.Add(childViewModel);
 
-            if (childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
-                currentSectionViewModel.RemoveRootTaskViewModel(childViewModel);
+                if (childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
+                    currentSectionViewModel.RemoveRootTaskViewModel(childViewModel);
 
-            if (childViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
-                parentViewModel.ChildrenViewModels.Remove(childViewModel);
+                if (childViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
+                    parentViewModel.ChildrenViewModels.Remove(childViewModel);
 
-            childViewModel.ParentViewModel = this;
+                childViewModel.ParentViewModel = this;
+            });
         }
 
         internal TaskObjectViewModel GetRootTaskViewModel()
