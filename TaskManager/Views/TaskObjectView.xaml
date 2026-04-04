@@ -67,7 +67,7 @@
                 <!-- Дата создания -->
                 <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
                 <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Дата создания:</TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource lineTextBox}" IsReadOnly="True" Background="#FFFFFEDF"
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource baseStyleAlignmentMargin}" IsReadOnly="True" Background="#FFFFFEDF"
                          Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"/>
 
                 <!-- Статус Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}"-->
@@ -81,7 +81,7 @@
                           ItemsSource="{x:Static h:Enums.AllPriorities}" SelectedItem="{Binding TaskPriority}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
+                            <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -95,7 +95,7 @@
                           ItemsSource="{x:Static h:Enums.AllTypes}" SelectedItem="{Binding TaskType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Converter={StaticResource typeConverter}}"/>
+                            <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource typeConverter}}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

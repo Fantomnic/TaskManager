@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
+using TaskManager.Resources;
 using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
 
@@ -13,10 +14,10 @@ namespace TaskManager.Model
 
             AvailableFonts =
                 [
-                    new(12, 14, 20, 25),
-                    new(14, 16, 23, 27),
-                    new(16, 18, 26, 30),
-                    new(18, 20, 30, 33),
+                    new(1, 14, 20, 25),
+                    new(14/Constants.StandartBaseFont, 16, 23, 27),
+                    new(16/Constants.StandartBaseFont, 18, 26, 30),
+                    new(18/Constants.StandartBaseFont, 20, 30, 33),
                 ];
 
             FontSettings.CopyFrom(AvailableFonts[1]);
@@ -102,16 +103,27 @@ namespace TaskManager.Model
 
         // Т.к. элементы привязаны к свойствам, нужно уведомлять интерфейс, что значения поменялись
         // При этом само свойство FontSettings не меняем, т.к. оно не имеет механизма оповещения
-        public class FontSet(double baseFont, double titleFont, double menuCommandsFont, double buttonAreaHeight) : BaseObject
+        public class FontSet(double baseFontCoefficient, double titleFont, double menuCommandsFont, double buttonAreaHeight) : BaseObject
         {
             private static int _count;
-            private double _baseFont = baseFont;
+            private double _baseFontCoefficient = baseFontCoefficient;
+            private double _baseFont = Constants.StandartBaseFont * baseFontCoefficient;
             private double _titleFont = titleFont;
             private double _menuCommandsFont = menuCommandsFont;
             private double _buttonAreaHeight = buttonAreaHeight;
 
             // ID изменяем, чтобы корректно заполнять текущий элемент в списке
             public int ID { get; private set; } = _count++;
+
+            public double BaseFontCoefficient
+            {
+                get => _baseFontCoefficient;
+                set
+                {
+                    _baseFontCoefficient = value;
+                    OnPropertyChanged(nameof(BaseFontCoefficient));
+                }
+            }
 
             public double BaseFont
             {
@@ -155,6 +167,7 @@ namespace TaskManager.Model
 
             internal void CopyFrom(FontSet newFont)
             {
+                BaseFontCoefficient = newFont.BaseFontCoefficient;
                 BaseFont = newFont.BaseFont;
                 TitleFont = newFont.TitleFont;
                 ButtonAreaHeight = newFont.ButtonAreaHeight;

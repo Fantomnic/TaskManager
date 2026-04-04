@@ -15,6 +15,8 @@ namespace TaskManager.Views
         {
             InitializeComponent();
 
+            DataContext = taskObjectViewModel;
+
             var mainViewModel = Helper.MainViewModel;
             
             var availableSections = mainViewModel.GetSectionsViewModelsForChanging(taskObjectViewModel.TaskObject);

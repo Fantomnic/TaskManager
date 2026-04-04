@@ -28,7 +28,7 @@
                  ContextMenuOpening="TasksListContextMenuOpening">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"/>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

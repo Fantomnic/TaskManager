@@ -132,7 +132,7 @@
     </Style>
 
     <!-- Контекстное меню для заголовка основного раздела -->
-    <Style TargetType="TextBlock" BasedOn="{StaticResource baseTextBlock}" x:Key="masterSectionHeaderContextMenu">
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseStyleAlignment}" x:Key="masterSectionHeaderContextMenu">
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
@@ -143,7 +143,7 @@
     </Style>
 
     <!-- Контекстное меню для заголовков неосновных разделов -->
-    <Style TargetType="TextBlock" BasedOn="{StaticResource baseTextBlock}" x:Key="sectionHeaderContextMenu">
+    <Style TargetType="TextBlock" BasedOn="{StaticResource baseStyleAlignment}" x:Key="sectionHeaderContextMenu">
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
@@ -159,14 +159,14 @@
     <col:ArrayList x:Shared="False" x:Key="tasksTabHeaders">
         <TabItem>
             <TabItem.Header>
-                <TextBlock Style="{StaticResource baseTextBlock}">Info</TextBlock>
+                <TextBlock Style="{StaticResource baseStyleAlignment}">Info</TextBlock>
             </TabItem.Header>
             <v:TaskObjectView DataContext="{Binding Path=SelectedTaskViewModel}"></v:TaskObjectView>
         </TabItem>
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Style="{StaticResource baseTextBlock}">Файлы</TextBlock>
+                <TextBlock Style="{StaticResource baseStyleAlignment}">Файлы</TextBlock>
             </TabItem.Header>
         </TabItem>
     </col:ArrayList>

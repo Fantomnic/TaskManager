@@ -4,6 +4,12 @@ namespace TaskManager.Resources
 {
     public static class Constants
     {
+        #region Эталонные размеры
+
+        public const double StandartBaseFont = 12;
+
+        #endregion Эталонные размеры
+
         private static readonly int _workingAreaHeight;
         private static readonly int _workingAreaWidth;
 
@@ -27,13 +33,13 @@ namespace TaskManager.Resources
 
         #region Маленькое окно
 
-        public const double MinHeightLittleWindow = 220;
+        public const double MinHeightLittleWindow = 325;
 
-        public const double MinWidthLittleWindow = 400;
+        public const double MinWidthLittleWindow = 450;
 
-        public static double StartHeightLittleWindow => _workingAreaHeight / 5;
+        public static double StartHeightLittleWindow => _workingAreaHeight / 14;
 
-        public static double StartWidthLittleWindow => _workingAreaWidth / 5;
+        public static double StartWidthLittleWindow => _workingAreaWidth / 14;
 
         #endregion Маленькое окно
 

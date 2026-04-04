@@ -27,7 +27,7 @@
                                   MouseDown="TasksContainerMouseDown">
             <local:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
-                    <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"></TextBlock>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"></TextBlock>
                 </HierarchicalDataTemplate>
             </local:StretchingTreeView.ItemTemplate>
         </local:StretchingTreeView>

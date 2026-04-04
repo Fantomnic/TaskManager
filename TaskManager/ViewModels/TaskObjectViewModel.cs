@@ -141,6 +141,8 @@ namespace TaskManager.ViewModels
             }
         }
 
+        public bool HasChildren => ChildrenViewModels.Count > 0;
+
         public bool AcceptCommandVisibility => Helper.GetCommandInstance<AcceptTaskCommand>().CanChange(TaskObject);
 
         public bool RejectCommandVisibility => Helper.GetCommandInstance<RejectTaskCommand>().CanChange(TaskObject);

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TaskManager.Views"
         xmlns:model="clr-namespace:TaskManager.Model"
         mc:Ignorable="d"
-        Title="Раздел задачи" WindowStartupLocation="CenterOwner"
+        Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
         Style="{StaticResource littleWindow}">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,7 +15,6 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <RadioButton x:Name="changeButton" Style="{StaticResource baseStyle}" IsChecked="True">Сменить раздел:</RadioButton>
             <Border BorderThickness="1" BorderBrush="Black">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -24,21 +23,62 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="100"></RowDefinition>
+                        <RowDefinition MinHeight="40"></RowDefinition>
+                        <RowDefinition MinHeight="40"></RowDefinition>
+                        <RowDefinition MinHeight="40"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Переместить в</TextBlock>
+                    <TextBlock Style="{StaticResource fieldDescription}">Текущий раздел:</TextBlock>
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource lineTextBoxWithHint}"
+                             IsReadOnly="True"
+                             Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
+                    </TextBox>
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Входит в задачу:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Style="{StaticResource lineTextBoxWithHint}"
+                             IsReadOnly="True"
+                             Text="{Binding Path=ParentViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
+                    </TextBox>
+
+                    <CheckBox Grid.Row="2" Grid.ColumnSpan="2"
+                              Style="{StaticResource flowDirectionCheckBox}"
+                              IsChecked="{Binding HasChildren,Mode=OneWay}"
+                              IsHitTestVisible="False"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left">Имеет подзадачи</CheckBox>
+                </Grid>
+            </Border>
+            
+            <Separator Opacity="0" Height="10"/>
+            <RadioButton x:Name="changeButton" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
+
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Center">Переместить в</TextBlock>
                     
                     <!-- Источник заполняем в коде -->
                     <ComboBox x:Name="newSectionsList" Grid.Column="1" IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}" VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseTextBlock}" Text="{Binding Path=Name}"></TextBlock>
+                                <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
             </Border>
+
+            <Separator Opacity="0" Height="10"/>
             <RadioButton x:Name="deleteButton" Style="{StaticResource baseStyle}">Удалить из текущего раздела</RadioButton>
         </StackPanel>
 
