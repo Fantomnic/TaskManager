@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TaskManager.Resources"
                     xmlns:model="clr-namespace:TaskManager.Model"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
@@ -22,32 +23,28 @@
         <Setter Property="Margin" Value="3,0,3,0"></Setter>
     </Style>
 
-    <!-- Стиль для галочки в чекбоксе или точки в радиокнопке -->
-    <Style TargetType="Path" x:Key="pathScale">
+    <Style TargetType="FrameworkElement" x:Key="baseScale">
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}"
                     ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}" />
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
     </Style>
 
-    <Style TargetType="RadioButton" BasedOn="{StaticResource baseStyleAlignmentMargin}" x:Key="baseStyleRadioButton">
-        <Style.Resources>
-            <Style TargetType="Path" BasedOn="{StaticResource pathScale}"></Style>
-        </Style.Resources>
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <ScaleTransform ScaleX="1.16" ScaleY="1.16"/>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <!-- Стиль для галочки в чекбоксе -->
+    <Style TargetType="Path" BasedOn="{StaticResource baseScale}" x:Key="pathScale"></Style>
 
     <Style TargetType="CheckBox" BasedOn="{StaticResource baseStyleAlignmentMargin}" x:Key="baseStyleCheckBox">
         <Style.Resources>
             <Style TargetType="Path" BasedOn="{StaticResource pathScale}"></Style>
         </Style.Resources>
+    </Style>
+    
+    <!-- Тут не получится так же, как с чекбоксом, т.к. здесь нет объекта Path -->
+    <Style TargetType="RadioButton" BasedOn="{StaticResource baseScale}" x:Key="baseStyleRadioButton">
+        <Setter Property="TextBlock.FontSize" Value="{x:Static local:Constants.StandartBaseFont}"></Setter>
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource textForeground}"></Setter>
     </Style>
     
     <!-- Ставим галочку справа и переворачиваем направление внутри самого чекбокса (иначе галочка будет отзеркалена) -->
