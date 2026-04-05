@@ -1,0 +1,29 @@
+﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.AddCommentWindow"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:local="clr-namespace:TaskManager.Views"
+                               xmlns:model="clr-namespace:TaskManager.Model"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
+                               mc:Ignorable="d" 
+                               WindowStartupLocation="CenterOwner"
+                               Style="{StaticResource littleWindow}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Style="{StaticResource titleDescription}">Новый комментарий:</TextBlock>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
+            <TextBox x:Name="commentField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
+        </StackPanel>
+    </Grid>
+</local:WindowWithBottomButtons>

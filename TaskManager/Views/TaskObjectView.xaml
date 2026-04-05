@@ -47,7 +47,7 @@
 
         <!-- Info -->
         <Border BorderThickness="1" BorderBrush="Black">
-            <Grid Background="White">
+            <Grid>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MaxWidth="{x:Static res:Constants.DescriptonWidth}"></ColumnDefinition>
@@ -121,7 +121,7 @@
 
         <!-- Описание -->
         <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF1600FF">
-            <Grid Background="White">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -145,7 +145,7 @@
 
         <!-- Комментарии -->
         <Border Grid.Row="2" BorderThickness="1" BorderBrush="#FF0CFF00">
-            <Grid Background="White">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -156,9 +156,9 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource titleDescription}">Комментарии</TextBlock>
-                <Button Grid.Column="1" Style="{StaticResource serviceButtonBase}" MinWidth="150" MaxWidth="250" HorizontalAlignment="Right">Добавить комментарий</Button>
+                <Button Grid.Column="1" Style="{StaticResource serviceButtonBase}" MinWidth="150" MaxWidth="250" HorizontalAlignment="Right" Click="AddComment">Добавить комментарий</Button>
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000456екнекнапрпавк</TextBox>
+                    <TextBox x:Name="commentsField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8"></TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>

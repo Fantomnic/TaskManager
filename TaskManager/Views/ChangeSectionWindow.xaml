@@ -17,7 +17,7 @@
 
         <!-- TODO: Сделать GroupBox --> 
         <StackPanel>
-            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="5">
+            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">О задаче</TextBlock>
                 </GroupBox.Header>
@@ -56,7 +56,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="5">
+            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
                 </GroupBox.Header>
@@ -89,7 +89,9 @@
                 </Grid>
             </GroupBox>
 
-            <RadioButton x:Name="deleteButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" Margin="5">Удалить из текущего раздела</RadioButton>
+            <RadioButton x:Name="deleteButton" GroupName="sectionButtons"
+                         Style="{StaticResource baseStyleRadioButton}"
+                         Margin="{x:Static res:Constants.UniformMarginBase}">Удалить из текущего раздела</RadioButton>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

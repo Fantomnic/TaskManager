@@ -6,6 +6,7 @@
                                xmlns:local="clr-namespace:TaskManager.Views"
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:h="clr-namespace:TaskManager.Helpers"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
                                mc:Ignorable="d"
                                Title="Настройки" WindowStartupLocation="CenterOwner"
                                Style="{StaticResource settingsWindow}">
@@ -21,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <GroupBox Margin="5">
+            <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Разделы</TextBlock>
                 </GroupBox.Header>
@@ -45,13 +46,13 @@
                               Style="{StaticResource baseStyleCheckBox}"
                               IsChecked="{Binding IncrementSectionName}">Инкрементировать</CheckBox>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование нового раздела:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование:</TextBlock>
                     <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="2"
-                             Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
+                             Style="{StaticResource baseStyleAlignment}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
                 </Grid>
             </GroupBox>
 
-            <GroupBox Margin="5">
+            <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Задачи</TextBlock>
                 </GroupBox.Header>
@@ -75,13 +76,13 @@
                               Style="{StaticResource baseStyleCheckBox}"
                               IsChecked="{Binding IncrementTaskName}">Инкрементировать</CheckBox>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование новой задачи:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
                     <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1"
-                             Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding DefaultTaskName}"></TextBox>
+                             Style="{StaticResource baseStyleAlignment}" Text="{Binding DefaultTaskName}"></TextBox>
                 </Grid>
             </GroupBox>
 
-            <GroupBox Margin="5">
+            <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
                 </GroupBox.Header>
@@ -107,8 +108,8 @@
                     </ComboBox>
                 </Grid>
             </GroupBox>
-            
-            <GroupBox Margin="5">
+
+            <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Тема</TextBlock>
                 </GroupBox.Header>

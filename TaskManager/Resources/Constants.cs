@@ -5,16 +5,19 @@ namespace TaskManager.Resources
 {
     public static class Constants
     {
-        #region Эталонные размеры
+        #region Текст
 
         public const double StandartBaseFont = 12;
+        internal static readonly string DashSeparator40 = new('-', 40);
 
-        #endregion Эталонные размеры
+        #endregion Текст
 
         public const double DescriptonWidth = 150;
         public static readonly GridLength DescriptonWidthGridLength = new(DescriptonWidth);
 
         public const double FieldAreaHeight = 35;
+
+        public static readonly Thickness UniformMarginBase = new(5);
 
         private static readonly int _workingAreaHeight;
         private static readonly int _workingAreaWidth;
