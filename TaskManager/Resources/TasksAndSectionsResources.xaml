@@ -21,7 +21,6 @@
     <!-- Команды контекстного меню для задач -->
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource menuItemWithInstance}" x:Key="changeSectionCommandMenuItem">
         <Setter Property="Header" Value="Изменить раздел"></Setter>
-        <Setter Property="IsEnabled" Value="{Binding ChangeSectionEnabled}"></Setter>
         <Setter Property="Command" Value="{StaticResource changeSectionCommand}"></Setter>
     </Style>
 
@@ -92,7 +91,7 @@
             <Setter.Value>
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
                 <ContextMenu>
-                    <MenuItem Style="{StaticResource changeSectionCommandMenuItem}"></MenuItem>
+                    <MenuItem Style="{StaticResource changeSectionCommandMenuItem}" IsEnabled="{Binding ChangeSectionEnabled}"></MenuItem>
                     <MenuItem Style="{StaticResource acceptCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource rejectCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource deferCommandMenuItem}"></MenuItem>
