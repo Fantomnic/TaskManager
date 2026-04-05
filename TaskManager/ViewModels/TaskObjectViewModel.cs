@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
@@ -153,18 +154,45 @@ namespace TaskManager.ViewModels
 
         public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
 
-        internal void MoveToSection(AdditionalSectionViewModel newSectionViewModel)
+        internal void SetAdditionalSectionViewModel(AdditionalSectionViewModel? newSectionViewModel)
         {
-            var additionalSection = TaskObject.AdditionalSection;
-
-            if (!Helper.IsMasterSection(additionalSection) && Helper.MainViewModel.FindSectionViewModel(additionalSection) is AdditionalSectionViewModel additionalSectionViewModel)
-                additionalSectionViewModel.RemoveTaskViewModel(this);
-
-            if (!Helper.IsMasterSection(newSectionViewModel.Section))
-                newSectionViewModel!.AddTaskViewModel(this);
+            TaskObject.AdditionalSection = newSectionViewModel?.Section as AdditionalSection;
+            AdditionalSectionViewModel = newSectionViewModel;
         }
 
-        /// <summary>Добавить подзадачу к задаче (с соответствующей моделью представления)</summary>
+        /// <summary>Переместить задачу в другой раздел</summary>
+        /// <remarks>Задача перемещается вместе со всеми подзадачами</remarks>
+        internal void MoveToSection(SectionViewModel newSectionViewModel, bool transferFullChain = false)
+        {
+            var sourceTaskViewModel = transferFullChain ? GetRootTaskViewModel() : this;
+            bool toMasterSection = Helper.IsMasterSection(newSectionViewModel.Section);
+
+            // Если переносим из неосновного раздела, то удаляем отсюда всё
+            if (AdditionalSectionViewModel is not null)
+            {
+                AdditionalSectionViewModel.RemoveTaskViewModel(sourceTaskViewModel, toMasterSection);
+
+                if (sourceTaskViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
+                {
+                    if (toMasterSection)
+                        parentViewModel.RemoveAllChildrenViewModels();
+                    else
+                        parentViewModel.RemoveChildViewModel(sourceTaskViewModel);
+                }
+            }
+
+            // Если переносим в неосновной раздел, то добавляем сюда всё
+            if (!toMasterSection)
+                newSectionViewModel.AddTaskViewModel(sourceTaskViewModel);
+        }
+
+        private void SetParentViewModel(TaskObjectViewModel? newParentViewModel)
+        {
+            TaskObject.Parent = newParentViewModel?.TaskObject;
+            ParentViewModel = newParentViewModel;
+        }
+
+        /// <summary>Добавить подзадачу к задаче</summary>
         internal void AddChildViewModel(TaskObjectViewModel childViewModel)
         {
             Logger.ExecuteWithTryCatch(() =>
@@ -174,13 +202,39 @@ namespace TaskManager.ViewModels
                 ChildrenViewModels.Add(childViewModel);
 
                 if (childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
-                    currentSectionViewModel.RemoveRootTaskViewModel(childViewModel);
+                    currentSectionViewModel.RemoveRootTaskViewModel(childViewModel, false);
 
                 if (childViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
-                    parentViewModel.ChildrenViewModels.Remove(childViewModel);
+                    parentViewModel.RemoveChildViewModel(childViewModel);
 
-                childViewModel.ParentViewModel = this;
+                childViewModel.SetParentViewModel(this);
             });
+        }
+
+        /// <summary>Удалить подзадачу</summary>
+        /// <remarks>Подзадачи удалённой подзадачи остаются у неё</remarks>
+        internal bool RemoveChildViewModel(TaskObjectViewModel childViewModel)
+        {
+            bool result;
+
+            if (result = TaskObject.RemoveChild(childViewModel.TaskObject))
+            {
+                ChildrenViewModels.Remove(childViewModel);
+                childViewModel.SetParentViewModel(null);
+            }
+
+            return result;
+        }
+
+        internal void RemoveAllChildrenViewModels(bool removeParent = false)
+        {
+            foreach (var childViewModel in ChildrenViewModels)
+                childViewModel.RemoveAllChildrenViewModels(true);
+
+            ChildrenViewModels.Clear();
+
+            if (removeParent)
+                SetParentViewModel(null);
         }
 
         internal TaskObjectViewModel GetRootTaskViewModel()

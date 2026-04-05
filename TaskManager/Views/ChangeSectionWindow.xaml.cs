@@ -33,6 +33,8 @@ namespace TaskManager.Views
 
         internal SectionViewModel NewSectionViewModel;
 
+        internal bool TransferFullChain => transferFullChain.IsChecked == true;
+
         protected override void ButtonOKClick(object sender, RoutedEventArgs e)
         {
             bool checkedChanging = changeButton.IsChecked == true;

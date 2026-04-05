@@ -131,12 +131,11 @@ namespace TaskManager.Model
                 throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
 
             Children.Add(child);
-
-            if (child.Parent is TaskObject parent)
-                parent.Children.Remove(child);
-
-            child.Parent = this;
         }
+
+        /// <summary>Удалить подзадачу</summary>
+        /// <remarks>Подзадачи удалённой подзадачи остаются у неё</remarks>
+        internal bool RemoveChild(TaskObject child) => Children.Remove(child);
 
         private static List<TaskObject> GetAllParents(TaskObject taskObject)
         {

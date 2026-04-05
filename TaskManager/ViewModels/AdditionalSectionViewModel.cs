@@ -19,25 +19,42 @@ namespace TaskManager.ViewModels
 
                 Helper.MasterSectionViewModel.AddTaskViewModel(newTaskViewModel);
 
-                newTaskViewModel.AdditionalSectionViewModel = this;
+                newTaskViewModel.SetAdditionalSectionViewModel(this);
 
-                // Если добавляем из основного раздела
-                if (newTask.Parent is null)
+                if (newTaskViewModel.ParentViewModel is null)
                     RootTasksViewModels.Add(newTaskViewModel);
+
+                foreach (var childViewModel in newTaskViewModel.ChildrenViewModels)
+                    AddTaskViewModel(childViewModel);
             });
         }
 
-        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel)
+        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)
         {
-            return false;
-            //taskViewModel ??= FindTaskViewModel(taskObject);
+            if (!Section.RemoveTask(taskViewModel.TaskObject))
+                return false;
 
-            //return Section.RemoveTask(taskObject)
-            //    && taskViewModel is not null
-            //    && TasksViewModels.Remove(taskViewModel);
+            if (removeChildren)
+            {
+                foreach (var child in taskViewModel.ChildrenViewModels)
+                    RemoveTaskViewModel(child, true);
+            }
+
+            if (!RemoveRootTaskViewModel(taskViewModel))
+                taskViewModel.SetAdditionalSectionViewModel(null);
+
+            return true;
         }
 
-        internal bool RemoveRootTaskViewModel(TaskObjectViewModel taskViewModel) => RootTasksViewModels.Remove(taskViewModel);
+        internal bool RemoveRootTaskViewModel(TaskObjectViewModel taskViewModel, bool removeFromSection = true)
+        {
+            bool result;
+
+            if (result = RootTasksViewModels.Remove(taskViewModel) && removeFromSection)
+                taskViewModel.SetAdditionalSectionViewModel(null);
+
+            return result;
+        }
 
         internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject)
         {

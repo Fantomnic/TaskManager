@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 using TaskManager.Helpers;
 using TaskManager.Model;
 
@@ -15,12 +14,12 @@ namespace TaskManager.ViewModels
         {
             Logger.ExecuteWithTryCatch(() =>
             {
-                Section.AddTask(newTaskViewModel.TaskObject);
-                AllTasksViewModels.Add(newTaskViewModel);
+                if (Section.AddTask(newTaskViewModel.TaskObject))
+                    AllTasksViewModels.Add(newTaskViewModel);
             });
         }
 
-        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel)
+        internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)
             => Section.RemoveTask(taskViewModel.TaskObject)
                 && taskViewModel is not null
                 && AllTasksViewModels.Remove(taskViewModel);

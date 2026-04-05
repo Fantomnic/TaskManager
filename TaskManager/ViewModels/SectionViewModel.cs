@@ -81,11 +81,12 @@ namespace TaskManager.ViewModels
         private void SetVisibilityEmptyTaskImage()
             => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
 
-        /// <summary>Добавить задачу в раздел (с соответствующей моделью представления)</summary>
+        /// <summary>Добавить задачу в раздел</summary>
         internal abstract void AddTaskViewModel(TaskObjectViewModel newTaskViewModel);
 
-        /// <summary>Удалить задачу из раздела (с соответствующей моделью представления)</summary>
-        internal abstract bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel);
+        /// <summary>Удалить задачу из раздела</summary>
+        /// <param name="removeChildren">Удалить все подзадачи из раздела (при этом они останутся как подзадачи для родительской задачи)</param>
+        internal abstract bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false);
 
         internal abstract TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject);
     }

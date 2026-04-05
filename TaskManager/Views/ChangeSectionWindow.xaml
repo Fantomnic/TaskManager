@@ -15,7 +15,7 @@
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <!-- TODO: Сделать GroupBox --> 
+        <!-- TODO: Сделать GroupBox -->
         <StackPanel>
             <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
@@ -58,11 +58,12 @@
 
             <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
+                    <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел</RadioButton>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
+                        <ColumnDefinition Width="108.435"></ColumnDefinition>
+                        <ColumnDefinition Width="41.565"/>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
@@ -71,10 +72,10 @@
                         <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource fieldDescription}">Переместить в</TextBlock>
-                    
+                    <TextBlock Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Переместить в</TextBlock>
+
                     <!-- Источник заполняем в коде -->
-                    <ComboBox x:Name="newSectionsList" Grid.Column="1" IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}" VerticalAlignment="Center">
+                    <ComboBox x:Name="newSectionsList" Grid.Column="2" IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}" VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"></TextBlock>
@@ -83,9 +84,9 @@
                     </ComboBox>
 
                     <CheckBox x:Name="transferFullChain"
-                              Grid.Row="1" Grid.ColumnSpan="2"
+                              Grid.Row="1" Grid.ColumnSpan="3"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
-                              Style="{StaticResource baseStyleCheckBox}">Перенести всю цепочку задач</CheckBox>
+                              Style="{StaticResource baseStyleCheckBox}" Margin="3,0,3,0">Перенести всю цепочку задач</CheckBox>
                 </Grid>
             </GroupBox>
 

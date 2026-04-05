@@ -21,17 +21,18 @@ namespace TaskManager.Model
         internal static TaskObject CreateTask(string name) => new() { Name = name };
 
         /// <summary>Добавить задачу в раздел</summary>
-        internal virtual void AddTask(TaskObject newTask, bool throwOnError = false)
+        internal virtual bool AddTask(TaskObject newTask, bool throwOnError = false)
         {
             if (Tasks.Contains(newTask))
             {
                 if (throwOnError)
                     throw new InvalidOperationException($"Задача \"{newTask}\" уже добавлена в раздел \"{this}\"");
 
-                return;
+                return false;
             }
 
             Tasks.Add(newTask);
+            return true;
         }
 
         /// <summary>Удалить задачу из раздела</summary>
