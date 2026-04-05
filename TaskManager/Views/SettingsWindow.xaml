@@ -21,15 +21,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <GroupBox>
+            <GroupBox Margin="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Разделы</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="28*"></ColumnDefinition>
-                        <ColumnDefinition Width="97*"/>
-                        <ColumnDefinition Width="125*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -52,7 +51,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox>
+            <GroupBox Margin="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Задачи</TextBlock>
                 </GroupBox.Header>
@@ -82,7 +81,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox>
+            <GroupBox Margin="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
                 </GroupBox.Header>
@@ -108,7 +107,8 @@
                     </ComboBox>
                 </Grid>
             </GroupBox>
-            <GroupBox>
+            
+            <GroupBox Margin="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Тема</TextBlock>
                 </GroupBox.Header>

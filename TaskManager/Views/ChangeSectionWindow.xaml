@@ -1,13 +1,14 @@
 ﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.ChangeSectionWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskManager.Views"
-        xmlns:model="clr-namespace:TaskManager.Model"
-        mc:Ignorable="d"
-        Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
-        Style="{StaticResource littleWindow}">
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:local="clr-namespace:TaskManager.Views"
+                               xmlns:model="clr-namespace:TaskManager.Model"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
+                               mc:Ignorable="d"
+                               Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
+                               Style="{StaticResource littleWindow}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -16,17 +17,20 @@
 
         <!-- TODO: Сделать GroupBox --> 
         <StackPanel>
-            <Border BorderThickness="1" BorderBrush="Black">
+            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="5">
+                <GroupBox.Header>
+                    <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">О задаче</TextBlock>
+                </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="35"></RowDefinition>
-                        <RowDefinition MinHeight="35"></RowDefinition>
-                        <RowDefinition MinHeight="35"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <TextBlock Style="{StaticResource fieldDescription}">Текущий раздел:</TextBlock>
@@ -46,27 +50,28 @@
                     <CheckBox Grid.Row="2" Grid.ColumnSpan="2"
                               Style="{StaticResource flowDirectionCheckBox}"
                               IsChecked="{Binding HasChildren,Mode=OneWay}"
-                              IsHitTestVisible="False"
+                              IsEnabled="False"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left">Имеет подзадачи</CheckBox>
                 </Grid>
-            </Border>
+            </GroupBox>
 
-            <Separator Opacity="0" Height="10"/>
-            <RadioButton x:Name="changeButton" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
-
-            <Border BorderThickness="1" BorderBrush="Black">
+            <GroupBox BorderThickness="2" BorderBrush="Black" Margin="5">
+                <GroupBox.Header>
+                    <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел:</RadioButton>
+                </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="50"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Center">Переместить в</TextBlock>
+                    <TextBlock Style="{StaticResource fieldDescription}">Переместить в</TextBlock>
                     
                     <!-- Источник заполняем в коде -->
                     <ComboBox x:Name="newSectionsList" Grid.Column="1" IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}" VerticalAlignment="Center">
@@ -76,11 +81,15 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </Grid>
-            </Border>
 
-            <Separator Opacity="0" Height="10"/>
-            <RadioButton x:Name="deleteButton" Style="{StaticResource baseStyleRadioButton}">Удалить из текущего раздела</RadioButton>
+                    <CheckBox x:Name="transferFullChain"
+                              Grid.Row="1" Grid.ColumnSpan="2"
+                              IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
+                              Style="{StaticResource baseStyleCheckBox}">Перенести всю цепочку задач</CheckBox>
+                </Grid>
+            </GroupBox>
+
+            <RadioButton x:Name="deleteButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" Margin="5">Удалить из текущего раздела</RadioButton>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

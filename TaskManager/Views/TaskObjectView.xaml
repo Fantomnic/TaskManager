@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:TaskManager.Views"
              xmlns:h="clr-namespace:TaskManager.Helpers"
              xmlns:model="clr-namespace:TaskManager.Model"
+             xmlns:res="clr-namespace:TaskManager.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -49,7 +50,7 @@
             <Grid Background="White">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="150"></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="{x:Static res:Constants.DescriptonWidth}"></ColumnDefinition>
                     <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
                     <ColumnDefinition MaxWidth="250"></ColumnDefinition>
                     <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
@@ -57,9 +58,9 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
-                    <RowDefinition MinHeight="35"></RowDefinition>
-                    <RowDefinition MinHeight="35"></RowDefinition>
-                    <RowDefinition MinHeight="35"></RowDefinition>
+                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource titleDescription}">Info</TextBlock>
@@ -122,7 +123,7 @@
         <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF1600FF">
             <Grid Background="White">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -146,7 +147,7 @@
         <Border Grid.Row="2" BorderThickness="1" BorderBrush="#FF0CFF00">
             <Grid Background="White">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>

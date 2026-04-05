@@ -1,16 +1,17 @@
 ﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.SectionPropertyWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskManager.Views"
-        xmlns:model="clr-namespace:TaskManager.Model"
-        mc:Ignorable="d"
-        Title="Новый раздел" WindowStartupLocation="CenterOwner"
-        Style="{StaticResource middleWindow}">
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:local="clr-namespace:TaskManager.Views"
+                               xmlns:model="clr-namespace:TaskManager.Model"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
+                               mc:Ignorable="d"
+                               Title="Новый раздел" WindowStartupLocation="CenterOwner"
+                               Style="{StaticResource middleWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
