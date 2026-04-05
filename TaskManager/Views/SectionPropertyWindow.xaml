@@ -21,7 +21,7 @@
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
 
-        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource baseStyleAlignmentMargin}"></TextBox>
+        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource baseStyleAlignmentMarginTextBox}"></TextBox>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>

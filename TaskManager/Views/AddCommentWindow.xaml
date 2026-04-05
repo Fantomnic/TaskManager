@@ -18,7 +18,7 @@
 
         <TextBlock Style="{StaticResource titleDescription}">Новый комментарий:</TextBlock>
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-            <TextBox x:Name="commentField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+            <TextBox x:Name="commentField" Style="{StaticResource baseStyleTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
         </ScrollViewer>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
+using TaskManager.Helpers;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Views
@@ -9,12 +10,11 @@ namespace TaskManager.Views
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         internal SectionView()
-
         {
-
+            
         }
 
-        internal SectionView(SectionViewModel sectionViewModel)
+        internal SectionView(SectionViewModel sectionViewModel) : this()
         {
             InitializeData(sectionViewModel);
         }

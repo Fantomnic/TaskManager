@@ -3,13 +3,14 @@
                     xmlns:model="clr-namespace:TaskManager.Model">
 
     <Style TargetType="Button" x:Key="menuButtonIcon">
-        <Setter Property="BorderBrush" Value="Black"></Setter>
-        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+        <Setter Property="Background" Value="{x:Null}"></Setter>
     </Style>
 
     <Style TargetType="Image" x:Key="menuImageIcon">
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="1"></Setter>
     </Style>
 
     <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->

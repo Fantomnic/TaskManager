@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
 
@@ -43,7 +42,7 @@ namespace TaskManager.Views
 
             _startDescription = descriptionField.Text;
             descriptionField.IsReadOnly = false;
-            descriptionField.Background = Brushes.White;
+            //descriptionField.Background = Brushes.White;
             cancelButton.Visibility = Visibility.Visible;
             editButton.Content = "Сохранить";
         }
@@ -58,7 +57,7 @@ namespace TaskManager.Views
 
             _startDescription = String.Empty;
             descriptionField.IsReadOnly = true;
-            descriptionField.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8)); // Светло-серый
+            //descriptionField.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xC8, 0xC8, 0xC8)); // Светло-серый
             cancelButton.Visibility = Visibility.Collapsed;
             editButton.Content = "Редактировать";
         }

@@ -18,14 +18,15 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
+        <TextBlock Style="{StaticResource titleDescription}">Список задач</TextBlock>
         
         <ListBox x:Name="tasksList" Grid.Row="1"
                  ItemsSource="{Binding AllTasksViewModels}"
                  SelectedItem="{Binding SelectedTaskViewModel}"
                  ItemContainerStyle="{StaticResource tasksMasterContextMenu}"
                  MouseDown="TasksContainerMouseDown"
-                 ContextMenuOpening="TasksListContextMenuOpening">
+                 ContextMenuOpening="TasksListContextMenuOpening"
+                 Background="{DynamicResource innerBackgroung}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
@@ -33,7 +34,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2"
+        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"
                     ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 

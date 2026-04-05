@@ -61,24 +61,41 @@
         <Setter Property="FlowDirection" Value="RightToLeft" />
     </Style>
 
-    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+    <VisualBrush x:Key="cueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
         <VisualBrush.Visual>
             <Label Content="Нет" Style="{StaticResource baseStyle}" Foreground="LightGray" />
         </VisualBrush.Visual>
     </VisualBrush>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMargin}" x:Key="lineTextBoxWithHint">
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyle}" x:Key="baseStyleTextBox">
+        <Setter Property="Background" Value="{DynamicResource fieldBackgroung}"></Setter>
         <Style.Triggers>
-            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-            </Trigger>
-            <Trigger Property="Text" Value="{x:Null}">
-                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="{DynamicResource fieldBackgroungReadOnly}"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMargin}" x:Key="fullReadOnlyLine">
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleTextBox}" x:Key="baseStyleAlignmentTextBox">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentTextBox}" x:Key="baseStyleAlignmentMarginTextBox">
+        <Setter Property="Margin" Value="3,0,3,0"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMarginTextBox}" x:Key="lineTextBoxWithHint">
+        <Style.Triggers>
+            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                <Setter Property="Background" Value="{StaticResource cueBannerBrush}" />
+            </Trigger>
+            <Trigger Property="Text" Value="{x:Null}">
+                <Setter Property="Background" Value="{StaticResource cueBannerBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMarginTextBox}" x:Key="fullReadOnlyLine">
         <Setter Property="IsReadOnly" Value="True"></Setter>
         <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Cursor" Value="Arrow"></Setter>

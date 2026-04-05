@@ -1,11 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush Color="White" x:Key="textForeground" />
-    <SolidColorBrush Color="Red" x:Key="titleForeground" />
-    <SolidColorBrush Color="Black" x:Key="windowBackgroung" />
-    <SolidColorBrush Color="BurlyWood" x:Key="fieldBackgroung" />
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/ResourceDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
+    <!-- Иконки меню -->
+    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="newTaskIcon">
+        <Setter Property="Source" Value="/Resources/Images/DarkPlus.png"></Setter>
+    </Style>
+
+    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="menuActionsIcon">
+        <Setter Property="Source" Value="/Resources/Images/DarkMenuIcon.png"></Setter>
+    </Style>
+
+    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="settingsIcon">
+        <Setter Property="Source" Value="/Resources/Images/DarkSettingsIcon.png"></Setter>
+    </Style>
+
+    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="appInfoIcon">
+        <Setter Property="Source" Value="/Resources/Images/DarkAppInfo.png"></Setter>
+    </Style>
+
+    <!-- Цветовые настройки шрифта/фона -->
+    <SolidColorBrush Color="White" x:Key="antiMainColor" />
+    
+    <SolidColorBrush Color="#FFDFEFF1" x:Key="textForeground" />
+    <SolidColorBrush Color="#FF4B90FF" x:Key="titleForeground" />
+    <SolidColorBrush Color="#FF1A1A1A" x:Key="windowBackgroung" />
+    <SolidColorBrush Color="#FF222121" x:Key="innerBackgroung" />
+    <SolidColorBrush Color="#FF3E3E42" x:Key="fieldBackgroung" />
+    <SolidColorBrush Color="#FF302B2D" x:Key="fieldBackgroungReadOnly" />
+    <SolidColorBrush Color="#FF2B4AC0" x:Key="tabItemIsSelected" />
+    <SolidColorBrush Color="#7F2B4AC0" x:Key="tabItemMouseOver" /> <!-- Тот же цвет, но чуть прозрачный -->
+
+    <SolidColorBrush Color="#FF4B90FF" x:Key="taskDescriptionBorderColor" />
+    
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#7F7F7F" x:Key="waitingStatusBackground" />
     <SolidColorBrush Color="#00823B" x:Key="beginningStatusBackground" />

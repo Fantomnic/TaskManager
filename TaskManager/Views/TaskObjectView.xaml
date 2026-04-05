@@ -41,86 +41,93 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="150" MaxHeight="250"></RowDefinition>
-            <RowDefinition Height="*" MinHeight="50"></RowDefinition>
-            <RowDefinition Height="*" MinHeight="50"></RowDefinition>
+            <RowDefinition Height="*" MinHeight="100"></RowDefinition>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="100"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!-- Info -->
-        <Border BorderThickness="1" BorderBrush="Black">
+        <Border BorderThickness="2" BorderBrush="{DynamicResource antiMainColor}" Margin="1">
             <Grid>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="{x:Static res:Constants.DescriptonWidth}"></ColumnDefinition>
-                    <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
-                    <ColumnDefinition MaxWidth="250"></ColumnDefinition>
-                    <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
-                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
-                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
-                    <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource titleDescription}">Info</TextBlock>
 
-                <!-- Дата создания -->
-                <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
-                <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Дата создания:</TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource baseStyleAlignmentMargin}" IsReadOnly="True" Background="#FFFFFEDF"
-                         Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"/>
+                <Grid Grid.Row="1" Background="{DynamicResource innerBackgroung}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="{x:Static res:Constants.DescriptonWidth}"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="250"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="95" MaxWidth="175"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Статус Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}"-->
-                <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource fullReadOnlyLine}"
-                         Text="{Binding Path=TaskStatus.DisplayName,Mode=OneWay}" Background="{Binding Path=TaskStatus.Background}"/>
-
-                <!-- Приоритет -->
-                <TextBlock Grid.Row="3" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>
-                <ComboBox x:Name="priorityList" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,3,0"
-                          ItemsSource="{x:Static h:Enums.AllPriorities}" SelectedItem="{Binding TaskPriority}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-
-                <!-- Тип -->
-                <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Тип:</TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource fullReadOnlyLine}"
-                         Text="{Binding Path=TaskType,Converter={StaticResource typeConverter}}"/>
-                <ComboBox Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="3,0,3,0"
-                          Style="{StaticResource typeComboBoxStyle}"
-                          ItemsSource="{x:Static h:Enums.AllTypes}" SelectedItem="{Binding TaskType}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource typeConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
+                    </Grid.RowDefinitions>
                 
+                    <!-- Дата создания -->
+                    <!-- OneWay, т.к. у свойства нет сеттера; TODO: ресурсы для null value -->
+                    <TextBlock Style="{StaticResource fieldDescription}">Дата создания:</TextBlock>
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource baseStyleAlignmentMarginTextBox}"
+                             IsReadOnly="True"
+                             Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"/>
 
-                <!-- Дата реализации -->
-                <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
-                            Style="{StaticResource realizationDateStyle}">
-                    <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Дата реализации:</TextBlock>
-                    <DatePicker Style="{StaticResource baseStyle}" VerticalAlignment="Center"></DatePicker>
-                </StackPanel>
+                    <!-- Статус Text="{Binding Path=TaskStatus,Converter={StaticResource statusConverter}}"-->
+                    <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Статус:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource fullReadOnlyLine}"
+                             Text="{Binding Path=TaskStatus.DisplayName,Mode=OneWay}" Background="{Binding Path=TaskStatus.Background}"/>
+
+                    <!-- Приоритет -->
+                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>
+                    <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,3,0"
+                              ItemsSource="{x:Static h:Enums.AllPriorities}" SelectedItem="{Binding TaskPriority}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!-- Тип -->
+                    <TextBlock Grid.Column="2" Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Тип:</TextBlock>
+                    <TextBox Grid.Column="3" Style="{StaticResource fullReadOnlyLine}"
+                             Text="{Binding Path=TaskType,Converter={StaticResource typeConverter}}"/>
+                    <ComboBox Grid.Column="3" VerticalAlignment="Center" Margin="3,0,3,0"
+                              Style="{StaticResource typeComboBoxStyle}"
+                              ItemsSource="{x:Static h:Enums.AllTypes}" SelectedItem="{Binding TaskType}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource typeConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 
-                <!-- Количество выполнений -->
-                <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
-                            Style="{StaticResource completedCountStyle}">
-                    <TextBlock Style="{StaticResource fieldDescription}">Количество выполнений:</TextBlock>
-                    <TextBox Style="{StaticResource fullReadOnlyLine}"
-                        BorderThickness="1.5" Background="White" Foreground="Red" BorderBrush="Black">0</TextBox>
-                </StackPanel>
+                    <!-- Дата реализации -->
+                    <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                                Style="{StaticResource realizationDateStyle}">
+                        <TextBlock Style="{StaticResource fieldDescription}" HorizontalAlignment="Right">Дата реализации:</TextBlock>
+                        <DatePicker Style="{StaticResource baseStyle}" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                
+                    <!-- Количество выполнений -->
+                    <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                                Style="{StaticResource completedCountStyle}">
+                        <TextBlock Style="{StaticResource fieldDescription}">Количество выполнений:</TextBlock>
+                        <TextBox Style="{StaticResource fullReadOnlyLine}"
+                                 BorderThickness="1.5" Foreground="Red" BorderBrush="Black">0</TextBox>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Border>
 
         <!-- Описание -->
-        <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF1600FF">
+        <Border Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource taskDescriptionBorderColor}" Margin="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -137,14 +144,22 @@
                     <Button x:Name="editButton" Style="{StaticResource serviceButtonWithStandartWidth}" Click="EditDescription">Редактировать</Button>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox x:Name="descriptionField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8">15.08.2000</TextBox>
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Background="{DynamicResource innerBackgroung}">
+                    <TextBox x:Name="descriptionField"
+                             Style="{StaticResource baseStyleTextBox}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             IsReadOnly="True"
+                             Margin="{x:Static res:Constants.UniformMarginBase}">15.08.2000</TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>
 
+        <!-- Сплиттер -->
+        <GridSplitter Grid.Row="2" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" Background="{DynamicResource windowBackgroung}"/>
+        
         <!-- Комментарии -->
-        <Border Grid.Row="2" BorderThickness="1" BorderBrush="#FF0CFF00">
+        <Border Grid.Row="3" BorderThickness="2" BorderBrush="#FF4EBFC8" Margin="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -156,9 +171,19 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource titleDescription}">Комментарии</TextBlock>
-                <Button Grid.Column="1" Style="{StaticResource serviceButtonBase}" MinWidth="150" MaxWidth="250" HorizontalAlignment="Right" Click="AddComment">Добавить комментарий</Button>
-                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox x:Name="commentsField" Style="{StaticResource baseStyle}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="#FFC8C8C8"></TextBox>
+                <Button Grid.Column="1"
+                        Style="{StaticResource serviceButtonBase}"
+                        MinWidth="150" MaxWidth="250"
+                        HorizontalAlignment="Right"
+                        Click="AddComment">Добавить комментарий</Button>
+
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Background="{DynamicResource innerBackgroung}">
+                    <TextBox x:Name="commentsField"
+                             Style="{StaticResource baseStyleTextBox}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             IsReadOnly="True"
+                             Margin="{x:Static res:Constants.UniformMarginBase}"></TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>

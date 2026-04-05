@@ -10,6 +10,32 @@
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{DynamicResource windowBackgroung}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1,1,1,0"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                          ContentSource="Header"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource tabItemMouseOver}"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource tabItemIsSelected}"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
         <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
     </Style>
@@ -118,6 +144,7 @@
         </Setter>
         <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
         <Setter Property="AllowDrop" Value="True"></Setter>
+        
         <EventSetter Event="PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"/>
         <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PreviewMouseLeftButtonDownItem"></EventSetter>
         <EventSetter Event="PreviewMouseMove" Handler="PreviewMouseMoveItem"></EventSetter>

@@ -31,7 +31,7 @@
         <!-- Рабочая зона -->
         <Grid x:Name="workspace" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.04*" MinWidth="30" MaxWidth="50"></ColumnDefinition>
+                <ColumnDefinition Width="0.04*" MinWidth="40" MaxWidth="60"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -39,24 +39,24 @@
             <DockPanel LastChildFill="False">
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Создать задачу"
                         Command="{StaticResource newTaskCommand}" CommandParameter="{Binding TasksList}">
-                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/GreenPlus.png"></Image>
+                    <Image Style="{DynamicResource newTaskIcon}"></Image>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Действия"
                         Click="MenuClick">
-                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/MenuIcon.png"></Image>
+                    <Image Style="{DynamicResource menuActionsIcon}"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}"  ToolTip="Настройки"
+                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки"
                         Command="{StaticResource openSettingsCommand}">
-                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/SettingsIcon.png"></Image>
+                    <Image Style="{DynamicResource settingsIcon}"></Image>
                 </Button>
                 <!-- TODO: Сделать значком -->
                 <Button DockPanel.Dock="Bottom" Style="{StaticResource menuButtonIcon}" ToolTip="Справка">
-                    <Image Style="{StaticResource menuImageIcon}" Source="/Resources/Images/AppInfo.png"></Image>
+                    <Image Style="{DynamicResource appInfoIcon}"></Image>
                 </Button>
             </DockPanel>
 
             <!-- Задачи (разделы добавляются в коде) -->
-            <TabControl x:Name="sections" Grid.Column="1" SelectionChanged="SectionsSelectionChanged">
+            <TabControl x:Name="sections" Grid.Column="1" SelectionChanged="SectionsSelectionChanged" Background="{DynamicResource windowBackgroung}">
                 <TabItem x:Name="masterSection">
                     <TabItem.Header>
                         <TextBlock Style="{StaticResource masterSectionHeaderContextMenu}" Text="{Binding Path=Name}"></TextBlock>

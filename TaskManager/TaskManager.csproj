@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\AppInfo.png" />
-    <None Remove="Resources\Images\GreenPlus.png" />
-    <None Remove="Resources\Images\MenuIcon.png" />
+    <None Remove="Resources\Images\DarkAppInfo.png" />
+    <None Remove="Resources\Images\DarkMenuIcon.png" />
+    <None Remove="Resources\Images\DarkPlus.png" />
+    <None Remove="Resources\Images\DarkSettingsIcon.png" />
     <None Remove="Resources\Images\QuestionPromo.png" />
-    <None Remove="Resources\Images\SettingsIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\AppInfo.png" />
-    <Resource Include="Resources\Images\GreenPlus.png" />
-    <Resource Include="Resources\Images\MenuIcon.png" />
+    <Resource Include="Resources\Images\LightAppInfo.png" />
+    <Resource Include="Resources\Images\DarkAppInfo.png" />
+    <Resource Include="Resources\Images\DarkMenuIcon.png" />
+    <Resource Include="Resources\Images\DarkPlus.png" />
+    <Resource Include="Resources\Images\DarkSettingsIcon.png" />
+    <Resource Include="Resources\Images\LightPlus.png" />
+    <Resource Include="Resources\Images\LightMenuIcon.png" />
     <Resource Include="Resources\Images\QuestionPromo.png" />
-    <Resource Include="Resources\Images\SettingsIcon.png" />
+    <Resource Include="Resources\Images\LightSettingsIcon.png" />
   </ItemGroup>
 
   <ItemGroup>

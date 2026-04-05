@@ -10,33 +10,38 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.1*"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="1.1*" MinWidth="300"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition MinWidth="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource titleDescription}" Background="White">Список задач</TextBlock>
+        <TextBlock Style="{StaticResource titleDescription}">Список задач</TextBlock>
 
         <local:StretchingTreeView Grid.Row="1"
                                   ItemsSource="{Binding RootTasksViewModels}"
                                   ItemContainerStyle="{StaticResource tasksAdditionalContextMenu}"
                                   SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
-                                  MouseDown="TasksContainerMouseDown">
+                                  MouseDown="TasksContainerMouseDown"
+                                  Background="{DynamicResource innerBackgroung}">
             <local:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"></TextBlock>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Background="Transparent"></TextBlock>
                 </HierarchicalDataTemplate>
             </local:StretchingTreeView.ItemTemplate>
         </local:StretchingTreeView>
 
-        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2"
+        <GridSplitter Grid.Row="1" Grid.Column="1" ShowsPreview="False" Width="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource windowBackgroung}"/>
+        
+        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"
                     ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
-        <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
+        <Image x:Name="emptyTaskImage" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
     </Grid>
 </local:SectionView>
