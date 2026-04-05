@@ -16,17 +16,21 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
-
         <TextBox Grid.Column="1" x:Name="taskName" Text="{Binding Name}" Style="{StaticResource baseStyleAlignmentMargin}"></TextBox>
 
-        <local:TaskObjectView Grid.Row="1" Grid.ColumnSpan="2" x:Name="taskProperty"></local:TaskObjectView>
+        <CheckBox x:Name="addAsChild"
+                  Grid.Row="1" Grid.ColumnSpan="2"
+                  Style="{StaticResource baseStyleCheckBox}">Добавить в выбранную задачу</CheckBox>
+        
+        <local:TaskObjectView Grid.Row="2" Grid.ColumnSpan="2" x:Name="taskProperty"></local:TaskObjectView>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
             <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">Создать</Button>
         </StackPanel>

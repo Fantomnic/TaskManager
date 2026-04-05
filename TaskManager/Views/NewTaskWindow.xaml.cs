@@ -9,14 +9,19 @@ namespace TaskManager.Views
     /// </summary>
     public partial class NewTaskWindow : WindowWithBottomButtons
     {
-        internal NewTaskWindow()
+        internal NewTaskWindow(SectionViewModel currentSectionViewModel)
         {
             InitializeComponent();
             var newTaskObjectViewModel = SectionViewModel.CreateTask();
             DataContext = NewTaskObjectViewModel = newTaskObjectViewModel;
+
+            if (currentSectionViewModel.IsMasterSection || currentSectionViewModel.SelectedTaskViewModel is null)
+                addAsChild.IsChecked = addAsChild.IsEnabled = false;
         }
 
         internal TaskObjectViewModel NewTaskObjectViewModel { get; }
+
+        internal bool AddAsChild => addAsChild.IsChecked == true;
 
         protected override bool ValidateOK()
         {
