@@ -10,31 +10,52 @@
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="TabItem">
-        <Setter Property="Background" Value="{DynamicResource windowBackgroung}"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TabItem">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1,1,1,0"
-                            Padding="{TemplateBinding Padding}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                          ContentSource="Header"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource tabItemMouseOver}"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource tabItemIsSelected}"></Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <!-- Шаблон для элемента списка -->
+    <ControlTemplate TargetType="ListBoxItem" x:Key="listBoxItemTemplate">
+        <Border x:Name="listBoxItemBorder"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Margin="{TemplateBinding Margin}"
+                Height="{TemplateBinding Height}"
+                Width="{TemplateBinding Width}" >
+            <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                <ContentControl.Content>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
+                </ContentControl.Content>
+            </ContentControl>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{DynamicResource taskItemIsMouseOverBackground}" />
+                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{DynamicResource taskItemIsMouseOverBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="v:StretchingTreeViewItem" x:Key="treeViewItemTemplate">
+        <Border x:Name="listBoxItemBorder"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            Margin="{TemplateBinding Margin}"
+            Height="{TemplateBinding Height}"
+            Width="{TemplateBinding Width}" >
+            <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                <ContentControl.Content>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
+                </ContentControl.Content>
+            </ContentControl>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{DynamicResource taskItemIsMouseOverBackground}" />
+                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{DynamicResource taskItemIsMouseOverBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
         <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
@@ -45,7 +66,7 @@
     </Style>
     
     <!-- Команды контекстного меню для задач -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource menuItemWithInstance}" x:Key="changeSectionCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource menuItemWithInstance}" x:Key="changeSectionCommandMenuItem">
         <Setter Property="Header" Value="Изменить раздел"></Setter>
         <Setter Property="Command" Value="{StaticResource changeSectionCommand}"></Setter>
     </Style>
@@ -54,7 +75,7 @@
         <Setter Property="Header" Value="Принять"></Setter>
         <Setter Property="Command" Value="{StaticResource acceptTaskCommand}"></Setter>
         <Style.Triggers>
-            <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню. В данном случае - это TaskObjectViewModel (элемент списка) -->
+            <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню (элемент списка) -->
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
                 Path=PlacementTarget.DataContext.AcceptCommandVisibility}"
                          Value="True">
@@ -87,7 +108,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="doneCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="doneCommandMenuItem">
         <Setter Property="Header" Value="Выполнить"></Setter>
         <Setter Property="Command" Value="{StaticResource doneTaskCommand}"></Setter>
         <Style.Triggers>
@@ -99,7 +120,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="completeCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="completeCommandMenuItem">
         <Setter Property="Header" Value="Завершить"></Setter>
         <Setter Property="Command" Value="{StaticResource completeTaskCommand}"></Setter>
         <Style.Triggers>
@@ -111,8 +132,22 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Контекстное меню задач основного раздела -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource menuItemWithInstance}" x:Key="makeRootCommandMenuItem">
+        <Setter Property="Header" Value="Переместить в корень"></Setter>
+        <Setter Property="Command" Value="{StaticResource makeRootCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.ParentViewModel}"
+                         Value="{x:Null}">
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Задача основного раздела -->
     <Style TargetType="ListBoxItem" x:Key="tasksMasterContextMenu">
+        <Setter Property="Template" Value="{StaticResource listBoxItemTemplate}"></Setter>
+        <Setter Property="BorderThickness" Value="1.5"></Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
@@ -128,8 +163,9 @@
         </Setter>
     </Style>
 
-    <!-- Контекстное меню задач неосновных разделов -->
+    <!-- Ззадача неосновного раздела -->
     <Style TargetType="v:StretchingTreeViewItem" x:Key="tasksAdditionalContextMenu">
+        <Setter Property="Template" Value="{StaticResource treeViewItemTemplate}"></Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
@@ -139,6 +175,7 @@
                     <MenuItem Style="{StaticResource deferCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource doneCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource completeCommandMenuItem}"></MenuItem>
+                    <MenuItem Style="{StaticResource makeRootCommandMenuItem}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>

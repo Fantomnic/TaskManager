@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Resources/ResourceDictionary.xaml" />
+        <ResourceDictionary Source="/Resources/InterfaceResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Иконки меню -->
@@ -31,8 +31,17 @@
     <SolidColorBrush Color="#FFEBF3F3" x:Key="innerBackgroung" />
     <SolidColorBrush Color="White" x:Key="fieldBackgroung" />
     <SolidColorBrush Color="Gainsboro" x:Key="fieldBackgroungReadOnly" />
-    <SolidColorBrush Color="#FFCAFFFF" x:Key="tabItemIsSelected" />
-    <SolidColorBrush Color="#7FCAFFFF" x:Key="tabItemMouseOver" />
+
+    <!-- Кнопки -->
+    <SolidColorBrush Color="WhiteSmoke" x:Key="buttonBackgroung" />
+    <SolidColorBrush Color="Azure" x:Key="buttonIsMouseOverBackgroung" />
+    <SolidColorBrush Color="Blue" x:Key="buttonIsMouseOverBorder" />
+    <SolidColorBrush Color="#FFAFF9F9" x:Key="buttonIsPressedBackgroung" />
+
+    <!-- Элементы списка/дерева -->
+    <SolidColorBrush Color="#4C75BEFF" x:Key="taskItemIsMouseOverBackground" />
+    <SolidColorBrush Color="#FF3EA4FF" x:Key="taskItemIsMouseOverBorder" />
+
 
     <SolidColorBrush Color="#FF2210E3" x:Key="taskDescriptionBorderColor" />
 

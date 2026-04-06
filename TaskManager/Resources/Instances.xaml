@@ -30,5 +30,6 @@
     <cmd:NewTaskCommand x:Key="newTaskCommand" />
     <cmd:OpenSettingsCommand x:Key="openSettingsCommand" />
     <cmd:ShowSectionPropertyCommand x:Key="showSectionPropertyCommand" />
+    <cmd:MakeRootCommand x:Key="makeRootCommand" />
 
 </ResourceDictionary>

@@ -39,7 +39,7 @@
             <DockPanel LastChildFill="False">
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Создать задачу"
                         Command="{StaticResource newTaskCommand}" CommandParameter="{Binding TasksList}">
-                    <Image Style="{DynamicResource newTaskIcon}"></Image>
+                    <Image Style="{DynamicResource newTaskIcon}"/>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Действия"
                         Click="MenuClick">
