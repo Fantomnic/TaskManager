@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/Resources/WindowsResources.xaml" />
                 <ResourceDictionary Source="/Resources/Instances.xaml" />
                 <ResourceDictionary Source="/Resources/TasksAndSectionsResources.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

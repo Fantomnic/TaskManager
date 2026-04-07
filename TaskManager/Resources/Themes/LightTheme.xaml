@@ -38,11 +38,6 @@
     <SolidColorBrush Color="Blue" x:Key="buttonIsMouseOverBorder" />
     <SolidColorBrush Color="#FFAFF9F9" x:Key="buttonIsPressedBackgroung" />
 
-    <!-- Элементы списка/дерева -->
-    <SolidColorBrush Color="#4C75BEFF" x:Key="taskItemIsMouseOverBackground" />
-    <SolidColorBrush Color="#FF3EA4FF" x:Key="taskItemIsMouseOverBorder" />
-
-
     <SolidColorBrush Color="#FF2210E3" x:Key="taskDescriptionBorderColor" />
 
     <!-- Цвета статусов -->
