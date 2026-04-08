@@ -6,200 +6,10 @@
                     xmlns:col="clr-namespace:System.Collections;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/Templates.xaml" />
         <ResourceDictionary Source="/Resources/Instances.xaml" />
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
-        <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <!-- Шаблон для элемента списка -->
-    <ControlTemplate TargetType="ListBoxItem" x:Key="listBoxItemTemplate">
-        <Border x:Name="listBoxItemBorder"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                Background="{TemplateBinding Background}"
-                Margin="{TemplateBinding Margin}"
-                Height="{TemplateBinding Height}"
-                Width="{TemplateBinding Width}" >
-            <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                <ContentControl.Content>
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
-                </ContentControl.Content>
-            </ContentControl>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{StaticResource taskItemIsMouseOverBackground}" />
-                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{StaticResource taskItemIsMouseOverBorder}" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="true">
-                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{StaticResource taskItemIsSelectedBackground}" />
-                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{StaticResource taskItemIsSelectedBorder}" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-
-    
-    
-    <ControlTemplate TargetType="ToggleButton" x:Key="expanderButton">
-        <Grid Width="15" Height="13" Background="Transparent">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="CheckStates">
-                    <VisualState x:Name="Checked">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Collapsed">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
-                            </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Expanded">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-
-                    <VisualState x:Name="Unchecked" />
-
-                    <VisualState x:Name="Indeterminate" />
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-
-            <!-- 1: [Значок при скрытии потомков] -->
-            <Path x:Name="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,1,1,1" Data="M 4 0 L 8 4 L 4 8 Z">
-                <Path.Fill>
-                    <SolidColorBrush Color="Red" />
-                </Path.Fill>
-            </Path>
-
-            <!-- 2: [Значок при показе потомков] -->
-            <Path x:Name="Expanded" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,1,1,1" Data="M 0 4 L 8 4 L 4 8 Z" Visibility="Hidden">
-                <Path.Fill>
-                    <SolidColorBrush Color="Yellow" />
-                </Path.Fill>
-            </Path>
-        </Grid>
-    </ControlTemplate>
-
-    <!-- Стиль кнопки-экспандера -->
-    <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{StaticResource expanderButton}"></Setter>
-    </Style>
-
-    <ControlTemplate TargetType="v:StretchingTreeViewItem" x:Key="treeViewItemTemplate">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="19" Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <!-- 3: [Менеджер визуальных состояний, группа - SelectionStates] -->
-            <!-- 3.1: [Состояние: Selected (выбрано) ] -->
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="SelectionStates">
-                    <VisualState x:Name="Selected">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="Background">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource taskItemIsSelectedBackground}" />
-                            </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="BorderBrush">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource taskItemIsSelectedBorder}" />
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-                    
-                    <!-- Добавлено, чтобы происходил сброс -->
-                    <VisualState x:Name="Unselected" />
-
-                    <!-- Чтобы не происходило сброса при смене фокуса -->
-                    <!--<VisualState x:Name="SelectedInactive" />-->
-                </VisualStateGroup>
-
-                <!-- 4: [Менеджер визуальных состояний, группа - ExpansionStates] -->
-                <VisualStateGroup x:Name="ExpansionStates">
-                    <!-- 4.1: [Состояние: Expanded (элемент раскрыт)] -->
-                    <VisualState x:Name="Expanded">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ItemsHost">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-
-                    <VisualState x:Name="Collapsed"></VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-
-            <!-- 5: [Кнопка-экспандер ] -->
-            <ToggleButton x:Name="Expander"
-                          Style="{StaticResource ExpandCollapseToggleStyle}"
-                          ClickMode="Press"
-                          IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
-
-            <!-- 6: [Рамка, в которой содержится заголовок родителя] -->
-            <Border x:Name="Bd"
-                    Grid.Column="1"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="1.5"
-                    Padding="{TemplateBinding Padding}">
-                <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
-            </Border>
-
-            <!-- 7: [Потомки, принадлежат родителю] -->
-            <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Collapsed" />
-        </Grid>
-
-        <!-- 8: [Триггеры шаблона] -->
-        <ControlTemplate.Triggers>
-            <!-- 8.1: [Если родитель пустой, то скрывать кнопку-экспандер] -->
-            <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
-            </Trigger>
-
-            <!-- 8.2: [Мультриггер для задания минимальной ширины] -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasHeader" Value="false" />
-                    <Condition Property="Width" Value="Auto" />
-                </MultiTrigger.Conditions>
-
-                <Setter TargetName="PART_Header" Property="MinWidth" Value="75" />
-            </MultiTrigger>
-
-            <!-- 8.3: [Мультриггер для задания минимальной высоты] -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasHeader" Value="false" />
-                    <Condition Property="Height" Value="Auto" />
-                </MultiTrigger.Conditions>
-
-                <Setter TargetName="PART_Header" Property="MinHeight" Value="19" />
-            </MultiTrigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
-        <!-- 1: [Параметры по умолчанию] -->
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Padding" Value="1,0,0,0" />
-        <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />-->
-
-        <!-- 2: [Шаблон] -->
-        <Setter Property="Template" Value="{StaticResource treeViewItemTemplate}"></Setter>
-    </Style>
-
-
-
-
 
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
         <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
@@ -215,6 +25,7 @@
         <Setter Property="Command" Value="{StaticResource changeSectionCommand}"></Setter>
     </Style>
 
+    <!-- Принять -->
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="acceptCommandMenuItem">
         <Setter Property="Header" Value="Принять"></Setter>
         <Setter Property="Command" Value="{StaticResource acceptTaskCommand}"></Setter>
@@ -228,6 +39,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Отклонить -->
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="rejectCommandMenuItem">
         <Setter Property="Header" Value="Отклонить"></Setter>
         <Setter Property="Command" Value="{StaticResource rejectTaskCommand}"></Setter>
@@ -240,6 +52,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Отложить -->
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="deferCommandMenuItem">
         <Setter Property="Header" Value="Отложить"></Setter>
         <Setter Property="Command" Value="{StaticResource deferTaskCommand}"></Setter>
@@ -252,6 +65,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Выполнить -->
     <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="doneCommandMenuItem">
         <Setter Property="Header" Value="Выполнить"></Setter>
         <Setter Property="Command" Value="{StaticResource doneTaskCommand}"></Setter>
@@ -264,6 +78,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Завершить -->
     <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="completeCommandMenuItem">
         <Setter Property="Header" Value="Завершить"></Setter>
         <Setter Property="Command" Value="{StaticResource completeTaskCommand}"></Setter>
@@ -276,6 +91,7 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Переместить в корень -->
     <Style TargetType="MenuItem" BasedOn="{StaticResource menuItemWithInstance}" x:Key="makeRootCommandMenuItem">
         <Setter Property="Header" Value="Переместить в корень"></Setter>
         <Setter Property="Command" Value="{StaticResource makeRootCommand}"></Setter>
@@ -288,7 +104,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Задача основного раздела -->
+    <!-- Стиль элемента списка (основной раздел) -->
     <Style TargetType="ListBoxItem" x:Key="tasksMasterContextMenu">
         <Setter Property="Template" Value="{StaticResource listBoxItemTemplate}"></Setter>
         <Setter Property="BorderThickness" Value="1.5"></Setter>
@@ -307,7 +123,7 @@
         </Setter>
     </Style>
 
-    <!-- Ззадача неосновного раздела -->
+    <!-- Стиль элемента дерева (неосновной раздел) -->
     <Style TargetType="v:StretchingTreeViewItem" x:Key="tasksAdditionalContextMenu">
         <Setter Property="Template" Value="{StaticResource treeViewItemTemplate}"></Setter>
         <Setter Property="ContextMenu">
@@ -332,10 +148,17 @@
         <EventSetter Event="Drop" Handler="DropItem"></EventSetter>
     </Style>
 
-    <!-- Команды контекстного меню для заголовков -->
+    <!-- Свойства (раздел) -->
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="propertyMenuItem">
         <Setter Property="Header" Value="Свойства"></Setter>
         <Setter Property="Command" Value="{StaticResource showSectionPropertyCommand}"></Setter>
+    </Style>
+
+    <!-- Удалить раздел -->
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="deleteSectionMenuItem">
+        <Setter Property="Header" Value="Удалить раздел"></Setter>
+        <Setter Property="Command" Value="{StaticResource deleteSectionCommand}"></Setter>
+        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.DataContext}"></Setter>
     </Style>
 
     <!-- Контекстное меню для заголовка основного раздела -->
@@ -354,7 +177,7 @@
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
-                    <MenuItem Header="Удалить раздел" Style="{StaticResource baseStyle}"></MenuItem>
+                    <MenuItem Style="{StaticResource deleteSectionMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource propertyMenuItem}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>

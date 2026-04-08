@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using TaskManager.ViewModels;
 using TaskManager.Views;
 
 namespace TaskManager.Helpers
@@ -22,6 +23,9 @@ namespace TaskManager.Helpers
 
             throw new InvalidOperationException("Не удалось получить представление раздела из вкладки");
         }
+
+        internal static TabItem? GetTabItemWithSectionViewModel(SectionViewModel sectionViewModel)
+            => MainWindow.sections.Items.OfType<TabItem>().FirstOrDefault(t => Helper.GetSectionViewModelFromTabItem(t) == sectionViewModel);
 
         internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
     }

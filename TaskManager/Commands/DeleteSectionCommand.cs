@@ -9,11 +9,11 @@ namespace TaskManager.Commands
         internal override void ExecuteImplement(object? parameter)
         {
             // TODO: Добавить уведомление?
-            if (parameter is not TabItem tabItem || Helper.GetSectionViewModelFromTabItem(tabItem) is not SectionViewModel sectionViewModel)
+            if (parameter is not SectionViewModel sectionViewModel || UIHelper.GetTabItemWithSectionViewModel(sectionViewModel) is not TabItem tabItem)
                 return;
 
             var mainWindow = UIHelper.MainWindow;
-                
+
             if (mainWindow.MainViewModel.RemoveSectionViewModel(sectionViewModel))
                 mainWindow.sections.Items.Remove(tabItem);
         }

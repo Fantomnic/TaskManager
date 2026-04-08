@@ -2,6 +2,9 @@
 using System.Windows.Input;
 using TaskManager.Views;
 using TaskManager.ViewModels;
+using System.Windows.Controls;
+using TaskManager.Helpers;
+using System.Windows.Media;
 
 namespace TaskManager.Resources
 {
@@ -9,6 +12,8 @@ namespace TaskManager.Resources
     // Для обработки логики можно задать любой класс в x:Class для ResourceDictionary (который не будет противоречить наследованию)
     public partial class TasksAndSectionsResources
     {
+        #region Drad&Drop
+
         // Пока извне не используется
         internal static StretchingTreeViewItem? DraggingItem { get; private set; }
 
@@ -56,5 +61,7 @@ namespace TaskManager.Resources
 
             e.Handled = true;
         }
+
+        #endregion Drad&Drop
     }
 }
