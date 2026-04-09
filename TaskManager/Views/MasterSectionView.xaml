@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource titleDescription}">Список задач</TextBlock>
-        
+
         <ListBox x:Name="tasksList" Grid.Row="1"
                  ItemsSource="{Binding AllTasksViewModels}"
                  SelectedItem="{Binding SelectedTaskViewModel}"
@@ -27,11 +27,6 @@
                  MouseDown="TasksContainerMouseDown"
                  ContextMenuOpening="TasksListContextMenuOpening"
                  Background="{DynamicResource innerBackgroung}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
         </ListBox>
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"

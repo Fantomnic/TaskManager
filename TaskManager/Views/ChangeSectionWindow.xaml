@@ -6,9 +6,36 @@
                                xmlns:local="clr-namespace:TaskManager.Views"
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
+                               xmlns:sys="clr-namespace:System;assembly=mscorlib"
                                mc:Ignorable="d"
                                Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
                                Style="{StaticResource littleWindow}">
+
+    <!-- Вынес сюда, чтобы привязаться к длине поля через имя ЭУ.
+    Привязка с помощью RelativeSource почему-то не работает -->
+    <local:WindowWithBottomButtons.Resources>
+        <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None" x:Key="previewLabel">
+            <VisualBrush.Visual>
+                <Label Content="Нет"
+                       Style="{StaticResource baseStyle}"
+                       Opacity="0.75"
+                       Background="{DynamicResource fieldBackgroungReadOnly}"
+                       Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
+            </VisualBrush.Visual>
+        </VisualBrush>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMarginTextBox}" x:Key="lineTextBoxWithHint">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                    <Setter Property="Background" Value="{StaticResource previewLabel}" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Background" Value="{StaticResource previewLabel}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </local:WindowWithBottomButtons.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -34,7 +61,8 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Style="{StaticResource fieldDescription}">Текущий раздел:</TextBlock>
-                    <TextBox Grid.Column="1"
+                    <TextBox x:Name="sectionTextBox"
+                             Grid.Column="1"
                              Style="{StaticResource lineTextBoxWithHint}"
                              IsReadOnly="True"
                              Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
@@ -62,8 +90,7 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="108.435"></ColumnDefinition>
-                        <ColumnDefinition Width="41.565"/>
+                        <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 

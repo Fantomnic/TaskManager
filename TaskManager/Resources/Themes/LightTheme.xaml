@@ -24,7 +24,7 @@
 
     <!-- Цветовые настройки шрифта/фона -->
     <SolidColorBrush Color="Black" x:Key="antiMainColor" />
-    
+
     <SolidColorBrush Color="Black" x:Key="textForeground" />
     <SolidColorBrush Color="Red" x:Key="titleForeground" />
     <SolidColorBrush Color="White" x:Key="windowBackgroung" />
@@ -32,14 +32,17 @@
     <SolidColorBrush Color="White" x:Key="fieldBackgroung" />
     <SolidColorBrush Color="Gainsboro" x:Key="fieldBackgroungReadOnly" />
 
-    <!-- Кнопки -->
+    <!-- Кнопки (в т.ч. вкладки) -->
     <SolidColorBrush Color="WhiteSmoke" x:Key="buttonBackgroung" />
     <SolidColorBrush Color="Azure" x:Key="buttonIsMouseOverBackgroung" />
     <SolidColorBrush Color="Blue" x:Key="buttonIsMouseOverBorder" />
     <SolidColorBrush Color="#FFAFF9F9" x:Key="buttonIsPressedBackgroung" />
-
+    
+    <!-- Текстовые поля -->
     <SolidColorBrush Color="#FF2210E3" x:Key="taskDescriptionBorderColor" />
-
+    <SolidColorBrush Color="Orange" x:Key="fieldIsMouseOverBorderReadOnly" />
+    <SolidColorBrush Color="Red" x:Key="fieldIsFocusedBorderReadOnly" />
+    
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#D9D9D9" x:Key="waitingStatusBackground" />
     <SolidColorBrush Color="#92D050" x:Key="beginningStatusBackground" />
@@ -47,6 +50,10 @@
     <SolidColorBrush Color="Red" x:Key="rejectedStatusBackground" />
     <SolidColorBrush Color="#00CCFF" x:Key="doneStatusBackground" />
     <SolidColorBrush Color="#9954CC" x:Key="completedStatusBackground" />
-    
-    
+
+    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="menuGradientBackground">
+        <GradientStop Color="#FF0C7BFF" Offset="0" />
+        <GradientStop Color="#FF00EDFF" Offset="1" />
+    </LinearGradientBrush>
+
 </ResourceDictionary>

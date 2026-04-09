@@ -141,8 +141,8 @@
         </Setter>
         <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
         <Setter Property="AllowDrop" Value="True"></Setter>
-        
-        <EventSetter Event="PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"/>
+
+        <EventSetter Event="PreviewMouseRightButtonDown" Handler="PreviewMouseRightButtonDownItem"></EventSetter>
         <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PreviewMouseLeftButtonDownItem"></EventSetter>
         <EventSetter Event="PreviewMouseMove" Handler="PreviewMouseMoveItem"></EventSetter>
         <EventSetter Event="Drop" Handler="DropItem"></EventSetter>
@@ -207,5 +207,9 @@
         <Setter Property="Source" Value="/Resources/Images/QuestionPromo.png"></Setter>
         <Setter Property="Stretch" Value="Fill"></Setter>
     </Style>
-    
+
+    <Style TargetType="GroupBox">
+        <Setter Property="Background" Value="{DynamicResource innerBackgroung}"></Setter>
+    </Style>
+
 </ResourceDictionary>

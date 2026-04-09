@@ -1,10 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using TaskManager.Views;
 using TaskManager.ViewModels;
-using System.Windows.Controls;
-using TaskManager.Helpers;
-using System.Windows.Media;
+using TaskManager.Views;
 
 namespace TaskManager.Resources
 {

@@ -7,4 +7,7 @@
     <SolidColorBrush Color="#6675BEFF" x:Key="taskItemIsSelectedBackground" />
     <SolidColorBrush Color="#FF319AF7" x:Key="taskItemIsSelectedBorder" />
 
+    <SolidColorBrush Color="#FF2599FF" x:Key="fieldIsMouseOverBorder" />
+    <SolidColorBrush Color="Blue" x:Key="fieldIsFocusedBorder" />
+
 </ResourceDictionary>

@@ -24,7 +24,7 @@
 
     <!-- Цветовые настройки шрифта/фона -->
     <SolidColorBrush Color="White" x:Key="antiMainColor" />
-    
+
     <SolidColorBrush Color="#FFDFEFF1" x:Key="textForeground" />
     <SolidColorBrush Color="#FF4B90FF" x:Key="titleForeground" />
     <SolidColorBrush Color="#FF1A1A1A" x:Key="windowBackgroung" />
@@ -38,7 +38,10 @@
     <SolidColorBrush Color="DarkBlue" x:Key="buttonIsMouseOverBorder" />
     <SolidColorBrush Color="#FF1F53A6" x:Key="buttonIsPressedBackgroung" />
 
+    <!-- Текстовые поля -->
     <SolidColorBrush Color="#FF4B90FF" x:Key="taskDescriptionBorderColor" />
+    <SolidColorBrush Color="#FFC06900" x:Key="fieldIsMouseOverBorderReadOnly" />
+    <SolidColorBrush Color="#FF6800B1" x:Key="fieldIsFocusedBorderReadOnly" />
 
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#7F7F7F" x:Key="waitingStatusBackground" />
@@ -47,4 +50,10 @@
     <SolidColorBrush Color="#A50021" x:Key="rejectedStatusBackground" />
     <SolidColorBrush Color="#003FBC" x:Key="doneStatusBackground" />
     <SolidColorBrush Color="#7030A0" x:Key="completedStatusBackground" />
+
+    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="menuGradientBackground">
+        <GradientStop Color="#FF024089" Offset="0" />
+        <GradientStop Color="#FF005E64" Offset="1" />
+    </LinearGradientBrush>
+
 </ResourceDictionary>

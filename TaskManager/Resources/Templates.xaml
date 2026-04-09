@@ -8,19 +8,67 @@
         <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <!-- Шаблон для всех TextBox'ов -->
+    <ControlTemplate TargetType="TextBox" x:Key="textBoxTemplate">
+        <Border x:Name="border"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+            <ScrollViewer x:Name="PART_ContentHost"
+                          Focusable="false"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Hidden">
+            </ScrollViewer>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"></Condition>
+                    <Condition Property="IsReadOnly" Value="True"></Condition>
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource fieldIsMouseOverBorderReadOnly}"/>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"></Condition>
+                    <Condition Property="IsReadOnly" Value="False"></Condition>
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource fieldIsMouseOverBorder}"/>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFocused" Value="True"></Condition>
+                    <Condition Property="IsReadOnly" Value="True"></Condition>
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource fieldIsFocusedBorderReadOnly}"/>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFocused" Value="True"></Condition>
+                    <Condition Property="IsReadOnly" Value="False"></Condition>
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource fieldIsFocusedBorder}"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <!-- Шаблон элемента списка (основной раздел) -->
     <ControlTemplate TargetType="ListBoxItem" x:Key="listBoxItemTemplate">
         <Border x:Name="listBoxItemBorder"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            Background="{TemplateBinding Background}"
-            Margin="{TemplateBinding Margin}"
-            Height="{TemplateBinding Height}"
-            Width="{TemplateBinding Width}" >
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Margin="{TemplateBinding Margin}"
+                Height="{TemplateBinding Height}"
+                Width="{TemplateBinding Width}" >
             <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
                 <ContentControl.Content>
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}"/>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
                 </ContentControl.Content>
             </ContentControl>
         </Border>

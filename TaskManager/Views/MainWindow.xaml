@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Выдвигающееся меню -->
-        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="#FF13E0E8"
+        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource menuGradientBackground}"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
                 <Button Style="{StaticResource menuButton}" Command="{StaticResource newSectionCommand}">Добавить раздел</Button>
