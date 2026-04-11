@@ -26,7 +26,7 @@
                  ItemContainerStyle="{StaticResource tasksMasterContextMenu}"
                  MouseDown="TasksContainerMouseDown"
                  ContextMenuOpening="TasksListContextMenuOpening"
-                 Background="{DynamicResource innerBackgroung}">
+                 Background="{DynamicResource innerBackground}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
@@ -34,7 +34,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"
+        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackground}"
                     ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 

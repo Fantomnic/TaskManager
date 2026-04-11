@@ -19,7 +19,7 @@
                 <Label Content="Нет"
                        Style="{StaticResource baseStyle}"
                        Opacity="0.75"
-                       Background="{DynamicResource fieldBackgroungReadOnly}"
+                       Background="{DynamicResource fieldBackgroundReadOnly}"
                        Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
             </VisualBrush.Visual>
         </VisualBrush>
@@ -113,7 +113,8 @@
                     <CheckBox x:Name="transferFullChain"
                               Grid.Row="1" Grid.ColumnSpan="3"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
-                              Style="{StaticResource baseStyleCheckBox}" Margin="3,0,3,0">Перенести всю цепочку задач</CheckBox>
+                              Style="{StaticResource baseStyleCheckBox}"
+                              Margin="3,0,3,0">Перенести всю цепочку задач</CheckBox>
                 </Grid>
             </GroupBox>
 

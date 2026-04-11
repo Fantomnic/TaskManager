@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
+using TaskManager.Model.TaskPriorities;
+using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
@@ -87,6 +89,8 @@ namespace TaskManager.Model
             dictionaries.Add(newDictionaryTheme);
 
             Theme = newTheme;
+
+            ResetColors();
         }
 
         private static Uri GetResourceDictionaryPath(Themes theme)
@@ -99,6 +103,12 @@ namespace TaskManager.Model
             };
 
             return new(name, UriKind.Relative);
+        }
+
+        private static void ResetColors()
+        {
+            TaskStatusesInstances.ResetBackgrounds();
+            TaskPrioritiesInstances.ResetForegrounds();
         }
 
         // Т.к. элементы привязаны к свойствам, нужно уведомлять интерфейс, что значения поменялись

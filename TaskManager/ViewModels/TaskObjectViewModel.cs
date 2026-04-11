@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
+using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
@@ -50,7 +51,7 @@ namespace TaskManager.ViewModels
 #pragma warning restore CS8603 // Possible null reference return.
 
         // Прим.: Технически, можно настроить связь в событии SelectionChanged - например, если контрол принимает объекты другого типа
-        public TaskPriority TaskPriority
+        public TaskPriorityBase TaskPriority
         {
             get => TaskObject.Priority;
             set

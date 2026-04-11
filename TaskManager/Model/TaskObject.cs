@@ -1,4 +1,4 @@
-﻿using TaskManager.Helpers;
+﻿using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
@@ -12,7 +12,7 @@ namespace TaskManager.Model
         private DateTime _endDate;
         private TaskType _type;
         private TaskStatusBase _status;
-        private TaskPriority _priority;
+        private TaskPriorityBase _priority;
         private AdditionalSection? _additionalSection;
         private bool _isNew;
         private TaskObject? _parent;
@@ -22,6 +22,7 @@ namespace TaskManager.Model
         {
             _creationDate = DateTime.Now;
             _status = TaskStatusesInstances.WaitingStatus;
+            _priority = TaskPrioritiesInstances.LowPriority;
             _isNew = true;
         }
 
@@ -68,7 +69,7 @@ namespace TaskManager.Model
             }
         }
 
-        public TaskPriority Priority
+        public TaskPriorityBase Priority
         {
             get => _priority;
             set

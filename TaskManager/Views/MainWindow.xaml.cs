@@ -64,8 +64,11 @@ namespace TaskManager.Views
         // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Helper.GetSectionViewModelFromTabItem((sender as TabControl)?.SelectedItem as TabItem) is not SectionViewModel selectedSectionViewModel)
+            if ((sender as TabControl)?.SelectedItem is not TabItem selectedTabItem
+                || Helper.GetSectionViewModelFromTabItem(selectedTabItem) is not SectionViewModel selectedSectionViewModel)
+            {
                 return;
+            }    
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
         }

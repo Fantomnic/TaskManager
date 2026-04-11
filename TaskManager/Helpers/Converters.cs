@@ -1,12 +1,13 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
 {
-    public class PriorityConverter : IValueConverter
+    public class PriorityTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => GetPriorityString(value as TaskPriority?);
@@ -60,15 +61,6 @@ namespace TaskManager.Helpers
             };
     }
 
-    public class StatusConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (value as TaskStatusBase)?.DisplayName ?? "null";
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => DependencyProperty.UnsetValue;
-    }
-
     public class FontIDConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -82,7 +74,7 @@ namespace TaskManager.Helpers
                 2 => "Средний",
                 3 => "Побольше",
                 4 => "Большой жесть",
-                5 => "Огромный ААА",
+                5 => "Вообще огромный",
                 _ => "Не придумано"
             };
         }

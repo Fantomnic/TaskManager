@@ -14,7 +14,6 @@ namespace TaskManager.Commands
                 return;
 
             Settings.FillFromViewModel(settingsWindow.SettingsViewModel);
-            TaskStatusesInstances.ResetBackgrounds();
         }
     }
 }

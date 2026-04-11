@@ -27,16 +27,16 @@
 
     <SolidColorBrush Color="#FFDFEFF1" x:Key="textForeground" />
     <SolidColorBrush Color="#FF4B90FF" x:Key="titleForeground" />
-    <SolidColorBrush Color="#FF1A1A1A" x:Key="windowBackgroung" />
-    <SolidColorBrush Color="#FF222121" x:Key="innerBackgroung" />
-    <SolidColorBrush Color="#FF3E3E42" x:Key="fieldBackgroung" />
-    <SolidColorBrush Color="#FF302B2D" x:Key="fieldBackgroungReadOnly" />
+    <SolidColorBrush Color="#FF1A1A1A" x:Key="windowBackground" />
+    <SolidColorBrush Color="#FF222121" x:Key="innerBackground" />
+    <SolidColorBrush Color="#FF3E3E42" x:Key="fieldBackground" />
+    <SolidColorBrush Color="#FF302B2D" x:Key="fieldBackgroundReadOnly" />
 
     <!-- Кнопки (в т.ч. вкладки) -->
-    <SolidColorBrush Color="#FF191919" x:Key="buttonBackgroung" />
-    <SolidColorBrush Color="#33613BFF" x:Key="buttonIsMouseOverBackgroung" />
+    <SolidColorBrush Color="#FF191919" x:Key="buttonBackground" />
+    <SolidColorBrush Color="#33613BFF" x:Key="buttonIsMouseOverBackground" />
     <SolidColorBrush Color="DarkBlue" x:Key="buttonIsMouseOverBorder" />
-    <SolidColorBrush Color="#FF1F53A6" x:Key="buttonIsPressedBackgroung" />
+    <SolidColorBrush Color="#FF1F53A6" x:Key="buttonIsPressedBackground" />
 
     <!-- Текстовые поля -->
     <SolidColorBrush Color="#FF4B90FF" x:Key="taskDescriptionBorderColor" />
@@ -46,10 +46,15 @@
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#7F7F7F" x:Key="waitingStatusBackground" />
     <SolidColorBrush Color="#00823B" x:Key="beginningStatusBackground" />
-    <SolidColorBrush Color="#EEB500" x:Key="deferredStatusBackground" />
+    <SolidColorBrush Color="#FFBB8E00" x:Key="deferredStatusBackground" />
     <SolidColorBrush Color="#A50021" x:Key="rejectedStatusBackground" />
     <SolidColorBrush Color="#003FBC" x:Key="doneStatusBackground" />
     <SolidColorBrush Color="#7030A0" x:Key="completedStatusBackground" />
+
+    <!-- Цвета приоритетов -->
+    <SolidColorBrush Color="#FF00A700" x:Key="lowPriorityForeground" />
+    <SolidColorBrush Color="#FFE6E616" x:Key="middlePriorityForeground" />
+    <SolidColorBrush Color="#FFED2929" x:Key="highPriorityForeground" />
 
     <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="menuGradientBackground">
         <GradientStop Color="#FF024089" Offset="0" />

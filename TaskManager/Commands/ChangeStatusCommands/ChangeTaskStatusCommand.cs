@@ -6,7 +6,7 @@ namespace TaskManager.Commands
 {
     public abstract class ChangeTaskStatusCommand : BaseCommand
     {
-        private protected virtual TaskStatusBase _targetStatus { get; }
+        private protected abstract TaskStatusBase _targetStatus { get; }
 
         internal virtual bool CanChange(TaskObject taskObject) => true;
 

@@ -35,15 +35,19 @@
         </Setter>
     </Style>
 
-    <!-- Стиль для галочки в чекбоксе -->
-    <Style TargetType="Path" BasedOn="{StaticResource baseScale}" x:Key="pathScale"></Style>
+
+
 
     <Style TargetType="CheckBox" BasedOn="{StaticResource baseStyleAlignmentMargin}" x:Key="baseStyleCheckBox">
-        <Style.Resources>
-            <Style TargetType="Path" BasedOn="{StaticResource pathScale}"></Style>
-        </Style.Resources>
+        <!--<Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black"/>
+                                   your color here 
+        <Setter Property="Foreground" Value="HotPink"/>-->
+        <Setter Property="Background" Value="{DynamicResource fieldBackground}"></Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}"></Setter>
     </Style>
-    
+
     <!-- Тут не получится так же, как с чекбоксом, т.к. здесь нет объекта Path -->
     <Style TargetType="RadioButton" BasedOn="{StaticResource baseScale}" x:Key="baseStyleRadioButton">
         <Setter Property="TextBlock.FontSize" Value="{x:Static local:Constants.StandartBaseFont}"></Setter>
@@ -53,7 +57,7 @@
     <!-- Ставим галочку справа и переворачиваем направление внутри самого чекбокса (иначе галочка будет отзеркалена) -->
     <Style TargetType="CheckBox" BasedOn="{StaticResource baseStyleCheckBox}" x:Key="flowDirectionCheckBox">
         <Style.Resources>
-            <Style TargetType="Path" BasedOn="{StaticResource pathScale}">
+            <Style TargetType="Path">
                 <Setter Property="FlowDirection" Value="LeftToRight" />
             </Style>
             <Style TargetType="TextBlock">
@@ -66,10 +70,10 @@
 
     <Style TargetType="TextBox" BasedOn="{StaticResource baseStyle}" x:Key="baseStyleTextBox">
         <Setter Property="Template" Value="{StaticResource textBoxTemplate}"></Setter>
-        <Setter Property="Background" Value="{DynamicResource fieldBackgroung}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource fieldBackground}"></Setter>
         <Style.Triggers>
             <Trigger Property="IsReadOnly" Value="True">
-                <Setter Property="Background" Value="{DynamicResource fieldBackgroungReadOnly}"></Setter>
+                <Setter Property="Background" Value="{DynamicResource fieldBackgroundReadOnly}"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>

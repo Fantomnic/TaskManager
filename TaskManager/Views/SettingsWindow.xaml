@@ -93,10 +93,13 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные масштабы:</TextBlock>
-                    <ComboBox Grid.Column="1" ItemsSource="{x:Static model:Settings.AvailableFonts}" SelectedItem="{Binding FontSettings}">
+                    <ComboBox Grid.Column="1"
+                              Style="{StaticResource BaseComboBoxStyle}"
+                              ItemsSource="{x:Static model:Settings.AvailableFonts}"
+                              SelectedItem="{Binding FontSettings}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyle}"
+                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}"
                                            Text="{Binding Path=ID,Converter={StaticResource fontIDConverter}}"
                                            FontSize="{Binding Path=BaseFont}">
                                     <TextBlock.ToolTip>
@@ -120,10 +123,13 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные темы:</TextBlock>
-                    <ComboBox Grid.Column="1" ItemsSource="{x:Static h:Enums.AllThemes}" SelectedItem="{Binding Path=Theme}">
+                    <ComboBox Grid.Column="1"
+                              Style="{StaticResource BaseComboBoxStyle}"
+                              ItemsSource="{x:Static h:Enums.AllThemes}"
+                              SelectedItem="{Binding Path=Theme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
+                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

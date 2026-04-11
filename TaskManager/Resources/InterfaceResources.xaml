@@ -61,17 +61,17 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource buttonIsMouseOverBackgroung}"></Setter>
+                <Setter Property="Background" Value="{DynamicResource buttonIsMouseOverBackground}"></Setter>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource buttonIsPressedBackgroung}"></Setter>
+                <Setter Property="Background" Value="{DynamicResource buttonIsPressedBackground}"></Setter>
                 <Setter Property="BorderBrush" Value="{DynamicResource buttonIsMouseOverBorder}"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="TabItem">
-        <Setter Property="Background" Value="{DynamicResource buttonBackgroung}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource buttonBackground}"></Setter>
         <Setter Property="BorderThickness" Value="1.5, 1.5, 1.5, 0"></Setter>
         <Setter Property="Template" Value="{StaticResource tabItemTemplate}"></Setter>
     </Style>
@@ -91,18 +91,18 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="serviceButtonBorder" Property="Background" Value="{DynamicResource buttonIsMouseOverBackgroung}" />
+                <Setter TargetName="serviceButtonBorder" Property="Background" Value="{DynamicResource buttonIsMouseOverBackground}" />
                 <Setter TargetName="serviceButtonBorder" Property="BorderBrush" Value="{DynamicResource buttonIsMouseOverBorder}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-                <Setter TargetName="serviceButtonBorder" Property="Background" Value="{DynamicResource buttonIsPressedBackgroung}" />
+                <Setter TargetName="serviceButtonBorder" Property="Background" Value="{DynamicResource buttonIsPressedBackground}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="Button" BasedOn="{StaticResource baseStyle}" x:Key="serviceButtonBase">
         <Setter Property="Template" Value="{StaticResource serviceButtonTemplate}"/>
-        <Setter Property="Background" Value="{DynamicResource buttonBackgroung}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource buttonBackground}"></Setter>
         <Setter Property="Margin" Value="3,2,3,2"></Setter>
     </Style>
 

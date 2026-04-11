@@ -11,11 +11,11 @@
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
         <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
     </Style>
 
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource menuItemWithInstance}" x:Key="collapsedMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource menuItemWithInstance}" x:Key="collapsedMenuItem">
         <Setter Property="Visibility" Value="Collapsed"></Setter>
     </Style>
     
@@ -26,7 +26,7 @@
     </Style>
 
     <!-- Принять -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="acceptCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="acceptCommandMenuItem">
         <Setter Property="Header" Value="Принять"></Setter>
         <Setter Property="Command" Value="{StaticResource acceptTaskCommand}"></Setter>
         <Style.Triggers>
@@ -40,7 +40,7 @@
     </Style>
 
     <!-- Отклонить -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="rejectCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="rejectCommandMenuItem">
         <Setter Property="Header" Value="Отклонить"></Setter>
         <Setter Property="Command" Value="{StaticResource rejectTaskCommand}"></Setter>
         <Style.Triggers>
@@ -53,7 +53,7 @@
     </Style>
 
     <!-- Отложить -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource collapsedMenuItem}" x:Key="deferCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource collapsedMenuItem}" x:Key="deferCommandMenuItem">
         <Setter Property="Header" Value="Отложить"></Setter>
         <Setter Property="Command" Value="{StaticResource deferTaskCommand}"></Setter>
         <Style.Triggers>
@@ -123,9 +123,15 @@
         </Setter>
     </Style>
 
-    <!-- Стиль элемента чекбокса -->
+    <!-- Стиль элемента комбобокса -->
     <Style TargetType="ComboBoxItem" x:Key="ComboBoxItemStyle">
         <Setter Property="Template" Value="{StaticResource listBoxItemTemplate}"></Setter>
+    </Style>
+
+    <!-- Общий стиль элемента комбобоксов -->
+    <Style TargetType="ComboBox" x:Key="BaseComboBoxStyle">
+        <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"></Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"></Setter>
     </Style>
 
     <!-- Стиль элемента дерева (неосновной раздел) -->
@@ -154,13 +160,13 @@
     </Style>
 
     <!-- Свойства (раздел) -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="propertyMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource baseStyle}" x:Key="propertyMenuItem">
         <Setter Property="Header" Value="Свойства"></Setter>
         <Setter Property="Command" Value="{StaticResource showSectionPropertyCommand}"></Setter>
     </Style>
 
     <!-- Удалить раздел -->
-    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource baseStyle}" x:Key="deleteSectionMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource baseStyle}" x:Key="deleteSectionMenuItem">
         <Setter Property="Header" Value="Удалить раздел"></Setter>
         <Setter Property="Command" Value="{StaticResource deleteSectionCommand}"></Setter>
         <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.DataContext}"></Setter>
@@ -214,7 +220,7 @@
     </Style>
 
     <Style TargetType="GroupBox">
-        <Setter Property="Background" Value="{DynamicResource innerBackgroung}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource innerBackground}"></Setter>
     </Style>
 
 </ResourceDictionary>

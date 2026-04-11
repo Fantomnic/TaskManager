@@ -26,7 +26,7 @@
                                   ItemContainerStyle="{StaticResource tasksAdditionalContextMenu}"
                                   SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
                                   MouseDown="TasksContainerMouseDown"
-                                  Background="{DynamicResource innerBackgroung}">
+                                  Background="{DynamicResource innerBackground}">
             <local:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
                     <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Background="Transparent"></TextBlock>
@@ -35,9 +35,9 @@
         </local:StretchingTreeView>
 
         <GridSplitter Grid.Row="1" Grid.Column="1" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource windowBackgroung}"/>
-        
-        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource windowBackground}"/>
+
+        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource windowBackground}"
                     ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 
