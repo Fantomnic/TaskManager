@@ -63,5 +63,9 @@ namespace TaskManager.Resources
         public static double StartWidthMiddleWindow => _workingAreaWidth / 2.5;
 
         #endregion Среднее окно
+
+        public const double MinTasksListWidth = 250;
+
+        public const double MinTaskPropertyWidth = 500;
     }
 }

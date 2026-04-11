@@ -1,31 +1,10 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
-using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
 {
-    public class PriorityTextConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => GetPriorityString(value as TaskPriority?);
-
-        // TODO: изучить, когда используется
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => DependencyProperty.UnsetValue;
-
-        public static string GetPriorityString(TaskPriority? priority)
-            => priority switch
-            {
-                TaskPriority.Low => "Низкий",
-                TaskPriority.Middle => "Средний",
-                TaskPriority.High => "Высокий",
-                _ => "Значение не определено"
-            };
-    }
-
     public class TypeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

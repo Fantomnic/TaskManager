@@ -5,13 +5,15 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:local="clr-namespace:TaskManager.Views"
                    xmlns:model="clr-namespace:TaskManager.Model"
+                   xmlns:res="clr-namespace:TaskManager.Resources"
                    mc:Ignorable="d"
                    d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.1*"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="1.1*" MinWidth="{x:Static res:Constants.MinTasksListWidth}"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition MinWidth="{x:Static res:Constants.MinTaskPropertyWidth}"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
@@ -34,11 +36,14 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackground}"
+        <GridSplitter Grid.Row="1" Grid.Column="1" ShowsPreview="False" Width="3"
+              HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource windowBackground}"/>
+        
+        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource windowBackground}"
                     ItemsSource="{StaticResource tasksTabHeaders}">
         </TabControl>
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
-        <Image x:Name="emptyTaskImage" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
+        <Image x:Name="emptyTaskImage" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
     </Grid>
 </local:SectionView>

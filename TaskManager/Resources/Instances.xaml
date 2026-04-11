@@ -4,7 +4,6 @@
                     xmlns:cmd="clr-namespace:TaskManager.Commands">
 
     <!-- Конвертеры -->
-    <h:PriorityTextConverter x:Key="priorityTextConverter" />
     <h:TypeConverter x:Key="typeConverter" />
     <h:ThemeConverter x:Key="themeConverter" />
     <h:FontIDConverter x:Key="fontIDConverter" />
