@@ -6,10 +6,18 @@ namespace TaskManager.Model.TaskStatuses
     /// <summary>Статус задачи "Ожидает принятия"</summary>
     public class WaitingStatus : TaskStatusBase
     {
+        public WaitingStatus()
+        {
+            ResetBackground();
+        }
+
         public override string DisplayName => "Ожидает принятия";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus, TaskStatusesInstances.RejectedStatus];
 
-        public override SolidColorBrush Background => Helper.GetResource<SolidColorBrush>("waitingStatusBackground");
+        internal override void ResetBackground()
+        {
+            Background = Helper.GetResource<SolidColorBrush>("waitingStatusBackground");
+        }
     }
 }

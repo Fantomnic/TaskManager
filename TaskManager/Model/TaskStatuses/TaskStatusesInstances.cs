@@ -2,6 +2,16 @@
 {
     internal static class TaskStatusesInstances
     {
+        private static List<TaskStatusBase> AllStatuses =>
+            [
+                WaitingStatus,
+                BeginingStatus,
+                CompletedStatus,
+                DeferredStatus,
+                RejectedStatus,
+                DoneStatus,
+            ];
+
         /// <summary>Статус задачи "Ожидает принятия"</summary>
         internal static WaitingStatus WaitingStatus { get; } = new();
 
@@ -19,5 +29,11 @@
 
         /// <summary>Статус задачи "Выполнено"</summary>
         internal static DoneStatus DoneStatus { get; } = new();
+
+        internal static void ResetBackgrounds()
+        {
+            foreach (var status in AllStatuses)
+                status.ResetBackground();
+        }
     }
 }

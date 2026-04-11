@@ -6,10 +6,18 @@ namespace TaskManager.Model.TaskStatuses
     /// <summary>Статус задачи "Отложено"</summary>
     public class DeferredStatus : TaskStatusBase
     {
+        public DeferredStatus()
+        {
+            ResetBackground();
+        }
+
         public override string DisplayName => "Отложено";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus, TaskStatusesInstances.RejectedStatus];
 
-        public override SolidColorBrush Background => Helper.GetResource<SolidColorBrush>("deferredStatusBackground");
+        internal override void ResetBackground()
+        {
+            Background = Helper.GetResource<SolidColorBrush>("deferredStatusBackground");
+        }
     }
 }

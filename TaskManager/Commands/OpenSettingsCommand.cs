@@ -1,4 +1,5 @@
 ﻿using TaskManager.Model;
+using TaskManager.Model.TaskStatuses;
 using TaskManager.Views;
 
 namespace TaskManager.Commands
@@ -13,6 +14,7 @@ namespace TaskManager.Commands
                 return;
 
             Settings.FillFromViewModel(settingsWindow.SettingsViewModel);
+            TaskStatusesInstances.ResetBackgrounds();
         }
     }
 }

@@ -6,8 +6,16 @@ namespace TaskManager.Model.TaskStatuses
     /// <summary>Статус задачи "Завершено"</summary>
     public class CompletedStatus : TaskStatusBase
     {
+        public CompletedStatus()
+        {
+            ResetBackground();
+        }
+
         public override string DisplayName => "Завершено";
 
-        public override SolidColorBrush Background => Helper.GetResource<SolidColorBrush>("completedStatusBackground");
+        internal override void ResetBackground()
+        {
+            Background = Helper.GetResource<SolidColorBrush>("completedStatusBackground");
+        }
     }
 }
