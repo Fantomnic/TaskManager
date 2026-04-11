@@ -85,11 +85,16 @@
 
                     <!-- Приоритет -->
                     <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Приоритет:</TextBlock>
-                    <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="3,0,3,0"
-                              ItemsSource="{x:Static h:Enums.AllPriorities}" SelectedItem="{Binding TaskPriority}">
+                    <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Margin="3,0,3,0"
+                              ItemsSource="{x:Static h:Enums.AllPriorities}"
+                              SelectedItem="{Binding TaskPriority}"
+                              Template="{StaticResource ComboBoxTemplate}"
+                              ItemContainerStyle="{StaticResource ComboBoxItemStyle}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
+                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource priorityConverter}}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -150,7 +155,8 @@
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
                              IsReadOnly="True"
-                             Margin="{x:Static res:Constants.UniformMarginBase}">15.08.2000</TextBox>
+                             Margin="{x:Static res:Constants.UniformMarginBase}">
+                    </TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>

@@ -56,7 +56,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Шаблон элемента списка (основной раздел) -->
+    <!-- Шаблон элемента списка (основной раздел) 
+         А также для элементов списка чекбоксов -->
     <ControlTemplate TargetType="ListBoxItem" x:Key="listBoxItemTemplate">
         <Border x:Name="listBoxItemBorder"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -64,12 +65,11 @@
                 Background="{TemplateBinding Background}"
                 Margin="{TemplateBinding Margin}"
                 Height="{TemplateBinding Height}"
-                Width="{TemplateBinding Width}" >
+                Width="{TemplateBinding Width}">
             <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                <ContentControl.Content>
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
-                </ContentControl.Content>
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}">
             </ContentControl>
         </Border>
         <ControlTemplate.Triggers>
@@ -220,6 +220,68 @@
                 <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource taskItemIsSelectedBorder}" />
             </Trigger>
         </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!-- Шаблон отображаемой части чекбокса -->
+    <ControlTemplate TargetType="ToggleButton" x:Key="ToggleButtonCheckBoxTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="Border"  Grid.ColumnSpan="2"
+                    Background="{DynamicResource fieldBackgroung}"
+                    BorderBrush="{StaticResource defaultBorder}"
+                    BorderThickness="1" />
+            <Path x:Name="Arrow" Grid.Column="1"
+                  Stroke="{DynamicResource antiMainColor}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M 0 0 L 0 1 L 3 3 L 6 1 L 6 0 L 3 2.5 Z"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource fieldIsMouseOverBorder}"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource fieldIsFocusedBorder}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Шаблон для всего чекбокса -->
+    <ControlTemplate TargetType="ComboBox" x:Key="ComboBoxTemplate">
+        <Grid>
+            <ToggleButton Grid.Column="2"
+                          Focusable="false"
+                          Template="{StaticResource ToggleButtonCheckBoxTemplate}"
+                          IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+            </ToggleButton>
+            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                              Margin="3" />
+            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+            <Popup Name="Popup"
+                   Placement="Bottom"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   PopupAnimation="Slide">
+                <Grid Name="DropDown"
+                      SnapsToDevicePixels="True"
+                      MinWidth="{TemplateBinding ActualWidth}"
+                      MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                      Background="{DynamicResource innerBackgroung}">
+                    <Border x:Name="DropDownBorder" BorderBrush="{Binding ElementName=DropDown,Path=Background}"/>
+                    <ScrollViewer SnapsToDevicePixels="True">
+                        <StackPanel IsItemsHost="True" />
+                    </ScrollViewer>
+                </Grid>
+            </Popup>
+        </Grid>
     </ControlTemplate>
 
 </ResourceDictionary>

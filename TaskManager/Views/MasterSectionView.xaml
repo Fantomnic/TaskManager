@@ -27,6 +27,11 @@
                  MouseDown="TasksContainerMouseDown"
                  ContextMenuOpening="TasksListContextMenuOpening"
                  Background="{DynamicResource innerBackgroung}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <TabControl x:Name="taskInfo" Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource windowBackgroung}"

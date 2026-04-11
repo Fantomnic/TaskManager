@@ -10,4 +10,7 @@
     <SolidColorBrush Color="#FF2599FF" x:Key="fieldIsMouseOverBorder" />
     <SolidColorBrush Color="Blue" x:Key="fieldIsFocusedBorder" />
 
+    <!-- Значения ЭУ по умолчанию -->
+    <SolidColorBrush Color="#FFABADB3" x:Key="defaultBorder" />
+    
 </ResourceDictionary>

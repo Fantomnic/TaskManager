@@ -123,6 +123,11 @@
         </Setter>
     </Style>
 
+    <!-- Стиль элемента чекбокса -->
+    <Style TargetType="ComboBoxItem" x:Key="ComboBoxItemStyle">
+        <Setter Property="Template" Value="{StaticResource listBoxItemTemplate}"></Setter>
+    </Style>
+
     <!-- Стиль элемента дерева (неосновной раздел) -->
     <Style TargetType="v:StretchingTreeViewItem" x:Key="tasksAdditionalContextMenu">
         <Setter Property="Template" Value="{StaticResource treeViewItemTemplate}"></Setter>
