@@ -10,28 +10,28 @@
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
                                Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource littleWindow}">
+                               Style="{StaticResource LittleWindow}">
 
     <!-- Вынес сюда, чтобы привязаться к длине поля через имя ЭУ.
     Привязка с помощью RelativeSource почему-то не работает -->
     <local:WindowWithBottomButtons.Resources>
-        <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None" x:Key="previewLabel">
+        <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None" x:Key="PreviewLabel">
             <VisualBrush.Visual>
                 <Label Content="Нет"
-                       Style="{StaticResource baseStyle}"
+                       Style="{StaticResource BaseStyle}"
                        Opacity="0.75"
-                       Background="{DynamicResource fieldBackgroundReadOnly}"
+                       Background="{DynamicResource FieldBackgroundReadOnly}"
                        Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
             </VisualBrush.Visual>
         </VisualBrush>
 
-        <Style TargetType="TextBox" BasedOn="{StaticResource baseStyleAlignmentMarginTextBox}" x:Key="lineTextBoxWithHint">
+        <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxAlignmentMargin}" x:Key="LineTextBoxWithHint">
             <Style.Triggers>
                 <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                    <Setter Property="Background" Value="{StaticResource previewLabel}" />
+                    <Setter Property="Background" Value="{StaticResource PreviewLabel}" />
                 </Trigger>
                 <Trigger Property="Text" Value="{x:Null}">
-                    <Setter Property="Background" Value="{StaticResource previewLabel}" />
+                    <Setter Property="Background" Value="{StaticResource PreviewLabel}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -47,7 +47,7 @@
         <StackPanel>
             <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">О задаче</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">О задаче</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -61,23 +61,23 @@
                         <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource fieldDescription}">Текущий раздел:</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}">Текущий раздел:</TextBlock>
                     <TextBox x:Name="sectionTextBox"
                              Grid.Column="1"
-                             Style="{StaticResource lineTextBoxWithHint}"
+                             Style="{StaticResource LineTextBoxWithHint}"
                              IsReadOnly="True"
                              Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
                     </TextBox>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource fieldDescription}">Входит в задачу:</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">Входит в задачу:</TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
-                             Style="{StaticResource lineTextBoxWithHint}"
+                             Style="{StaticResource LineTextBoxWithHint}"
                              IsReadOnly="True"
                              Text="{Binding Path=ParentViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
                     </TextBox>
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="2" Grid.ColumnSpan="2"
-                              Style="{StaticResource flowDirectionCheckBox}"
+                              Style="{StaticResource FlowDirectionCheckBox}"
                               IsChecked="{Binding HasChildren,Mode=OneWay}"
                               IsEnabled="False"
                               VerticalAlignment="Center"
@@ -87,7 +87,7 @@
 
             <GroupBox BorderThickness="2" BorderBrush="Black" Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Сменить раздел</RadioButton>
+                    <RadioButton x:Name="changeButton" GroupName="sectionButtons" Style="{StaticResource BaseRadioButton}" IsChecked="True">Сменить раздел</RadioButton>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -100,16 +100,16 @@
                         <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Переместить в</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Переместить в</TextBlock>
 
                     <!-- Источник заполняем в коде -->
                     <ComboBox x:Name="newSectionsList" Grid.Column="2"
-                              Style="{StaticResource BaseComboBoxStyle}"
+                              Style="{StaticResource BaseComboBox}"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
                               VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding Path=Name}"></TextBlock>
+                                <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding Path=Name}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -117,19 +117,19 @@
                     <ctrl:CheckBoxWithItemStyle x:Name="transferFullChain"
                               Grid.Row="1" Grid.ColumnSpan="3"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
-                              Style="{StaticResource baseStyleCheckBox}"
+                              Style="{StaticResource BaseCheckBox}"
                               Margin="3,0,3,0">Перенести всю цепочку задач</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 
             <RadioButton x:Name="deleteButton" GroupName="sectionButtons"
-                         Style="{StaticResource baseStyleRadioButton}"
+                         Style="{StaticResource BaseRadioButton}"
                          Margin="{x:Static res:Constants.UniformMarginBase}">Удалить из текущего раздела</RadioButton>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

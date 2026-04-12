@@ -1,0 +1,93 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TaskManager.Resources"
+                    xmlns:model="clr-namespace:TaskManager.Model">
+
+    <!-- Здесь размещаются самостоятельные ресурсы, которые не ссылаются (статически) на другие словари -->
+
+    <!-- Для всех групбоксов -->
+    <Style TargetType="GroupBox">
+        <Setter Property="Background" Value="{DynamicResource InnerBackground}"></Setter>
+    </Style>
+
+    <!-- Для всех подсказок -->
+    <Style TargetType="ToolTip">
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+    </Style>
+
+    <Style TargetType="Window" x:Key="BaseWindow">
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+    </Style>
+
+    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="MainWindow">
+        <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMainWindow}"></Setter>
+        <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
+        <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMainWindow}"></Setter>
+        <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthMainWindow}"></Setter>
+    </Style>
+
+    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="LittleWindow">
+        <Setter Property="Height" Value="{x:Static local:Constants.StartHeightLittleWindow}"></Setter>
+        <Setter Property="Width" Value="{x:Static local:Constants.StartWidthLittleWindow}"></Setter>
+        <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightLittleWindow}"></Setter>
+        <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthLittleWindow}"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+    </Style>
+
+    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="MiddleWindow">
+        <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMiddleWindow}"></Setter>
+        <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMiddleWindow}"></Setter>
+        <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMiddleWindow}"></Setter>
+        <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthMiddleWindow}"></Setter>
+    </Style>
+
+    <Style TargetType="Window" BasedOn="{StaticResource MiddleWindow}" x:Key="SettingsWindow">
+        <Setter Property="MaxHeight" Value="{x:Static local:Constants.StartHeightMainWindow}"></Setter>
+        <Setter Property="MaxWidth" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
+        <Setter Property="WindowStyle" Value="ToolWindow"></Setter>
+    </Style>
+
+    <!-- Пояснения:
+    https://translated.turbopages.org/proxy_u/en-ru.ru.f98dd4d1-69c302e2-86bb2ad1-74722d776562/https/stackoverflow.com/questions/29697807/why-doesnt-my-textblock-style-inherit-from-my-base-style -->
+    <Style TargetType="FrameworkElement" x:Key="BaseStyle">
+        <Setter Property="TextBlock.FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource TextForeground}"></Setter>
+    </Style>
+
+    <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseStyle}" x:Key="BaseStyleAlignment">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="BaseStyleAlignmentMargin">
+        <Setter Property="Margin" Value="3,0,3,0"></Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="FieldDescription">
+        <Setter Property="Margin" Value="5,0,5,0"></Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource FieldDescription}" x:Key="TitleDescription">
+        <Setter Property="Foreground" Value="{DynamicResource TitleForeground}"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=TitleFont}"></Setter>
+        <!-- Переопределяем -->
+        <Setter Property="Margin" Value="10,0,0,0"></Setter>
+    </Style>
+
+    <!-- Масштабирование в зависимости от размера шрифта -->
+    <Style TargetType="FrameworkElement" x:Key="BaseScale">
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}"
+                            ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Стиль для картинок "статических" кнопок меню в боковой панели -->
+    <Style TargetType="Image" x:Key="MenuImageIcon">
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+</ResourceDictionary>

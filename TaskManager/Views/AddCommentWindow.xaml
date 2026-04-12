@@ -8,7 +8,7 @@
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                mc:Ignorable="d" 
                                WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource littleWindow}">
+                               Style="{StaticResource LittleWindow}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
@@ -16,14 +16,14 @@
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource titleDescription}">Новый комментарий:</TextBlock>
+        <TextBlock Style="{StaticResource TitleDescription}">Новый комментарий:</TextBlock>
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-            <TextBox x:Name="commentField" Style="{StaticResource baseStyleTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+            <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
         </ScrollViewer>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

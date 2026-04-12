@@ -2,15 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Элементы списка/дерева -->
-    <SolidColorBrush Color="#4C75BEFF" x:Key="taskItemIsMouseOverBackground" />
-    <SolidColorBrush Color="#CC50ADFF" x:Key="taskItemIsMouseOverBorder" />
-    <SolidColorBrush Color="#6675BEFF" x:Key="taskItemIsSelectedBackground" />
-    <SolidColorBrush Color="#FF319AF7" x:Key="taskItemIsSelectedBorder" />
+    <SolidColorBrush Color="#4C75BEFF" x:Key="TaskItemIsMouseOverBackground" />
+    <SolidColorBrush Color="#CC50ADFF" x:Key="TaskItemIsMouseOverBorder" />
+    <SolidColorBrush Color="#6675BEFF" x:Key="TaskItemIsSelectedBackground" />
+    <SolidColorBrush Color="#FF319AF7" x:Key="TaskItemIsSelectedBorder" />
 
-    <SolidColorBrush Color="#FF2599FF" x:Key="fieldIsMouseOverBorder" />
-    <SolidColorBrush Color="Blue" x:Key="fieldIsFocusedBorder" />
+    <!-- Текстовые поля -->
+    <SolidColorBrush Color="#FF2599FF" x:Key="FieldIsMouseOverBorder" />
+    <SolidColorBrush Color="Blue" x:Key="FieldIsFocusedBorder" />
 
     <!-- Значения ЭУ по умолчанию -->
-    <SolidColorBrush Color="#FFABADB3" x:Key="defaultBorder" />
+    <SolidColorBrush Color="#FFABADB3" x:Key="DefaultBorder" />
     
 </ResourceDictionary>

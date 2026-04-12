@@ -4,9 +4,9 @@
                     xmlns:cmd="clr-namespace:TaskManager.Commands">
 
     <!-- Конвертеры -->
-    <h:TypeConverter x:Key="typeConverter" />
-    <h:ThemeConverter x:Key="themeConverter" />
-    <h:FontIDConverter x:Key="fontIDConverter" />
+    <h:TaskTypeConverter x:Key="TaskTypeConverter" />
+    <h:ThemeConverter x:Key="ThemeConverter" />
+    <h:FontIDConverter x:Key="FontIDConverter" />
     
     <!-- Команды -->
     <!-- Прим.: Таким способом нельзя создать экземпляр вложенного класса.
@@ -16,18 +16,18 @@
     Можно делать команды internal, помещать их экземпляры в DataContext и через привязку использовать в соответствующем представлении.
     Но чтобы можно было задавать их в xaml, нужен public -->
     <!-- TODO: Возможно, реализация через свойства будет лучше, т.к. не придётся следить за корректностью ключей (в 2 местах - тут и в словаре) -->
-    <cmd:ChangeSectionCommand x:Key="changeSectionCommand" />
-    <cmd:AcceptTaskCommand x:Key="acceptTaskCommand" />
-    <cmd:RejectTaskCommand x:Key="rejectTaskCommand" />
-    <cmd:DeferTaskCommand x:Key="deferTaskCommand" />
-    <cmd:DoneTaskCommand x:Key="doneTaskCommand" />
-    <cmd:CompleteTaskCommand x:Key="completeTaskCommand" />
-    <cmd:DeleteSectionCommand x:Key="deleteSectionCommand" />
-    <cmd:DeleteTaskCommand x:Key="deleteTaskCommand" />
-    <cmd:NewSectionCommand x:Key="newSectionCommand" />
-    <cmd:NewTaskCommand x:Key="newTaskCommand" />
-    <cmd:OpenSettingsCommand x:Key="openSettingsCommand" />
-    <cmd:ShowSectionPropertyCommand x:Key="showSectionPropertyCommand" />
-    <cmd:MakeRootCommand x:Key="makeRootCommand" />
+    <cmd:ChangeSectionCommand x:Key="ChangeSectionCommand" />
+    <cmd:AcceptTaskCommand x:Key="AcceptTaskCommand" />
+    <cmd:RejectTaskCommand x:Key="RejectTaskCommand" />
+    <cmd:DeferTaskCommand x:Key="DeferTaskCommand" />
+    <cmd:DoneTaskCommand x:Key="DoneTaskCommand" />
+    <cmd:CompleteTaskCommand x:Key="CompleteTaskCommand" />
+    <cmd:DeleteSectionCommand x:Key="DeleteSectionCommand" />
+    <cmd:DeleteTaskCommand x:Key="DeleteTaskCommand" />
+    <cmd:NewSectionCommand x:Key="NewSectionCommand" />
+    <cmd:NewTaskCommand x:Key="NewTaskCommand" />
+    <cmd:OpenSettingsCommand x:Key="OpenSettingsCommand" />
+    <cmd:ShowSectionPropertyCommand x:Key="ShowSectionPropertyCommand" />
+    <cmd:MakeRootCommand x:Key="MakeRootCommand" />
 
 </ResourceDictionary>

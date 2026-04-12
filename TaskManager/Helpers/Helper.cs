@@ -50,29 +50,29 @@ namespace TaskManager.Helpers
             if (typeof(T) == typeof(ChangeSectionCommand))
                 key = Texts.KeyChangeSectionCommand;
             else if (typeof(T) == typeof(DeleteSectionCommand))
-                key = "deleteSectionCommand";
+                key = "DeleteSectionCommand";
             else if(typeof(T) == typeof(DeleteTaskCommand))
-                key = "deleteTaskCommand";
+                key = "DeleteTaskCommand";
             else if (typeof(T) == typeof(NewSectionCommand))
-                key = "newSectionCommand";
+                key = "NewSectionCommand";
             else if (typeof(T) == typeof(NewTaskCommand))
-                key = "newTaskCommand";
+                key = "NewTaskCommand";
             else if (typeof(T) == typeof(OpenSettingsCommand))
-                key = "openSettingsCommand";
+                key = "OpenSettingsCommand";
             else if (typeof(T) == typeof(ShowSectionPropertyCommand))
-                key = "showSectionPropertyCommand";
+                key = "ShowSectionPropertyCommand";
             else if (typeof(T) == typeof(AcceptTaskCommand))
-                key = "acceptTaskCommand";
+                key = "AcceptTaskCommand";
             else if (typeof(T) == typeof(ChangeTaskStatusCommand))
                 key = "changeTaskStatusCommand";
             else if (typeof(T) == typeof(CompleteTaskCommand))
-                key = "completeTaskCommand";
+                key = "CompleteTaskCommand";
             else if (typeof(T) == typeof(DeferTaskCommand))
-                key = "deferTaskCommand";
+                key = "DeferTaskCommand";
             else if (typeof(T) == typeof(DoneTaskCommand))
-                key = "doneTaskCommand";
+                key = "DoneTaskCommand";
             else if (typeof(T) == typeof(RejectTaskCommand))
-                key = "rejectTaskCommand";
+                key = "RejectTaskCommand";
             else 
                 throw new NotImplementedException();
 

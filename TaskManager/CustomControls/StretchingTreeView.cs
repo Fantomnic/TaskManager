@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace TaskManager.Views
+namespace TaskManager.CustomControls
 {
     public class StretchingTreeView : TreeView
     {

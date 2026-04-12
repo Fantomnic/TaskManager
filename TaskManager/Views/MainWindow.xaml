@@ -4,12 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager"
-        xmlns:views="clr-namespace:TaskManager.Views"
-        xmlns:res="clr-namespace:TaskManager.Resources"
+        xmlns:v="clr-namespace:TaskManager.Views"
         xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
         mc:Ignorable="d"
         Title="Трекер задач" WindowStartupLocation="CenterScreen"
-        Style="{StaticResource mainWindow}">
+        Style="{StaticResource MainWindow}">
     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>
@@ -19,31 +18,31 @@
         </Grid.ColumnDefinitions>
 
         <!-- Выдвигающееся меню -->
-        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource menuGradientBackground}"
+        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource MenuGradientBackground}"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
-                <Button Style="{StaticResource menuButton}" Command="{StaticResource newSectionCommand}">Добавить раздел</Button>
-                <Expander Style="{StaticResource menuButton}" VerticalAlignment="Center">
+                <Button Style="{StaticResource MenuButton}" Command="{StaticResource NewSectionCommand}">Добавить раздел</Button>
+                <Expander Style="{StaticResource MenuButton}" VerticalAlignment="Center">
                     <Expander.Header>
                         <TextBlock VerticalAlignment="Center">Кнопка 2</TextBlock>
                     </Expander.Header>
                     <StackPanel>
                         <GroupBox>
                             <StackPanel>
-                                <RadioButton Style="{StaticResource baseStyleRadioButton}">Выделить по статусу</RadioButton>
-                                <RadioButton Style="{StaticResource baseStyleRadioButton}">Выделить по приоритету</RadioButton>
-                                <RadioButton Style="{StaticResource baseStyleRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
+                                <RadioButton Style="{StaticResource BaseRadioButton}">Выделить по статусу</RadioButton>
+                                <RadioButton Style="{StaticResource BaseRadioButton}">Выделить по приоритету</RadioButton>
+                                <RadioButton Style="{StaticResource BaseRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
                             </StackPanel>
                         </GroupBox>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource baseStyleCheckBox}" IsChecked="True">Отображать текущие</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource baseStyleCheckBox}" IsChecked="True">Отображать отложенные</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource baseStyleCheckBox}" IsChecked="True">Отображать отклонённые</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource baseStyleCheckBox}" IsChecked="True">Отображать выполненные</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource baseStyleCheckBox}" IsChecked="True">Отображать завершённые</ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать текущие</ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать отложенные</ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать отклонённые</ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать выполненные</ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать завершённые</ctrl:CheckBoxWithItemStyle>
                     </StackPanel>
                 </Expander>
-                <Button Style="{StaticResource menuButton}">Кнопка 3</Button>
-                <Button Style="{StaticResource menuButton}">Кнопка 4</Button>
+                <Button Style="{StaticResource MenuButton}">Кнопка 3</Button>
+                <Button Style="{StaticResource MenuButton}">Кнопка 4</Button>
             </StackPanel>
         </ScrollViewer>
 
@@ -56,34 +55,33 @@
 
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Создать задачу"
-                        Command="{StaticResource newTaskCommand}" CommandParameter="{Binding TasksList}">
-                    <Image Style="{DynamicResource newTaskIcon}"/>
+                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Создать задачу"
+                        Command="{StaticResource NewTaskCommand}" CommandParameter="{Binding TasksList}">
+                    <Image Style="{DynamicResource NewTaskIcon}"/>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Действия"
+                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Действия"
                         Click="MenuClick">
-                    <Image Style="{DynamicResource menuActionsIcon}"></Image>
+                    <Image Style="{DynamicResource MenuActionsIcon}"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource menuButtonIcon}" ToolTip="Настройки"
-                        Command="{StaticResource openSettingsCommand}">
-                    <Image Style="{DynamicResource settingsIcon}"></Image>
+                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Настройки"
+                        Command="{StaticResource OpenSettingsCommand}">
+                    <Image Style="{DynamicResource SettingsIcon}"></Image>
                 </Button>
-                <!-- TODO: Сделать значком -->
-                <Button DockPanel.Dock="Bottom" Style="{StaticResource menuButtonIcon}" ToolTip="Справка">
-                    <Image Style="{DynamicResource appInfoIcon}"></Image>
+                <Button DockPanel.Dock="Bottom" Style="{StaticResource MenuButtonIcon}" ToolTip="Справка">
+                    <Image Style="{DynamicResource AppInfoIcon}"></Image>
                 </Button>
             </DockPanel>
 
             <!-- Задачи (разделы добавляются в коде) -->
             <TabControl x:Name="sections" Grid.Column="1"
                         SelectionChanged="SectionsSelectionChanged"
-                        Background="{DynamicResource windowBackground}">
+                        Background="{DynamicResource WindowBackground}">
                 <TabItem x:Name="masterSection">
                     <TabItem.Header>
-                        <TextBlock Style="{StaticResource masterSectionHeaderContextMenu}" Text="{Binding Path=Name}"></TextBlock>
+                        <TextBlock Style="{StaticResource MasterSectionHeaderContextMenu}" Text="{Binding Path=Name}"></TextBlock>
                     </TabItem.Header>
                     <ContentControl>
-                        <views:MasterSectionView></views:MasterSectionView>
+                        <v:MasterSectionView></v:MasterSectionView>
                     </ContentControl>
                 </TabItem>
             </TabControl>

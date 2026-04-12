@@ -1,6 +1,5 @@
-﻿using TaskManager.Views;
-using TaskManager.ViewModels;
-using System.Windows.Controls;
+﻿using TaskManager.ViewModels;
+using TaskManager.Views;
 
 namespace TaskManager.Commands
 {

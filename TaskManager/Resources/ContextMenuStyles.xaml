@@ -1,0 +1,174 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate TargetType="MenuItem" x:Key="ContextMenuItemTemplate">
+        <Border Name="Border" >
+            <Grid>
+                <ContentPresenter Margin="6,3,6,3" ContentSource="Header" RecognizesAccessKey="True" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource TaskItemIsMouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TaskItemIsMouseOverBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="MenuItem" x:Key="MenuItemStyle">
+        <Setter Property="Template" Value="{StaticResource ContextMenuItemTemplate}"></Setter>
+    </Style>
+
+    <Style TargetType="ContextMenu">
+        <Setter Property="OverridesDefaultStyle" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}"></Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource MenuItemStyle}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <Border x:Name="border" Background="{TemplateBinding Background}">
+                        <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <!-- Команда меню с параметром -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseStyle}" x:Key="MenuItemWithInstance">
+        <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
+    </Style>
+
+    <!-- Команда меню с параметром, скрытая по умолчанию -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="CollapsedMenuItem">
+        <Setter Property="Visibility" Value="Collapsed"></Setter>
+    </Style>
+
+    <!-- Команды контекстного меню для задач -->
+    <!-- Изменить раздел -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="ChangeSectionCommandMenuItem">
+        <Setter Property="Header" Value="Изменить раздел"></Setter>
+        <Setter Property="Command" Value="{StaticResource ChangeSectionCommand}"></Setter>
+    </Style>
+
+    <!-- Принять -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource CollapsedMenuItem}" x:Key="AcceptCommandMenuItem">
+        <Setter Property="Header" Value="Принять"></Setter>
+        <Setter Property="Command" Value="{StaticResource AcceptTaskCommand}"></Setter>
+        <Style.Triggers>
+            <!-- PlacementTarget указывает на тот элемент, с которого было вызвано меню (элемент списка) -->
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.AcceptCommandVisibility}"
+                     Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Отклонить -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource CollapsedMenuItem}" x:Key="RejectCommandMenuItem">
+        <Setter Property="Header" Value="Отклонить"></Setter>
+        <Setter Property="Command" Value="{StaticResource RejectTaskCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.RejectCommandVisibility}"
+                     Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Отложить -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource CollapsedMenuItem}" x:Key="DeferCommandMenuItem">
+        <Setter Property="Header" Value="Отложить"></Setter>
+        <Setter Property="Command" Value="{StaticResource DeferTaskCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.DeferCommandVisibility}"
+                     Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Выполнить -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource CollapsedMenuItem}" x:Key="DoneCommandMenuItem">
+        <Setter Property="Header" Value="Выполнить"></Setter>
+        <Setter Property="Command" Value="{StaticResource DoneTaskCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.DoneCommandVisibility}"
+                     Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Завершить -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource CollapsedMenuItem}" x:Key="CompleteCommandMenuItem">
+        <Setter Property="Header" Value="Завершить"></Setter>
+        <Setter Property="Command" Value="{StaticResource CompleteTaskCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.CompleteCommandVisibility}"
+                     Value="True">
+                <Setter Property="Visibility" Value="Visible"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Переместить в корень -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="MakeRootCommandMenuItem">
+        <Setter Property="Header" Value="Переместить в корень"></Setter>
+        <Setter Property="Command" Value="{StaticResource MakeRootCommand}"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},
+                Path=PlacementTarget.DataContext.ParentViewModel}"
+                     Value="{x:Null}">
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Команды контекстного меню для разделов -->
+    <!-- Свойства -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseStyle}" x:Key="PropertyMenuItem">
+        <Setter Property="Header" Value="Свойства"></Setter>
+        <Setter Property="Command" Value="{StaticResource ShowSectionPropertyCommand}"></Setter>
+    </Style>
+
+    <!-- Удалить раздел -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseStyle}" x:Key="DeleteSectionMenuItem">
+        <Setter Property="Header" Value="Удалить раздел"></Setter>
+        <Setter Property="Command" Value="{StaticResource DeleteSectionCommand}"></Setter>
+        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.DataContext}"></Setter>
+    </Style>
+
+    <!-- Контекстное меню для заголовка основного раздела -->
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="MasterSectionHeaderContextMenu">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Style="{StaticResource PropertyMenuItem}"></MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Контекстное меню для заголовков неосновных разделов -->
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="AdditionalSectionHeaderContextMenu">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Style="{StaticResource DeleteSectionMenuItem}"></MenuItem>
+                    <MenuItem Style="{StaticResource PropertyMenuItem}"></MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

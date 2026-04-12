@@ -6,6 +6,7 @@
                    xmlns:local="clr-namespace:TaskManager.Views"
                    xmlns:model="clr-namespace:TaskManager.Model"
                    xmlns:res="clr-namespace:TaskManager.Resources"
+                   xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                    mc:Ignorable="d"
                    d:DesignHeight="450" d:DesignWidth="800">
 
@@ -20,29 +21,29 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource titleDescription}">Список задач</TextBlock>
+        <TextBlock Style="{StaticResource TitleDescription}">Список задач</TextBlock>
 
-        <local:StretchingTreeView Grid.Row="1"
-                                  ItemsSource="{Binding RootTasksViewModels}"
-                                  ItemContainerStyle="{StaticResource tasksAdditionalContextMenu}"
-                                  SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
-                                  MouseDown="TasksContainerMouseDown"
-                                  Background="{DynamicResource innerBackground}">
-            <local:StretchingTreeView.ItemTemplate>
+        <ctrl:StretchingTreeView Grid.Row="1"
+                                 ItemsSource="{Binding RootTasksViewModels}"
+                                 ItemContainerStyle="{StaticResource AdditionalTaskItem}"
+                                 SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
+                                 MouseDown="TasksContainerMouseDown"
+                                 Background="{DynamicResource InnerBackground}">
+            <ctrl:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
-                    <TextBlock Style="{StaticResource baseStyleAlignment}" Text="{Binding Path=Name}" Background="Transparent"></TextBlock>
+                    <TextBlock Style="{StaticResource BaseStyleAlignment}" Text="{Binding Path=Name}" Background="Transparent"></TextBlock>
                 </HierarchicalDataTemplate>
-            </local:StretchingTreeView.ItemTemplate>
-        </local:StretchingTreeView>
+            </ctrl:StretchingTreeView.ItemTemplate>
+        </ctrl:StretchingTreeView>
 
         <GridSplitter Grid.Row="1" Grid.Column="1" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource windowBackground}"/>
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
 
-        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource windowBackground}"
-                    ItemsSource="{StaticResource tasksTabHeaders}">
+        <TabControl x:Name="taskInfo" Grid.Column="2" Grid.RowSpan="2" Background="{DynamicResource WindowBackground}"
+                    ItemsSource="{StaticResource TaskTabHeaders}">
         </TabControl>
 
         <!-- Когда нет выбранного объекта, включается отображение этого ЭУ -->
-        <Image x:Name="emptyTaskImage" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource emptyTaskImageStyle}"></Image>
+        <Image x:Name="emptyTaskImage" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource EmptyTaskImageStyle}"></Image>
     </Grid>
 </local:SectionView>

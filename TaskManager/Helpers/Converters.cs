@@ -5,7 +5,7 @@ using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
 {
-    public class TypeConverter : IValueConverter
+    public class TaskTypeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => GetTypeString(value as TaskType?);

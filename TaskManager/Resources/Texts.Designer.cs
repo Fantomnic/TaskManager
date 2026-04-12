@@ -61,7 +61,7 @@ namespace TaskManager.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to changeSectionCommand.
+        ///   Looks up a localized string similar to ChangeSectionCommand.
         /// </summary>
         public static string KeyChangeSectionCommand {
             get {

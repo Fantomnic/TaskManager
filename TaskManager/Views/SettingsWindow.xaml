@@ -5,12 +5,12 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:local="clr-namespace:TaskManager.Views"
                                xmlns:model="clr-namespace:TaskManager.Model"
-                               xmlns:h="clr-namespace:TaskManager.Helpers"
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
+                               xmlns:h="clr-namespace:TaskManager.Helpers"
                                mc:Ignorable="d"
                                Title="Настройки" WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource settingsWindow}">
+                               Style="{StaticResource SettingsWindow}">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
         <StackPanel>
             <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Разделы</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Разделы</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -40,22 +40,22 @@
                     </Grid.RowDefinitions>
 
                     <ctrl:CheckBoxWithItemStyle Grid.ColumnSpan="3"
-                              Style="{StaticResource baseStyleCheckBox}"
+                              Style="{StaticResource BaseCheckBox}"
                               IsChecked="{Binding SetDefaultSectionName}"
                               Checked="SetDefaultSectionNameChecked" Unchecked="SetDefaultSectionNameUnchecked">Заполнять наименование раздела по умолчанию</ctrl:CheckBoxWithItemStyle>
                     <ctrl:CheckBoxWithItemStyle x:Name="incrementSectionName" Grid.Row="1" Grid.ColumnSpan="3"
-                              Style="{StaticResource baseStyleCheckBox}"
+                              Style="{StaticResource BaseCheckBox}"
                               IsChecked="{Binding IncrementSectionName}">Инкрементировать</ctrl:CheckBoxWithItemStyle>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование:</TextBlock>
                     <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="2"
-                             Style="{StaticResource baseStyleAlignmentTextBox}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
+                             Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
                 </Grid>
             </GroupBox>
 
             <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Задачи</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Задачи</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -70,22 +70,22 @@
                     </Grid.RowDefinitions>
 
                     <ctrl:CheckBoxWithItemStyle Grid.ColumnSpan="2"
-                              Style="{StaticResource baseStyleCheckBox}"
+                              Style="{StaticResource BaseCheckBox}"
                               IsChecked="{Binding SetDefaultTaskName}"
                               Checked="SetDefaultTaskNameChecked" Unchecked="SetDefaultTaskNameUnchecked">Заполнять наименование задачи по умолчанию</ctrl:CheckBoxWithItemStyle>
                     <ctrl:CheckBoxWithItemStyle x:Name="incrementTaskName" Grid.Row="1" Grid.ColumnSpan="2"
-                              Style="{StaticResource baseStyleCheckBox}"
+                              Style="{StaticResource BaseCheckBox}"
                               IsChecked="{Binding IncrementTaskName}">Инкрементировать</ctrl:CheckBoxWithItemStyle>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
                     <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1"
-                             Style="{StaticResource baseStyleAlignmentTextBox}" Text="{Binding DefaultTaskName}"></TextBox>
+                             Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultTaskName}"></TextBox>
                 </Grid>
             </GroupBox>
 
             <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -93,15 +93,15 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные масштабы:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Доступные масштабы:</TextBlock>
                     <ComboBox Grid.Column="1"
-                              Style="{StaticResource BaseComboBoxStyle}"
+                              Style="{StaticResource BaseComboBox}"
                               ItemsSource="{x:Static model:Settings.AvailableFonts}"
                               SelectedItem="{Binding FontSettings}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}"
-                                           Text="{Binding Path=ID,Converter={StaticResource fontIDConverter}}"
+                                <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}"
+                                           Text="{Binding Path=ID,Converter={StaticResource FontIDConverter}}"
                                            FontSize="{Binding Path=BaseFont}">
                                     <TextBlock.ToolTip>
                                         <TextBlock Text="{Binding Path=BaseFont, StringFormat=\{0\} pt}"></TextBlock>
@@ -115,7 +115,7 @@
 
             <GroupBox Margin="{x:Static res:Constants.UniformMarginBase}">
                 <GroupBox.Header>
-                    <TextBlock Style="{StaticResource fieldDescription}" FontWeight="Bold">Тема</TextBlock>
+                    <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Тема</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -123,14 +123,14 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource fieldDescription}">Доступные темы:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Доступные темы:</TextBlock>
                     <ComboBox Grid.Column="1"
-                              Style="{StaticResource BaseComboBoxStyle}"
+                              Style="{StaticResource BaseComboBox}"
                               ItemsSource="{x:Static h:Enums.AllThemes}"
                               SelectedItem="{Binding Path=Theme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Style="{StaticResource baseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource themeConverter}}"></TextBlock>
+                                <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource ThemeConverter}}"></TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -143,8 +143,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">Применить</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">Применить</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

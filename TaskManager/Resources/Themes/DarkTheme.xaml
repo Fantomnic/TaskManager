@@ -1,62 +1,58 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Resources/InterfaceResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <!-- Иконки меню -->
-    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="newTaskIcon">
+    <Style TargetType="Image" BasedOn="{StaticResource MenuImageIcon}" x:Key="NewTaskIcon">
         <Setter Property="Source" Value="/Resources/Images/DarkPlus.png"></Setter>
     </Style>
 
-    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="menuActionsIcon">
+    <Style TargetType="Image" BasedOn="{StaticResource MenuImageIcon}" x:Key="MenuActionsIcon">
         <Setter Property="Source" Value="/Resources/Images/DarkMenuIcon.png"></Setter>
     </Style>
 
-    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="settingsIcon">
+    <Style TargetType="Image" BasedOn="{StaticResource MenuImageIcon}" x:Key="SettingsIcon">
         <Setter Property="Source" Value="/Resources/Images/DarkSettingsIcon.png"></Setter>
     </Style>
 
-    <Style TargetType="Image" BasedOn="{StaticResource menuImageIcon}" x:Key="appInfoIcon">
+    <Style TargetType="Image" BasedOn="{StaticResource MenuImageIcon}" x:Key="AppInfoIcon">
         <Setter Property="Source" Value="/Resources/Images/DarkAppInfo.png"></Setter>
     </Style>
 
     <!-- Цветовые настройки шрифта/фона -->
-    <SolidColorBrush Color="White" x:Key="antiMainColor" />
+    <SolidColorBrush Color="White" x:Key="AntiMainColor" />
 
-    <SolidColorBrush Color="#FFDFEFF1" x:Key="textForeground" />
-    <SolidColorBrush Color="#FF4B90FF" x:Key="titleForeground" />
-    <SolidColorBrush Color="#FF1A1A1A" x:Key="windowBackground" />
-    <SolidColorBrush Color="#FF222121" x:Key="innerBackground" />
-    <SolidColorBrush Color="#FF3E3E42" x:Key="fieldBackground" />
-    <SolidColorBrush Color="#FF302B2D" x:Key="fieldBackgroundReadOnly" />
+    <SolidColorBrush Color="#FFDFEFF1" x:Key="TextForeground" />
+    <SolidColorBrush Color="#FF4B90FF" x:Key="TitleForeground" />
+    <SolidColorBrush Color="#FF1A1A1A" x:Key="WindowBackground" />
+    <SolidColorBrush Color="#FF222121" x:Key="InnerBackground" />
+    <SolidColorBrush Color="#FF3E3E42" x:Key="FieldBackground" />
+    <SolidColorBrush Color="#FF302B2D" x:Key="FieldBackgroundReadOnly" />
 
     <!-- Кнопки (в т.ч. вкладки) -->
-    <SolidColorBrush Color="#FF191919" x:Key="buttonBackground" />
-    <SolidColorBrush Color="#33613BFF" x:Key="buttonIsMouseOverBackground" />
-    <SolidColorBrush Color="DarkBlue" x:Key="buttonIsMouseOverBorder" />
-    <SolidColorBrush Color="#FF1F53A6" x:Key="buttonIsPressedBackground" />
+    <SolidColorBrush Color="#FF191919" x:Key="ButtonBackground" />
+    <SolidColorBrush Color="#33613BFF" x:Key="ButtonIsMouseOverBackground" />
+    <SolidColorBrush Color="DarkBlue" x:Key="ButtonIsMouseOverBorder" />
+    <SolidColorBrush Color="#FF1F53A6" x:Key="ButtonIsPressedBackground" />
 
     <!-- Текстовые поля -->
-    <SolidColorBrush Color="#FF4B90FF" x:Key="taskDescriptionBorderColor" />
-    <SolidColorBrush Color="#FFC06900" x:Key="fieldIsMouseOverBorderReadOnly" />
-    <SolidColorBrush Color="#FF6800B1" x:Key="fieldIsFocusedBorderReadOnly" />
+    <SolidColorBrush Color="#FF4B90FF" x:Key="TaskDescriptionBorder" />
+    <SolidColorBrush Color="#FFC06900" x:Key="FieldIsMouseOverBorderReadOnly" />
+    <SolidColorBrush Color="#FF6800B1" x:Key="FieldIsFocusedBorderReadOnly" />
 
     <!-- Цвета статусов -->
-    <SolidColorBrush Color="#7F7F7F" x:Key="waitingStatusBackground" />
-    <SolidColorBrush Color="#00823B" x:Key="beginningStatusBackground" />
-    <SolidColorBrush Color="#FFBB8E00" x:Key="deferredStatusBackground" />
-    <SolidColorBrush Color="#A50021" x:Key="rejectedStatusBackground" />
-    <SolidColorBrush Color="#003FBC" x:Key="doneStatusBackground" />
-    <SolidColorBrush Color="#7030A0" x:Key="completedStatusBackground" />
+    <SolidColorBrush Color="#7F7F7F" x:Key="WaitingStatusBackground" />
+    <SolidColorBrush Color="#00823B" x:Key="BeginningStatusBackground" />
+    <SolidColorBrush Color="#FFBB8E00" x:Key="DeferredStatusBackground" />
+    <SolidColorBrush Color="#A50021" x:Key="RejectedStatusBackground" />
+    <SolidColorBrush Color="#003FBC" x:Key="DoneStatusBackground" />
+    <SolidColorBrush Color="#7030A0" x:Key="CompletedStatusBackground" />
 
     <!-- Цвета приоритетов -->
-    <SolidColorBrush Color="#FF00A700" x:Key="lowPriorityForeground" />
-    <SolidColorBrush Color="#FFE6E616" x:Key="middlePriorityForeground" />
-    <SolidColorBrush Color="#FFED2929" x:Key="highPriorityForeground" />
+    <SolidColorBrush Color="#FF00A700" x:Key="LowPriorityForeground" />
+    <SolidColorBrush Color="#FFE6E616" x:Key="MiddlePriorityForeground" />
+    <SolidColorBrush Color="#FFED2929" x:Key="HighPriorityForeground" />
 
-    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="menuGradientBackground">
+    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="MenuGradientBackground">
         <GradientStop Color="#FF024089" Offset="0" />
         <GradientStop Color="#FF005E64" Offset="1" />
     </LinearGradientBrush>

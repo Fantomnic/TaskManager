@@ -8,7 +8,7 @@
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                mc:Ignorable="d"
                                Title="Новый раздел" WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource middleWindow}">
+                               Style="{StaticResource MiddleWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
@@ -19,13 +19,13 @@
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource fieldDescription}">Наименование:</TextBlock>
+        <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
 
-        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource baseStyleAlignmentMarginTextBox}"></TextBox>
+        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource BaseTextBoxAlignmentMargin}"></TextBox>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource serviceButtonWithStandartWidth}" Click="ButtonOKClick">OK</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

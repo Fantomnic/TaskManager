@@ -3,16 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TaskManager"
              StartupUri="/Views/MainWindow.xaml">
+    
+    <!-- Порядок добавления важен: ресурсые, добавленные позже, могут использовать ресурсы из ранее добавленных словарей. Но если будет наоборот, то возникнет ошибка -->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
-                <ResourceDictionary Source="/Resources/InterfaceResources.xaml" />
-                <ResourceDictionary Source="/Resources/TextsResources.xaml" />
-                <ResourceDictionary Source="/Resources/WindowsResources.xaml" />
+                <ResourceDictionary Source="/Resources/GeneralStyles.xaml" />
                 <ResourceDictionary Source="/Resources/Instances.xaml" />
-                <ResourceDictionary Source="/Resources/TasksAndSectionsResources.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="/Resources/Templates.xaml" />
+                <ResourceDictionary Source="/Resources/ContextMenuStyles.xaml" />
+                <ResourceDictionary Source="/Resources/ControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

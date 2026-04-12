@@ -17,7 +17,7 @@ namespace TaskManager.Model.TaskStatuses
 
         internal override void ResetBackground()
         {
-            Background = Helper.GetResource<SolidColorBrush>("doneStatusBackground");
+            Background = Helper.GetResource<SolidColorBrush>("DoneStatusBackground");
         }
     }
 }

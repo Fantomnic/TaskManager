@@ -14,7 +14,7 @@ namespace TaskManager.Model.TaskPriorities
 
         internal override void ResetForeground()
         {
-            Foreground = Helper.GetResource<SolidColorBrush>("middlePriorityForeground");
+            Foreground = Helper.GetResource<SolidColorBrush>("MiddlePriorityForeground");
         }
     }
 }

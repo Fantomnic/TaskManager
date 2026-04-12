@@ -88,7 +88,7 @@ namespace TaskManager.Commands
         {
             var textBlock = new TextBlock()
             {
-                Style = Helper.GetResource<Style>("sectionHeaderContextMenu"),
+                Style = Helper.GetResource<Style>("AdditionalSectionHeaderContextMenu"),
                 DataContext = sectionViewModel,
             };
 
