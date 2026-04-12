@@ -11,6 +11,10 @@
     <SolidColorBrush Color="#FF2599FF" x:Key="FieldIsMouseOverBorder" />
     <SolidColorBrush Color="Blue" x:Key="FieldIsFocusedBorder" />
 
+    <!-- Контекстное меню -->
+    <SolidColorBrush Color="#3F3FC2EE" x:Key="MenuItemIsMouseOverBackground" />
+    <SolidColorBrush Color="#CC5E97FF" x:Key="MenuItemIsMouseOverBorder" />
+    
     <!-- Значения ЭУ по умолчанию -->
     <SolidColorBrush Color="#FFABADB3" x:Key="DefaultBorder" />
     

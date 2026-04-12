@@ -10,11 +10,6 @@
         <Setter Property="Background" Value="{DynamicResource InnerBackground}"></Setter>
     </Style>
 
-    <!-- Для всех подсказок -->
-    <Style TargetType="ToolTip">
-        <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-    </Style>
-
     <Style TargetType="Window" x:Key="BaseWindow">
         <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
     </Style>
@@ -88,6 +83,12 @@
     <Style TargetType="Image" x:Key="MenuImageIcon">
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <!-- Для всех подсказок -->
+    <Style TargetType="ToolTip" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="Orange"></Setter>
     </Style>
 
 </ResourceDictionary>
