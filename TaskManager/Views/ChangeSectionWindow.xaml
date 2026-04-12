@@ -7,6 +7,7 @@
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                               xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
                                Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
                                Style="{StaticResource littleWindow}">
@@ -75,12 +76,12 @@
                              Text="{Binding Path=ParentViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
                     </TextBox>
 
-                    <CheckBox Grid.Row="2" Grid.ColumnSpan="2"
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="2" Grid.ColumnSpan="2"
                               Style="{StaticResource flowDirectionCheckBox}"
                               IsChecked="{Binding HasChildren,Mode=OneWay}"
                               IsEnabled="False"
                               VerticalAlignment="Center"
-                              HorizontalAlignment="Left">Имеет подзадачи</CheckBox>
+                              HorizontalAlignment="Left">Имеет подзадачи</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 
@@ -113,11 +114,11 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <CheckBox x:Name="transferFullChain"
+                    <ctrl:CheckBoxWithItemStyle x:Name="transferFullChain"
                               Grid.Row="1" Grid.ColumnSpan="3"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
                               Style="{StaticResource baseStyleCheckBox}"
-                              Margin="3,0,3,0">Перенести всю цепочку задач</CheckBox>
+                              Margin="3,0,3,0">Перенести всю цепочку задач</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 

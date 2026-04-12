@@ -11,6 +11,46 @@
         <ResourceDictionary Source="/Resources/TextsResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    
+
+    <ControlTemplate TargetType="MenuItem" x:Key="ContextMenuItemTemplate">
+        <Border Name="Border" >
+            <Grid>
+                <ContentPresenter Margin="6,3,6,3" ContentSource="Header" RecognizesAccessKey="True" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource taskItemIsMouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource taskItemIsMouseOverBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <Style TargetType="MenuItem" x:Key="MenuItemStyle">
+        <Setter Property="Template" Value="{StaticResource ContextMenuItemTemplate}"></Setter>
+    </Style>
+    
+    <Style TargetType="ContextMenu">
+        <Setter Property="OverridesDefaultStyle" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource windowBackground}"></Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource MenuItemStyle}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <Border x:Name="border" Background="{TemplateBinding Background}">
+                        <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    
+    
+
     <Style TargetType="MenuItem" BasedOn="{StaticResource baseStyle}" x:Key="menuItemWithInstance">
         <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
     </Style>

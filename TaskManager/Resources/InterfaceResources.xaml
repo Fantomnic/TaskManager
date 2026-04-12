@@ -41,12 +41,13 @@
     </Style>
 
     <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->
-    <Style TargetType="Button" x:Key="menuButton">
+    <Style TargetType="ContentControl" x:Key="menuButton">
         <Setter Property="MinHeight" Value="50"></Setter>
         <Setter Property="Width" Value="{Binding ElementName=menu,Path=Width}"></Setter>
         <Setter Property="Background" Value="{Binding ElementName=menu,Path=Background}"></Setter>
         <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
         <Setter Property="FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=MenuCommandsFont}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource textForeground}"></Setter>
         <Setter Property="FontFamily" Value="Monotype Corsiva"></Setter>
     </Style>
 

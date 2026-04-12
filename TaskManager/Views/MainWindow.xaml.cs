@@ -68,7 +68,15 @@ namespace TaskManager.Views
                 || Helper.GetSectionViewModelFromTabItem(selectedTabItem) is not SectionViewModel selectedSectionViewModel)
             {
                 return;
-            }    
+            }
+
+            var oldSectionViewModel = MainViewModel.SelectedSectionViewModel;
+
+            if (oldSectionViewModel == selectedSectionViewModel)
+            {
+                e.Handled = true;
+                return;
+            }
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
         }
