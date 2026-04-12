@@ -4,7 +4,7 @@ using TaskManager.Helpers;
 namespace TaskManager.Views
 {
     /// <summary>Класс, содержащий логику для нижних кнопок (ОК/Отмена и т.п.) в окнах</summary>
-    public class WindowWithBottomButtons : Window
+    public class WindowWithBottomButtons : CustomWindow
     {
         public WindowWithBottomButtons() : base()
         {

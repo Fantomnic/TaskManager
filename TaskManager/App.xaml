@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
                 <ResourceDictionary Source="/Resources/Templates.xaml" />
+                <ResourceDictionary Source="/Resources/WindowStyles.xaml" />
                 <ResourceDictionary Source="/Resources/ContextMenuStyles.xaml" />
                 <ResourceDictionary Source="/Resources/ControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>

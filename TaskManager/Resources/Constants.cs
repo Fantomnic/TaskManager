@@ -5,6 +5,8 @@ namespace TaskManager.Resources
 {
     public static class Constants
     {
+        public const double WindowButtonWidth = 44;
+
         #region Текст
 
         public const double StandartBaseFont = 12;

@@ -173,7 +173,7 @@
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Style="{StaticResource BaseStyleAlignment}">Файлы</TextBlock>
+                <TextBlock Style="{StaticResource BaseStyleAlignment}" ToolTip="В текущей версии приложения данный функционал не реализован">Файлы</TextBlock>
             </TabItem.Header>
         </TabItem>
     </col:ArrayList>
