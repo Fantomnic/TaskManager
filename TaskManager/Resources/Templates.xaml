@@ -13,21 +13,28 @@
     FontFamily="Segoe MDL2 Assets"
     FontSize="10" 
     Foreground="#999999"
+    
+    
+    <TextBlock Text="{TemplateBinding Content}"
+           FontFamily="{TemplateBinding FontFamily}"
+           FontSize="{TemplateBinding FontSize}" 
+           Foreground="{TemplateBinding Foreground}"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           RenderOptions.ClearTypeHint="Auto"
+           TextOptions.TextRenderingMode="Aliased"
+           TextOptions.TextFormattingMode="Display">
+    </TextBlock>
+    
+    Margin="5,0,7,5"
     -->
     
     <!-- Шаблон кнопки закрытия окна -->
-    <ControlTemplate TargetType="Button" x:Key="WindowCloseButton">
+    <ControlTemplate TargetType="Button" x:Key="WindowAppButton">
         <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" Width="{x:Static local:Constants.WindowButtonWidth}">
-            <TextBlock Text="{TemplateBinding Content}"
-                       FontFamily="{TemplateBinding FontFamily}"
-                       FontSize="{TemplateBinding FontSize}" 
-                       Foreground="{TemplateBinding Foreground}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       RenderOptions.ClearTypeHint="Auto"
-                       TextOptions.TextRenderingMode="Aliased"
-                       TextOptions.TextFormattingMode="Display">
-            </TextBlock>
+            <Path HorizontalAlignment="Center" VerticalAlignment="Center" Data="{TemplateBinding Content}"
+                Stroke="{DynamicResource AntiMainColor}">
+            </Path>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
@@ -43,7 +50,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <!-- Содержимое окна -->
-            <Border Grid.Row="1" Margin="5,0,7,5">
+            <Border Grid.Row="1" Margin="{DynamicResource WindowThickness}">
                 <ContentPresenter Content="{TemplateBinding Content}"/>
             </Border>
             <DockPanel>
@@ -63,10 +70,11 @@
 
                 <!-- Кнопка закрытия окна -->
                 <Button DockPanel.Dock="Right"
-                        Content="&#xE106;"
+                        Content="{StaticResource ClosePathData}"
                         Command="{x:Static ApplicationCommands.Close}"
-                        Template="{StaticResource WindowCloseButton}"
-                        FontFamily="Segoe MDL2 Assets">
+                        Template="{StaticResource WindowAppButton}"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="10">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
                             <Style.Triggers>
@@ -81,18 +89,18 @@
 
                 <!-- Кнопка разворачивания окна -->
                 <Button DockPanel.Dock="Right"
-                        Content="_"
+                        Content="{DynamicResource MiddleWindowButtonPathData}"
+                        Command="{x:Static ApplicationCommands.Open}"
+                        Style="{StaticResource WindowButtonBase}"
+                        Template="{StaticResource WindowAppButton}">
+                </Button>
+
+                <!-- Кнопка сворачивания окна -->
+                <Button DockPanel.Dock="Right"
+                        Content="{StaticResource MinimizePathData}"
                         Command="{x:Static ApplicationCommands.Close}"
-                        Template="{StaticResource WindowCloseButton}">
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#7F929292"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        Style="{StaticResource WindowButtonBase}"
+                        Template="{StaticResource WindowAppButton}">
                 </Button>
             </DockPanel>
         </Grid>

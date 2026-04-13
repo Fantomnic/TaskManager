@@ -5,7 +5,7 @@ namespace TaskManager.Resources
 {
     public static class Constants
     {
-        public const double WindowButtonWidth = 44;
+        public const double WindowButtonWidth = 45;
 
         #region Текст
 

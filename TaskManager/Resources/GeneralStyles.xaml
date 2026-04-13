@@ -7,10 +7,29 @@
     <Style TargetType="Button" x:Key="WindowButtonBase">
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"></Setter>
         <Setter Property="HorizontalAlignment" Value="Right"></Setter>
-        <Setter Property="FontSize" Value="10"></Setter>
         <Setter Property="Foreground" Value="#999999"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#7F929292"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
+    <PathGeometry x:Key="ClosePathData">
+        <PathFigure StartPoint="0,0">
+            <LineSegment Point="10,10" />
+        </PathFigure>
+        <PathFigure IsClosed="False" StartPoint="10,0">
+            <LineSegment Point="0,10" />
+        </PathFigure>
+    </PathGeometry>
+
+    <PathGeometry x:Key="MinimizePathData">
+        <PathFigure StartPoint="0,0">
+            <LineSegment Point="10,0" />
+        </PathFigure>
+    </PathGeometry>
 
     <!-- Пояснения:
     https://translated.turbopages.org/proxy_u/en-ru.ru.f98dd4d1-69c302e2-86bb2ad1-74722d776562/https/stackoverflow.com/questions/29697807/why-doesnt-my-textblock-style-inherit-from-my-base-style -->
