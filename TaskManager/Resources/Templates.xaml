@@ -25,6 +25,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- Шаблон для всех окон приложения -->
     <ControlTemplate TargetType="v:CustomWindow" x:Key="WindowTemplate">
         <Grid Background="{DynamicResource WindowBackground}">
             <Grid.RowDefinitions>
@@ -533,6 +534,47 @@
         <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="{StaticResource DefaultBorder}">
             <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True" Margin="5,4,5,4" />
         </Border>
+    </ControlTemplate>
+
+    <!-- Шаблон для всех радиокнопок -->
+    <ControlTemplate TargetType="RadioButton" x:Key="RadioButtonTemplate">
+        <BulletDecorator Background="Transparent">
+            <BulletDecorator.Bullet>
+                <Grid Width="13" Height="13">
+                    <Ellipse x:Name="Border"
+                             StrokeThickness="1"
+                             Stroke="{TemplateBinding BorderBrush}"
+                             Fill="{TemplateBinding Background}">
+                    </Ellipse>
+                    <Ellipse x:Name="CheckMark"
+                             Margin="4"
+                             Visibility="Collapsed"
+                             Fill="{TemplateBinding Foreground}">
+                    </Ellipse>
+                </Grid>
+            </BulletDecorator.Bullet>
+            <ContentPresenter Margin="4,0,0,0"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              RecognizesAccessKey="True" />
+        </BulletDecorator>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsPressedBackground}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource FieldBackgroundReadOnly}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource FieldIsFocusedBorderReadOnly}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
 </ResourceDictionary>

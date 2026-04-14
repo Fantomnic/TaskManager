@@ -63,7 +63,7 @@
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}"
-                            ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}" />
+                                ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}" />
             </Setter.Value>
         </Setter>
     </Style>

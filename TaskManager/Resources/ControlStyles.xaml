@@ -100,10 +100,10 @@
 
     <!-- Стиль чекбокса (общий) -->
     <Style TargetType="ctrl:CheckBoxWithItemStyle" BasedOn="{StaticResource BaseStyleAlignmentMargin}" x:Key="BaseCheckBox">
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}"></Setter>
         <Setter Property="Background" Value="{DynamicResource FieldBackground}"></Setter>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="TextBlockStyle" Value="{StaticResource BaseStyleAlignmentMargin}"></Setter>
-        <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}"></Setter>
     </Style>
 
     <!-- Стиль чекбокса, у которого галочка справа -->
@@ -123,8 +123,10 @@
     <!-- Стиль радиокнопки (общий) -->
     <!-- Тут не получится так же, как с чекбоксом, т.к. здесь нет объекта Path -->
     <Style TargetType="RadioButton" BasedOn="{StaticResource BaseScale}" x:Key="BaseRadioButton">
-        <Setter Property="TextBlock.FontSize" Value="{x:Static local:Constants.StandartBaseFont}"></Setter>
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource TextForeground}"></Setter>
+        <Setter Property="Template" Value="{StaticResource RadioButtonTemplate}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource FieldBackground}"></Setter>
+        <Setter Property="FontSize" Value="{x:Static local:Constants.StandartBaseFont}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource TextForeground}"></Setter>
     </Style>
     
     <!-- Стиль текстбокса (общий) -->
