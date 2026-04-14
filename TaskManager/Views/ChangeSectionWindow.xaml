@@ -10,7 +10,8 @@
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
                                Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource LittleWindow}">
+                               Style="{StaticResource LittleWindow}"
+                               ShowMinMaxButtons="False">
 
     <!-- Вынес сюда, чтобы привязаться к длине поля через имя ЭУ.
     Привязка с помощью RelativeSource почему-то не работает -->

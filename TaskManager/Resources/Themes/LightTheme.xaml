@@ -20,7 +20,8 @@
 
     <!-- Цветовые настройки шрифта/фона -->
     <SolidColorBrush Color="Black" x:Key="AntiMainColor" />
-
+    <SolidColorBrush Color="Black" x:Key="WindowTitleForeground" />
+    
     <SolidColorBrush Color="Black" x:Key="TextForeground" />
     <SolidColorBrush Color="#FFE60000" x:Key="TitleForeground" />
     <SolidColorBrush Color="White" x:Key="WindowBackground" />

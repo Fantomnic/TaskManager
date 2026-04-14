@@ -10,7 +10,8 @@
                                xmlns:h="clr-namespace:TaskManager.Helpers"
                                mc:Ignorable="d"
                                Title="Настройки" WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource SettingsWindow}">
+                               Style="{StaticResource SettingsWindow}"
+                               ShowMinMaxButtons="False">
 
     <Grid>
         <Grid.ColumnDefinitions>

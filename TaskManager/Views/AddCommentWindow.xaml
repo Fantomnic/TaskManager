@@ -7,21 +7,22 @@
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                mc:Ignorable="d" 
-                               WindowStartupLocation="CenterOwner"
-                               Style="{StaticResource LittleWindow}">
+                               Title="Новый комментарий" WindowStartupLocation="CenterOwner"
+                               Style="{StaticResource LittleWindow}"
+                               ShowMinMaxButtons="False">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+            <!--<RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>-->
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource TitleDescription}">Новый комментарий:</TextBlock>
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
+        <!--<TextBlock Style="{StaticResource TitleDescription}">Новый комментарий:</TextBlock>-->
+        <ScrollViewer Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
             <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
             <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>

@@ -5,6 +5,9 @@ namespace TaskManager.Views
 {
     public class CustomWindow : Window
     {
+        public static readonly DependencyProperty ShowMinMaxButtonsProperty
+            = DependencyProperty.Register(nameof(ShowMinMaxButtons), typeof(bool), typeof(CustomWindow));
+
         private static readonly ResourceDictionary _normalStyle;
         private static readonly ResourceDictionary _maximizedStyle;
 
@@ -25,22 +28,37 @@ namespace TaskManager.Views
 
         public CustomWindow() : base()
         {
+            ShowMinMaxButtons = true;
+
             var closeCommandBinding = new CommandBinding
             {
-                Command = ApplicationCommands.Close
+                Command = SystemCommands.CloseWindowCommand,
             };
 
             closeCommandBinding.Executed += ExecutedCloseCommand;
 
-            var openCommandBinding = new CommandBinding
+            var maximizeCommandBinding = new CommandBinding
             {
-                Command = ApplicationCommands.Open,
+                Command = SystemCommands.MaximizeWindowCommand,
             };
 
-            openCommandBinding.Executed += ExecutedOpenCommand;
+            maximizeCommandBinding.Executed += ExecutedMaximizeCommand;
 
-            CommandBindings.AddRange(new[] { closeCommandBinding, openCommandBinding });
+            var minimizeCommandBinding = new CommandBinding
+            {
+                Command = SystemCommands.MinimizeWindowCommand,
+            };
+
+            minimizeCommandBinding.Executed += ExecutedMinimizeCommand;
+
+            CommandBindings.AddRange(new[] { closeCommandBinding, maximizeCommandBinding, minimizeCommandBinding });
             SizeChanged += OnWindowSizeChanged;
+        }
+
+        public bool ShowMinMaxButtons
+        {
+            get => (bool)GetValue(ShowMinMaxButtonsProperty);
+            set => SetValue(ShowMinMaxButtonsProperty, value);
         }
 
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
@@ -63,12 +81,12 @@ namespace TaskManager.Views
         }
 
         // TODO: Сделать кастомные команды
-        private void ExecutedMinimizedCommand(object sender, ExecutedRoutedEventArgs e)
+        private void ExecutedMinimizeCommand(object sender, ExecutedRoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void ExecutedOpenCommand(object sender, ExecutedRoutedEventArgs e)
+        private void ExecutedMaximizeCommand(object sender, ExecutedRoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;

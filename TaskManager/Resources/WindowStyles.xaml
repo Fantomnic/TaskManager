@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TaskManager.Resources">
+                    xmlns:local="clr-namespace:TaskManager.Resources"
+                    xmlns:v="clr-namespace:TaskManager.Views">
 
-    <Style TargetType="Window" x:Key="BaseWindow">
+    <!-- Задание ShowMinMaxButtons в стиле не работает - видимо, конструктор перебивает значение -->
+    
+    <Style TargetType="v:CustomWindow" x:Key="BaseWindow">
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome UseAeroCaptionButtons="False" />
@@ -12,14 +15,14 @@
         <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
     </Style>
 
-    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="MainWindow">
+    <Style TargetType="v:CustomWindow" BasedOn="{StaticResource BaseWindow}" x:Key="MainWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMainWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMainWindow}"></Setter>
         <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthMainWindow}"></Setter>
     </Style>
 
-    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="LittleWindow">
+    <Style TargetType="v:CustomWindow" BasedOn="{StaticResource BaseWindow}" x:Key="LittleWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightLittleWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthLittleWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightLittleWindow}"></Setter>
@@ -27,17 +30,16 @@
         <Setter Property="ResizeMode" Value="NoResize"></Setter>
     </Style>
 
-    <Style TargetType="Window" BasedOn="{StaticResource BaseWindow}" x:Key="MiddleWindow">
+    <Style TargetType="v:CustomWindow" BasedOn="{StaticResource BaseWindow}" x:Key="MiddleWindow">
         <Setter Property="Height" Value="{x:Static local:Constants.StartHeightMiddleWindow}"></Setter>
         <Setter Property="Width" Value="{x:Static local:Constants.StartWidthMiddleWindow}"></Setter>
         <Setter Property="MinHeight" Value="{x:Static local:Constants.MinHeightMiddleWindow}"></Setter>
         <Setter Property="MinWidth" Value="{x:Static local:Constants.MinWidthMiddleWindow}"></Setter>
     </Style>
 
-    <Style TargetType="Window" BasedOn="{StaticResource MiddleWindow}" x:Key="SettingsWindow">
+    <Style TargetType="v:CustomWindow" BasedOn="{StaticResource MiddleWindow}" x:Key="SettingsWindow">
         <Setter Property="MaxHeight" Value="{x:Static local:Constants.StartHeightMainWindow}"></Setter>
         <Setter Property="MaxWidth" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
-        <Setter Property="WindowStyle" Value="ToolWindow"></Setter>
     </Style>
 
 </ResourceDictionary>

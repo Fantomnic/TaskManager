@@ -9,31 +9,13 @@
     <!-- <ResourceDictionary.MergedDictionaries>
     </ResourceDictionary.MergedDictionaries> -->
 
-    <!--
-    FontFamily="Segoe MDL2 Assets"
-    FontSize="10" 
-    Foreground="#999999"
-    
-    
-    <TextBlock Text="{TemplateBinding Content}"
-           FontFamily="{TemplateBinding FontFamily}"
-           FontSize="{TemplateBinding FontSize}" 
-           Foreground="{TemplateBinding Foreground}"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"
-           RenderOptions.ClearTypeHint="Auto"
-           TextOptions.TextRenderingMode="Aliased"
-           TextOptions.TextFormattingMode="Display">
-    </TextBlock>
-    
-    Margin="5,0,7,5"
-    -->
-    
-    <!-- Шаблон кнопки закрытия окна -->
+    <!-- Шаблон системной кнопки окна -->
     <ControlTemplate TargetType="Button" x:Key="WindowAppButton">
         <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" Width="{x:Static local:Constants.WindowButtonWidth}">
-            <Path HorizontalAlignment="Center" VerticalAlignment="Center" Data="{TemplateBinding Content}"
-                Stroke="{DynamicResource AntiMainColor}">
+            <Path Data="{TemplateBinding Content}"
+                  Stroke="{DynamicResource AntiMainColor}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
             </Path>
         </Grid>
         <ControlTemplate.Triggers>
@@ -43,38 +25,64 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate TargetType="Window" x:Key="WindowTemplate">
+    <ControlTemplate TargetType="v:CustomWindow" x:Key="WindowTemplate">
         <Grid Background="{DynamicResource WindowBackground}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <!-- Содержимое окна -->
-            <Border Grid.Row="1" Margin="{DynamicResource WindowThickness}">
-                <ContentPresenter Content="{TemplateBinding Content}"/>
-            </Border>
-            <DockPanel>
+            
+            <!-- Верхняя панель -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
                 <!-- Иконка -->
-                <Image DockPanel.Dock="Left"
-                    Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon}"  
+                <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon}"  
                        VerticalAlignment="Center"
                        Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(WindowChrome.WindowChrome).ResizeBorderThickness}"   
-                       Width="50"  
+                       Width="{x:Static local:Constants.WindowIconWidth}"
                        WindowChrome.IsHitTestVisibleInChrome="True">
                 </Image>
+                
                 <!-- Название окна -->
-                <TextBlock DockPanel.Dock="Left" Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Title}"   
+                <TextBlock Grid.Column="1"
+                           Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Title}"   
                            VerticalAlignment="Center"
-                           Foreground="Red">
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource WindowTitleForeground}">
                 </TextBlock>
 
+                <!-- Кнопка сворачивания окна -->
+                <Button Name="minButton"
+                        Grid.Column="2"
+                        Content="{StaticResource MinimizePathData}"
+                        Command="{x:Static SystemCommands.MinimizeWindowCommand}"
+                        Style="{StaticResource WindowButtonBase}"
+                        Template="{StaticResource WindowAppButton}">
+                </Button>
+
+                <!-- Кнопка разворачивания окна -->
+                <Button Name="maxButton"
+                        Grid.Column="3"
+                        Content="{DynamicResource MiddleWindowButtonPathData}"
+                        Command="{x:Static SystemCommands.MaximizeWindowCommand}"
+                        Style="{StaticResource WindowButtonBase}"
+                        Template="{StaticResource WindowAppButton}">
+                </Button>
+
                 <!-- Кнопка закрытия окна -->
-                <Button DockPanel.Dock="Right"
+                <Button Grid.Column="4"
                         Content="{StaticResource ClosePathData}"
-                        Command="{x:Static ApplicationCommands.Close}"
-                        Template="{StaticResource WindowAppButton}"
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="10">
+                        Command="{x:Static SystemCommands.CloseWindowCommand}"
+                        Template="{StaticResource WindowAppButton}">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource WindowButtonBase}">
                             <Style.Triggers>
@@ -86,24 +94,20 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
-                <!-- Кнопка разворачивания окна -->
-                <Button DockPanel.Dock="Right"
-                        Content="{DynamicResource MiddleWindowButtonPathData}"
-                        Command="{x:Static ApplicationCommands.Open}"
-                        Style="{StaticResource WindowButtonBase}"
-                        Template="{StaticResource WindowAppButton}">
-                </Button>
-
-                <!-- Кнопка сворачивания окна -->
-                <Button DockPanel.Dock="Right"
-                        Content="{StaticResource MinimizePathData}"
-                        Command="{x:Static ApplicationCommands.Close}"
-                        Style="{StaticResource WindowButtonBase}"
-                        Template="{StaticResource WindowAppButton}">
-                </Button>
-            </DockPanel>
+            </Grid>
+            
+            <!-- Содержимое окна -->
+            <Border Grid.Row="1" Margin="{DynamicResource WindowThickness}">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+            </Border>
         </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="ShowMinMaxButtons" Value="False">
+                <Setter TargetName="minButton" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="maxButton" Property="Visibility" Value="Hidden"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <!-- Шаблон для всех TextBox'ов -->
