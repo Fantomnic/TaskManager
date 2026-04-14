@@ -51,8 +51,22 @@ namespace TaskManager.ViewModels
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
         internal bool RemoveSectionViewModel(SectionViewModel sectionViewModel)
-            => ModelData.RemoveSection(sectionViewModel.Section)
-                && SectionsViewModels.Remove(sectionViewModel);
+        {
+            if (sectionViewModel is not AdditionalSectionViewModel additionalSectionViewModel)
+                return false;
+
+            if (!ModelData.RemoveSection(additionalSectionViewModel.Section))
+                return false;
+
+            var rootTasks = additionalSectionViewModel.RootTasksViewModels.ToList();
+
+            foreach (var taskViewModel in rootTasks)
+                taskViewModel.MoveToSection(Helper.MasterSectionViewModel);
+
+            SectionsViewModels.Remove(sectionViewModel);
+
+            return true;
+        }
 
         internal SectionViewModel? FindSectionViewModel(Section section)
             => SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
