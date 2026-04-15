@@ -73,7 +73,7 @@
                 <!-- Кнопка разворачивания окна -->
                 <Button Name="maxButton"
                         Grid.Column="3"
-                        Content="{DynamicResource MiddleWindowButtonPathData}"
+                        Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MaximizeButtonsData}"  
                         Command="{x:Static SystemCommands.MaximizeWindowCommand}"
                         Style="{StaticResource WindowButtonBase}"
                         Template="{StaticResource WindowAppButton}">
@@ -98,7 +98,7 @@
             </Grid>
             
             <!-- Содержимое окна -->
-            <Border Grid.Row="1" Margin="{DynamicResource WindowThickness}">
+            <Border Grid.Row="1" Margin="{TemplateBinding Margin}">
                 <ContentPresenter Content="{TemplateBinding Content}"/>
             </Border>
         </Grid>

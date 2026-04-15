@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace TaskManager.Views
 {
@@ -8,23 +9,47 @@ namespace TaskManager.Views
         public static readonly DependencyProperty ShowMinMaxButtonsProperty
             = DependencyProperty.Register(nameof(ShowMinMaxButtons), typeof(bool), typeof(CustomWindow));
 
-        private static readonly ResourceDictionary _normalStyle;
-        private static readonly ResourceDictionary _maximizedStyle;
+        public static readonly DependencyProperty MaximizeButtonsDataProperty
+            = DependencyProperty.Register(nameof(MaximizeButtonsData), typeof(PathGeometry), typeof(CustomWindow));
 
-        static CustomWindow()
+        private static readonly PathGeometry _toMaximizePathData = new()
         {
-            _normalStyle = new()
-            {
-                Source = new("/Resources/CustomWindowResources/WindowNormalResources.xaml", UriKind.Relative),
-            };
+            Figures =
+                [
+                    new(new(0,0),
+                        [
+                            new LineSegment(new(0,9), true),
+                            new LineSegment(new(9,9), true),
+                            new LineSegment(new(9,0), true),
+                        ],
+                        true),
+                ],
+        };
 
-            _maximizedStyle = new()
-            {
-                Source = new("/Resources/CustomWindowResources/WindowMaximizeResources.xaml", UriKind.Relative),
-            };
+        private static readonly PathGeometry _toNormalPathData = new()
+        {
+            Figures =
+                [
+                    new(new(0,2),
+                        [
+                            new LineSegment(new(0,10), true),
+                            new LineSegment(new(8,10), true),
+                            new LineSegment(new(8,2), true),
+                        ],
+                        true),
+                    new(new(2,2),
+                        [
+                            new LineSegment(new(2,0), true),
+                            new LineSegment(new(10,0), true),
+                            new LineSegment(new(10,8), true),
+                            new LineSegment(new(8,8), true),
+                        ],
+                        false)
+                ],
+        };
 
-            Application.Current.Resources.MergedDictionaries.Add(_normalStyle);
-        }
+        private static readonly Thickness _maximizeThickness = new(5, 0, 7, 7);
+        private static readonly Thickness _normalThickness = new(0);
 
         public CustomWindow() : base()
         {
@@ -61,23 +86,26 @@ namespace TaskManager.Views
             set => SetValue(ShowMinMaxButtonsProperty, value);
         }
 
+        public PathGeometry MaximizeButtonsData
+        {
+            get => (PathGeometry)GetValue(MaximizeButtonsDataProperty);
+            set => SetValue(MaximizeButtonsDataProperty, value);
+        }
+
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.WidthChanged)
-            {
-                var dictionaries = Application.Current.Resources.MergedDictionaries;
+            if (!e.WidthChanged)
+                return;
 
-                if (WindowState == WindowState.Maximized)
-                {
-                    dictionaries.Remove(_normalStyle);
-                    dictionaries.Add(_maximizedStyle);
-                }
-                else if (!dictionaries.Any(d => d == _normalStyle)) // Если уже установлен, ничего не делаем
-                {
-                    dictionaries.Remove(_maximizedStyle);
-                    dictionaries.Add(_normalStyle);
-                }
+            if (WindowState == WindowState.Maximized)
+            {
+                Margin = _maximizeThickness;
+                MaximizeButtonsData = _toNormalPathData;
+                return;
             }
+
+            Margin = _normalThickness;
+            MaximizeButtonsData = _toMaximizePathData;
         }
 
         // TODO: Сделать кастомные команды
