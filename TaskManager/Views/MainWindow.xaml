@@ -7,7 +7,8 @@
                     xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                     mc:Ignorable="d"
                     Title="Трекер задач" WindowStartupLocation="CenterScreen"
-                    Style="{StaticResource MainWindow}">
+                    Style="{StaticResource MainWindow}"
+                    Width="1000">
                     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>
@@ -18,28 +19,41 @@
 
         <!-- Выдвигающееся меню -->
         <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource MenuGradientBackground}"
-                      Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
+                      Width="200" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource NewSectionCommand}">Добавить раздел</Button>
-                <Expander Style="{StaticResource MenuButton}" VerticalAlignment="Center">
-                    <Expander.Header>
-                        <TextBlock VerticalAlignment="Center">Кнопка 2</TextBlock>
-                    </Expander.Header>
-                    <StackPanel>
-                        <GroupBox>
+                <Button Style="{StaticResource MenuButton}">
+                    <Button.Content>
+                        <Expander Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+                            <Expander.Header>
+                                <TextBlock HorizontalAlignment="Center">Фильтры</TextBlock>
+                            </Expander.Header>
                             <StackPanel>
-                                <RadioButton Style="{StaticResource BaseRadioButton}">Выделить по статусу</RadioButton>
-                                <RadioButton Style="{StaticResource BaseRadioButton}">Выделить по приоритету</RadioButton>
-                                <RadioButton Style="{StaticResource BaseRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
+                                <GroupBox Style="{StaticResource MenuGroupBox}">
+                                    <StackPanel>
+                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по статусу</RadioButton>
+                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по приоритету</RadioButton>
+                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource MenuGroupBox}" Header="Отображать">
+                                    <StackPanel>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Текущие</ctrl:CheckBoxWithItemStyle>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отложенные</ctrl:CheckBoxWithItemStyle>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отклонённые</ctrl:CheckBoxWithItemStyle>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Выполненные</ctrl:CheckBoxWithItemStyle>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Завершённые</ctrl:CheckBoxWithItemStyle>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource MenuGroupBox}">
+                                    <StackPanel>
+                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}">Сегодняшние</ctrl:CheckBoxWithItemStyle>
+                                    </StackPanel>
+                                </GroupBox>
                             </StackPanel>
-                        </GroupBox>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать текущие</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать отложенные</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать отклонённые</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать выполненные</ctrl:CheckBoxWithItemStyle>
-                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseCheckBox}" IsChecked="True">Отображать завершённые</ctrl:CheckBoxWithItemStyle>
-                    </StackPanel>
-                </Expander>
+                        </Expander>
+                    </Button.Content>
+                </Button>
                 <Button Style="{StaticResource MenuButton}">Кнопка 3</Button>
                 <Button Style="{StaticResource MenuButton}">Кнопка 4</Button>
             </StackPanel>

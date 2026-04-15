@@ -31,11 +31,14 @@
         </PathFigure>
     </PathGeometry>
 
+    <Style TargetType="FrameworkElement" x:Key="BaseTextForeground">
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource TextForeground}"></Setter>
+    </Style>
+
     <!-- Пояснения:
     https://translated.turbopages.org/proxy_u/en-ru.ru.f98dd4d1-69c302e2-86bb2ad1-74722d776562/https/stackoverflow.com/questions/29697807/why-doesnt-my-textblock-style-inherit-from-my-base-style -->
-    <Style TargetType="FrameworkElement" x:Key="BaseStyle">
+    <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseTextForeground}" x:Key="BaseStyle">
         <Setter Property="TextBlock.FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFont}"></Setter>
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource TextForeground}"></Setter>
     </Style>
 
     <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseStyle}" x:Key="BaseStyleAlignment">
@@ -58,12 +61,31 @@
         <Setter Property="Margin" Value="10,0,0,0"></Setter>
     </Style>
 
+    <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseStyle}" x:Key="BaseMenuStyle">
+        <Setter Property="TextBlock.FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=MenuCommandsFont}"></Setter>
+        <Setter Property="TextBlock.FontFamily" Value="Monotype Corsiva"></Setter>
+    </Style>
+
+    <Style TargetType="FrameworkElement" BasedOn="{StaticResource BaseMenuStyle}" x:Key="TextsMenuStyle">
+        <Setter Property="TextBlock.FontSize" Value="{Binding Source={x:Static model:Settings.FontSettings},Path=MenuTextsFont}"></Setter>
+    </Style>
+
     <!-- Масштабирование в зависимости от размера шрифта -->
     <Style TargetType="FrameworkElement" x:Key="BaseScale">
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}"
                                 ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=BaseFontCoefficient}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Масштабирование в зависимости от размера шрифта для выдвигающегося меню -->
+    <Style TargetType="FrameworkElement" x:Key="MenuTextsScale">
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="{Binding Source={x:Static model:Settings.FontSettings},Path=MenuFontCoefficient}"
+                                ScaleY="{Binding Source={x:Static model:Settings.FontSettings},Path=MenuFontCoefficient}" />
             </Setter.Value>
         </Setter>
     </Style>

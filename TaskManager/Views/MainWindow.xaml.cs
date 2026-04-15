@@ -80,5 +80,7 @@ namespace TaskManager.Views
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
         }
+
+        internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
     }
 }

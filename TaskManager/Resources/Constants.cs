@@ -11,6 +11,7 @@ namespace TaskManager.Resources
         #region Текст
 
         public const double StandartBaseFont = 12;
+        public const double StandartMenuFont = 18;
         internal static readonly string DashSeparator40 = new('-', 40);
 
         #endregion Текст

@@ -40,6 +40,7 @@
     <SolidColorBrush Color="Orange" x:Key="FieldIsMouseOverBorderReadOnly" />
     <SolidColorBrush Color="Red" x:Key="FieldIsFocusedBorderReadOnly" />
     <SolidColorBrush Color="Black" x:Key="BlackGrayBorder" />
+    <SolidColorBrush Color="Black" x:Key="BlackBlueBorder" />
     
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#D9D9D9" x:Key="WaitingStatusBackground" />

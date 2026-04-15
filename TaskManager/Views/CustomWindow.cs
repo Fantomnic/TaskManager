@@ -108,7 +108,6 @@ namespace TaskManager.Views
             MaximizeButtonsData = _toMaximizePathData;
         }
 
-        // TODO: Сделать кастомные команды
         private void ExecutedMinimizeCommand(object sender, ExecutedRoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;

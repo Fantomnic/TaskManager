@@ -40,6 +40,7 @@
     <SolidColorBrush Color="#FFC06900" x:Key="FieldIsMouseOverBorderReadOnly" />
     <SolidColorBrush Color="#FF6800B1" x:Key="FieldIsFocusedBorderReadOnly" />
     <SolidColorBrush Color="#FF5F5F5F" x:Key="BlackGrayBorder" />
+    <SolidColorBrush Color="DarkBlue" x:Key="BlackBlueBorder" />
     
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#7F7F7F" x:Key="WaitingStatusBackground" />
@@ -55,8 +56,8 @@
     <SolidColorBrush Color="#FFED2929" x:Key="HighPriorityForeground" />
 
     <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="MenuGradientBackground">
-        <GradientStop Color="#FF024089" Offset="0" />
-        <GradientStop Color="#FF005E64" Offset="1" />
+        <GradientStop Color="#FF023B89" Offset="0" />
+        <GradientStop Color="#FF00586C" Offset="1" />
     </LinearGradientBrush>
 
 </ResourceDictionary>
