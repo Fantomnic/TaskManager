@@ -577,4 +577,56 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- Шаблон для всех группбоксов -->
+    <ControlTemplate TargetType="GroupBox" x:Key="GroupBoxTemplate">
+        <Grid SnapsToDevicePixels="true">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6"/>
+            </Grid.RowDefinitions>
+
+            <!-- Промежуточный фон -->
+            <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
+                    BorderBrush="Transparent"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="4"  />
+
+            <!-- Внешняя обводка (выключаем) -->
+            <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
+                    BorderBrush="Green"
+                    BorderThickness="0"
+                    CornerRadius="4">
+                <Border.OpacityMask>
+                    <MultiBinding ConverterParameter="7">
+                        <MultiBinding.Converter>
+                            <BorderGapMaskConverter />
+                        </MultiBinding.Converter>
+                        <Binding ElementName="Header" Path="ActualWidth" />
+                        <Binding RelativeSource="{RelativeSource Self}" Path="ActualWidth" />
+                        <Binding RelativeSource="{RelativeSource Self}" Path="ActualHeight" />
+                    </MultiBinding>
+                </Border.OpacityMask>
+                <!-- Основная граница -->
+                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                    <!-- Внутренняя обводка (выключаем) -->
+                    <Border BorderThickness="0" CornerRadius="2" />
+                </Border>
+            </Border>
+            <!-- Хедер -->
+            <Border x:Name="Header" Grid.Column="1" Grid.RowSpan="2" Padding="3,1,3,0" Background="Transparent" CornerRadius="2">
+                <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            </Border>
+            <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        </Grid>
+    </ControlTemplate>
+    
 </ResourceDictionary>

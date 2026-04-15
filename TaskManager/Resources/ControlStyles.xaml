@@ -14,10 +14,28 @@
         <Setter Property="Template" Value="{StaticResource TabItemTemplate}"></Setter>
     </Style>
 
+    <!-- Стиль групбокса (общий) -->
+    <Style TargetType="GroupBox" x:Key="BaseGroupBox">
+        <Setter Property="Template" Value="{StaticResource GroupBoxTemplate}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource InnerBackground}"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource BlackGrayBorder}"></Setter>
+        <Setter Property="Margin" Value="{x:Static local:Constants.UniformMarginBase}"></Setter>
+    </Style>
+
+    <!-- Стиль групбокса для настроек -->
+    <Style TargetType="GroupBox" BasedOn="{StaticResource BaseGroupBox}" x:Key="SettingsGroupBox">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Стиль для "статических" кнопок меню в боковой панели -->
     <Style TargetType="Button" x:Key="MenuButtonIcon">
         <Setter Property="Template" Value="{StaticResource MenuButtonTemplate}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource AntiMainColor}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource BlackGrayBorder}"></Setter>
         <Setter Property="Background" Value="{x:Null}"></Setter>
         <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="Margin" Value="2"></Setter>

@@ -35,11 +35,12 @@
     <SolidColorBrush Color="DarkBlue" x:Key="ButtonIsMouseOverBorder" />
     <SolidColorBrush Color="#FF1F53A6" x:Key="ButtonIsPressedBackground" />
 
-    <!-- Текстовые поля -->
+    <!-- Границы бордеров -->
     <SolidColorBrush Color="#FF4B90FF" x:Key="TaskDescriptionBorder" />
     <SolidColorBrush Color="#FFC06900" x:Key="FieldIsMouseOverBorderReadOnly" />
     <SolidColorBrush Color="#FF6800B1" x:Key="FieldIsFocusedBorderReadOnly" />
-
+    <SolidColorBrush Color="#FF5F5F5F" x:Key="BlackGrayBorder" />
+    
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#7F7F7F" x:Key="WaitingStatusBackground" />
     <SolidColorBrush Color="#00823B" x:Key="BeginningStatusBackground" />

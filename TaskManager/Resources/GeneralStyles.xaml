@@ -80,9 +80,4 @@
         <Setter Property="BorderBrush" Value="Orange"></Setter>
     </Style>
 
-    <!-- Для всех групбоксов -->
-    <Style TargetType="GroupBox">
-        <Setter Property="Background" Value="{DynamicResource InnerBackground}"></Setter>
-    </Style>
-
 </ResourceDictionary>
