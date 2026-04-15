@@ -94,7 +94,7 @@ namespace TaskManager.Views
 
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (!e.WidthChanged)
+            if (!e.WidthChanged || !ShowMinMaxButtons)
                 return;
 
             if (WindowState == WindowState.Maximized)
