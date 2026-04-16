@@ -42,11 +42,8 @@ namespace TaskManager.ViewModels
         /// <summary>Добавить раздел (с моделью представления)</summary>
         internal void AddSectionViewModel(SectionViewModel newSectionViewModel)
         {
-            Logger.ExecuteWithTryCatch(() =>
-            {
-                ModelData.AddSection(newSectionViewModel.Section);
-                SectionsViewModels.Add(newSectionViewModel);
-            });
+            ModelData.AddSection(newSectionViewModel.Section);
+            SectionsViewModels.Add(newSectionViewModel);
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>

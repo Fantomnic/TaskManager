@@ -46,13 +46,12 @@
                 <!-- Иконка -->
                 <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon}"  
                        VerticalAlignment="Center"
-                       Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(WindowChrome.WindowChrome).ResizeBorderThickness}"   
-                       Width="{x:Static local:Constants.WindowIconWidth}"
+                       Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(WindowChrome.WindowChrome).ResizeBorderThickness}"
                        WindowChrome.IsHitTestVisibleInChrome="True">
                 </Image>
                 
                 <!-- Название окна -->
-                <TextBlock Grid.Column="1"
+                <TextBlock Grid.ColumnSpan="5"
                            Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Title}"   
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"

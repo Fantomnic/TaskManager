@@ -12,11 +12,8 @@ namespace TaskManager.ViewModels
 
         internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
-            Logger.ExecuteWithTryCatch(() =>
-            {
-                if (Section.AddTask(newTaskViewModel.TaskObject))
-                    AllTasksViewModels.Add(newTaskViewModel);
-            });
+            if (Section.AddTask(newTaskViewModel.TaskObject))
+                AllTasksViewModels.Add(newTaskViewModel);
         }
 
         internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)

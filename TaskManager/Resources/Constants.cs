@@ -6,7 +6,7 @@ namespace TaskManager.Resources
     public static class Constants
     {
         public const double WindowButtonWidth = 45;
-        public static readonly double WindowIconWidth;
+        //public static readonly double WindowIconWidth;
 
         #region Текст
 
@@ -30,7 +30,7 @@ namespace TaskManager.Resources
         {
             _workingAreaHeight = DisplayManager.GetWorkingAreaHeight();
             _workingAreaWidth = DisplayManager.GetWorkingAreaWidth();
-            WindowIconWidth = WindowButtonWidth * 3;
+            //WindowIconWidth = WindowButtonWidth * 3;
         }
 
         #region Главное окно
@@ -68,6 +68,14 @@ namespace TaskManager.Resources
         public static double StartWidthMiddleWindow => _workingAreaWidth / 2.5;
 
         #endregion Среднее окно
+
+        #region Окно сообщения
+
+        public const double HeightMessageWindow = 205;
+
+        public const double WidthMessageWindow = 425;
+
+        #endregion Окно сообщения
 
         public const double MinTasksListWidth = 250;
 

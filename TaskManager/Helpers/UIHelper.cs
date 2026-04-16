@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 using TaskManager.ViewModels;
 using TaskManager.Views;
 
@@ -28,5 +31,28 @@ namespace TaskManager.Helpers
             => MainWindow.sections.Items.OfType<TabItem>().FirstOrDefault(t => Helper.GetSectionViewModelFromTabItem(t) == sectionViewModel);
 
         internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
+
+        internal static void ShowMessage(string message, string caption = "Сообщение", MessageBoxImage icon = MessageBoxImage.None)
+        {
+            var iconImage = GetIconAsImage(icon);
+            var messageWindow = new MessageWindow(message, caption, iconImage);
+            messageWindow.ShowDialog();
+        }
+
+        private static BitmapSource? GetIconAsImage(MessageBoxImage iconType)
+        {
+            return iconType switch
+            {
+                MessageBoxImage.None => null,
+                MessageBoxImage.Information => GetIconAsImageCore(SystemIcons.Information),
+                MessageBoxImage.Warning => GetIconAsImageCore(SystemIcons.Warning),
+                MessageBoxImage.Error => GetIconAsImageCore(SystemIcons.Error),
+                MessageBoxImage.Question => GetIconAsImageCore(SystemIcons.Question),
+                _ => throw new NotImplementedException()
+            };
+
+            BitmapSource GetIconAsImageCore(Icon icon)
+                => Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+        }
     }
 }

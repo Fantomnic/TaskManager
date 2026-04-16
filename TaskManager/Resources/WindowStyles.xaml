@@ -42,4 +42,10 @@
         <Setter Property="MaxWidth" Value="{x:Static local:Constants.StartWidthMainWindow}"></Setter>
     </Style>
 
+    <Style TargetType="v:CustomWindow" BasedOn="{StaticResource BaseWindow}" x:Key="MessageWindow">
+        <Setter Property="Height" Value="{x:Static local:Constants.HeightMessageWindow}"></Setter>
+        <Setter Property="Width" Value="{x:Static local:Constants.WidthMessageWindow}"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+    </Style>
+
 </ResourceDictionary>

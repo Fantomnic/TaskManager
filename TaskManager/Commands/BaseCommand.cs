@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using TaskManager.Helpers;
 
 namespace TaskManager.Commands
 {
@@ -18,7 +19,7 @@ namespace TaskManager.Commands
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                UIHelper.ShowMessage(ex.Message, "Необработанное исключение", MessageBoxImage.Error);
             }
         }
 

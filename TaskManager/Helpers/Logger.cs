@@ -7,6 +7,7 @@ using System.Windows;
 
 namespace TaskManager.Helpers
 {
+    // TODO: Пока не используется
     internal class Logger
     {
         internal static void ShowErrorMessage(string message)
