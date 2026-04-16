@@ -53,7 +53,7 @@ namespace TaskManager.Views
             {
                 if (checkedChanging && newSectionViewModelFromList is null)
                 {
-                    MessageBox.Show("Укажите новый раздел");
+                    UIHelper.ShowMessage("Укажите новый раздел", MessageBoxImage.Warning);
                     return false;
                 }
 

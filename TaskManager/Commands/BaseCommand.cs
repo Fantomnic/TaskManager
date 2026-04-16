@@ -19,7 +19,7 @@ namespace TaskManager.Commands
             }
             catch (Exception ex)
             {
-                UIHelper.ShowMessage(ex.Message, "Необработанное исключение", MessageBoxImage.Error);
+                UIHelper.ShowMessage(ex.Message, MessageBoxImage.Error, "Необработанное исключение");
             }
         }
 

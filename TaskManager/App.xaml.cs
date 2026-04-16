@@ -17,7 +17,7 @@ namespace TaskManager
 
         private void CurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            UIHelper.ShowMessage(e.Exception.Message, "Необработанное исключение", MessageBoxImage.Error);
+            UIHelper.ShowMessage(e.Exception.Message, MessageBoxImage.Error);
             e.Handled = true; // Предотвращает стандартное завершение приложения
         }
     }

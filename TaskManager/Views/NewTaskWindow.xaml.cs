@@ -29,13 +29,13 @@ namespace TaskManager.Views
 
             if (String.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Наименование задачи не может быть пустым");
+                UIHelper.ShowMessage("Наименование задачи не может быть пустым", MessageBoxImage.Warning);
                 return false;
             }
 
             if (Helper.GetAllTasks().Select(t => t.Name).Contains(name))
             {
-                MessageBox.Show($"Задача с наименованием \"{name}\" уже существует");
+                UIHelper.ShowMessage($"Задача с наименованием \"{name}\" уже существует", MessageBoxImage.Warning);
                 return false;
             }
 

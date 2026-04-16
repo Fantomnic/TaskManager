@@ -32,8 +32,10 @@ namespace TaskManager.Helpers
 
         internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
 
-        internal static void ShowMessage(string message, string caption = "Сообщение", MessageBoxImage icon = MessageBoxImage.None)
+        internal static void ShowMessage(string message, MessageBoxImage icon = MessageBoxImage.None, string? caption = null)
         {
+            caption ??= GetMessageCaptionFromIcon(icon);
+
             var iconImage = GetIconAsImage(icon);
             var messageWindow = new MessageWindow(message, caption, iconImage);
             messageWindow.ShowDialog();
@@ -48,6 +50,22 @@ namespace TaskManager.Helpers
                 MessageBoxImage.Warning => GetIconAsImageCore(SystemIcons.Warning),
                 MessageBoxImage.Error => GetIconAsImageCore(SystemIcons.Error),
                 MessageBoxImage.Question => GetIconAsImageCore(SystemIcons.Question),
+                _ => throw new NotImplementedException()
+            };
+
+            BitmapSource GetIconAsImageCore(Icon icon)
+                => Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+        }
+
+        private static string GetMessageCaptionFromIcon(MessageBoxImage iconType)
+        {
+            return iconType switch
+            {
+                MessageBoxImage.None => "Сообщение",
+                MessageBoxImage.Information => "Внимание",
+                MessageBoxImage.Warning => "Предупреждение",
+                MessageBoxImage.Error => "Ошибка",
+                MessageBoxImage.Question => "Вопрос",
                 _ => throw new NotImplementedException()
             };
 

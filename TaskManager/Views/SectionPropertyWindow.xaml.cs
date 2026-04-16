@@ -26,13 +26,13 @@ namespace TaskManager.Views
 
             if (String.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Укажите название раздела");
+                UIHelper.ShowMessage("Укажите название раздела", MessageBoxImage.Warning);
                 return false;
             }
 
             if (Helper.MainViewModel.GetSectionsNames([_sectionViewModel.Section]).Contains(name))
             {
-                MessageBox.Show($"Раздел \"{name}\" уже существует");
+                UIHelper.ShowMessage($"Раздел \"{name}\" уже существует", MessageBoxImage.Warning);
                 return false;
             }
 

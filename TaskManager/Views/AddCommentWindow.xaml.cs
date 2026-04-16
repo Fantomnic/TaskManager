@@ -36,7 +36,7 @@ namespace TaskManager.Views
 
             if (String.IsNullOrWhiteSpace(Comment))
             {
-                MessageBox.Show("Нельзя добавить пустой комментарий");
+                UIHelper.ShowMessage("Нельзя добавить пустой комментарий", MessageBoxImage.Warning);
                 return false;
             }
 
