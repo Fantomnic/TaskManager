@@ -13,19 +13,19 @@
         <Setter Property="Template" Value="{StaticResource ContextMenuItemTemplate}"></Setter>
     </Style>
 
-    <!-- Команда меню с параметром -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseMenuItem}" x:Key="MenuItemWithInstance">
-        <Setter Property="CommandParameter" Value="{Binding Instance}"></Setter>
+    <!-- Команда меню с параметром DataContext -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseMenuItem}" x:Key="MenuItemWithDataContext">
+        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.DataContext}"></Setter>
     </Style>
 
     <!-- Команда меню с параметром, скрытая по умолчанию -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="CollapsedMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="CollapsedMenuItem">
         <Setter Property="Visibility" Value="Collapsed"></Setter>
     </Style>
 
     <!-- Команды контекстного меню для задач -->
     <!-- Изменить раздел -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="ChangeSectionCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="ChangeSectionCommandMenuItem">
         <Setter Property="Header" Value="Изменить раздел"></Setter>
         <Setter Property="Command" Value="{StaticResource ChangeSectionCommand}"></Setter>
     </Style>
@@ -97,7 +97,7 @@
     </Style>
 
     <!-- Переместить в корень -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithInstance}" x:Key="MakeRootCommandMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="MakeRootCommandMenuItem">
         <Setter Property="Header" Value="Переместить в корень"></Setter>
         <Setter Property="Command" Value="{StaticResource MakeRootCommand}"></Setter>
         <Style.Triggers>
@@ -111,16 +111,15 @@
 
     <!-- Команды контекстного меню для разделов -->
     <!-- Свойства -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseMenuItem}" x:Key="PropertyMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="PropertyMenuItem">
         <Setter Property="Header" Value="Свойства"></Setter>
         <Setter Property="Command" Value="{StaticResource ShowSectionPropertyCommand}"></Setter>
     </Style>
 
     <!-- Удалить раздел -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource BaseMenuItem}" x:Key="DeleteSectionMenuItem">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="DeleteSectionMenuItem">
         <Setter Property="Header" Value="Удалить раздел"></Setter>
         <Setter Property="Command" Value="{StaticResource DeleteSectionCommand}"></Setter>
-        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.DataContext}"></Setter>
     </Style>
 
     <!-- Контекстное меню для заголовка основного раздела -->

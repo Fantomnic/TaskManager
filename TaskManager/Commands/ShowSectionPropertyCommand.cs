@@ -1,4 +1,4 @@
-﻿using TaskManager.Helpers;
+﻿using TaskManager.ViewModels;
 using TaskManager.Views;
 
 namespace TaskManager.Commands
@@ -8,7 +8,9 @@ namespace TaskManager.Commands
         // Параметр легче задать в коде, а при реализации через xaml придётся добавлять свойство у vm, которое возвращает this
         internal override void ExecuteImplement(object? parameter)
         {
-            var sectionViewModel = Helper.MainViewModel.SelectedSectionViewModel;
+            if (parameter is not SectionViewModel sectionViewModel)
+                return;
+
             var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
             if (windowProperty.ShowDialog() == true)

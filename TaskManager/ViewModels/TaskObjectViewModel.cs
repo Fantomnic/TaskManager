@@ -28,9 +28,6 @@ namespace TaskManager.ViewModels
             TaskObject = taskObject;
         }
 
-        // Используется для привязки к параметру команды в контекстном меню, которое определено в стиле шаблона объекта
-        public TaskObjectViewModel Instance => this;
-
         internal TaskObject TaskObject { get; }
 
         public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;

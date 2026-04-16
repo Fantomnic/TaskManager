@@ -16,7 +16,6 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -68,6 +67,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <ctrl:CheckBoxWithItemStyle Grid.ColumnSpan="2"
@@ -81,6 +81,9 @@
                     <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
                     <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1"
                              Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultTaskName}"></TextBox>
+
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="3" Grid.ColumnSpan="2"
+                                                Style="{StaticResource BaseCheckBox}" Margin="0,7,0,0">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 
@@ -137,10 +140,6 @@
                     </ComboBox>
                 </Grid>
             </GroupBox>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            <CheckBox>Тест 1</CheckBox>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
