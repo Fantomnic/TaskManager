@@ -9,6 +9,7 @@ namespace TaskManager.Model.TaskStatuses
         public DeferredStatus()
         {
             ResetBackground();
+            TaskVisible = true;
         }
 
         public override string DisplayName => "Отложено";

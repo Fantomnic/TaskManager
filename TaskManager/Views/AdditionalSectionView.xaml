@@ -24,7 +24,7 @@
         <TextBlock Style="{StaticResource TitleDescription}">Список задач</TextBlock>
 
         <ctrl:StretchingTreeView Grid.Row="1"
-                                 ItemsSource="{Binding RootTasksViewModels}"
+                                 ItemsSource="{Binding VisibleRootTasksViewModels}"
                                  ItemContainerStyle="{StaticResource AdditionalTaskItem}"
                                  SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
                                  MouseDown="TasksContainerMouseDown"

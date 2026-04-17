@@ -1,10 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.Commands;
+using TaskManager.CustomControls;
 using TaskManager.Helpers;
 using TaskManager.Model;
+using TaskManager.Model.TaskStatuses;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Views
@@ -79,8 +82,48 @@ namespace TaskManager.Views
             }
 
             MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
+            selectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
 
         internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
+
+        private void ChB1Checked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.BeginingStatus, true);
+
+        private void ChB1Unchecked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.BeginingStatus, false);
+
+        private void ChB2Checked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.DeferredStatus, true);
+
+        private void ChB2Unchecked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.DeferredStatus, false);
+
+        private void ChB3Checked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.RejectedStatus, true);
+
+        private void ChB3Unchecked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.RejectedStatus, false);
+
+        private void ChB4Checked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.DoneStatus, true);
+
+        private void ChB4Unchecked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.DoneStatus, false);
+
+        private void ChB5Checked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.CompletedStatus, true);
+
+        private void ChB5Unchecked(object sender, RoutedEventArgs e)
+            => SetNewVisible(TaskStatusesInstances.CompletedStatus, false);
+
+        private void SetNewVisible(TaskStatusBase status,  bool visible)
+        {
+            if (!IsLoaded)
+                return;
+
+            status.TaskVisible = visible;
+            MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
+        }
     }
 }

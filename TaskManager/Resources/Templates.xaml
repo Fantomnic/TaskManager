@@ -25,34 +25,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    
-    <!-- 
-    <Grid.ColumnDefinitions>
-    <ColumnDefinition Width="19"/>
-    <ColumnDefinition Width="*"/>
-</Grid.ColumnDefinitions>
-<Ellipse x:Name="circle"
-         Width="19" Height="19"
-         Fill="{StaticResource Expander.Static.Circle.Fill}"
-         Stroke="{StaticResource Expander.Static.Circle.Stroke}"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Center">
-</Ellipse>
-<Path x:Name="arrow"
-      Data="M 1,1.5 L 4.5,5 L 8,1.5"
-      Stroke="{StaticResource Expander.Static.Arrow.Stroke}"
-      SnapsToDevicePixels="false"
-      StrokeThickness="2"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center">
-</Path>
-<ContentPresenter Grid.Column="1"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  RecognizesAccessKey="True"
-                  SnapsToDevicePixels="True">
-</ContentPresenter>-->
-    
+    <!-- Шаблон для экспандера (выдвигающееся меню) -->
     <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="#FF333333"/>
     <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333"/>

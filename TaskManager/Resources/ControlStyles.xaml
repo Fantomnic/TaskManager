@@ -69,6 +69,7 @@
     <!-- Стиль элемента дерева (неосновной раздел) -->
     <Style TargetType="ctrl:StretchingTreeViewItem" x:Key="AdditionalTaskItem">
         <Setter Property="Template" Value="{StaticResource TreeViewItemTemplate}"></Setter>
+        <Setter Property="IsExpanded" Value="True"></Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>

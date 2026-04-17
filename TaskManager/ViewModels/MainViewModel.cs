@@ -55,7 +55,7 @@ namespace TaskManager.ViewModels
             if (!ModelData.RemoveSection(additionalSectionViewModel.Section))
                 return false;
 
-            var rootTasks = additionalSectionViewModel.RootTasksViewModels.ToList();
+            var rootTasks = additionalSectionViewModel.AllRootTasksViewModels.ToList();
 
             foreach (var taskViewModel in rootTasks)
                 taskViewModel.MoveToSection(Helper.MasterSectionViewModel);

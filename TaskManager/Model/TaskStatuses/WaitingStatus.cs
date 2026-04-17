@@ -9,6 +9,7 @@ namespace TaskManager.Model.TaskStatuses
         public WaitingStatus()
         {
             ResetBackground();
+            TaskVisible = true;
         }
 
         public override string DisplayName => "Ожидает принятия";

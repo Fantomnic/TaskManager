@@ -234,5 +234,22 @@ namespace TaskManager.ViewModels
 
         internal TaskObjectViewModel GetRootTaskViewModel()
             => ParentViewModel is null ? this : ParentViewModel.GetRootTaskViewModel();
+
+        /// <summary>Получить модель представления указанной подзадачи на любом уровне вложенности, если она есть</summary>
+        internal TaskObjectViewModel? GetChildTaskViewModel(TaskObject taskObject)
+        {
+            foreach (var childViewModel in ChildrenViewModels)
+            {
+                var childTaskObject = childViewModel.TaskObject;
+
+                if (childTaskObject == taskObject)
+                    return childViewModel;
+
+                if (childViewModel.GetChildTaskViewModel(taskObject) is TaskObjectViewModel result)
+                    return result;
+            }
+
+            return null;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace TaskManager.Model.TaskStatuses
         public BeginningStatus()
         {
             ResetBackground();
+            TaskVisible = true;
         }
 
         public override string DisplayName => "Текущее";

@@ -11,15 +11,24 @@ namespace TaskManager.Model.TaskStatuses
         // Также, если бы не было DependencyProperty, то при изменении цвета (темы) не происходило бы автообновление интерфейса
         public static readonly DependencyProperty BackgroundProperty;
 
+        public static readonly DependencyProperty TaskVisibleProperty;
+
         static TaskStatusBase()
         {
             BackgroundProperty = DependencyProperty.Register(nameof(Background), typeof(SolidColorBrush), typeof(TaskStatusBase));
+            TaskVisibleProperty = DependencyProperty.Register(nameof(TaskVisible), typeof(bool), typeof(TaskStatusBase));
         }
 
         public SolidColorBrush Background
         {
             get => (SolidColorBrush)GetValue(BackgroundProperty);
             set => SetValue(BackgroundProperty, value);
+        }
+
+        public bool TaskVisible
+        {
+            get => (bool)GetValue(TaskVisibleProperty);
+            set => SetValue(TaskVisibleProperty, value);
         }
 
         public abstract string DisplayName { get; }

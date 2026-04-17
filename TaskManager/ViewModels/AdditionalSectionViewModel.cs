@@ -7,7 +7,9 @@ namespace TaskManager.ViewModels
     /// <summary>Модель представления неосновного раздела</summary>
     internal class AdditionalSectionViewModel(Section section) : SectionViewModel(section)
     {
-        public ObservableCollection<TaskObjectViewModel> RootTasksViewModels { get; } = [];
+        internal List<TaskObjectViewModel> AllRootTasksViewModels { get; } = [];
+
+        public ObservableCollection<TaskObjectViewModel> VisibleRootTasksViewModels { get; } = [];
 
         internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
         {
@@ -20,10 +22,12 @@ namespace TaskManager.ViewModels
             newTaskViewModel.SetAdditionalSectionViewModel(this);
 
             if (newTaskViewModel.ParentViewModel is null)
-                RootTasksViewModels.Add(newTaskViewModel);
+                AllRootTasksViewModels.Add(newTaskViewModel);
 
             foreach (var childViewModel in newTaskViewModel.ChildrenViewModels)
                 AddTaskViewModel(childViewModel);
+
+            RefreshVisibleTaskViewModels();
         }
 
         internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)
@@ -47,8 +51,10 @@ namespace TaskManager.ViewModels
         {
             bool result;
 
-            if (result = RootTasksViewModels.Remove(taskViewModel) && removeFromSection)
+            if (result = AllRootTasksViewModels.Remove(taskViewModel) && removeFromSection)
                 taskViewModel.SetAdditionalSectionViewModel(null);
+
+            RefreshVisibleTaskViewModels();
 
             return result;
         }
@@ -56,6 +62,33 @@ namespace TaskManager.ViewModels
         internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject)
         {
             throw new NotImplementedException();
+        }
+
+        internal override void RefreshVisibleTaskViewModels()
+        {
+            var currentTask = SelectedTaskViewModel?.TaskObject;
+            TaskObjectViewModel? rootTaskViewModel = null;
+
+            // Задаём, если выбранная задача есть, но она не корневая
+#pragma warning disable CS8604 // Possible null reference argument.
+            if (currentTask is not null && !VisibleRootTasksViewModels.Contains(SelectedTaskViewModel))
+                rootTaskViewModel = SelectedTaskViewModel.GetRootTaskViewModel();
+#pragma warning restore CS8604 // Possible null reference argument.
+
+            var newCollection = GetFilteredTaskViewModels(AllRootTasksViewModels);
+
+            VisibleRootTasksViewModels.Clear();
+
+            foreach (var taskViewModel in newCollection)
+                VisibleRootTasksViewModels.Add(taskViewModel);
+
+            if (currentTask is null)
+                return;
+
+            if (rootTaskViewModel is null)
+                SelectedTaskViewModel = VisibleRootTasksViewModels.FirstOrDefault(vm => vm.TaskObject == currentTask);
+            else if (VisibleRootTasksViewModels.Contains(rootTaskViewModel))
+                SelectedTaskViewModel = rootTaskViewModel.GetChildTaskViewModel(currentTask);
         }
 
         //internal override TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject) => TasksViewModels.FirstOrDefault(vm => vm.TaskObject == taskObject);

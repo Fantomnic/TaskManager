@@ -4,6 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:TaskManager.Views"
+                    xmlns:st="clr-namespace:TaskManager.Model.TaskStatuses"
                     xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                     mc:Ignorable="d"
                     Title="Трекер задач" WindowStartupLocation="CenterScreen"
@@ -35,11 +36,27 @@
                         </GroupBox>
                         <GroupBox Style="{StaticResource MenuGroupBox}" Header="Отображать">
                             <StackPanel>
-                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Текущие</ctrl:CheckBoxWithItemStyle>
-                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отложенные</ctrl:CheckBoxWithItemStyle>
-                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отклонённые</ctrl:CheckBoxWithItemStyle>
-                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Выполненные</ctrl:CheckBoxWithItemStyle>
-                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Завершённые</ctrl:CheckBoxWithItemStyle>
+                                <!-- Почему-то не работает 2-сторонняя привязка -->
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}"
+                                                            IsChecked="{Binding Source={x:Static st:TaskStatusesInstances.BeginingStatus},Path=TaskVisible}"
+                                                            Checked="ChB1Checked"
+                                                            Unchecked="ChB1Unchecked">Текущие</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}"
+                                                            IsChecked="{Binding Source={x:Static st:TaskStatusesInstances.DeferredStatus},Path=TaskVisible}"
+                                                            Checked="ChB2Checked"
+                                                            Unchecked="ChB2Unchecked">Отложенные</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}"
+                                                            IsChecked="{Binding Source={x:Static st:TaskStatusesInstances.RejectedStatus},Path=TaskVisible}"
+                                                            Checked="ChB3Checked"
+                                                            Unchecked="ChB3Unchecked">Отклонённые</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}"
+                                                            IsChecked="{Binding Source={x:Static st:TaskStatusesInstances.DoneStatus},Path=TaskVisible}"
+                                                            Checked="ChB4Checked"
+                                                            Unchecked="ChB4Unchecked">Выполненные</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}"
+                                                            IsChecked="{Binding Source={x:Static st:TaskStatusesInstances.CompletedStatus},Path=TaskVisible}"
+                                                            Checked="ChB5Checked"
+                                                            Unchecked="ChB5Unchecked">Завершённые</ctrl:CheckBoxWithItemStyle>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Style="{StaticResource MenuGroupBox}">

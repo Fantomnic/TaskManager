@@ -89,5 +89,12 @@ namespace TaskManager.ViewModels
         internal abstract bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false);
 
         internal abstract TaskObjectViewModel? FindTaskViewModel(TaskObject taskObject);
+
+        internal abstract void RefreshVisibleTaskViewModels();
+
+        protected List<TaskObjectViewModel> GetFilteredTaskViewModels(List<TaskObjectViewModel> sourceList)
+        {
+            return sourceList.FindAll(t => t.TaskStatus.TaskVisible);
+        }
     }
 }

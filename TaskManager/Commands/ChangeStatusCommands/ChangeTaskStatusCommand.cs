@@ -1,4 +1,5 @@
-﻿using TaskManager.Model;
+﻿using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.ViewModels;
 
@@ -12,8 +13,11 @@ namespace TaskManager.Commands
 
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is TaskObjectViewModel taskObjectViewModel && CanChange(taskObjectViewModel.TaskObject))
-                taskObjectViewModel.TaskStatus = _targetStatus;
+            if (parameter is not TaskObjectViewModel taskObjectViewModel || !CanChange(taskObjectViewModel.TaskObject))
+                return;
+
+            taskObjectViewModel.TaskStatus = _targetStatus;
+            Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
     }
 }

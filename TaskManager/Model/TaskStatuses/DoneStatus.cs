@@ -9,6 +9,7 @@ namespace TaskManager.Model.TaskStatuses
         public DoneStatus()
         {
             ResetBackground();
+            TaskVisible = true;
         }
 
         public override string DisplayName => "Выполнено";

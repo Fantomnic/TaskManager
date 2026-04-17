@@ -23,7 +23,7 @@
         <TextBlock Style="{StaticResource TitleDescription}">Список задач</TextBlock>
 
         <ListBox x:Name="tasksList" Grid.Row="1"
-                 ItemsSource="{Binding AllTasksViewModels}"
+                 ItemsSource="{Binding VisibleTasksViewModels}"
                  SelectedItem="{Binding SelectedTaskViewModel}"
                  ItemContainerStyle="{StaticResource MasterTaskItem}"
                  MouseDown="TasksContainerMouseDown"
