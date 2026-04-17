@@ -16,6 +16,8 @@ namespace TaskManager.Resources
 
         #endregion Текст
 
+        public const double MenuButtonHeight = 50;
+
         public const double DescriptonWidth = 150;
         public static readonly GridLength DescriptonWidthGridLength = new(DescriptonWidth);
 

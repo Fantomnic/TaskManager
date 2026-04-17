@@ -47,15 +47,6 @@
         <Setter Property="Margin" Value="2"></Setter>
     </Style>
 
-    <!-- Стиль для кнопок выдвигающегся меню -->
-    <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->
-    <Style TargetType="ContentControl" BasedOn="{StaticResource BaseMenuStyle}" x:Key="MenuButton">
-        <Setter Property="MinHeight" Value="50"></Setter>
-        <Setter Property="Width" Value="{Binding ElementName=menu,Path=Width}"></Setter>
-        <Setter Property="Background" Value="{Binding ElementName=menu,Path=Background}"></Setter>
-        <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
-    </Style>
-
     <!-- Стиль элемента списка (основной раздел) -->
     <Style TargetType="ListBoxItem" x:Key="MasterTaskItem">
         <Setter Property="Template" Value="{StaticResource ListBoxItemTemplate}"></Setter>
@@ -188,13 +179,47 @@
         <Setter Property="Cursor" Value="Arrow"></Setter>
     </Style>
 
+    <!-- Стиль для "кнопок" выдвигающегся меню -->
+    <Style TargetType="ContentControl" BasedOn="{StaticResource BaseMenuStyle}" x:Key="MenuButtonCommon">
+        <Setter Property="BorderThickness" Value="3"></Setter>
+        <Setter Property="Background" Value="{Binding ElementName=menu,Path=Background}"></Setter>
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        <Setter Property="MinHeight" Value="{x:Static local:Constants.MenuButtonHeight}"></Setter>
+        <Setter Property="Width" Value="{Binding ElementName=menu,Path=Width}"></Setter>
+    </Style>
+
+    <!-- Стиль для кнопок выдвигающегся меню -->
+    <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->
+    <Style TargetType="Button" BasedOn="{StaticResource MenuButtonCommon}" x:Key="MenuButton">
+        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource MenuButtonIsMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsPressedBackground}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Стиль для служебных кнопок приложения (ОК, Отмена и т.п.) -->
     <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}" x:Key="ServiceButton">
-        <Setter Property="Template" Value="{StaticResource ServiceButtonTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+        <Setter Property="BorderThickness" Value="1.5"></Setter>
         <Setter Property="Background" Value="{DynamicResource ButtonBackground}"></Setter>
         <Setter Property="Margin" Value="3,2,3,2"></Setter>
         <Setter Property="MinWidth" Value="100"></Setter>
         <Setter Property="MaxWidth" Value="200"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsPressedBackground}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Вкладки в свойствах задачи 

@@ -34,7 +34,9 @@
     <SolidColorBrush Color="Azure" x:Key="ButtonIsMouseOverBackground" />
     <SolidColorBrush Color="Blue" x:Key="ButtonIsMouseOverBorder" />
     <SolidColorBrush Color="#FFAFF9F9" x:Key="ButtonIsPressedBackground" />
-
+    <SolidColorBrush Color="#66FFFFFF" x:Key="MenuButtonIsMouseOverBackground" />
+    <SolidColorBrush Color="#660000FF" x:Key="MenuButtonIsMouseOverBorder" />
+    
     <!-- Границы бордеров -->
     <SolidColorBrush Color="#FF2210E3" x:Key="TaskDescriptionBorder" />
     <SolidColorBrush Color="Orange" x:Key="FieldIsMouseOverBorderReadOnly" />

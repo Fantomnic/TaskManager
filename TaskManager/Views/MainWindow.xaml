@@ -22,38 +22,33 @@
                       Width="200" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource NewSectionCommand}">Добавить раздел</Button>
-                <Button Style="{StaticResource MenuButton}">
-                    <Button.Content>
-                        <Expander Style="{StaticResource MenuButton}" VerticalAlignment="Center">
-                            <Expander.Header>
-                                <TextBlock HorizontalAlignment="Center">Фильтры</TextBlock>
-                            </Expander.Header>
+                <Expander Template="{DynamicResource ExpanderTemplate}"
+                          Style="{StaticResource MenuButtonCommon}"
+                          Header="Фильтры">
+                    <StackPanel>
+                        <GroupBox Style="{StaticResource MenuGroupBox}">
                             <StackPanel>
-                                <GroupBox Style="{StaticResource MenuGroupBox}">
-                                    <StackPanel>
-                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по статусу</RadioButton>
-                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по приоритету</RadioButton>
-                                        <RadioButton Style="{StaticResource BaseMenuRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
-                                    </StackPanel>
-                                </GroupBox>
-                                <GroupBox Style="{StaticResource MenuGroupBox}" Header="Отображать">
-                                    <StackPanel>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Текущие</ctrl:CheckBoxWithItemStyle>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отложенные</ctrl:CheckBoxWithItemStyle>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отклонённые</ctrl:CheckBoxWithItemStyle>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Выполненные</ctrl:CheckBoxWithItemStyle>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Завершённые</ctrl:CheckBoxWithItemStyle>
-                                    </StackPanel>
-                                </GroupBox>
-                                <GroupBox Style="{StaticResource MenuGroupBox}">
-                                    <StackPanel>
-                                        <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}">Сегодняшние</ctrl:CheckBoxWithItemStyle>
-                                    </StackPanel>
-                                </GroupBox>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по статусу</RadioButton>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по приоритету</RadioButton>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
                             </StackPanel>
-                        </Expander>
-                    </Button.Content>
-                </Button>
+                        </GroupBox>
+                        <GroupBox Style="{StaticResource MenuGroupBox}" Header="Отображать">
+                            <StackPanel>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Текущие</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отложенные</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Отклонённые</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Выполненные</ctrl:CheckBoxWithItemStyle>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}" IsChecked="True">Завершённые</ctrl:CheckBoxWithItemStyle>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Style="{StaticResource MenuGroupBox}">
+                            <StackPanel>
+                                <ctrl:CheckBoxWithItemStyle Style="{StaticResource BaseMenuCheckBox}">Сегодняшние</ctrl:CheckBoxWithItemStyle>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </Expander>
                 <Button Style="{StaticResource MenuButton}">Кнопка 3</Button>
                 <Button Style="{StaticResource MenuButton}">Кнопка 4</Button>
             </StackPanel>

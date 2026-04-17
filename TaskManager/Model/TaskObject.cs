@@ -123,6 +123,7 @@ namespace TaskManager.Model
 
         #endregion Свойства
 
+        // TODO: Сделать отдельные типы исключений с типом Инфо
         internal void AddChild(TaskObject child)
         {
             if (Children.Contains(child))

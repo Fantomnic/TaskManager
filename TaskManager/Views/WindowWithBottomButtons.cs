@@ -8,7 +8,8 @@ namespace TaskManager.Views
     {
         public WindowWithBottomButtons() : base()
         {
-            Owner = UIHelper.MainWindow;
+            if (UIHelper.MainWindow.IsLoaded)
+                Owner = UIHelper.MainWindow;
         }
 
         protected virtual void ButtonOKClick(object sender, RoutedEventArgs e)
