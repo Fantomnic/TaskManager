@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using TaskManager.Model;
+using TaskManager.Model.TaskPriorities;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.ViewModels
 {
@@ -27,6 +29,36 @@ namespace TaskManager.ViewModels
             {
                 Section.Name = value;
                 OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public TaskType DefaultTaskType
+        {
+            get => Section.DefaultTaskType;
+            set
+            {
+                Section.DefaultTaskType = value;
+                OnPropertyChanged(nameof(DefaultTaskType));
+            }
+        }
+
+        public TaskPriorityBase DefaultPriority
+        {
+            get => Section.DefaultPriority;
+            set
+            {
+                Section.DefaultPriority = value;
+                OnPropertyChanged(nameof(DefaultPriority));
+            }
+        }
+
+        public string Comment
+        {
+            get => Section.Comment;
+            set
+            {
+                Section.Comment = value;
+                OnPropertyChanged(nameof(Comment));
             }
         }
 

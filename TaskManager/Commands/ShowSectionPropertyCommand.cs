@@ -14,7 +14,7 @@ namespace TaskManager.Commands
             var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
             if (windowProperty.ShowDialog() == true)
-                sectionViewModel.Name = windowProperty.NewSectionName;
+                windowProperty.SaveToViewModel();
         }
     }
 }

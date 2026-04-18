@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using TaskManager.Model.TaskPriorities;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
@@ -7,12 +9,19 @@ namespace TaskManager.Model
         public Section(string name)
         {
             Name = name;
+            DefaultPriority = TaskPrioritiesInstances.LowPriority;
         }
 
         internal abstract bool IsMasterSection { get; }
 
         /// <summary>Все задачи раздела</summary>
         internal ObservableCollection<TaskObject> Tasks { get; } = [];
+
+        internal TaskType DefaultTaskType { get; set; }
+
+        internal TaskPriorityBase DefaultPriority { get; set; }
+
+        internal string Comment { get; set; }
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
         internal static TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());

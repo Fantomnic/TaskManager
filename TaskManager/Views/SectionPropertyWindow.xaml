@@ -6,24 +6,83 @@
                                xmlns:local="clr-namespace:TaskManager.Views"
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
+                               xmlns:h="clr-namespace:TaskManager.Helpers"
+                               xmlns:pr="clr-namespace:TaskManager.Model.TaskPriorities"
                                mc:Ignorable="d"
                                Title="Новый раздел" WindowStartupLocation="CenterOwner"
                                Style="{StaticResource MiddleWindow}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
+        <Border Margin="{x:Static res:Constants.UniformMarginBase}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                    <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                </Grid.RowDefinitions>
 
-        <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource BaseTextBoxAlignmentMargin}"></TextBox>
+                <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+                <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource BaseTextBoxAlignmentMargin}"></TextBox>
+
+                <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource FieldDescription}">Примечание:</TextBlock>
+                <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
+                    <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                </ScrollViewer>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!-- Приоритет -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource FieldDescription}">Приоритет по умолчанию:</TextBlock>
+                        <ComboBox x:Name="priorityList"
+                                  Style="{StaticResource BaseComboBox}"
+                                  ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllPriorities}"
+                                  VerticalAlignment="Center"
+                                  Margin="3,0,3,0"
+                                  MinWidth="115">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}"
+                                               Text="{Binding Path=DisplayName,Mode=OneWay}"
+                                               Foreground="{Binding Path=Foreground}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <!-- Тип -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                        <TextBlock Style="{StaticResource FieldDescription}">Тип по умолчанию:</TextBlock>
+                        <ComboBox x:Name="typeList"
+                                  Style="{StaticResource BaseComboBox}"
+                                  ItemsSource="{x:Static h:Enums.AllTypes}"
+                                  VerticalAlignment="Center"
+                                  Margin="3,0,3,0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource TaskTypeConverter}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
             <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>

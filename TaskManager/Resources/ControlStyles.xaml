@@ -109,6 +109,7 @@
     <Style TargetType="ComboBox" x:Key="BaseComboBox">
         <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"></Setter>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem}"></Setter>
+        <Setter Property="MinWidth" Value="150"></Setter>
     </Style>
 
     <!-- Стиль чекбокса (общий) -->
