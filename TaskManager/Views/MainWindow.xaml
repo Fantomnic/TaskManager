@@ -70,6 +70,7 @@
                         </GroupBox>
                     </StackPanel>
                 </Expander>
+                <Button Style="{StaticResource MenuButton}" Command="{StaticResource TestCommand}">Test</Button>
             </StackPanel>
         </ScrollViewer>
 

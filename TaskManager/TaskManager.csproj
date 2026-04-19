@@ -19,11 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="10.0.6" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.6">
+      <GeneratePathProperty></GeneratePathProperty>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WinFormsHelper\WinFormsHelper.csproj" />
+    <ProjectReference Include="..\WinFormsHelper\WinFormsHelper.csproj">
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

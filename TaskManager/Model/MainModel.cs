@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Model
 {
-    internal class MainModel() //: INotifyPropertyChanged
+    internal class MainModel
     {
         internal MasterSection BaseSection { get; private set; }
 
@@ -33,22 +33,5 @@
         /// <summary>Удалить раздел, если он неосновной</summary>
         internal bool RemoveSection(Section section)
             => !section.IsMasterSection && AllSections.Remove(section);
-
-        //private BaseSection _baseSection;
-
-        //internal BaseSection BaseSection
-        //{
-        //    get => _baseSection;
-        //    set
-        //    {
-        //        _baseSection = value;
-        //        OnPropertyChanged(nameof(BaseSection));
-        //    }
-        //}
-
-        //public event PropertyChangedEventHandler? PropertyChanged;
-
-        //public void OnPropertyChanged([CallerMemberName] string prop = "")
-        //    => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }

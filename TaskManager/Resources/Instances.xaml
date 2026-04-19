@@ -29,5 +29,6 @@
     <cmd:OpenSettingsCommand x:Key="OpenSettingsCommand" />
     <cmd:ShowSectionPropertyCommand x:Key="ShowSectionPropertyCommand" />
     <cmd:MakeRootCommand x:Key="MakeRootCommand" />
+    <cmd:TestCommand x:Key="TestCommand" />
 
 </ResourceDictionary>
