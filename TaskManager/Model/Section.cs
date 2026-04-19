@@ -24,10 +24,10 @@ namespace TaskManager.Model
         internal string Comment { get; set; }
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
-        internal static TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());
+        internal TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
-        internal static TaskObject CreateTask(string name) => new() { Name = name };
+        internal TaskObject CreateTask(string name) => new(DefaultPriority, DefaultTaskType) { Name = name };
 
         /// <summary>Добавить задачу в раздел</summary>
         internal virtual bool AddTask(TaskObject newTask, bool throwOnError = false)

@@ -20,10 +20,10 @@ namespace TaskManager.Views
         }
 
         // TODO: Скрыть контекстное меню для текстблоков
-        internal TaskObjectView(TaskObjectViewModel taskObjectViewModel) : this()
-        {
-            DataContext = _taskObjectViewModel = taskObjectViewModel;
-        }
+        //internal TaskObjectView(TaskObjectViewModel taskObjectViewModel) : this()
+        //{
+        //    DataContext = _taskObjectViewModel = taskObjectViewModel;
+        //}
 
         private void EditDescription(object sender, RoutedEventArgs e)
         {

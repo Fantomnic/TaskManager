@@ -104,7 +104,7 @@ namespace TaskManager.ViewModels
         }
 
         /// <summary>Создать новую задачу без привязки к разделу (с соответствующей моделью представления)</summary>
-        internal static TaskObjectViewModel CreateTask(string? name = null)
+        internal TaskObjectViewModel CreateTask(string? name = null)
         {
             var newTask = name is null ? Section.CreateTask() : Section.CreateTask(name);
             return new(newTask);

@@ -36,7 +36,7 @@
 
                 <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource FieldDescription}">Примечание:</TextBlock>
                 <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-                    <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                    <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" Text="{Binding Comment}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
                 </ScrollViewer>
 
                 <Grid Grid.Row="3" Grid.ColumnSpan="2">

@@ -120,7 +120,7 @@ namespace TaskManager.Model
             double menuFontCoefficient,
             double menuCommandsFont,
             double buttonAreaHeight,
-            double minMenuWidth) : BaseObject
+            double minMenuWidth) : BaseNotifyObject
         {
             private static int _count;
             private double _minMenuWidth = minMenuWidth;

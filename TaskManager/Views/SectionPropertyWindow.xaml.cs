@@ -26,7 +26,7 @@ namespace TaskManager.Views
         private void InitializeFields()
         {
             sectionName.Text = _newSectionName = _sectionViewModel.Name;
-            commentField.Text = _newComment = _sectionViewModel.Comment;
+            //commentField.Text = _newComment = _sectionViewModel.Comment;
             priorityList.SelectedItem = _newDefaultPriority = _sectionViewModel.DefaultPriority;
             typeList.SelectedItem = _newDefaultTaskType = _sectionViewModel.DefaultTaskType;
         }
@@ -34,7 +34,7 @@ namespace TaskManager.Views
         private void OnCloseWithOK()
         {
             _newSectionName = sectionName.Text;
-            _newComment = commentField.Text;
+            //_newComment = commentField.Text;
             _newDefaultPriority = (TaskPriorityBase)priorityList.SelectedItem;
             _newDefaultTaskType = (Enums.TaskType)typeList.SelectedItem;
         }
@@ -63,7 +63,7 @@ namespace TaskManager.Views
         internal void SaveToViewModel()
         {
             _sectionViewModel.Name = _newSectionName;
-            _sectionViewModel.Comment = _newComment;
+            //_sectionViewModel.Comment = _newComment;
             _sectionViewModel.DefaultPriority = _newDefaultPriority;
             _sectionViewModel.DefaultTaskType = _newDefaultTaskType;
         }

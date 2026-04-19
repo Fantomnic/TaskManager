@@ -7,119 +7,39 @@ namespace TaskManager.Model
     // TODO: Нужно ли всё-таки тут INotifyPropertyChanged - разобраться
     internal class TaskObject : BaseObject
     {
-        private Guid _guid;
-        private DateTime _creationDate;
-        private DateTime _endDate;
-        private TaskType _type;
-        private TaskStatusBase _status;
-        private TaskPriorityBase _priority;
-        private AdditionalSection? _additionalSection;
-        private bool _isNew;
-        private TaskObject? _parent;
-        private List<TaskObject> _children = [];
-
-        internal TaskObject()
+        internal TaskObject(TaskPriorityBase priority, TaskType type)
         {
-            _creationDate = DateTime.Now;
-            _status = TaskStatusesInstances.WaitingStatus;
-            _priority = TaskPrioritiesInstances.LowPriority;
-            _isNew = true;
+            CreationDate = DateTime.Now;
+            Status = TaskStatusesInstances.WaitingStatus;
+            Priority = priority;
+            Type = type;
         }
 
         #region Свойства
 
-        // public, чтобы UI видел значение при биндинге
-        public DateTime CreationDate
-        {
-            get => _creationDate;
-            set
-            {
-                _creationDate = value;
-                OnPropertyChanged(nameof(CreationDate));
-            }
-        }
+        internal DateTime CreationDate { get; set; }
 
-        public DateTime EndDate
-        {
-            get => _endDate;
-            set
-            {
-                _endDate = value;
-                OnPropertyChanged(nameof(EndDate));
-            }
-        }
+        internal DateTime EndDate { get; set; }
 
-        public TaskType Type
-        {
-            get => _type;
-            set
-            {
-                _type = value;
-                OnPropertyChanged(nameof(Type));
-            }
-        }
+        internal TaskType Type { get; set; }
 
-        public TaskStatusBase Status
-        {
-            get => _status;
-            set
-            {
-                _status = value;
-                OnPropertyChanged(nameof(Status));
-            }
-        }
+        internal TaskStatusBase Status { get; set; }
 
-        public TaskPriorityBase Priority
-        {
-            get => _priority;
-            set
-            {
-                _priority = value;
-                OnPropertyChanged(nameof(Priority));
-            }
-        }
+        internal TaskPriorityBase Priority { get; set; }
+
+        internal string Description { get; set; }
+
+        internal string Comment { get; set; }
 
         /// <summary>Неосновной раздел, к которому принадлежит задача</summary>
         /// <remarks>По умолчанию все задачи хранятся в базовом разделе. Если значение = null, то, кроме базового, ни в каком другом разделе её нет</remarks> 
-        public AdditionalSection? AdditionalSection
-        {
-            get => _additionalSection;
-            set
-            {
-                _additionalSection = value;
-                OnPropertyChanged(nameof(AdditionalSection));
-            }
-        }
+        internal AdditionalSection? AdditionalSection { get; set; }
 
-        public bool IsNew
-        {
-            get => _isNew;
-            set
-            {
-                _isNew = value;
-                OnPropertyChanged(nameof(IsNew));
-            }
-        }
+        internal bool IsNew { get; set; } = true;
 
-        public TaskObject? Parent
-        {
-            get => _parent;
-            set
-            {
-                _parent = value;
-                OnPropertyChanged(nameof(Parent));
-            }
-        }
+        internal TaskObject? Parent { get; set; }
 
-        public List<TaskObject> Children
-        {
-            get => _children;
-            set
-            {
-                _children = value;
-                OnPropertyChanged(nameof(Children));
-            }
-        }
+        internal List<TaskObject> Children { get; set; } = [];
 
         #endregion Свойства
 

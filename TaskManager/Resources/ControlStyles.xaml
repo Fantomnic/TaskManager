@@ -117,7 +117,9 @@
         <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}"></Setter>
         <Setter Property="Background" Value="{DynamicResource FieldBackground}"></Setter>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="1"/>
         <Setter Property="TextBlockStyle" Value="{StaticResource BaseStyleAlignmentMargin}"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     <!-- Стиль чекбокса, у которого галочка справа -->

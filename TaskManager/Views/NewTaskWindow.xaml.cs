@@ -12,7 +12,7 @@ namespace TaskManager.Views
         internal NewTaskWindow(SectionViewModel currentSectionViewModel)
         {
             InitializeComponent();
-            var newTaskObjectViewModel = SectionViewModel.CreateTask();
+            var newTaskObjectViewModel = currentSectionViewModel.CreateTask();
             DataContext = NewTaskObjectViewModel = newTaskObjectViewModel;
 
             if (currentSectionViewModel.IsMasterSection || currentSectionViewModel.SelectedTaskViewModel is null)

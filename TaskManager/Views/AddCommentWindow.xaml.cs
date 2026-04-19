@@ -25,7 +25,7 @@ namespace TaskManager.Views
         {
             InitializeComponent();
 
-            DataContext = taskObjectViewModel;
+            //DataContext = taskObjectViewModel;
         }
 
         public string Comment { get; private set; }

@@ -37,9 +37,9 @@ namespace TaskManager.Commands
 
 
 
-            var startTaskViewModel = SectionViewModel.CreateTask("Тест Родитель 1");
-            var startChildTaskViewModel = SectionViewModel.CreateTask("Тест Дочь 1");
-            var startUnderchildTaskViewModel = SectionViewModel.CreateTask("Тест Поддочь 1");
+            var startTaskViewModel = sectionViewModel.CreateTask("Тест Родитель 1");
+            var startChildTaskViewModel = sectionViewModel.CreateTask("Тест Дочь 1");
+            var startUnderchildTaskViewModel = sectionViewModel.CreateTask("Тест Поддочь 1");
             sectionViewModel.AddTaskViewModel(startTaskViewModel);
             sectionViewModel.AddTaskViewModel(startChildTaskViewModel);
             sectionViewModel.AddTaskViewModel(startUnderchildTaskViewModel);

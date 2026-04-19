@@ -16,13 +16,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <!-- Первая колонка -->
         <StackPanel>
+            <!-- Разделы -->
             <GroupBox Style="{StaticResource SettingsGroupBox}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Разделы</TextBlock>
@@ -37,6 +40,8 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="7"></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <ctrl:CheckBoxWithItemStyle Grid.ColumnSpan="3"
@@ -50,9 +55,13 @@
                     <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}" Grid.ColumnSpan="2" Margin="5,0,5,0">Наименование:</TextBlock>
                     <TextBox x:Name="sectionName" Grid.Row="2" Grid.Column="2"
                              Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
+
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="4" Grid.ColumnSpan="2"
+                            Style="{StaticResource BaseCheckBox}">Подтверждать удаление</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 
+            <!-- Задачи -->
             <GroupBox Style="{StaticResource SettingsGroupBox}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Задачи</TextBlock>
@@ -66,6 +75,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="7"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
@@ -82,11 +93,17 @@
                     <TextBox x:Name="taskName" Grid.Row="2" Grid.Column="1"
                              Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultTaskName}"></TextBox>
 
-                    <ctrl:CheckBoxWithItemStyle Grid.Row="3" Grid.ColumnSpan="2"
-                                                Style="{StaticResource BaseCheckBox}" Margin="0,7,0,0">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="4" Grid.ColumnSpan="2"
+                                                Style="{StaticResource BaseCheckBox}">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
+                            Style="{StaticResource BaseCheckBox}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
+        </StackPanel>
 
+        <!-- Вторая колонка -->
+        <StackPanel Grid.Column="1">
+            <!-- Шрифт -->
             <GroupBox Style="{StaticResource SettingsGroupBox}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Шрифт</TextBlock>
@@ -99,24 +116,25 @@
 
                     <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Доступные масштабы:</TextBlock>
                     <ComboBox Grid.Column="1"
-                              Style="{StaticResource BaseComboBox}"
-                              ItemsSource="{x:Static model:Settings.AvailableFonts}"
-                              SelectedItem="{Binding FontSettings}">
+                  Style="{StaticResource BaseComboBox}"
+                  ItemsSource="{x:Static model:Settings.AvailableFonts}"
+                  SelectedItem="{Binding FontSettings}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}"
-                                           Text="{Binding Path=ID,Converter={StaticResource FontIDConverter}}"
-                                           FontSize="{Binding Path=BaseFont}">
+                               Text="{Binding Path=ID,Converter={StaticResource FontIDConverter}}"
+                               FontSize="{Binding Path=BaseFont}">
                                     <TextBlock.ToolTip>
                                         <TextBlock Text="{Binding Path=BaseFont, StringFormat=\{0\} pt}"></TextBlock>
                                     </TextBlock.ToolTip>
-                                </TextBlock>
+                    </TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
             </GroupBox>
 
+            <!-- Тема -->
             <GroupBox Style="{StaticResource SettingsGroupBox}">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Тема</TextBlock>
@@ -129,9 +147,9 @@
 
                     <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Доступные темы:</TextBlock>
                     <ComboBox Grid.Column="1"
-                              Style="{StaticResource BaseComboBox}"
-                              ItemsSource="{x:Static h:Enums.AllThemes}"
-                              SelectedItem="{Binding Path=Theme}">
+                  Style="{StaticResource BaseComboBox}"
+                  ItemsSource="{x:Static h:Enums.AllThemes}"
+                  SelectedItem="{Binding Path=Theme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding Converter={StaticResource ThemeConverter}}"></TextBlock>
@@ -142,6 +160,7 @@
             </GroupBox>
         </StackPanel>
 
+        <!-- Кнопки -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
             <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">Применить</Button>

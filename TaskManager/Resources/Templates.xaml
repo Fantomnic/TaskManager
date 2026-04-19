@@ -707,17 +707,18 @@
 
     <!-- Шаблон для всех чекбоксов -->
     <ControlTemplate TargetType="ctrl:CheckBoxWithItemStyle" x:Key="CheckBoxTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+        <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="Stretch" >
             <Border Style="{StaticResource BaseScale}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     Background="{TemplateBinding Background}"
                     BorderThickness="{TemplateBinding BorderThickness}"
+                    Margin="{TemplateBinding Margin}"
                     Width="14"
                     Height="14">
                 <Grid>
                     <Grid Name="nullBlock"
                           Background="{TemplateBinding Foreground}"
-                          Margin="1" Visibility="Collapsed" />
+                          Visibility="Collapsed" />
                     <Path Name="eliCheck"
                           Stretch="Uniform"
                           Width="15"

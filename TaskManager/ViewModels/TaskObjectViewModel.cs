@@ -18,10 +18,10 @@ namespace TaskManager.ViewModels
         private ObservableCollection<TaskObjectViewModel> _childrenViewModels = [];
         private bool _isSelected;
 
-        public TaskObjectViewModel()
-        {
-            TaskObject = new() { Name = Settings.GetDefaultTaskName() };
-        }
+        //public TaskObjectViewModel()
+        //{
+        //    TaskObject = new() { Name = Settings.GetDefaultTaskName() };
+        //}
 
         internal TaskObjectViewModel(TaskObject taskObject)
         {
@@ -75,6 +75,26 @@ namespace TaskManager.ViewModels
             {
                 TaskObject.Type = value;
                 OnPropertyChanged(nameof(TaskType));
+            }
+        }
+
+        public string Description
+        {
+            get => TaskObject.Description;
+            set
+            {
+                TaskObject.Description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public string Comment
+        {
+            get => TaskObject.Comment;
+            set
+            {
+                TaskObject.Comment = value;
+                OnPropertyChanged(nameof(Comment));
             }
         }
 
