@@ -12,6 +12,8 @@ namespace TaskManager.Model.TaskStatuses
             TaskVisible = true;
         }
 
+        internal override int ID => 2;
+
         public override string DisplayName => "Отложено";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus, TaskStatusesInstances.RejectedStatus];

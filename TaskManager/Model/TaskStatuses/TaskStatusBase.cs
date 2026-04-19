@@ -31,6 +31,8 @@ namespace TaskManager.Model.TaskStatuses
             set => SetValue(TaskVisibleProperty, value);
         }
 
+        internal abstract int ID { get; }
+
         public abstract string DisplayName { get; }
 
         /// <summary>Статусы, в которые можно перейти из текущего статуса</summary>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TaskManager.Model
+namespace TaskManager.Model.BaseClasses
 {
     public abstract class BaseNotifyObject : BaseObject, INotifyPropertyChanged
     {

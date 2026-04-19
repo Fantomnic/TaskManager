@@ -7,7 +7,7 @@
         internal List<Section> AllSections { get; } = [];
 
         /// <summary>Создать основной раздел</summary>
-        internal MasterSection CreateMasterSection()
+        internal MasterSection CreateMasterSection(bool throwOnError = true)
         {
             if (BaseSection is not null)
                 throw new InvalidOperationException("Основной раздел уже создан");

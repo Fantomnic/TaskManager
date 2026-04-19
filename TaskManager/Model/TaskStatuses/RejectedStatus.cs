@@ -12,6 +12,8 @@ namespace TaskManager.Model.TaskStatuses
             TaskVisible = true;
         }
 
+        internal override int ID => 4;
+
         public override string DisplayName => "Отклонено";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus];

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TaskManager.Helpers;
 
 namespace TaskManager.Commands
 {
@@ -10,7 +6,8 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            var t = AppDomain.CurrentDomain.BaseDirectory;
+            foreach (var sections in Helper.ModelData.AllSections)
+                sections.Serialize(Enums.DataDirectory.Root);
         }
     }
 }

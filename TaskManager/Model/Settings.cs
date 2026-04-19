@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
+using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;

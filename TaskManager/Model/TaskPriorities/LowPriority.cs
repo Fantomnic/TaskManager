@@ -10,6 +10,8 @@ namespace TaskManager.Model.TaskPriorities
             ResetForeground();
         }
 
+        internal override int ID => 1;
+
         public override string DisplayName => "Низкий";
 
         internal override void ResetForeground()

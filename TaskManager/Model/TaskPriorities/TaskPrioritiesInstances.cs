@@ -23,5 +23,7 @@
             foreach (var priority in AllPriorities)
                 priority.ResetForeground();
         }
+
+        internal static TaskPriorityBase GetTaskPriority(int id) => AllPriorities.First(p => p.ID == id);
     }
 }

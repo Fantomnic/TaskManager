@@ -8,6 +8,11 @@ namespace TaskManager.Resources
         public const double WindowButtonWidth = 45;
         //public static readonly double WindowIconWidth;
 
+        public const string DataDirectoty = "Data";
+        public const string TasksDirectoty = "Tasks";
+        public const string SectionsDirectoty = "Sections";
+        public const string DataExtension = ".dtmo";
+
         #region Текст
 
         public const double StandartBaseFont = 12;

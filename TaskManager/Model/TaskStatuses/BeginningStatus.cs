@@ -12,6 +12,8 @@ namespace TaskManager.Model.TaskStatuses
             TaskVisible = true;
         }
 
+        internal override int ID => 3;
+
         public override string DisplayName => "Текущее";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.DeferredStatus, TaskStatusesInstances.DoneStatus, TaskStatusesInstances.CompletedStatus];

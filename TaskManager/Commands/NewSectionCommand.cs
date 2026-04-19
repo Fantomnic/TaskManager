@@ -16,7 +16,7 @@ namespace TaskManager.Commands
             string name = GetDefaultSectionName();
             var mainWindow = UIHelper.MainWindow;
             var mainViewModel = mainWindow.MainViewModel;
-            var sectionViewModel = MainViewModel.CreateSection(name);
+            var sectionViewModel = mainViewModel.CreateAdditionalSection(name);
 
             var windowProperty = new SectionPropertyWindow(sectionViewModel, true);
 
@@ -24,17 +24,24 @@ namespace TaskManager.Commands
                 return;
 
             windowProperty.SaveToViewModel();
-            mainViewModel.AddSectionViewModel(sectionViewModel);
-            var newItem = CreateTabItem(sectionViewModel);
-            mainWindow.sections.Items.Add(newItem);
-            newItem.Focus();
+            AddSectionCore(mainViewModel, mainWindow.sections.Items, sectionViewModel);
+        }
+
+        internal static void AddSectionCore(MainViewModel mainViewModel, ItemCollection tabItems, AdditionalSectionViewModel newSectionViewModel, bool setFocus = true)
+        {
+            mainViewModel.AddSectionViewModel(newSectionViewModel);
+            var newItem = CreateTabItem(newSectionViewModel);
+            tabItems.Add(newItem);
+
+            if (setFocus)
+                newItem.Focus();
         }
 
         internal static void Test()
         {
             var mainWindow = UIHelper.MainWindow;
             var mainViewModel = mainWindow.MainViewModel;
-            var sectionViewModel = MainViewModel.CreateSection("Раздел 2");
+            var sectionViewModel = mainViewModel.CreateAdditionalSection("Раздел 2");
 
 
 

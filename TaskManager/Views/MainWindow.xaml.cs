@@ -1,13 +1,14 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using TaskManager.Commands;
-using TaskManager.CustomControls;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
+using TaskManager.Resources;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Views
@@ -17,11 +18,15 @@ namespace TaskManager.Views
     /// </summary>
     public partial class MainWindow : CustomWindow
     {
+        private static bool _masterSectionWasInitialized;
+
         public MainWindow()
         {
             InitializeComponent();
 
             DataContext = MainViewModel = new MainViewModel();
+
+            LoadData();
             InitializeData();
         }
 
@@ -30,7 +35,19 @@ namespace TaskManager.Views
         // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
         {
+            if (_masterSectionWasInitialized)
+                return;
+
             var masterSectionViewModel = MainViewModel.CreateMasterSection();
+            InitializeMasterSectionView(masterSectionViewModel);
+
+            //NewSectionCommand.Test();
+        }
+
+        private void InitializeMasterSectionView(MasterSectionViewModel masterSectionViewModel)
+        {
+            if (_masterSectionWasInitialized)
+                return;
 
             // Устанавливаем для вкладки, чтобы распространялось ещё и на хедер
             masterSection.DataContext = masterSectionViewModel;
@@ -40,7 +57,51 @@ namespace TaskManager.Views
             MainViewModel.AddSectionViewModel(masterSectionViewModel);
             MainViewModel.SelectedSectionViewModel = masterSectionViewModel;
 
-            NewSectionCommand.Test();
+            _masterSectionWasInitialized = true;
+        }
+
+        private void LoadData()
+        {
+            string dataDirectory = Helper.GetDataDirectory(Enums.DataDirectory.Root, false);
+
+            if (String.IsNullOrEmpty(dataDirectory))
+                return;
+
+            var allSectionsFiles = Directory.GetFiles(dataDirectory).Where(f => String.Equals(Path.GetExtension(f), Constants.DataExtension)).ToList();
+
+            if (allSectionsFiles.Count == 0)
+                return;
+
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
+            var serialiser = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
+
+            var additionalSections = new List<AdditionalSection>();
+
+            // Первым должен инициализоваться основной раздел
+            foreach (string sectionFile in allSectionsFiles)
+            {
+                using var stream = new FileStream(sectionFile, FileMode.OpenOrCreate);
+                var value = serialiser.Deserialize(stream);
+
+                if (value is AdditionalSection additionalSection)
+                {
+                    additionalSections.Add(additionalSection);
+                }
+                else if (value is MasterSection masterSection)
+                {
+                    var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
+                    InitializeMasterSectionView(masterSectionViewModel);
+                };
+            }
+
+            InitializeData();
+
+            foreach (var additionalSection in additionalSections)
+            {
+                var additionalSectionViewModel = MainViewModel.CreateAdditionalSectionViewModel(additionalSection);
+                NewSectionCommand.AddSectionCore(MainViewModel, sections.Items, additionalSectionViewModel, false);
+            }
         }
 
         private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();

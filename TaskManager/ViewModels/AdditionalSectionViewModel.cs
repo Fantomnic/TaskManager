@@ -5,9 +5,17 @@ using TaskManager.Model;
 namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления неосновного раздела</summary>
-    internal class AdditionalSectionViewModel(Section section) : SectionViewModel(section)
+    internal class AdditionalSectionViewModel : SectionViewModel
     {
-        internal List<TaskObjectViewModel> AllRootTasksViewModels { get; } = [];
+        internal AdditionalSectionViewModel(AdditionalSection section) : base(section)
+        {
+            //AllTasksViewModels = [.. section.Tasks.Select(CreateTaskViewModel)];
+
+            var masterSectionViewModel = Helper.MasterSectionViewModel;
+            AllRootTasksViewModels = [.. section.Tasks.Where(t => t.Parent is null).Select(masterSectionViewModel.FindTaskViewModel).Where(vm => vm is not null)];
+        }
+
+        internal List<TaskObjectViewModel> AllRootTasksViewModels { get; }
 
         public ObservableCollection<TaskObjectViewModel> VisibleRootTasksViewModels { get; } = [];
 

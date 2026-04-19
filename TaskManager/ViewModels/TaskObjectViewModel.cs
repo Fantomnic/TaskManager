@@ -271,5 +271,11 @@ namespace TaskManager.ViewModels
 
             return null;
         }
+
+        public static bool operator ==(TaskObjectViewModel taskObjectViewModel1, TaskObjectViewModel taskObjectViewModel2)
+            => taskObjectViewModel1?.TaskObject == taskObjectViewModel2?.TaskObject;
+
+        public static bool operator !=(TaskObjectViewModel taskObjectViewModel1, TaskObjectViewModel taskObjectViewModel2)
+            => taskObjectViewModel1?.TaskObject != taskObjectViewModel2?.TaskObject;
     }
 }

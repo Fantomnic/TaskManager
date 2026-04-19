@@ -5,10 +5,15 @@ using TaskManager.Model;
 namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления основного раздела</summary>
-    internal class MasterSectionViewModel(Section section) : SectionViewModel(section)
+    internal class MasterSectionViewModel : SectionViewModel
     {
+        internal MasterSectionViewModel(MasterSection section) : base(section)
+        {
+            AllTasksViewModels = [.. section.Tasks.Select(CreateTaskViewModel)];
+        }
+
         /// <summary>Список моделей представления всех задач</summary>
-        internal List<TaskObjectViewModel> AllTasksViewModels { get; } = [];
+        internal List<TaskObjectViewModel> AllTasksViewModels { get; }
 
         /// <summary>Список отображаемых моделей представления задач (с учётом фильтров)</summary>
         public ObservableCollection<TaskObjectViewModel> VisibleTasksViewModels { get; private set; } = [];

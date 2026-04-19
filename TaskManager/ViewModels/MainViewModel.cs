@@ -28,16 +28,19 @@ namespace TaskManager.ViewModels
         internal MasterSectionViewModel CreateMasterSection()
         {
             var newSection = ModelData.CreateMasterSection();
-            return new(newSection);
+            return CreateMasterSectionViewModel(newSection);
         }
 
+        internal MasterSectionViewModel CreateMasterSectionViewModel(MasterSection section) => new(section);
+
         /// <summary>Создать неосновной раздел (с моделью представления)</summary>
-        internal static AdditionalSectionViewModel CreateSection(string name)
+        internal AdditionalSectionViewModel CreateAdditionalSection(string name)
         {
             var newSection = MainModel.CreateSection(name);
-            var newSectionViewModel = new AdditionalSectionViewModel(newSection);
-            return newSectionViewModel;
+            return CreateAdditionalSectionViewModel(newSection);
         }
+
+        internal AdditionalSectionViewModel CreateAdditionalSectionViewModel(AdditionalSection section) => new(section);
 
         /// <summary>Добавить раздел (с моделью представления)</summary>
         internal void AddSectionViewModel(SectionViewModel newSectionViewModel)

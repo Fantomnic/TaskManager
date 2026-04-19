@@ -18,6 +18,8 @@ namespace TaskManager.Model.TaskPriorities
             set => SetValue(ForegroundProperty, value);
         }
 
+        internal abstract int ID { get; }
+
         public abstract string DisplayName { get; }
 
         internal abstract void ResetForeground();

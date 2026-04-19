@@ -1,9 +1,11 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Commands;
 using TaskManager.Model;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
 {
@@ -41,6 +43,30 @@ namespace TaskManager.Helpers
 
             // TODO: Обработка исключений
             throw new Exception("Ааааа!");
+        }
+
+        internal static string GetDataDirectory(DataDirectory dataDirectoryType, bool createIfNotExists = true)
+        {
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            string dataDirectory = Path.Combine(appDirectory, Constants.DataDirectoty);
+
+            string targetDirectory = dataDirectoryType switch
+            {
+                DataDirectory.Root => dataDirectory,
+                DataDirectory.Tasks => Path.Combine(dataDirectory, Constants.TasksDirectoty),
+                DataDirectory.Sections => Path.Combine(dataDirectory, Constants.SectionsDirectoty),
+                _ => throw new NotImplementedException()
+            };
+
+            if (Directory.Exists(targetDirectory))
+                return targetDirectory;
+
+            if (!createIfNotExists)
+                return String.Empty;
+
+            Directory.CreateDirectory(targetDirectory);
+            return targetDirectory;
         }
 
         internal static T GetCommandInstance<T>() where T : BaseCommand

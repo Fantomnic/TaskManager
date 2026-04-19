@@ -35,5 +35,7 @@
             foreach (var status in AllStatuses)
                 status.ResetBackground();
         }
+
+        internal static TaskStatusBase GetTaskStatus(int id) => AllStatuses.First(s => s.ID == id);
     }
 }

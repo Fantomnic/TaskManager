@@ -25,5 +25,13 @@
             Light,
             Dark,
         }
+
+        internal enum DataDirectory
+        {
+            Root,
+            Tasks,
+            Sections,
+            Settings,
+        }
     }
 }

@@ -1,13 +1,35 @@
-﻿using TaskManager.Model.TaskPriorities;
+﻿using System.Diagnostics.Metrics;
+using System.Runtime.Serialization;
+using TaskManager.Model.BaseClasses;
+using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
-    // TODO: Нужно ли всё-таки тут INotifyPropertyChanged - разобраться
+    [Serializable]
     internal class TaskObject : BaseObject
     {
-        internal TaskObject(TaskPriorityBase priority, TaskType type)
+        protected TaskObject(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            CreationDate = info.GetDateTime(nameof(CreationDate));
+            EndDate = info.GetDateTime(nameof(EndDate));
+            Type = (TaskType)info.GetValue(nameof(Type), typeof(TaskType));
+
+            int taskStatusID = info.GetInt32(nameof(TaskStatusID));
+            Status = TaskStatusesInstances.GetTaskStatus(taskStatusID);
+
+            int taskPriorityID = info.GetInt32(nameof(TaskPriorityID));
+            Priority = TaskPrioritiesInstances.GetTaskPriority(taskPriorityID);
+
+            Description = info.GetString(nameof(Description));
+            Comment = info.GetString(nameof(Comment));
+            //AdditionalSection = (AdditionalSection?)info.GetValue(nameof(AdditionalSection), typeof(AdditionalSection));
+            Parent = (TaskObject?)info.GetValue(nameof(Parent), typeof(TaskObject));
+            Children = (List<TaskObject>)info.GetValue(nameof(Children), typeof(List<TaskObject>));
+        }
+
+        internal TaskObject(TaskPriorityBase priority, TaskType type) : base()
         {
             CreationDate = DateTime.Now;
             Status = TaskStatusesInstances.WaitingStatus;
@@ -25,7 +47,11 @@ namespace TaskManager.Model
 
         internal TaskStatusBase Status { get; set; }
 
+        internal int TaskStatusID => Status.ID;
+
         internal TaskPriorityBase Priority { get; set; }
+
+        internal int TaskPriorityID => Priority.ID;
 
         internal string Description { get; set; }
 
@@ -68,6 +94,22 @@ namespace TaskManager.Model
             result.AddRange(GetAllParents(parent));
 
             return result;
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue(nameof(CreationDate), CreationDate);
+            info.AddValue(nameof(EndDate), EndDate);
+            info.AddValue(nameof(Type), Type);
+            info.AddValue(nameof(TaskStatusID), TaskStatusID);
+            info.AddValue(nameof(TaskPriorityID), TaskPriorityID);
+            info.AddValue(nameof(Description), Description);
+            info.AddValue(nameof(Comment), Comment);
+            //info.AddValue(nameof(AdditionalSection), AdditionalSection);
+            info.AddValue(nameof(Parent), Parent);
+            info.AddValue(nameof(Children), Children);
         }
     }
 }

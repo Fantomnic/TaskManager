@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Model;
+using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using static TaskManager.Helpers.Enums;
 
@@ -112,8 +113,10 @@ namespace TaskManager.ViewModels
         internal TaskObjectViewModel CreateTask(string? name = null)
         {
             var newTask = name is null ? Section.CreateTask() : Section.CreateTask(name);
-            return new(newTask);
+            return CreateTaskViewModel(newTask);
         }
+
+        internal TaskObjectViewModel CreateTaskViewModel(TaskObject taskObject) => new(taskObject);
 
         private void SetVisibilityEmptyTaskImage()
             => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
@@ -134,5 +137,9 @@ namespace TaskManager.ViewModels
             return sourceList.FindAll(t => t.TaskStatus.TaskVisible
                 && (!Settings.Instanse.ShowTodayTasks || t.TaskObject.CreationDate.Date == DateTime.Now.Date));
         }
+
+        public static bool operator ==(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => sectionViewModel1?.Section == sectionViewModel2?.Section;
+
+        public static bool operator !=(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => sectionViewModel1?.Section != sectionViewModel2?.Section;
     }
 }

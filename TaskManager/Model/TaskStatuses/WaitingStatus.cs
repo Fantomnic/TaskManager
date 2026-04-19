@@ -12,6 +12,8 @@ namespace TaskManager.Model.TaskStatuses
             TaskVisible = true;
         }
 
+        internal override int ID => 1;
+
         public override string DisplayName => "Ожидает принятия";
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus, TaskStatusesInstances.RejectedStatus];
