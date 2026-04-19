@@ -18,11 +18,12 @@ namespace TaskManager.Commands
             var mainViewModel = mainWindow.MainViewModel;
             var sectionViewModel = MainViewModel.CreateSection(name);
 
-            var windowProperty = new SectionPropertyWindow(sectionViewModel);
+            var windowProperty = new SectionPropertyWindow(sectionViewModel, true);
 
             if (windowProperty.ShowDialog() != true)
                 return;
 
+            windowProperty.SaveToViewModel();
             mainViewModel.AddSectionViewModel(sectionViewModel);
             var newItem = CreateTabItem(sectionViewModel);
             mainWindow.sections.Items.Add(newItem);

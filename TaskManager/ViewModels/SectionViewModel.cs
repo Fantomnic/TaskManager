@@ -21,6 +21,8 @@ namespace TaskManager.ViewModels
 
         internal bool IsMasterSection => Section.IsMasterSection;
 
+        public bool IsNew { get; internal set; } = true;
+
         /// <summary>Наименование раздела</summary>
         public string Name
         {
@@ -86,6 +88,9 @@ namespace TaskManager.ViewModels
             }
         }
 
+        // Отображается в свойствах, в момент, когда нельзя изменять кол-во задач
+        public string TasksCount => Section.Tasks.Count.ToString();
+
         private void SetTaskIsSelected(bool isSelected)
         {
             if (_selectedTaskViewModel is not null)
@@ -126,7 +131,8 @@ namespace TaskManager.ViewModels
 
         protected List<TaskObjectViewModel> GetFilteredTaskViewModels(List<TaskObjectViewModel> sourceList)
         {
-            return sourceList.FindAll(t => t.TaskStatus.TaskVisible);
+            return sourceList.FindAll(t => t.TaskStatus.TaskVisible
+                && (!Settings.Instanse.ShowTodayTasks || t.TaskObject.CreationDate.Date == DateTime.Now.Date));
         }
     }
 }

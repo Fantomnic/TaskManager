@@ -44,6 +44,7 @@ namespace TaskManager.ViewModels
         {
             ModelData.AddSection(newSectionViewModel.Section);
             SectionsViewModels.Add(newSectionViewModel);
+            newSectionViewModel.IsNew = false;
         }
 
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>

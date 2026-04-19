@@ -87,6 +87,8 @@ namespace TaskManager.Views
 
         internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
 
+        #region Фильтры
+
         private void ChB1Checked(object sender, RoutedEventArgs e)
             => SetNewVisible(TaskStatusesInstances.BeginingStatus, true);
 
@@ -125,5 +127,22 @@ namespace TaskManager.Views
             status.TaskVisible = visible;
             MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
+
+        private void ChBTodayChecked(object sender, RoutedEventArgs e)
+            => SetNewTodayTasksVisible(true);
+
+        private void ChBTodayUnchecked(object sender, RoutedEventArgs e)
+            => SetNewTodayTasksVisible(false);
+
+        private void SetNewTodayTasksVisible(bool visible)
+        {
+            if (!IsLoaded)
+                return;
+
+            Settings.Instanse.ShowTodayTasks = visible;
+            MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
+        }
+
+        #endregion Фильтры
     }
 }

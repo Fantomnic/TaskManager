@@ -9,8 +9,19 @@
                                xmlns:h="clr-namespace:TaskManager.Helpers"
                                xmlns:pr="clr-namespace:TaskManager.Model.TaskPriorities"
                                mc:Ignorable="d"
-                               Title="Новый раздел" WindowStartupLocation="CenterOwner"
+                               WindowStartupLocation="CenterOwner"
                                Style="{StaticResource MiddleWindow}">
+
+    <local:WindowWithBottomButtons.Resources>
+        <Style TargetType="StackPanel" x:Key="TasksCountStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsNew,Mode=OneWay}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </local:WindowWithBottomButtons.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -25,21 +36,33 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
-
                 <TextBox x:Name="sectionName" Grid.Column="1" Style="{StaticResource BaseTextBoxAlignmentMargin}"></TextBox>
 
-                <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource FieldDescription}">Примечание:</TextBlock>
-                <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-                    <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" Text="{Binding Comment}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2"
+                            Orientation="Horizontal"
+                            Style="{StaticResource TasksCountStyle}"
+                            Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}">
+                    <TextBlock Style="{StaticResource FieldDescription}">Всего задач:</TextBlock>
+                    <TextBox Style="{StaticResource FullReadOnlyLine}"
+                             BorderThickness="1.5"
+                             Foreground="{DynamicResource TitleForeground}"
+                             BorderBrush="Black"
+                             Text="{Binding TasksCount,Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource FieldDescription}">Примечание:</TextBlock>
+                <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
+                    <TextBox x:Name="commentField" Style="{StaticResource BaseTextBox}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
                 </ScrollViewer>
 
-                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                <Grid Grid.Row="4" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>

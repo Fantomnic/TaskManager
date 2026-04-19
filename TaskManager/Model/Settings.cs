@@ -4,7 +4,6 @@ using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
-using TaskManager.Views;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -25,6 +24,8 @@ namespace TaskManager.Model
 
             FontSettings.CopyFrom(AvailableFonts[1]);
         }
+
+        public static SettingsInstanse Instanse { get; set; } = new();
 
         public static Themes Theme { get; set; } = Themes.Light;
 
@@ -226,6 +227,21 @@ namespace TaskManager.Model
                 MenuCommandsFont = newFont.MenuCommandsFont;
                 ID = newFont.ID;
                 MinMenuWidth = newFont.MinMenuWidth;
+            }
+        }
+
+        public class SettingsInstanse() : BaseNotifyObject
+        {
+            private bool _showTodayTasks;
+
+            public bool ShowTodayTasks
+            {
+                get => _showTodayTasks;
+                set
+                {
+                    _showTodayTasks = value;
+                    OnPropertyChanged(nameof(ShowTodayTasks));
+                }
             }
         }
     }
