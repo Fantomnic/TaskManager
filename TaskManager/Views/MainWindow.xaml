@@ -10,7 +10,8 @@
                     mc:Ignorable="d"
                     Title="Трекер задач" WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
-                    Width="1000">
+                    Loaded="OnLoaded"
+                    Closed="OnClosed">
                     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>

@@ -6,10 +6,10 @@ namespace TaskManager.ViewModels
 {
     internal class SettingsViewModel : BaseViewModel
     {
-        private bool? _setDefaultSectionName;
-        private bool? _setDefaultTaskName;
-        private bool? _incrementSectionName;
-        private bool? _incrementTaskName;
+        private bool _setDefaultSectionName;
+        private bool _setDefaultTaskName;
+        private bool _incrementSectionName;
+        private bool _incrementTaskName;
         private string _defaultSectionName;
         private string _defaultTaskName;
         private FontSet _fontSettings;
@@ -30,7 +30,7 @@ namespace TaskManager.ViewModels
             _fontSettings = allFonts.FirstOrDefault(f => f.ID == currentFont.ID) ?? allFonts.First();
         }
 
-        public bool? SetDefaultSectionName
+        public bool SetDefaultSectionName
         {
             get => _setDefaultSectionName;
             set
@@ -40,7 +40,7 @@ namespace TaskManager.ViewModels
             }
         }
 
-        public bool? SetDefaultTaskName
+        public bool SetDefaultTaskName
         {
             get => _setDefaultTaskName;
             set
@@ -50,7 +50,7 @@ namespace TaskManager.ViewModels
             }
         }
 
-        public bool? IncrementSectionName
+        public bool IncrementSectionName
         {
             get => _incrementSectionName;
             set
@@ -60,7 +60,7 @@ namespace TaskManager.ViewModels
             }
         }
 
-        public bool? IncrementTaskName
+        public bool IncrementTaskName
         {
             get => _incrementTaskName;
             set

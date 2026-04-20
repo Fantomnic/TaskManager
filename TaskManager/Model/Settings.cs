@@ -5,6 +5,7 @@ using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
+using System.Configuration;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -34,17 +35,17 @@ namespace TaskManager.Model
 
         public static FontSet FontSettings { get; }
 
-        internal static bool? SetDefaultSectionName { get; set; } = true;
+        internal static bool SetDefaultSectionName { get; set; }
 
-        internal static bool? SetDefaultTaskName { get; set; } = true;
+        internal static bool SetDefaultTaskName { get; set; }
 
-        internal static bool? IncrementSectionName { get; set; } = true;
+        internal static bool IncrementSectionName { get; set; }
 
-        internal static bool? IncrementTaskName { get; set; } = true;
+        internal static bool IncrementTaskName { get; set; }
 
-        internal static string DefaultSectionName { get; set; } = "Новый раздел";
+        internal static string DefaultSectionName { get; set; }
 
-        internal static string DefaultTaskName { get; set; } = "Новая задача";
+        internal static string DefaultTaskName { get; set; }
 
         internal static void FillFromViewModel(SettingsViewModel settingsViewModel)
         {
@@ -56,7 +57,59 @@ namespace TaskManager.Model
             DefaultTaskName = settingsViewModel.DefaultTaskName;
             FontSettings.CopyFrom(settingsViewModel.FontSettings);
             ChangeTheme(settingsViewModel.Theme);
-            UIHelper.MainWindow.SetMenuColumnWidth(FontSettings.MinMenuWidth);
+        }
+
+        internal static void FillFromConfig()
+        {
+            int fontSettingsID = Properties.Settings.Default.FontSettingsID;
+
+            if (AvailableFonts.FirstOrDefault(f => f.ID == fontSettingsID) is FontSet fontSettings)
+                FontSettings.CopyFrom(fontSettings);
+
+            int themeID = Properties.Settings.Default.ThemeID;
+
+            if (Enum.IsDefined(typeof(Themes), themeID))
+                ChangeTheme((Themes)themeID);
+
+            SetDefaultSectionName = Properties.Settings.Default.SetDefaultSectionName;
+            SetDefaultTaskName = Properties.Settings.Default.SetDefaultTaskName;
+            IncrementSectionName = Properties.Settings.Default.IncrementSectionName;
+            IncrementTaskName = Properties.Settings.Default.IncrementTaskName;
+            DefaultSectionName = Properties.Settings.Default.DefaultSectionName;
+            DefaultTaskName = Properties.Settings.Default.DefaultTaskName;
+
+            TaskStatusesInstances.BeginingStatus.TaskVisible = Properties.Settings.Default.BeginingStatusVisible;
+            TaskStatusesInstances.CompletedStatus.TaskVisible = Properties.Settings.Default.CompletedStatusVisible;
+            TaskStatusesInstances.DeferredStatus.TaskVisible = Properties.Settings.Default.DeferredStatusVisible;
+            TaskStatusesInstances.RejectedStatus.TaskVisible = Properties.Settings.Default.RejectedStatusVisible;
+            TaskStatusesInstances.DoneStatus.TaskVisible = Properties.Settings.Default.DoneStatusVisible;
+
+            Instanse.ShowTodayTasks = Properties.Settings.Default.ShowTodayTasks;
+
+            Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
+        }
+
+        internal static void SaveToConfig()
+        {
+            Properties.Settings.Default.FontSettingsID = FontSettings.ID;
+            Properties.Settings.Default.ThemeID = (int)Theme;
+
+            Properties.Settings.Default.SetDefaultSectionName = SetDefaultSectionName;
+            Properties.Settings.Default.SetDefaultTaskName = SetDefaultTaskName;
+            Properties.Settings.Default.IncrementSectionName = IncrementSectionName;
+            Properties.Settings.Default.IncrementTaskName = IncrementTaskName;
+            Properties.Settings.Default.DefaultSectionName = DefaultSectionName;
+            Properties.Settings.Default.DefaultTaskName = DefaultTaskName;
+
+            Properties.Settings.Default.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
+            Properties.Settings.Default.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;
+            Properties.Settings.Default.DeferredStatusVisible = TaskStatusesInstances.DeferredStatus.TaskVisible;
+            Properties.Settings.Default.RejectedStatusVisible = TaskStatusesInstances.RejectedStatus.TaskVisible;
+            Properties.Settings.Default.DoneStatusVisible = TaskStatusesInstances.DoneStatus.TaskVisible;
+
+            Properties.Settings.Default.ShowTodayTasks = Instanse.ShowTodayTasks;
+
+            Properties.Settings.Default.Save();
         }
 
         internal static string GetDefaultTaskName()
@@ -228,6 +281,7 @@ namespace TaskManager.Model
                 MenuCommandsFont = newFont.MenuCommandsFont;
                 ID = newFont.ID;
                 MinMenuWidth = newFont.MinMenuWidth;
+                UIHelper.MainWindow.SetMenuColumnWidth(MinMenuWidth);
             }
         }
 

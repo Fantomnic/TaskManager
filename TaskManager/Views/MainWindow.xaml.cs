@@ -148,6 +148,16 @@ namespace TaskManager.Views
 
         internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Settings.FillFromConfig();
+        }
+
+        private void OnClosed(object sender, EventArgs e)
+        {
+            Settings.SaveToConfig();
+        }
+
         #region Фильтры
 
         private void ChB1Checked(object sender, RoutedEventArgs e)

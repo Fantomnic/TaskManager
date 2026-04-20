@@ -2,7 +2,7 @@
 {
     public static class TaskStatusesInstances
     {
-        private static List<TaskStatusBase> AllStatuses =>
+        internal static List<TaskStatusBase> AllStatuses =>
             [
                 WaitingStatus,
                 BeginingStatus,
