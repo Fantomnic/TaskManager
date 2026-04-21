@@ -9,7 +9,6 @@ namespace TaskManager.Model.TaskStatuses
         public DeferredStatus()
         {
             ResetBackground();
-            TaskVisible = true;
         }
 
         internal override int ID => 2;

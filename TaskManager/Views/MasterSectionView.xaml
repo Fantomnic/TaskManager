@@ -31,7 +31,7 @@
                  Background="{DynamicResource InnerBackground}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Style="{StaticResource BaseStyleAlignment}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
+                    <TextBlock Style="{StaticResource TaskItemWithTextIndication}" Text="{Binding Path=Name}" Margin="8,0,0,0"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

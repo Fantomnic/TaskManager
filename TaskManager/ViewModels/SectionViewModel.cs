@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using TaskManager.Model;
-using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using static TaskManager.Helpers.Enums;
 

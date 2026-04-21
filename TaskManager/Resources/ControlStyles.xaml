@@ -64,6 +64,11 @@
                 </ContextMenu>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
+                <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Стиль элемента дерева (неосновной раздел) -->
@@ -91,6 +96,12 @@
         <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PreviewMouseLeftButtonDownItem"></EventSetter>
         <EventSetter Event="PreviewMouseMove" Handler="PreviewMouseMoveItem"></EventSetter>
         <EventSetter Event="Drop" Handler="DropItem"></EventSetter>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
+                <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Стиль, отвечающий за отображение "пустой" задачи -->

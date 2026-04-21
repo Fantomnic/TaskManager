@@ -3,7 +3,8 @@
                     xmlns:local="clr-namespace:TaskManager.Resources"
                     xmlns:v="clr-namespace:TaskManager.Views"
                     xmlns:h="clr-namespace:TaskManager.Helpers"
-                    xmlns:ctrl="clr-namespace:TaskManager.CustomControls">
+                    xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
+                    xmlns:model="clr-namespace:TaskManager.Model">
 
     <!-- Прим.: Если добавить словари друг в друга, будет переполнение стека -->
     <!-- <ResourceDictionary.MergedDictionaries>
@@ -426,6 +427,15 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- Шаблон для изменения цвета текста в соответствии с приоритетом -->
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="TaskItemWithTextIndication">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByPriority}" Value="True">
+                <Setter Property="Foreground" Value="{Binding Path=TaskPriority.Foreground}"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Шаблон для всех TextBox'ов -->
     <ControlTemplate TargetType="TextBox" x:Key="TextBoxTemplate">
         <Border x:Name="border"
@@ -484,6 +494,7 @@
                 Width="{TemplateBinding Width}">
             <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Foreground="{TemplateBinding Foreground}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}">
             </ContentControl>

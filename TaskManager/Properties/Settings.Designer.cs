@@ -169,7 +169,7 @@ namespace TaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool BeginingStatusVisible {
             get {
                 return ((bool)(this["BeginingStatusVisible"]));
@@ -188,6 +188,42 @@ namespace TaskManager.Properties {
             }
             set {
                 this["ShowTodayTasks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IndicateByStatus {
+            get {
+                return ((bool)(this["IndicateByStatus"]));
+            }
+            set {
+                this["IndicateByStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IndicateByPriority {
+            get {
+                return ((bool)(this["IndicateByPriority"]));
+            }
+            set {
+                this["IndicateByPriority"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NoneIndicate {
+            get {
+                return ((bool)(this["NoneIndicate"]));
+            }
+            set {
+                this["NoneIndicate"] = value;
             }
         }
     }

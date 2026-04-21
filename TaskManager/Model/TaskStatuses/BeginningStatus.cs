@@ -9,7 +9,6 @@ namespace TaskManager.Model.TaskStatuses
         public BeginningStatus()
         {
             ResetBackground();
-            TaskVisible = true;
         }
 
         internal override int ID => 3;

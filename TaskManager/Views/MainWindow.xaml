@@ -29,11 +29,14 @@
                           Style="{StaticResource MenuButtonCommon}"
                           Header="Фильтры">
                     <StackPanel>
-                        <GroupBox Style="{StaticResource MenuGroupBox}">
+                        <GroupBox Style="{StaticResource MenuGroupBox}" Header="Индикация">
                             <StackPanel>
-                                <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по статусу</RadioButton>
-                                <RadioButton Style="{StaticResource BaseMenuRadioButton}">Выделить по приоритету</RadioButton>
-                                <RadioButton Style="{StaticResource BaseMenuRadioButton}" IsChecked="True">Не выделять цветом</RadioButton>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}"
+                                             IsChecked="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}">Выделить по статусу</RadioButton>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}"
+                                             IsChecked="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByPriority}">Выделить по приоритету</RadioButton>
+                                <RadioButton Style="{StaticResource BaseMenuRadioButton}"
+                                             IsChecked="{Binding Source={x:Static model:Settings.Instanse},Path=NoneIndicate}">Не выделять</RadioButton>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Style="{StaticResource MenuGroupBox}" Header="Отображать">

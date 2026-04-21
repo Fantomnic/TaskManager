@@ -5,13 +5,14 @@ using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
-using System.Configuration;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
     internal static class Settings
     {
+        private static Properties.Settings _appSettings = Properties.Settings.Default;
+
         static Settings()
         {
             FontSettings = new(0, 0, 0, 0, 0, 100);
@@ -61,55 +62,61 @@ namespace TaskManager.Model
 
         internal static void FillFromConfig()
         {
-            int fontSettingsID = Properties.Settings.Default.FontSettingsID;
+            int fontSettingsID = _appSettings.FontSettingsID;
 
             if (AvailableFonts.FirstOrDefault(f => f.ID == fontSettingsID) is FontSet fontSettings)
                 FontSettings.CopyFrom(fontSettings);
 
-            int themeID = Properties.Settings.Default.ThemeID;
+            int themeID = _appSettings.ThemeID;
 
             if (Enum.IsDefined(typeof(Themes), themeID))
                 ChangeTheme((Themes)themeID);
 
-            SetDefaultSectionName = Properties.Settings.Default.SetDefaultSectionName;
-            SetDefaultTaskName = Properties.Settings.Default.SetDefaultTaskName;
-            IncrementSectionName = Properties.Settings.Default.IncrementSectionName;
-            IncrementTaskName = Properties.Settings.Default.IncrementTaskName;
-            DefaultSectionName = Properties.Settings.Default.DefaultSectionName;
-            DefaultTaskName = Properties.Settings.Default.DefaultTaskName;
+            SetDefaultSectionName = _appSettings.SetDefaultSectionName;
+            SetDefaultTaskName = _appSettings.SetDefaultTaskName;
+            IncrementSectionName = _appSettings.IncrementSectionName;
+            IncrementTaskName = _appSettings.IncrementTaskName;
+            DefaultSectionName = _appSettings.DefaultSectionName;
+            DefaultTaskName = _appSettings.DefaultTaskName;
 
-            TaskStatusesInstances.BeginingStatus.TaskVisible = Properties.Settings.Default.BeginingStatusVisible;
-            TaskStatusesInstances.CompletedStatus.TaskVisible = Properties.Settings.Default.CompletedStatusVisible;
-            TaskStatusesInstances.DeferredStatus.TaskVisible = Properties.Settings.Default.DeferredStatusVisible;
-            TaskStatusesInstances.RejectedStatus.TaskVisible = Properties.Settings.Default.RejectedStatusVisible;
-            TaskStatusesInstances.DoneStatus.TaskVisible = Properties.Settings.Default.DoneStatusVisible;
+            TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
+            TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
+            TaskStatusesInstances.DeferredStatus.TaskVisible = _appSettings.DeferredStatusVisible;
+            TaskStatusesInstances.RejectedStatus.TaskVisible = _appSettings.RejectedStatusVisible;
+            TaskStatusesInstances.DoneStatus.TaskVisible = _appSettings.DoneStatusVisible;
 
-            Instanse.ShowTodayTasks = Properties.Settings.Default.ShowTodayTasks;
+            Instanse.IndicateByStatus = _appSettings.IndicateByStatus;
+            Instanse.IndicateByPriority = _appSettings.IndicateByPriority;
+            Instanse.NoneIndicate = _appSettings.NoneIndicate;
+            Instanse.ShowTodayTasks = _appSettings.ShowTodayTasks;
 
             Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
 
         internal static void SaveToConfig()
         {
-            Properties.Settings.Default.FontSettingsID = FontSettings.ID;
-            Properties.Settings.Default.ThemeID = (int)Theme;
+            _appSettings.FontSettingsID = FontSettings.ID;
+            _appSettings.ThemeID = (int)Theme;
 
-            Properties.Settings.Default.SetDefaultSectionName = SetDefaultSectionName;
-            Properties.Settings.Default.SetDefaultTaskName = SetDefaultTaskName;
-            Properties.Settings.Default.IncrementSectionName = IncrementSectionName;
-            Properties.Settings.Default.IncrementTaskName = IncrementTaskName;
-            Properties.Settings.Default.DefaultSectionName = DefaultSectionName;
-            Properties.Settings.Default.DefaultTaskName = DefaultTaskName;
+            _appSettings.SetDefaultSectionName = SetDefaultSectionName;
+            _appSettings.SetDefaultTaskName = SetDefaultTaskName;
+            _appSettings.IncrementSectionName = IncrementSectionName;
+            _appSettings.IncrementTaskName = IncrementTaskName;
+            _appSettings.DefaultSectionName = DefaultSectionName;
+            _appSettings.DefaultTaskName = DefaultTaskName;
 
-            Properties.Settings.Default.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
-            Properties.Settings.Default.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;
-            Properties.Settings.Default.DeferredStatusVisible = TaskStatusesInstances.DeferredStatus.TaskVisible;
-            Properties.Settings.Default.RejectedStatusVisible = TaskStatusesInstances.RejectedStatus.TaskVisible;
-            Properties.Settings.Default.DoneStatusVisible = TaskStatusesInstances.DoneStatus.TaskVisible;
+            _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
+            _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;
+            _appSettings.DeferredStatusVisible = TaskStatusesInstances.DeferredStatus.TaskVisible;
+            _appSettings.RejectedStatusVisible = TaskStatusesInstances.RejectedStatus.TaskVisible;
+            _appSettings.DoneStatusVisible = TaskStatusesInstances.DoneStatus.TaskVisible;
 
-            Properties.Settings.Default.ShowTodayTasks = Instanse.ShowTodayTasks;
+            _appSettings.IndicateByStatus = Instanse.IndicateByStatus;
+            _appSettings.IndicateByPriority = Instanse.IndicateByPriority;
+            _appSettings.NoneIndicate = Instanse.NoneIndicate;
+            _appSettings.ShowTodayTasks = Instanse.ShowTodayTasks;
 
-            Properties.Settings.Default.Save();
+            _appSettings.Save();
         }
 
         internal static string GetDefaultTaskName()
@@ -287,7 +294,41 @@ namespace TaskManager.Model
 
         public class SettingsInstanse() : BaseNotifyObject
         {
+            private bool _indicateByStatus;
+            private bool _indicateByPriority;
+            private bool _noneIndicate;
+
             private bool _showTodayTasks;
+
+            public bool IndicateByStatus
+            {
+                get => _indicateByStatus;
+                set
+                {
+                    _indicateByStatus = value;
+                    OnPropertyChanged(nameof(IndicateByStatus));
+                }
+            }
+
+            public bool IndicateByPriority
+            {
+                get => _indicateByPriority;
+                set
+                {
+                    _indicateByPriority = value;
+                    OnPropertyChanged(nameof(IndicateByPriority));
+                }
+            }
+
+            public bool NoneIndicate
+            {
+                get => _noneIndicate;
+                set
+                {
+                    _noneIndicate = value;
+                    OnPropertyChanged(nameof(NoneIndicate));
+                }
+            }
 
             public bool ShowTodayTasks
             {

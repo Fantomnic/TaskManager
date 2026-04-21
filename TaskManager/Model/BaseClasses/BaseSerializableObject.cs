@@ -32,7 +32,6 @@ namespace TaskManager.Model.BaseClasses
             string targetDirectory = Helper.GetDataDirectory(dataDirectory);
             string fileName = Path.Combine(targetDirectory, Guid + Constants.DataExtension);
 
-
 #pragma warning disable SYSLIB0011 // Type or member is obsolete
             var serialiser = new BinaryFormatter();
 #pragma warning restore SYSLIB0011 // Type or member is obsolete

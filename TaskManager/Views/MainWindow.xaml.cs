@@ -25,12 +25,53 @@ namespace TaskManager.Views
             InitializeComponent();
 
             DataContext = MainViewModel = new MainViewModel();
-
-            LoadData();
-            InitializeData();
         }
 
         internal MainViewModel MainViewModel { get; }
+
+        private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();
+
+        private void MenuMouseLeave(object sender, MouseEventArgs e) => StartMenuAnimation(true);
+
+        private void StartMenuAnimation(bool closing = false)
+        {
+            double time = closing ? 0.25 : 0.4;
+
+            var menuAnimation = new DoubleAnimation
+            {
+                From = menu.ActualWidth,
+                To = closing ? 0 : menuColumn.ActualWidth,
+                Duration = TimeSpan.FromSeconds(time),
+            };
+
+            if (!closing)
+                menuAnimation.EasingFunction = new QuadraticEase();
+
+            menu.BeginAnimation(WidthProperty, menuAnimation);
+        }
+
+        // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
+        private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as TabControl)?.SelectedItem is not TabItem selectedTabItem
+                || Helper.GetSectionViewModelFromTabItem(selectedTabItem) is not SectionViewModel selectedSectionViewModel)
+            {
+                return;
+            }
+
+            var oldSectionViewModel = MainViewModel.SelectedSectionViewModel;
+
+            if (oldSectionViewModel == selectedSectionViewModel)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
+            selectedSectionViewModel.RefreshVisibleTaskViewModels();
+        }
+
+        internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
 
         // Добавляем тут, а не в конструкторе MainViewModel, т.к. команда добавления обращается к MainViewModel
         private void InitializeData()
@@ -92,7 +133,8 @@ namespace TaskManager.Views
                 {
                     var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
                     InitializeMasterSectionView(masterSectionViewModel);
-                };
+                }
+                ;
             }
 
             InitializeData();
@@ -104,58 +146,23 @@ namespace TaskManager.Views
             }
         }
 
-        private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();
-
-        private void MenuMouseLeave(object sender, MouseEventArgs e) => StartMenuAnimation(true);
-
-        private void StartMenuAnimation(bool closing = false)
-        {
-            double time = closing ? 0.25 : 0.4;
-
-            var menuAnimation = new DoubleAnimation
-            {
-                From = menu.ActualWidth,
-                To = closing ? 0 : menuColumn.ActualWidth,
-                Duration = TimeSpan.FromSeconds(time),
-            };
-
-            if (!closing)
-                menuAnimation.EasingFunction = new QuadraticEase();
-
-            menu.BeginAnimation(WidthProperty, menuAnimation);
-        }
-
-        // TODO: Событие вызывается также при смене селекции в дочернем листбоксе. Подумать, как это можно обойти
-        private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if ((sender as TabControl)?.SelectedItem is not TabItem selectedTabItem
-                || Helper.GetSectionViewModelFromTabItem(selectedTabItem) is not SectionViewModel selectedSectionViewModel)
-            {
-                return;
-            }
-
-            var oldSectionViewModel = MainViewModel.SelectedSectionViewModel;
-
-            if (oldSectionViewModel == selectedSectionViewModel)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            MainViewModel.SelectedSectionViewModel = selectedSectionViewModel;
-            selectedSectionViewModel.RefreshVisibleTaskViewModels();
-        }
-
-        internal void SetMenuColumnWidth(double width) => menuColumn.MinWidth = width;
-
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            LoadData();
+            InitializeData();
             Settings.FillFromConfig();
         }
 
         private void OnClosed(object sender, EventArgs e)
         {
             Settings.SaveToConfig();
+            SaveData();
+        }
+
+        private void SaveData()
+        {
+            foreach (var sections in MainViewModel.ModelData.AllSections)
+                sections.Serialize(Enums.DataDirectory.Root);
         }
 
         #region Фильтры

@@ -9,7 +9,6 @@ namespace TaskManager.Model.TaskStatuses
         public RejectedStatus()
         {
             ResetBackground();
-            TaskVisible = true;
         }
 
         internal override int ID => 4;
