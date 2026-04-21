@@ -13,6 +13,26 @@ namespace TaskManager.ViewModels
 
             var masterSectionViewModel = Helper.MasterSectionViewModel;
             AllRootTasksViewModels = [.. section.Tasks.Where(t => t.Parent is null).Select(masterSectionViewModel.FindTaskViewModel).Where(vm => vm is not null)];
+            FillChildren(AllRootTasksViewModels, masterSectionViewModel);
+        }
+
+        private void FillChildren(ICollection<TaskObjectViewModel> collection, MasterSectionViewModel masterSectionViewModel)
+        {
+            foreach (var taskViewModel in collection)
+            {
+                var children = taskViewModel.TaskObject.Children;
+
+                if (children.Count == 0)
+                    continue;
+
+                foreach (var child in children)
+                {
+                    if (masterSectionViewModel.FindTaskViewModel(child) is TaskObjectViewModel childViewModel)
+                        taskViewModel.AddChildViewModel(childViewModel, false, false);
+                }
+
+                FillChildren(taskViewModel.ChildrenViewModels, masterSectionViewModel);
+            }
         }
 
         internal List<TaskObjectViewModel> AllRootTasksViewModels { get; }

@@ -70,13 +70,23 @@ namespace TaskManager.Model
         #endregion Свойства
 
         // TODO: Сделать отдельные типы исключений с типом Инфо
-        internal void AddChild(TaskObject child)
+        internal void AddChild(TaskObject child, bool throwOnError = true)
         {
             if (Children.Contains(child))
-                throw new InvalidOperationException("Данная подзадача уже добавлена");
+            {
+                if (throwOnError)
+                    throw new InvalidOperationException("Данная подзадача уже добавлена");
+
+                return;
+            }
 
             if (GetAllParents(this).Contains(child))
-                throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
+            {
+                if (throwOnError)
+                    throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
+
+                return;
+            }
 
             Children.Add(child);
         }
