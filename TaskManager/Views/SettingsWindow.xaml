@@ -160,17 +160,12 @@
             </GroupBox>
         </StackPanel>
 
-        <!-- Кнопки 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">Применить</Button>
-            <Button Style="{StaticResource ServiceButton}">Восстановить умолчание</Button>
-        </StackPanel>-->
-
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" LastChildFill="False">
             <Button DockPanel.Dock="Right" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
             <Button DockPanel.Dock="Right" Style="{StaticResource ServiceButton}" Click="ButtonOKClick">Применить</Button>
-            <Button DockPanel.Dock="Left" Style="{StaticResource ServiceButton}" Click="ResetToDefaultClick">Восстановить по умолчанию</Button>
+            <Button DockPanel.Dock="Left" Style="{StaticResource ServiceButton}"
+                    Click="ResetToDefaultClick"
+                    MaxWidth="{x:Static res:Constants.MaxWidthServiceButtonSpecial}">Восстановить по умолчанию</Button>
         </DockPanel>
     </Grid>
 </local:WindowWithBottomButtons>

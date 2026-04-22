@@ -21,6 +21,8 @@ namespace TaskManager.Resources
 
         #endregion Текст
 
+        public const double MaxWidthServiceButtonSpecial = 255;
+
         public const double MenuButtonHeight = 50;
 
         public const double DescriptonWidth = 150;
