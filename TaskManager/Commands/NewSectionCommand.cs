@@ -37,31 +37,6 @@ namespace TaskManager.Commands
                 newItem.Focus();
         }
 
-        internal static void Test()
-        {
-            var mainWindow = UIHelper.MainWindow;
-            var mainViewModel = mainWindow.MainViewModel;
-            var sectionViewModel = mainViewModel.CreateAdditionalSection("Раздел 2");
-
-
-
-            var startTaskViewModel = sectionViewModel.CreateTask("Тест Родитель 1");
-            var startChildTaskViewModel = sectionViewModel.CreateTask("Тест Дочь 1");
-            var startUnderchildTaskViewModel = sectionViewModel.CreateTask("Тест Поддочь 1");
-            sectionViewModel.AddTaskViewModel(startTaskViewModel);
-            sectionViewModel.AddTaskViewModel(startChildTaskViewModel);
-            sectionViewModel.AddTaskViewModel(startUnderchildTaskViewModel);
-
-            startTaskViewModel.AddChildViewModel(startChildTaskViewModel);
-            startChildTaskViewModel.AddChildViewModel(startUnderchildTaskViewModel);
-
-
-
-            mainViewModel.AddSectionViewModel(sectionViewModel);
-            var newItem = CreateTabItem(sectionViewModel);
-            mainWindow.sections.Items.Add(newItem);
-        }
-
         private static string GetDefaultSectionName()
         {
             if (Settings.SetDefaultSectionName != true)

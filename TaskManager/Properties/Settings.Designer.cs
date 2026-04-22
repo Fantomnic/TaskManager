@@ -226,5 +226,77 @@ namespace TaskManager.Properties {
                 this["NoneIndicate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SortByStatus {
+            get {
+                return ((bool)(this["SortByStatus"]));
+            }
+            set {
+                this["SortByStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SortByPriority {
+            get {
+                return ((bool)(this["SortByPriority"]));
+            }
+            set {
+                this["SortByPriority"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SortByName {
+            get {
+                return ((bool)(this["SortByName"]));
+            }
+            set {
+                this["SortByName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SortByEndDate {
+            get {
+                return ((bool)(this["SortByEndDate"]));
+            }
+            set {
+                this["SortByEndDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SortByStartDate {
+            get {
+                return ((bool)(this["SortByStartDate"]));
+            }
+            set {
+                this["SortByStartDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DescendingSort {
+            get {
+                return ((bool)(this["DescendingSort"]));
+            }
+            set {
+                this["DescendingSort"] = value;
+            }
+        }
     }
 }

@@ -81,8 +81,6 @@ namespace TaskManager.Views
 
             var masterSectionViewModel = MainViewModel.CreateMasterSection();
             InitializeMasterSectionView(masterSectionViewModel);
-
-            //NewSectionCommand.Test();
         }
 
         private void InitializeMasterSectionView(MasterSectionViewModel masterSectionViewModel)
@@ -165,7 +163,7 @@ namespace TaskManager.Views
                 sections.Serialize(Enums.DataDirectory.Root);
         }
 
-        #region Фильтры
+        #region Отображение
 
         private void ChB1Checked(object sender, RoutedEventArgs e)
             => SetNewVisible(TaskStatusesInstances.BeginingStatus, true);
@@ -206,21 +204,6 @@ namespace TaskManager.Views
             MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
 
-        private void ChBTodayChecked(object sender, RoutedEventArgs e)
-            => SetNewTodayTasksVisible(true);
-
-        private void ChBTodayUnchecked(object sender, RoutedEventArgs e)
-            => SetNewTodayTasksVisible(false);
-
-        private void SetNewTodayTasksVisible(bool visible)
-        {
-            if (!IsLoaded)
-                return;
-
-            Settings.Instanse.ShowTodayTasks = visible;
-            MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
-        }
-
-        #endregion Фильтры
+        #endregion Отображение
     }
 }

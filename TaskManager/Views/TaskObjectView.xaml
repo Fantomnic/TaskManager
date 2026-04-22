@@ -105,7 +105,7 @@
                     <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Grid.Column="2" Style="{StaticResource FieldDescription}" HorizontalAlignment="Right">Тип:</TextBlock>
                         <Grid>
-                            <TextBox Grid.Column="3" Style="{StaticResource FullReadOnlyLine}"
+                            <TextBox Grid.Column="3" Style="{StaticResource FullReadOnlyLine}" MinWidth="156"
                                      Text="{Binding Path=TaskType,Converter={StaticResource TaskTypeConverter}}"/>
                             <ComboBox Grid.Column="3"
                                       Style="{StaticResource typeComboBoxStyle}"

@@ -18,13 +18,15 @@ namespace TaskManager.ViewModels
         /// <summary>Список отображаемых моделей представления задач (с учётом фильтров)</summary>
         public ObservableCollection<TaskObjectViewModel> VisibleTasksViewModels { get; private set; } = [];
 
-        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
+        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel, bool refreshVisibleTasks = true)
         {
             if (!Section.AddTask(newTaskViewModel.TaskObject))
                 return;
 
             AllTasksViewModels.Add(newTaskViewModel);
-            RefreshVisibleTaskViewModels();
+
+            if (refreshVisibleTasks)
+                RefreshVisibleTaskViewModels();
         }
 
         internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)

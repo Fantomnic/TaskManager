@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Model
+﻿using static TaskManager.Model.BaseClasses.BaseObject;
+
+namespace TaskManager.Model
 {
     internal class MainModel
     {
@@ -21,7 +23,7 @@
         /// <summary>Добавить раздел</summary>
         internal void AddSection(Section newSection)
         {
-            if (AllSections.Contains(newSection))
+            if (ContainsSection(newSection))
                 throw new InvalidOperationException($"Раздел {newSection} уже добавлен");
 
             if (newSection.IsMasterSection)
@@ -29,6 +31,8 @@
 
             AllSections.Add(newSection);
         }
+
+        internal bool ContainsSection(Section section) => AllSections.Contains(section, new BaseComparer());
 
         /// <summary>Удалить раздел, если он неосновной</summary>
         internal bool RemoveSection(Section section)

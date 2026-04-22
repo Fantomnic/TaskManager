@@ -174,7 +174,11 @@ namespace TaskManager.ViewModels
 
         internal void SetAdditionalSectionViewModel(AdditionalSectionViewModel? newSectionViewModel)
         {
-            TaskObject.AdditionalSection = newSectionViewModel?.Section as AdditionalSection;
+            var newSection = newSectionViewModel?.Section as AdditionalSection;
+
+            if (TaskObject.AdditionalSection != newSection)
+                TaskObject.AdditionalSection = newSection;
+
             AdditionalSectionViewModel = newSectionViewModel;
         }
 
@@ -206,14 +210,23 @@ namespace TaskManager.ViewModels
 
         private void SetParentViewModel(TaskObjectViewModel? newParentViewModel)
         {
-            TaskObject.Parent = newParentViewModel?.TaskObject;
+            var newParent = newParentViewModel?.TaskObject;
+
+            if (TaskObject.Parent != newParent)
+                TaskObject.Parent = newParent;
+
             ParentViewModel = newParentViewModel;
         }
 
         /// <summary>Добавить подзадачу к задаче</summary>
         internal void AddChildViewModel(TaskObjectViewModel childViewModel, bool removeFromRoot = true, bool throwOnError = true)
         {
-            TaskObject.AddChild(childViewModel.TaskObject, throwOnError);
+            var child = childViewModel.TaskObject;
+
+            if (child == TaskObject || ChildrenViewModels.Contains(childViewModel))
+                return;
+
+            TaskObject.AddChild(child, throwOnError);
 
             ChildrenViewModels.Add(childViewModel);
 

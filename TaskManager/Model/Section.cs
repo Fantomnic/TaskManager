@@ -51,7 +51,7 @@ namespace TaskManager.Model
         /// <summary>Добавить задачу в раздел</summary>
         internal virtual bool AddTask(TaskObject newTask, bool throwOnError = false)
         {
-            if (Tasks.Contains(newTask))
+            if (ContainsTask(newTask))
             {
                 if (throwOnError)
                     throw new InvalidOperationException($"Задача \"{newTask}\" уже добавлена в раздел \"{this}\"");
@@ -66,6 +66,8 @@ namespace TaskManager.Model
         /// <summary>Удалить задачу из раздела</summary>
         internal virtual bool RemoveTask(TaskObject task) => Tasks.Remove(task);
 
+        internal bool ContainsTask(TaskObject task) => Tasks.Contains(task, new BaseComparer());
+        
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);

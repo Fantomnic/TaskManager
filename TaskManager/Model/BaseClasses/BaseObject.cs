@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
 namespace TaskManager.Model.BaseClasses
 {
@@ -24,6 +25,13 @@ namespace TaskManager.Model.BaseClasses
             base.GetObjectData(info, context);
 
             info.AddValue(nameof(Name), Name);
+        }
+
+        internal class BaseComparer : IEqualityComparer<BaseObject>
+        {
+            public bool Equals(BaseObject? obj1, BaseObject? obj2) => obj1?.Guid == obj2?.Guid;
+
+            public int GetHashCode([DisallowNull] BaseObject obj) => obj.Guid.GetHashCode();
         }
     }
 }

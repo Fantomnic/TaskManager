@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
@@ -35,6 +34,7 @@ namespace TaskManager.Model
             Status = TaskStatusesInstances.WaitingStatus;
             Priority = priority;
             Type = type;
+            IsNew = true;
         }
 
         #region Свойства
@@ -61,7 +61,7 @@ namespace TaskManager.Model
         /// <remarks>По умолчанию все задачи хранятся в базовом разделе. Если значение = null, то, кроме базового, ни в каком другом разделе её нет</remarks> 
         internal AdditionalSection? AdditionalSection { get; set; }
 
-        internal bool IsNew { get; set; } = true;
+        internal bool IsNew { get; set; }
 
         internal TaskObject? Parent { get; set; }
 
@@ -72,7 +72,7 @@ namespace TaskManager.Model
         // TODO: Сделать отдельные типы исключений с типом Инфо
         internal void AddChild(TaskObject child, bool throwOnError = true)
         {
-            if (Children.Contains(child))
+            if (ContainsChild(child))
             {
                 if (throwOnError)
                     throw new InvalidOperationException("Данная подзадача уже добавлена");
@@ -80,7 +80,7 @@ namespace TaskManager.Model
                 return;
             }
 
-            if (GetAllParents(this).Contains(child))
+            if (GetAllParents(this).Any(p => p.ContainsChild(child)))
             {
                 if (throwOnError)
                     throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
@@ -95,6 +95,7 @@ namespace TaskManager.Model
         /// <remarks>Подзадачи удалённой подзадачи остаются у неё</remarks>
         internal bool RemoveChild(TaskObject child) => Children.Remove(child);
 
+        /// <summary>Получить все задачи, в которые входит указанная задача (от ближайшего родителя до корневого)</summary>
         private static List<TaskObject> GetAllParents(TaskObject taskObject)
         {
             if (taskObject.Parent is not TaskObject parent)
@@ -105,6 +106,9 @@ namespace TaskManager.Model
 
             return result;
         }
+
+        /// <summary>Указывает, содержит ли задача указанную задачу</summary>
+        internal bool ContainsChild(TaskObject task) => Children.Contains(task, new BaseComparer());
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {

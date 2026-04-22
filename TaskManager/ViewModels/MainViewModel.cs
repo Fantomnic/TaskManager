@@ -1,5 +1,6 @@
 ﻿using TaskManager.Helpers;
 using TaskManager.Model;
+using static TaskManager.Model.BaseClasses.BaseObject;
 
 namespace TaskManager.ViewModels
 {
@@ -77,7 +78,7 @@ namespace TaskManager.ViewModels
             var sections = ModelData.AllSections;
 
             if (ignoredSections is not null)
-                sections = sections.FindAll(s => !ignoredSections.Contains(s));
+                sections = sections.FindAll(s => !ignoredSections.Contains(s, new BaseComparer()));
 
             return [.. sections.Select(s => s.Name)];
         }

@@ -11,7 +11,7 @@ namespace TaskManager.Model.TaskStatuses
             ResetBackground();
         }
 
-        internal override int ID => 4;
+        internal override int ID => 6;
 
         public override string DisplayName => "Отклонено";
 

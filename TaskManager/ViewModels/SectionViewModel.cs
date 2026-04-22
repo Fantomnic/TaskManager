@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskPriorities;
 using static TaskManager.Helpers.Enums;
@@ -121,7 +122,7 @@ namespace TaskManager.ViewModels
             => VisibilityEmptyTaskImage = SelectedTaskViewModel is null ? Visibility.Visible : Visibility.Collapsed;
 
         /// <summary>Добавить задачу в раздел</summary>
-        internal abstract void AddTaskViewModel(TaskObjectViewModel newTaskViewModel);
+        internal abstract void AddTaskViewModel(TaskObjectViewModel newTaskViewModel, bool refreshVisibleTasks = true);
 
         /// <summary>Удалить задачу из раздела</summary>
         /// <param name="removeChildren">Удалить все подзадачи из раздела (при этом они останутся как подзадачи для родительской задачи)</param>
@@ -133,9 +134,61 @@ namespace TaskManager.ViewModels
 
         protected List<TaskObjectViewModel> GetFilteredTaskViewModels(List<TaskObjectViewModel> sourceList)
         {
-            return sourceList.FindAll(t => t.TaskStatus.TaskVisible
+            var filteredList = sourceList.FindAll(t => t.TaskStatus.TaskVisible
                 && (!Settings.Instanse.ShowTodayTasks || t.TaskObject.CreationDate.Date == DateTime.Now.Date));
+
+            IOrderedEnumerable<TaskObjectViewModel> sortedCollection;
+
+            if (Settings.Instanse.SortByName)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.Name);
+            }
+            else if (Settings.Instanse.SortByEndDate)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.TaskObject.EndDate);
+            }
+            else if (Settings.Instanse.SortByStartDate)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.TaskObject.CreationDate);
+            }
+            else
+            {
+                if (Settings.Instanse.SortByStatus)
+                    sortedCollection = filteredList.OrderBy(t => t.TaskStatus.ID);
+                else if (Settings.Instanse.SortByPriority)
+                    sortedCollection = filteredList.OrderBy(t => t.TaskPriority.ID);
+                else
+                    return filteredList;
+
+                sortedCollection = sortedCollection.ThenBy(t => t.TaskObject.CreationDate);
+            }
+
+            var ticks = sortedCollection.Select(t => t.TaskObject.CreationDate);
+
+            return [.. Settings.Instanse.DescendingSort ? sortedCollection.Reverse() : sortedCollection];
         }
+
+        //protected List<TaskObjectViewModel> GetFilteredTaskViewModels(List<TaskObjectViewModel> sourceList)
+        //{
+        //    var filteredList = sourceList.FindAll(t => t.TaskStatus.TaskVisible
+        //        && (!Settings.Instanse.ShowTodayTasks || t.TaskObject.CreationDate.Date == DateTime.Now.Date));
+
+        //    if (Settings.Instanse.SortByStatus)
+        //        filteredList.Sort((t1, t2) => t1.TaskStatus.ID.CompareTo(t2.TaskStatus.ID));
+        //    else if (Settings.Instanse.SortByPriority)
+        //        filteredList.Sort((t1, t2) => t1.TaskPriority.ID.CompareTo(t2.TaskPriority.ID));
+        //    else if (Settings.Instanse.SortByName)
+        //        filteredList.Sort((t1, t2) => t1.Name.CompareTo(t2.Name));
+        //    else if (Settings.Instanse.SortByEndDate)
+        //        filteredList.Sort((t1, t2) => t1.TaskObject.EndDate.CompareTo(t2.TaskObject.EndDate));
+        //    else if (Settings.Instanse.SortByStartDate)
+        //        filteredList.Sort((t1, t2) => t1.TaskObject.CreationDate.CompareTo(t2.TaskObject.CreationDate));
+
+        //    if (Settings.Instanse.DescendingSort)
+        //        filteredList.Reverse();
+
+        //    return filteredList;
+        //}
 
         public static bool operator ==(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => sectionViewModel1?.Section == sectionViewModel2?.Section;
 

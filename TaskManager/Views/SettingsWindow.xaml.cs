@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TaskManager.Model;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Views
@@ -48,6 +49,14 @@ namespace TaskManager.Views
         {
             SettingsViewModel.IncrementTaskName = incrementTaskName.IsEnabled = false;
             taskName.IsReadOnly = true;
+        }
+
+        private void ResetToDefaultClick(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault();
+
+            DialogResult = null;
+            Close();
         }
     }
 }

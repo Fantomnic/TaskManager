@@ -42,8 +42,8 @@ namespace TaskManager.Model.BaseClasses
             };
         }
 
-        public static bool operator ==(BaseSerializableObject baseObject1, BaseSerializableObject baseObject2) => baseObject1?.Guid == baseObject2?.Guid;
+        public static bool operator ==(BaseSerializableObject? baseObject1, BaseSerializableObject? baseObject2) => baseObject1?.Guid == baseObject2?.Guid;
 
-        public static bool operator !=(BaseSerializableObject baseObject1, BaseSerializableObject baseObject2) => baseObject1?.Guid != baseObject2?.Guid;
+        public static bool operator !=(BaseSerializableObject? baseObject1, BaseSerializableObject? baseObject2) => baseObject1?.Guid != baseObject2?.Guid;
     }
 }

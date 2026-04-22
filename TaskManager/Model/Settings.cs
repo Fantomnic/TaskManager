@@ -60,6 +60,33 @@ namespace TaskManager.Model
             ChangeTheme(settingsViewModel.Theme);
         }
 
+        internal static void ResetToDefault()
+        {
+            FontSettings.CopyFrom(AvailableFonts[1]);
+
+            ChangeTheme(Themes.Light);
+
+            SetDefaultSectionName = true;
+            SetDefaultTaskName = true;
+            IncrementSectionName = true;
+            IncrementTaskName = true;
+            DefaultSectionName = "Новый раздел";
+            DefaultTaskName = "Новая задача";
+
+            TaskStatusesInstances.BeginingStatus.TaskVisible = true;
+            TaskStatusesInstances.CompletedStatus.TaskVisible = true;
+            TaskStatusesInstances.DeferredStatus.TaskVisible = true;
+            TaskStatusesInstances.RejectedStatus.TaskVisible = true;
+            TaskStatusesInstances.DoneStatus.TaskVisible = true;
+
+            Instanse.NoneIndicate = true;
+            Instanse.SortByStartDate = true;
+            Instanse.DescendingSort = false;
+            Instanse.ShowTodayTasks = false;
+
+            RefreshSectionVisibleCore();
+        }
+
         internal static void FillFromConfig()
         {
             int fontSettingsID = _appSettings.FontSettingsID;
@@ -88,9 +115,17 @@ namespace TaskManager.Model
             Instanse.IndicateByStatus = _appSettings.IndicateByStatus;
             Instanse.IndicateByPriority = _appSettings.IndicateByPriority;
             Instanse.NoneIndicate = _appSettings.NoneIndicate;
+
+            Instanse.SortByStatus = _appSettings.SortByStatus;
+            Instanse.SortByPriority = _appSettings.SortByPriority;
+            Instanse.SortByName = _appSettings.SortByName;
+            Instanse.SortByEndDate = _appSettings.SortByEndDate;
+            Instanse.SortByStartDate = _appSettings.SortByStartDate;
+            Instanse.DescendingSort = _appSettings.DescendingSort;
+
             Instanse.ShowTodayTasks = _appSettings.ShowTodayTasks;
 
-            Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
+            RefreshSectionVisibleCore();
         }
 
         internal static void SaveToConfig()
@@ -114,6 +149,14 @@ namespace TaskManager.Model
             _appSettings.IndicateByStatus = Instanse.IndicateByStatus;
             _appSettings.IndicateByPriority = Instanse.IndicateByPriority;
             _appSettings.NoneIndicate = Instanse.NoneIndicate;
+
+            _appSettings.SortByStatus = Instanse.SortByStatus;
+            _appSettings.SortByPriority = Instanse.SortByPriority;
+            _appSettings.SortByName = Instanse.SortByName;
+            _appSettings.SortByEndDate = Instanse.SortByEndDate;
+            _appSettings.SortByStartDate = Instanse.SortByStartDate;
+            _appSettings.DescendingSort = Instanse.DescendingSort;
+
             _appSettings.ShowTodayTasks = Instanse.ShowTodayTasks;
 
             _appSettings.Save();
@@ -298,7 +341,16 @@ namespace TaskManager.Model
             private bool _indicateByPriority;
             private bool _noneIndicate;
 
+            private bool _sortByStatus;
+            private bool _sortByPriority;
+            private bool _sortByName;
+            private bool _sortByEndDate;
+            private bool _sortByStartDate;
+            private bool _descendingSort;
+
             private bool _showTodayTasks;
+
+            #region Индикация
 
             public bool IndicateByStatus
             {
@@ -330,6 +382,88 @@ namespace TaskManager.Model
                 }
             }
 
+            #endregion Индикация
+
+            #region Сортировка
+
+            public bool SortByStatus
+            {
+                get => _sortByStatus;
+                set
+                {
+                    _sortByStatus = value;
+                    OnPropertyChanged(nameof(SortByStatus));
+
+                    if (_sortByStatus)
+                        RefreshSectionVisible();
+                }
+            }
+
+            public bool SortByPriority
+            {
+                get => _sortByPriority;
+                set
+                {
+                    _sortByPriority = value;
+                    OnPropertyChanged(nameof(SortByPriority));
+
+                    if (_sortByStatus)
+                        RefreshSectionVisible();
+                }
+            }
+
+            public bool SortByName
+            {
+                get => _sortByName;
+                set
+                {
+                    _sortByName = value;
+                    OnPropertyChanged(nameof(SortByName));
+
+                    if (_sortByStatus)
+                        RefreshSectionVisible();
+                }
+            }
+
+            public bool SortByEndDate
+            {
+                get => _sortByEndDate;
+                set
+                {
+                    _sortByEndDate = value;
+                    OnPropertyChanged(nameof(SortByEndDate));
+
+                    if (_sortByStatus)
+                        RefreshSectionVisible();
+                }
+            }
+
+            public bool SortByStartDate
+            {
+                get => _sortByStartDate;
+                set
+                {
+                    _sortByStartDate = value;
+                    OnPropertyChanged(nameof(SortByStartDate));
+
+                    if (_sortByStatus)
+                        RefreshSectionVisible();
+                }
+            }
+
+            public bool DescendingSort
+            {
+                get => _descendingSort;
+                set
+                {
+                    _descendingSort = value;
+                    OnPropertyChanged(nameof(DescendingSort));
+                    RefreshSectionVisible();
+                }
+            }
+
+            #endregion Сортировка
+
             public bool ShowTodayTasks
             {
                 get => _showTodayTasks;
@@ -337,8 +471,19 @@ namespace TaskManager.Model
                 {
                     _showTodayTasks = value;
                     OnPropertyChanged(nameof(ShowTodayTasks));
+                    RefreshSectionVisible();
                 }
             }
+
+            private void RefreshSectionVisible()
+            {
+                if (!UIHelper.MainWindow.IsLoaded)
+                    return;
+
+                RefreshSectionVisibleCore();
+            }
         }
+
+        private static void RefreshSectionVisibleCore() => Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
     }
 }

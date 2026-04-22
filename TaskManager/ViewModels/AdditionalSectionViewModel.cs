@@ -12,8 +12,13 @@ namespace TaskManager.ViewModels
             //AllTasksViewModels = [.. section.Tasks.Select(CreateTaskViewModel)];
 
             var masterSectionViewModel = Helper.MasterSectionViewModel;
-            AllRootTasksViewModels = [.. section.Tasks.Where(t => t.Parent is null).Select(masterSectionViewModel.FindTaskViewModel).Where(vm => vm is not null)];
-            FillChildren(AllRootTasksViewModels, masterSectionViewModel);
+
+            List<TaskObjectViewModel> rootTasksViewModels = [.. section.Tasks.Where(t => t.Parent is null).Select(masterSectionViewModel.FindTaskViewModel).Where(vm => vm is not null)];
+
+            FillChildren(rootTasksViewModels, masterSectionViewModel);
+
+            foreach (var rootViewModel in rootTasksViewModels)
+                AddTaskViewModel(rootViewModel);
         }
 
         private void FillChildren(ICollection<TaskObjectViewModel> collection, MasterSectionViewModel masterSectionViewModel)
@@ -35,11 +40,11 @@ namespace TaskManager.ViewModels
             }
         }
 
-        internal List<TaskObjectViewModel> AllRootTasksViewModels { get; }
+        internal List<TaskObjectViewModel> AllRootTasksViewModels { get; } = [];
 
         public ObservableCollection<TaskObjectViewModel> VisibleRootTasksViewModels { get; } = [];
 
-        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel)
+        internal override void AddTaskViewModel(TaskObjectViewModel newTaskViewModel, bool refreshVisibleTasks = true)
         {
             var newTask = newTaskViewModel.TaskObject;
 
@@ -53,9 +58,10 @@ namespace TaskManager.ViewModels
                 AllRootTasksViewModels.Add(newTaskViewModel);
 
             foreach (var childViewModel in newTaskViewModel.ChildrenViewModels)
-                AddTaskViewModel(childViewModel);
+                AddTaskViewModel(childViewModel, false);
 
-            RefreshVisibleTaskViewModels();
+            if (refreshVisibleTasks)
+                RefreshVisibleTaskViewModels();
         }
 
         internal override bool RemoveTaskViewModel(TaskObjectViewModel taskViewModel, bool removeChildren = false)
