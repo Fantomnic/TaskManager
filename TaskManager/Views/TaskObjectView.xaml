@@ -126,7 +126,10 @@
                     <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
                                 Style="{StaticResource realizationDateStyle}">
                         <TextBlock Style="{StaticResource FieldDescription}" HorizontalAlignment="Right">Дата реализации:</TextBlock>
-                        <DatePicker Style="{StaticResource BaseStyle}" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker x:Name="endDateCalendar" Template="{DynamicResource DatePickerTemplate}"
+                                    Style="{StaticResource BaseStyle}"
+                                    VerticalAlignment="Center"
+                                    CalendarStyle="{DynamicResource BaseCalendarStyle}"></DatePicker>
                     </StackPanel>
                 
                     <!-- Количество выполнений -->

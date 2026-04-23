@@ -15,8 +15,6 @@ namespace TaskManager.Model
 
         static Settings()
         {
-            FontSettings = new(0, 0, 0, 0, 0, 100);
-
             AvailableFonts =
                 [
                     new(1, 14, 1, 20, 25, 225),
@@ -34,7 +32,7 @@ namespace TaskManager.Model
 
         public static List<FontSet> AvailableFonts { get; set; }
 
-        public static FontSet FontSettings { get; }
+        public static FontSet FontSettings { get; } = new(0, 0, 0, 0, 0, 100);
 
         internal static bool SetDefaultSectionName { get; set; }
 

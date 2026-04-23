@@ -95,6 +95,7 @@
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="4" Grid.ColumnSpan="2"
                                                 Style="{StaticResource BaseCheckBox}">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
+
                     <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
                             Style="{StaticResource BaseCheckBox}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
                 </Grid>

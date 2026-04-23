@@ -17,6 +17,9 @@ namespace TaskManager.Views
         public TaskObjectView()
         {
             InitializeComponent();
+
+            endDateCalendar.DisplayDateStart = DateTime.Now;
+            endDateCalendar.DisplayDateEnd = DateTime.Now.AddYears(100);
         }
 
         // TODO: Скрыть контекстное меню для текстблоков

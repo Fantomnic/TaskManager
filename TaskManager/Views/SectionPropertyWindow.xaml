@@ -40,6 +40,7 @@
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                    <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
@@ -102,6 +103,11 @@
                         </ComboBox>
                     </StackPanel>
                 </Grid>
+                
+                <!-- Дата реализации -->
+                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource FieldDescription}">Дней на реализацию (по умолчанию):</TextBlock>
+                </StackPanel>
             </Grid>
         </Border>
         
