@@ -15,7 +15,9 @@ namespace TaskManager.Model.TaskStatuses
 
         public override string DisplayName => "Завершено";
 
-        public override bool CalendarIsEnabled => false;
+        internal override bool CalendarIsEnabled => false;
+
+        internal override bool ResetEndDate => true;
 
         internal override void ResetBackground()
         {

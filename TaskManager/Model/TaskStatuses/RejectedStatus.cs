@@ -15,7 +15,9 @@ namespace TaskManager.Model.TaskStatuses
 
         public override string DisplayName => "Отклонено";
 
-        public override bool CalendarIsEnabled => false;
+        internal override bool CalendarIsEnabled => false;
+
+        internal override bool ResetEndDate => true;
 
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus];
 

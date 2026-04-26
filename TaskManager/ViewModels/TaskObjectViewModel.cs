@@ -5,6 +5,7 @@ using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.ViewModels
@@ -203,7 +204,20 @@ namespace TaskManager.ViewModels
 
         public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
 
-        internal void RefreshCalendarIsEnabled()
+        internal void RefreshAfterChangeStatus()
+        {
+            RefreshCalendarIsEnabled();
+
+            if (TaskStatus.ResetEndDate)
+                ResetEndDate();
+        }
+
+        internal void ResetEndDate(int offsetDays = 0)
+        {
+            EndDate = DateTime.Now.AddDays(offsetDays).Date;
+        }
+
+        private void RefreshCalendarIsEnabled()
         {
             CalendarIsEnabled = TaskType != TaskType.LongTime && TaskStatus.CalendarIsEnabled;
         }

@@ -35,7 +35,9 @@ namespace TaskManager.Model.TaskStatuses
 
         public abstract string DisplayName { get; }
 
-        public abstract bool CalendarIsEnabled { get; }
+        internal abstract bool CalendarIsEnabled { get; }
+
+        internal virtual bool ResetEndDate => false;
 
         /// <summary>Статусы, в которые можно перейти из текущего статуса</summary>
         internal virtual List<TaskStatusBase> Transitions => [];
