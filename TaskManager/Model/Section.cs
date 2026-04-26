@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using TaskManager.Helpers.Exceptions;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using static TaskManager.Helpers.Enums;
@@ -57,7 +58,7 @@ namespace TaskManager.Model
             if (ContainsTask(newTask))
             {
                 if (throwOnError)
-                    throw new InvalidOperationException($"Задача \"{newTask}\" уже добавлена в раздел \"{this}\"");
+                    throw new WarningException($"Задача \"{newTask}\" уже добавлена в раздел \"{this}\"");
 
                 return false;
             }
@@ -67,7 +68,7 @@ namespace TaskManager.Model
         }
 
         /// <summary>Удалить задачу из раздела</summary>
-        internal virtual bool RemoveTask(TaskObject task) => Tasks.Remove(task);
+        internal virtual bool RemoveTask(TaskObject task) => Tasks.RemoveAll(t => t.Guid == task.Guid) > 0;
 
         internal bool ContainsTask(TaskObject task) => Tasks.Contains(task, new BaseComparer());
         

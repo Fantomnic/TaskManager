@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using TaskManager.Helpers.Exceptions;
 
 namespace TaskManager.Model
 {
@@ -30,7 +31,7 @@ namespace TaskManager.Model
 
         internal override bool RemoveTask(TaskObject task)
         {
-            throw new InvalidOperationException("Нельзя удалить задачу из основного раздела");
+            throw new WarningException("Нельзя удалить задачу из основного раздела");
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

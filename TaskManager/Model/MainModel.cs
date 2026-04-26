@@ -1,4 +1,5 @@
-﻿using static TaskManager.Model.BaseClasses.BaseObject;
+﻿using TaskManager.Helpers.Exceptions;
+using static TaskManager.Model.BaseClasses.BaseObject;
 
 namespace TaskManager.Model
 {
@@ -12,7 +13,7 @@ namespace TaskManager.Model
         internal MasterSection CreateMasterSection(bool throwOnError = true)
         {
             if (BaseSection is not null)
-                throw new InvalidOperationException("Основной раздел уже создан");
+                throw new WarningException("Основной раздел уже создан");
 
             return new("Все");
         }
@@ -24,7 +25,7 @@ namespace TaskManager.Model
         internal void AddSection(Section newSection)
         {
             if (ContainsSection(newSection))
-                throw new InvalidOperationException($"Раздел {newSection} уже добавлен");
+                throw new WarningException($"Раздел {newSection} уже добавлен");
 
             if (newSection.IsMasterSection)
                 BaseSection = (MasterSection)newSection;
@@ -36,6 +37,6 @@ namespace TaskManager.Model
 
         /// <summary>Удалить раздел, если он неосновной</summary>
         internal bool RemoveSection(Section section)
-            => !section.IsMasterSection && AllSections.Remove(section);
+            => !section.IsMasterSection && AllSections.RemoveAll(s => s.Guid == section.Guid) > 0;
     }
 }

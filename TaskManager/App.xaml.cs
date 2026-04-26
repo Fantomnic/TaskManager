@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 using TaskManager.Helpers;
+using TaskManager.Helpers.Exceptions;
 
 namespace TaskManager
 {
@@ -17,7 +18,13 @@ namespace TaskManager
 
         private void CurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            UIHelper.ShowMessage(e.Exception.Message, MessageBoxImage.Error);
+            var exception = e.Exception;
+
+            if (exception is WarningException)
+                UIHelper.ShowMessage(exception.Message, MessageBoxImage.Warning);
+            else
+                UIHelper.ShowMessage(exception.Message, MessageBoxImage.Error, "Необработанное исключение");
+
             e.Handled = true; // Предотвращает стандартное завершение приложения
         }
     }

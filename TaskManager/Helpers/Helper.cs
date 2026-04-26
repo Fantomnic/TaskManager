@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Commands;
+using TaskManager.Helpers.Exceptions;
 using TaskManager.Model;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Resources;
@@ -130,6 +131,6 @@ namespace TaskManager.Helpers
         }
 
         internal static T GetResource<T>(string key) where T : class
-            => Application.Current.Resources[key] as T ?? throw new InvalidOperationException("Не удалось получить команду из ресурсов");
+            => Application.Current.Resources[key] as T ?? throw new WarningException("Не удалось получить команду из ресурсов");
     }
 }

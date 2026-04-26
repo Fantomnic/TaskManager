@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using TaskManager.Helpers.Exceptions;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
@@ -69,13 +70,12 @@ namespace TaskManager.Model
 
         #endregion Свойства
 
-        // TODO: Сделать отдельные типы исключений с типом Инфо
         internal void AddChild(TaskObject child, bool throwOnError = true)
         {
             if (ContainsChild(child))
             {
                 if (throwOnError)
-                    throw new InvalidOperationException("Данная подзадача уже добавлена");
+                    throw new WarningException("Данная подзадача уже добавлена");
 
                 return;
             }
@@ -83,7 +83,7 @@ namespace TaskManager.Model
             if (GetAllParents(this).Any(p => p.ContainsChild(child)))
             {
                 if (throwOnError)
-                    throw new InvalidOperationException("Данная подзадача содержит задачу, в которую происходит добавление");
+                    throw new WarningException("Данная подзадача содержит задачу, в которую происходит добавление");
 
                 return;
             }

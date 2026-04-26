@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using TaskManager.Helpers.Exceptions;
 using TaskManager.ViewModels;
 using TaskManager.Views;
 
@@ -24,7 +25,7 @@ namespace TaskManager.Helpers
             if (content is ContentControl contentControl && contentControl.Content is MasterSectionView masterSectionView)
                 return masterSectionView;
 
-            throw new InvalidOperationException("Не удалось получить представление раздела из вкладки");
+            throw new WarningException("Не удалось получить представление раздела из вкладки");
         }
 
         internal static TabItem? GetTabItemWithSectionViewModel(SectionViewModel sectionViewModel)

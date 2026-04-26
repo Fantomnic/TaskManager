@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using TaskManager.Helpers;
+using TaskManager.Helpers.Exceptions;
 
 namespace TaskManager.Commands
 {
@@ -17,9 +18,9 @@ namespace TaskManager.Commands
             {
                 ExecuteImplement(parameter);
             }
-            catch (Exception ex)
+            catch (WarningException warn)
             {
-                UIHelper.ShowMessage(ex.Message, MessageBoxImage.Error, "Необработанное исключение");
+                UIHelper.ShowMessage(warn.Message, MessageBoxImage.Warning);
             }
         }
 

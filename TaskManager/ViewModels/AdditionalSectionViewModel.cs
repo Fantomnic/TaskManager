@@ -50,7 +50,7 @@ namespace TaskManager.ViewModels
 
             Section.AddTask(newTask);
 
-            Helper.MasterSectionViewModel.AddTaskViewModel(newTaskViewModel);
+            Helper.MasterSectionViewModel.AddTaskViewModel(newTaskViewModel, false);
 
             newTaskViewModel.SetAdditionalSectionViewModel(this);
 
