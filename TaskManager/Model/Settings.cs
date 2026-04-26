@@ -392,7 +392,7 @@ namespace TaskManager.Model
                     _sortByStatus = value;
                     OnPropertyChanged(nameof(SortByStatus));
 
-                    if (_sortByStatus)
+                    if (!_sortByStatus)
                         RefreshSectionVisible();
                 }
             }
@@ -405,7 +405,7 @@ namespace TaskManager.Model
                     _sortByPriority = value;
                     OnPropertyChanged(nameof(SortByPriority));
 
-                    if (_sortByStatus)
+                    if (!_sortByPriority)
                         RefreshSectionVisible();
                 }
             }
@@ -418,7 +418,7 @@ namespace TaskManager.Model
                     _sortByName = value;
                     OnPropertyChanged(nameof(SortByName));
 
-                    if (_sortByStatus)
+                    if (!_sortByName)
                         RefreshSectionVisible();
                 }
             }
@@ -431,7 +431,7 @@ namespace TaskManager.Model
                     _sortByEndDate = value;
                     OnPropertyChanged(nameof(SortByEndDate));
 
-                    if (_sortByStatus)
+                    if (!_sortByEndDate)
                         RefreshSectionVisible();
                 }
             }
@@ -444,7 +444,7 @@ namespace TaskManager.Model
                     _sortByStartDate = value;
                     OnPropertyChanged(nameof(SortByStartDate));
 
-                    if (_sortByStatus)
+                    if (!_sortByStartDate)
                         RefreshSectionVisible();
                 }
             }
