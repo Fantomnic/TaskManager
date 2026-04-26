@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Commands;
 using TaskManager.Model;
+using TaskManager.Model.BaseClasses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
@@ -67,6 +68,29 @@ namespace TaskManager.Helpers
 
             Directory.CreateDirectory(targetDirectory);
             return targetDirectory;
+        }
+
+        internal static Guid GenereateGuid(GenereateGuidTarget target)
+        {
+            Guid result = Guid.NewGuid();
+
+            if (target == GenereateGuidTarget.None)
+                return result;
+
+            IEnumerable<BaseSerializableObject> collection = target switch
+            {
+                GenereateGuidTarget.Task => ModelData.BaseSection.Tasks,
+                GenereateGuidTarget.Section => ModelData.AllSections,
+                _ => throw new NotImplementedException()
+            };
+
+            while (true)
+            {
+                if (collection.Select(t => t.Guid).Contains(result))
+                    result = Guid.NewGuid();
+                else
+                    return result;
+            }
         }
 
         internal static T GetCommandInstance<T>() where T : BaseCommand

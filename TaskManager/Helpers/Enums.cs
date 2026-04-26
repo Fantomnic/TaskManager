@@ -33,5 +33,12 @@
             Sections,
             Settings,
         }
+
+        internal enum GenereateGuidTarget
+        {
+            None,
+            Task,
+            Section,
+        }
     }
 }

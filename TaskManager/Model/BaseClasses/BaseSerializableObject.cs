@@ -12,7 +12,7 @@ namespace TaskManager.Model.BaseClasses
     {
         public BaseSerializableObject()
         {
-            Guid = Guid.NewGuid();
+            CreateGuid();
         }
 
         protected BaseSerializableObject(SerializationInfo info, StreamingContext context)
@@ -40,6 +40,20 @@ namespace TaskManager.Model.BaseClasses
             {
                 serialiser.Serialize(stream, this);
             };
+        }
+
+        internal void CreateGuid()
+        {
+            GenereateGuidTarget targetType;
+
+            if (this is TaskObject)
+                targetType = GenereateGuidTarget.Task;
+            else if (this is Section)
+                targetType = GenereateGuidTarget.Section;
+            else
+                targetType = GenereateGuidTarget.None;
+
+            Guid = Helper.GenereateGuid(targetType);
         }
 
         public static bool operator ==(BaseSerializableObject? baseObject1, BaseSerializableObject? baseObject2) => baseObject1?.Guid == baseObject2?.Guid;
