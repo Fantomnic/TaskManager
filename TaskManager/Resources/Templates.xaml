@@ -60,7 +60,8 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 MinWidth="{TemplateBinding MinWidth}"
-                SnapsToDevicePixels="True">
+                SnapsToDevicePixels="True"
+                IsEnabled="True">
             <ScrollViewer x:Name="PART_ContentHost"
                           Focusable="false"
                           HorizontalScrollBarVisibility="Hidden"
@@ -161,7 +162,14 @@
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
-                                    <VisualState x:Name="Disabled"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" Storyboard.TargetName="DisabledVisual"
+                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="0" Value="0.7"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             
@@ -211,7 +219,8 @@
                                 
                                 <Border x:Name="DisabledVisual"
                                         Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="4"
-                                        BorderBrush="#B2FFFFFF"
+                                        Background="{DynamicResource FieldBackgroundReadOnly}"
+                                        BorderBrush="{DynamicResource FieldIsFocusedBorderReadOnly}"
                                         BorderThickness="1"
                                         CornerRadius="0,0,.5,.5"
                                         Opacity="0">
@@ -243,7 +252,8 @@
                         HorizontalAlignment="Left"   
                         VerticalAlignment="Top"
                         Margin="3,0,3,0"
-                        Width="20"/>
+                        Width="20"
+                        IsEnabled="{Binding CalendarIsEnabled}"/>
                 <DatePickerTextBox x:Name="PART_TextBox"
                                    Grid.Column="0" Grid.Row="0"
                                    Style="{StaticResource DateTextBox}"
@@ -259,7 +269,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Grid.Column="0" Fill="#A5FFFFFF" Grid.Row="0" RadiusX="1" RadiusY="1"/>
-                    <Rectangle Grid.Column="1" Fill="#A5FFFFFF" Height="18" Margin="3,0,3,0" Grid.Row="0" RadiusX="1" RadiusY="1" Width="19"/>
+                    <Rectangle Grid.Column="1" Style="{StaticResource BaseScale}" Margin="-3 0 3 0" Fill="#A5FFFFFF" Grid.Row="0" RadiusX="1" RadiusY="1" Width="20" Opacity="0.7"/>
                     <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"/>
                 </Grid>
             </Grid>

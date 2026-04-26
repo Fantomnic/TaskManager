@@ -130,7 +130,8 @@
                                     Style="{StaticResource BaseStyle}"
                                     VerticalAlignment="Center"
                                     CalendarStyle="{DynamicResource BaseCalendarStyle}"
-                                    Text="{Binding Path=EndDate,Mode=TwoWay,Converter={StaticResource DateConverter}}"></DatePicker>
+                                    Text="{Binding Path=EndDate,Mode=TwoWay,Converter={StaticResource DateConverter}}">
+                        </DatePicker>
                     </StackPanel>
                 
                     <!-- Количество выполнений -->

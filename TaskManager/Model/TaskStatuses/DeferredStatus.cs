@@ -15,6 +15,8 @@ namespace TaskManager.Model.TaskStatuses
 
         public override string DisplayName => "Отложено";
 
+        public override bool CalendarIsEnabled => true;
+
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.BeginingStatus, TaskStatusesInstances.RejectedStatus];
 
         internal override void ResetBackground()

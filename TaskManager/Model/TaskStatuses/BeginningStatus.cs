@@ -15,6 +15,8 @@ namespace TaskManager.Model.TaskStatuses
 
         public override string DisplayName => "Текущее";
 
+        public override bool CalendarIsEnabled => true;
+
         internal override List<TaskStatusBase> Transitions => [TaskStatusesInstances.DeferredStatus, TaskStatusesInstances.DoneStatus, TaskStatusesInstances.CompletedStatus];
 
         internal override void ResetBackground()

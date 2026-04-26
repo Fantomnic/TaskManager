@@ -24,6 +24,7 @@ namespace TaskManager.Commands
             }
 
             taskObjectViewModel.TaskStatus = _targetStatus;
+            taskObjectViewModel.RefreshCalendarIsEnabled();
             Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
         }
     }

@@ -54,7 +54,7 @@
 
     <!-- Цвета приоритетов -->
     <SolidColorBrush Color="#FF00C000" x:Key="LowPriorityForeground" />
-    <SolidColorBrush Color="#FFEEB800" x:Key="MiddlePriorityForeground" />
+    <SolidColorBrush Color="#FFF0BA43" x:Key="MiddlePriorityForeground" />
     <SolidColorBrush Color="Red" x:Key="HighPriorityForeground" />
     
     <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="MenuGradientBackground">

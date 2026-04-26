@@ -17,6 +17,7 @@ namespace TaskManager.ViewModels
         private TaskObjectViewModel? _parentViewModel;
         private ObservableCollection<TaskObjectViewModel> _childrenViewModels = [];
         private bool _isSelected;
+        private bool _calendarIsEnabled;
 
         //public TaskObjectViewModel()
         //{
@@ -26,11 +27,14 @@ namespace TaskManager.ViewModels
         internal TaskObjectViewModel(TaskObject taskObject)
         {
             TaskObject = taskObject;
+            RefreshCalendarIsEnabled();
         }
 
         internal TaskObject TaskObject { get; }
 
         public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;
+
+        #region Свойства привязки
 
         public string Name
         {
@@ -175,6 +179,18 @@ namespace TaskManager.ViewModels
             }
         }
 
+        public bool CalendarIsEnabled
+        {
+            get => _calendarIsEnabled;
+            set
+            {
+                _calendarIsEnabled = value;
+                OnPropertyChanged(nameof(CalendarIsEnabled));
+            }
+        }
+
+        #endregion Свойства привязки
+
         public bool HasChildren => ChildrenViewModels.Count > 0;
 
         public bool AcceptCommandVisibility => Helper.GetCommandInstance<AcceptTaskCommand>().CanChange(TaskObject);
@@ -186,6 +202,11 @@ namespace TaskManager.ViewModels
         public bool DoneCommandVisibility => Helper.GetCommandInstance<DoneTaskCommand>().CanChange(TaskObject);
 
         public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
+
+        internal void RefreshCalendarIsEnabled()
+        {
+            CalendarIsEnabled = TaskType != TaskType.LongTime && TaskStatus.CalendarIsEnabled;
+        }
 
         internal void SetAdditionalSectionViewModel(AdditionalSectionViewModel? newSectionViewModel)
         {

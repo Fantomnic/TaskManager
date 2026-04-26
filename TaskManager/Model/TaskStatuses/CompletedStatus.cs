@@ -15,6 +15,8 @@ namespace TaskManager.Model.TaskStatuses
 
         public override string DisplayName => "Завершено";
 
+        public override bool CalendarIsEnabled => false;
+
         internal override void ResetBackground()
         {
             Background = Helper.GetResource<SolidColorBrush>("CompletedStatusBackground");
