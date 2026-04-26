@@ -77,7 +77,7 @@
                     <TextBox Grid.Column="1"
                              Style="{StaticResource BaseTextBoxAlignmentMargin}"
                              IsReadOnly="True"
-                             Text="{Binding Path=CreationDate,TargetNullValue=ОбъектНеЗадан,Mode=OneWay}"/>
+                             Text="{Binding Path=CreationDate,Mode=OneWay,Converter={StaticResource DateConverter}}"/>
 
                     <!-- Статус -->
                     <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">Статус:</TextBlock>
@@ -129,7 +129,8 @@
                         <DatePicker x:Name="endDateCalendar" Template="{DynamicResource DatePickerTemplate}"
                                     Style="{StaticResource BaseStyle}"
                                     VerticalAlignment="Center"
-                                    CalendarStyle="{DynamicResource BaseCalendarStyle}"></DatePicker>
+                                    CalendarStyle="{DynamicResource BaseCalendarStyle}"
+                                    Text="{Binding Path=EndDate,Mode=TwoWay,Converter={StaticResource DateConverter}}"></DatePicker>
                     </StackPanel>
                 
                     <!-- Количество выполнений -->

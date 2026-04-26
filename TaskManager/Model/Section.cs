@@ -49,7 +49,7 @@ namespace TaskManager.Model
         internal TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
-        internal TaskObject CreateTask(string name) => new(DefaultPriority, DefaultTaskType) { Name = name, EndDate = DateTime.Now.AddDays(DefaultReleaseDays) };
+        internal TaskObject CreateTask(string name) => new(DefaultPriority, DefaultTaskType) { Name = name, EndDate = DateTime.Now.AddDays(DefaultReleaseDays).Date };
 
         /// <summary>Добавить задачу в раздел</summary>
         internal virtual bool AddTask(TaskObject newTask, bool throwOnError = false)

@@ -61,4 +61,23 @@ namespace TaskManager.Helpers
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => DependencyProperty.UnsetValue;
     }
+
+    public class DateConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is not DateTime dateTime)
+                return "Ошибка отображения";
+
+            return dateTime.ToString("dd.MM.yyyy");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (DateTime.TryParse(value?.ToString(), out DateTime result))
+                return result;
+
+            return DependencyProperty.UnsetValue;
+        }
+    }
 }

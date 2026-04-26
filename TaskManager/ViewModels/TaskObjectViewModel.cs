@@ -42,10 +42,25 @@ namespace TaskManager.ViewModels
             }
         }
 
-        // Прим.: Обработку null-значения можно сделать тут, а можно в свойствах привязки через TargetNullValue
-#pragma warning disable CS8603 // Possible null reference return.
-        public string CreationDate => TaskObject?.CreationDate.ToString("dd.MM.yyyy");
-#pragma warning restore CS8603 // Possible null reference return.
+        public DateTime CreationDate
+        {
+            get => TaskObject.CreationDate;
+            set
+            {
+                TaskObject.CreationDate = value;
+                OnPropertyChanged(nameof(CreationDate));
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get => TaskObject.EndDate;
+            set
+            {
+                TaskObject.EndDate = value;
+                OnPropertyChanged(nameof(EndDate));
+            }
+        }
 
         // Прим.: Технически, можно настроить связь в событии SelectionChanged - например, если контрол принимает объекты другого типа
         public TaskPriorityBase TaskPriority
