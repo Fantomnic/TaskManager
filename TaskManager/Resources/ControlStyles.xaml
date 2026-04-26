@@ -548,9 +548,9 @@
                                 <VisualState x:Name="Today">
                                     <Storyboard>
                                         <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TodayBackground"/>
-                                        <!--ColorAnimation Duration="0" To="#FFFFFFFF"
+                                        <ColorAnimation Duration="0" To="#FFFFFFFF"
                                                         Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                        Storyboard.TargetName="NormalText"/>-->
+                                                        Storyboard.TargetName="NormalText"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
