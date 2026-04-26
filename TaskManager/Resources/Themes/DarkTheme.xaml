@@ -62,4 +62,6 @@
         <GradientStop Color="#FF00586C" Offset="1" />
     </LinearGradientBrush>
 
+    <SolidColorBrush Color="#FFA0A000" x:Key="TodayCalendarDateBackground"></SolidColorBrush>
+    
 </ResourceDictionary>

@@ -60,7 +60,7 @@
                 <Grid Grid.Row="1" Background="{DynamicResource InnerBackground}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MinWidth="105" MaxWidth="{x:Static res:Constants.DescriptonWidth}"></ColumnDefinition>
-                        <ColumnDefinition MinWidth="156" MaxWidth="175"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="165" MaxWidth="175"></ColumnDefinition>
                         <ColumnDefinition MaxWidth="250"></ColumnDefinition>
                         <ColumnDefinition MinWidth="135" MaxWidth="175"></ColumnDefinition>
                     </Grid.ColumnDefinitions>

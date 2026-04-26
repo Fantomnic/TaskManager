@@ -17,5 +17,6 @@
     
     <!-- Значения ЭУ по умолчанию -->
     <SolidColorBrush Color="#FFABADB3" x:Key="DefaultBorder" />
-    
+
+    <SolidColorBrush Color="#FFA1A1A1" x:Key="Test"></SolidColorBrush>
 </ResourceDictionary>
