@@ -65,6 +65,16 @@ namespace TaskManager.ViewModels
             }
         }
 
+        public int DefaultReleaseDays
+        {
+            get => Section.DefaultReleaseDays;
+            set
+            {
+                Section.DefaultReleaseDays = value;
+                OnPropertyChanged(nameof(DefaultReleaseDays));
+            }
+        }
+
         /// <summary>Выбранная задача (модель представления)</summary>
         public TaskObjectViewModel? SelectedTaskViewModel
         {

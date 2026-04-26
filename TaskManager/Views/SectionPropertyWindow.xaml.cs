@@ -15,6 +15,7 @@ namespace TaskManager.Views
         private string _newComment;
         private TaskPriorityBase _newDefaultPriority;
         private Enums.TaskType _newDefaultTaskType;
+        private int _newDefaultReleaseDays;
 
         internal SectionPropertyWindow(SectionViewModel sectionViewModel, bool isNew = false)
         {
@@ -31,6 +32,9 @@ namespace TaskManager.Views
             commentField.Text = _newComment = _sectionViewModel.Comment;
             priorityList.SelectedItem = _newDefaultPriority = _sectionViewModel.DefaultPriority;
             typeList.SelectedItem = _newDefaultTaskType = _sectionViewModel.DefaultTaskType;
+
+            _newDefaultReleaseDays = _sectionViewModel.DefaultReleaseDays;
+            endDateCounter.SetNewValue(_sectionViewModel.DefaultReleaseDays);
         }
 
         private void OnCloseWithOK()
@@ -39,6 +43,7 @@ namespace TaskManager.Views
             _newComment = commentField.Text;
             _newDefaultPriority = (TaskPriorityBase)priorityList.SelectedItem;
             _newDefaultTaskType = (Enums.TaskType)typeList.SelectedItem;
+            _newDefaultReleaseDays = endDateCounter.Value;
         }
 
         protected override bool ValidateOK()
@@ -68,6 +73,7 @@ namespace TaskManager.Views
             _sectionViewModel.Comment = _newComment;
             _sectionViewModel.DefaultPriority = _newDefaultPriority;
             _sectionViewModel.DefaultTaskType = _newDefaultTaskType;
+            _sectionViewModel.DefaultReleaseDays = _newDefaultReleaseDays;
         }
     }
 }

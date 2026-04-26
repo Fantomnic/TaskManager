@@ -10,6 +10,33 @@
     <!-- <ResourceDictionary.MergedDictionaries>
     </ResourceDictionary.MergedDictionaries> -->
 
+    <ControlTemplate TargetType="Control" x:Key="IntegerCounter">
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                    <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.RowSpan="2" Style="{StaticResource BaseStyleAlignmentMargin}" BorderThickness="0">100</TextBox>
+                <Button Grid.Column="1">
+                    <Button.Content>
+                        <Path Data="M 0 0 L 10 0 L 5 -3 Z" Fill="Black"></Path>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="1">
+                    <Button.Content>
+                        <Path Data="M 0 0 L 10 0 L 5 3 Z" Fill="Black"></Path>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    
     <!-- Шаблон системной кнопки окна -->
     <ControlTemplate TargetType="Button" x:Key="WindowAppButton">
         <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" Width="{x:Static local:Constants.WindowButtonWidth}">

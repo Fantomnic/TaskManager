@@ -17,6 +17,7 @@ namespace TaskManager.Model
             DefaultPriority = TaskPrioritiesInstances.GetTaskPriority(defaultPriorityID);
 
             Comment = info.GetString(nameof(Comment));
+            DefaultReleaseDays = info.GetInt32(nameof(DefaultReleaseDays));
         }
 
         public Section(string name) : base()
@@ -40,13 +41,15 @@ namespace TaskManager.Model
 
         internal string Comment { get; set; }
 
+        internal int DefaultReleaseDays { get; set; }
+
         #endregion Свойства
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
         internal TaskObject CreateTask() => CreateTask(Settings.GetDefaultTaskName());
 
         /// <summary>Создать новую задачу без привязки к разделу</summary>
-        internal TaskObject CreateTask(string name) => new(DefaultPriority, DefaultTaskType) { Name = name };
+        internal TaskObject CreateTask(string name) => new(DefaultPriority, DefaultTaskType) { Name = name, EndDate = DateTime.Now.AddDays(DefaultReleaseDays) };
 
         /// <summary>Добавить задачу в раздел</summary>
         internal virtual bool AddTask(TaskObject newTask, bool throwOnError = false)
@@ -76,6 +79,7 @@ namespace TaskManager.Model
             info.AddValue(nameof(DefaultTaskType), DefaultTaskType);
             info.AddValue(nameof(DefaultPriorityID), DefaultPriorityID);
             info.AddValue(nameof(Comment), Comment);
+            info.AddValue(nameof(DefaultReleaseDays), DefaultReleaseDays);
         }
     }
 }

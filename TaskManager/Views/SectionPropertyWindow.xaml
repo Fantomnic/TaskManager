@@ -8,6 +8,7 @@
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                xmlns:h="clr-namespace:TaskManager.Helpers"
                                xmlns:pr="clr-namespace:TaskManager.Model.TaskPriorities"
+                               xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
                                WindowStartupLocation="CenterOwner"
                                Style="{StaticResource MiddleWindow}">
@@ -107,6 +108,7 @@
                 <!-- Дата реализации -->
                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
                     <TextBlock Style="{StaticResource FieldDescription}">Дней на реализацию (по умолчанию):</TextBlock>
+                    <ctrl:IntegerCounter x:Name="endDateCounter" VerticalAlignment="Center"></ctrl:IntegerCounter>
                 </StackPanel>
             </Grid>
         </Border>
