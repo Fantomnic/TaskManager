@@ -57,7 +57,7 @@
                              Style="{StaticResource BaseTextBoxAlignment}" Text="{Binding DefaultSectionName}" Margin="3,0,3,0"></TextBox>
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="4" Grid.ColumnSpan="2"
-                            Style="{StaticResource BaseCheckBox}">Подтверждать удаление</ctrl:CheckBoxWithItemStyle>
+                            Style="{StaticResource BaseCheckBox}" IsChecked="{Binding ConfirmDeleteSection}">Подтверждать удаление</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 
@@ -97,7 +97,7 @@
                                                 Style="{StaticResource BaseCheckBox}">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
-                            Style="{StaticResource BaseCheckBox}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
+                            Style="{StaticResource BaseCheckBox}" IsChecked="{Binding ConfirmCompleteTask}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
         </StackPanel>

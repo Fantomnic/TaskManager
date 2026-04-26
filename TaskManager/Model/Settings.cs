@@ -46,6 +46,11 @@ namespace TaskManager.Model
 
         internal static string DefaultTaskName { get; set; }
 
+        internal static bool ConfirmDeleteSection { get; set; }
+
+        internal static bool ConfirmCompleteTask { get; set; }
+
+
         internal static void FillFromViewModel(SettingsViewModel settingsViewModel)
         {
             SetDefaultSectionName = settingsViewModel.SetDefaultSectionName;
@@ -54,6 +59,8 @@ namespace TaskManager.Model
             IncrementTaskName = settingsViewModel.IncrementTaskName;
             DefaultSectionName = settingsViewModel.DefaultSectionName;
             DefaultTaskName = settingsViewModel.DefaultTaskName;
+            ConfirmDeleteSection = settingsViewModel.ConfirmDeleteSection;
+            ConfirmCompleteTask = settingsViewModel.ConfirmCompleteTask;
             FontSettings.CopyFrom(settingsViewModel.FontSettings);
             ChangeTheme(settingsViewModel.Theme);
         }
@@ -70,6 +77,8 @@ namespace TaskManager.Model
             IncrementTaskName = true;
             DefaultSectionName = "Новый раздел";
             DefaultTaskName = "Новая задача";
+            ConfirmDeleteSection = true;
+            ConfirmCompleteTask = true;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = true;
             TaskStatusesInstances.CompletedStatus.TaskVisible = true;
@@ -103,6 +112,8 @@ namespace TaskManager.Model
             IncrementTaskName = _appSettings.IncrementTaskName;
             DefaultSectionName = _appSettings.DefaultSectionName;
             DefaultTaskName = _appSettings.DefaultTaskName;
+            ConfirmDeleteSection = _appSettings.ConfirmDeleteSection;
+            ConfirmCompleteTask = _appSettings.ConfirmCompleteTask;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
             TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
@@ -137,6 +148,8 @@ namespace TaskManager.Model
             _appSettings.IncrementTaskName = IncrementTaskName;
             _appSettings.DefaultSectionName = DefaultSectionName;
             _appSettings.DefaultTaskName = DefaultTaskName;
+            _appSettings.ConfirmDeleteSection = ConfirmDeleteSection;
+            _appSettings.ConfirmCompleteTask = ConfirmCompleteTask;
 
             _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
             _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;

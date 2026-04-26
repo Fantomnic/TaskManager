@@ -45,7 +45,7 @@
     <SolidColorBrush Color="Black" x:Key="BlackBlueBorder" />
     
     <!-- Цвета статусов -->
-    <SolidColorBrush Color="#D9D9D9" x:Key="WaitingStatusBackground" />
+    <SolidColorBrush Color="#FFDFDFDF" x:Key="WaitingStatusBackground" />
     <SolidColorBrush Color="#92D050" x:Key="BeginningStatusBackground" />
     <SolidColorBrush Color="Yellow" x:Key="DeferredStatusBackground" />
     <SolidColorBrush Color="#FFFF4747" x:Key="RejectedStatusBackground" />

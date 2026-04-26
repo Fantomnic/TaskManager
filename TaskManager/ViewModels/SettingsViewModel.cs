@@ -12,6 +12,8 @@ namespace TaskManager.ViewModels
         private bool _incrementTaskName;
         private string _defaultSectionName;
         private string _defaultTaskName;
+        private bool _confirmDeleteSection;
+        private bool _confirmCompleteTask;
         private FontSet _fontSettings;
         private Themes _theme;
 
@@ -23,6 +25,8 @@ namespace TaskManager.ViewModels
             _incrementTaskName = Settings.IncrementTaskName;
             _defaultSectionName = Settings.DefaultSectionName;
             _defaultTaskName = Settings.DefaultTaskName;
+            _confirmDeleteSection = Settings.ConfirmDeleteSection;
+            _confirmCompleteTask = Settings.ConfirmCompleteTask;
             _theme = Settings.Theme;
 
             var currentFont = Settings.FontSettings;
@@ -87,6 +91,26 @@ namespace TaskManager.ViewModels
             {
                 _defaultTaskName = value;
                 OnPropertyChanged(nameof(DefaultTaskName));
+            }
+        }
+
+        public bool ConfirmDeleteSection
+        {
+            get => _confirmDeleteSection;
+            set
+            {
+                _confirmDeleteSection = value;
+                OnPropertyChanged(nameof(ConfirmDeleteSection));
+            }
+        }
+
+        public bool ConfirmCompleteTask
+        {
+            get => _confirmCompleteTask;
+            set
+            {
+                _confirmCompleteTask = value;
+                OnPropertyChanged(nameof(ConfirmCompleteTask));
             }
         }
 

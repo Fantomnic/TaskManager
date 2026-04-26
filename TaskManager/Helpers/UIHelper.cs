@@ -32,13 +32,13 @@ namespace TaskManager.Helpers
 
         internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
 
-        internal static void ShowMessage(string message, MessageBoxImage icon = MessageBoxImage.None, string? caption = null)
+        internal static bool ShowMessage(string message, MessageBoxImage icon = MessageBoxImage.None, string? caption = null)
         {
             caption ??= GetMessageCaptionFromIcon(icon);
 
             var iconImage = GetIconAsImage(icon);
-            var messageWindow = new MessageWindow(message, caption, iconImage);
-            messageWindow.ShowDialog();
+            var messageWindow = new MessageWindow(message, caption, iconImage, icon == MessageBoxImage.Question);
+            return messageWindow.ShowDialog() == true;
         }
 
         private static BitmapSource? GetIconAsImage(MessageBoxImage iconType)

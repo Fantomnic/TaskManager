@@ -20,14 +20,15 @@
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image x:Name="icon" Width="50" VerticalAlignment="Top" Margin="5,5,0,5"></Image>
+        <Image x:Name="icon" Width="50" VerticalAlignment="Center" Margin="5,5,0,5"></Image>
 
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-            <TextBlock x:Name="message" Style="{StaticResource BaseStyle}" TextWrapping="Wrap" Margin="0,3,3,3"></TextBlock>
+            <TextBlock x:Name="message" Style="{StaticResource BaseStyle}" TextWrapping="Wrap" Margin="0,3,3,3" VerticalAlignment="Center"></TextBlock>
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
+            <Button x:Name="cancelButton" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick" Visibility="Collapsed">Нет</Button>
+            <Button x:Name="okButton" Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

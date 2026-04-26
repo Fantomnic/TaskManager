@@ -298,5 +298,29 @@ namespace TaskManager.Properties {
                 this["DescendingSort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ConfirmDeleteSection {
+            get {
+                return ((bool)(this["ConfirmDeleteSection"]));
+            }
+            set {
+                this["ConfirmDeleteSection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ConfirmCompleteTask {
+            get {
+                return ((bool)(this["ConfirmCompleteTask"]));
+            }
+            set {
+                this["ConfirmCompleteTask"] = value;
+            }
+        }
     }
 }

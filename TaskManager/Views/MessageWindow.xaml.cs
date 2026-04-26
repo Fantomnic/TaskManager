@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace TaskManager.Views
 {
@@ -20,7 +9,7 @@ namespace TaskManager.Views
     /// </summary>
     public partial class MessageWindow : WindowWithBottomButtons
     {
-        public MessageWindow(string message, string title, BitmapSource? iconImage)
+        public MessageWindow(string message, string title, BitmapSource? iconImage, bool isQuestion = false)
         {
             InitializeComponent();
 
@@ -31,6 +20,12 @@ namespace TaskManager.Views
 
             this.message.Text = message;
             Title = title;
+
+            if (!isQuestion)
+                return;
+
+            okButton.Content = "Да";
+            cancelButton.Visibility = Visibility.Visible;
         }
     }
 }
