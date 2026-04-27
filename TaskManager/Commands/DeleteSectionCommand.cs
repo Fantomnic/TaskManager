@@ -24,10 +24,10 @@ namespace TaskManager.Commands
             {
                 mainWindow.sections.Items.Remove(tabItem);
 
-                string targetDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
-                string fileName = Path.Combine(targetDirectory, sectionViewModel.Section.FileName);
+                //string targetDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
+                //string fileName = Path.Combine(targetDirectory, sectionViewModel.Section.FileName);
 
-                File.Delete(fileName);
+                //File.Delete(fileName);
             }
         }
     }

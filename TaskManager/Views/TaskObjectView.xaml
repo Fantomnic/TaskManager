@@ -55,7 +55,11 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Style="{StaticResource TitleDescription}">Info</TextBlock>
+                <TextBlock Style="{StaticResource TitleDescription}" Text="Info">
+                    <TextBlock.ToolTip>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
 
                 <Grid Grid.Row="1" Background="{DynamicResource InnerBackground}">
                     <Grid.ColumnDefinitions>

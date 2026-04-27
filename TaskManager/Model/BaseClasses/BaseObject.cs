@@ -7,7 +7,7 @@ using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model.BaseClasses
 {
-    [DataContract]
+    [DataContract(IsReference = true)]
     public abstract class BaseObject
     {
         public BaseObject()

@@ -43,6 +43,7 @@
     <SolidColorBrush Color="Red" x:Key="FieldIsFocusedBorderReadOnly" />
     <SolidColorBrush Color="Black" x:Key="BlackGrayBorder" />
     <SolidColorBrush Color="Black" x:Key="BlackBlueBorder" />
+    <SolidColorBrush Color="#FF3168F7" x:Key="TaskItemIsSelectedBorder" />
     
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#FFDFDFDF" x:Key="WaitingStatusBackground" />

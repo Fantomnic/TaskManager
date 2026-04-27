@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -106,6 +107,7 @@ namespace TaskManager.Views
             string sourceDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
 
             List<string> sourceFiles;
+            var errors = new StringBuilder();
 
             if (String.IsNullOrEmpty(finishedDirectory))
             {
@@ -114,8 +116,16 @@ namespace TaskManager.Views
             else
             {
                 var finishedFiles = Helper.GetAppFiles(finishedDirectory);
-                ClearDirectory(sourceDirectory);
-                sourceFiles = MoveToDirectory(finishedFiles, sourceDirectory);
+
+                if (finishedFiles.Count == 0)
+                {
+                    sourceFiles = [.. Helper.GetAppFiles(sourceDirectory).Select(f => f.FullName)];
+                }
+                else
+                {
+                    ClearDirectory(sourceDirectory);
+                    sourceFiles = MoveToDirectory(finishedFiles, sourceDirectory, ref errors);
+                }
             }
 
             if (sourceFiles.Count == 0)
@@ -145,7 +155,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    // TODO
+                    errors.AppendLine("- Не удалось загрузить данные основного раздела");
                 }
             }
 
@@ -172,7 +182,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    // TODO
+                    errors.AppendLine($"- Не удалось загрузить данные файла \"{Path.GetFileName(sectionFile)}\"");
                 }
             }
 
@@ -185,12 +195,15 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    // TODO
+                    errors.AppendLine($"- Ошибка добавления раздела \"{additionalSection.Name}\"");
                 }
             }
+
+            if (errors.Length > 0)
+                UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Error, "Ошибка загрузки данных");
         }
 
-        private static List<string> MoveToDirectory(List<FileInfo> finishedFiles, string targetDirectoryPath)
+        private static List<string> MoveToDirectory(List<FileInfo> finishedFiles, string targetDirectoryPath, ref StringBuilder errors)
         {
             var result = new List<string>(finishedFiles.Count);
 
@@ -206,7 +219,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    // TODO
+                    errors.AppendLine($"- Ошибка перемещения файла \"{file.Name}\"");
                 }
             }
 
@@ -220,6 +233,7 @@ namespace TaskManager.Views
             Settings.FillFromConfig();
         }
 
+        // TODO: Изменить на событие перед закрытием
         private void OnClosed(object sender, EventArgs e)
         {
             Settings.SaveToConfig();
@@ -228,10 +242,19 @@ namespace TaskManager.Views
 
         private void SaveData()
         {
-            ClearDirectory(Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections));
+            string finishedDirectoryPath = Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections);
+            ClearDirectory(finishedDirectoryPath);
 
-            foreach (var sections in MainViewModel.ModelData.AllSections)
-                sections.Serialize(Enums.DataDirectory.FinishedSections);
+            try
+            {
+                foreach (var sections in MainViewModel.ModelData.AllSections)
+                    sections.Serialize(Enums.DataDirectory.FinishedSections);
+            }
+            catch
+            {
+                ClearDirectory(finishedDirectoryPath);
+                UIHelper.ShowMessage("Не удалось сохранить данные разделов", MessageBoxImage.Error, "Ошибка сохранения данных");
+            }
         }
 
         private static void ClearDirectory(string directoryPath)

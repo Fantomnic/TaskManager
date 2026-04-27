@@ -747,21 +747,26 @@
                 Margin="{TemplateBinding Margin}"
                 Height="{TemplateBinding Height}"
                 Width="{TemplateBinding Width}">
-            <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                            Foreground="{TemplateBinding Foreground}"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}">
-            </ContentControl>
+            <Border x:Name="selectionBackground"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Opacity="1">
+                <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}">
+                </ContentControl>
+            </Border>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{StaticResource TaskItemIsMouseOverBackground}" />
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsMouseOverBackground}" />
                 <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{StaticResource TaskItemIsMouseOverBorder}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="true">
-                <Setter TargetName="listBoxItemBorder" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
-                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{StaticResource TaskItemIsSelectedBorder}" />
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
+                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{DynamicResource TaskItemIsSelectedBorder}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -819,11 +824,11 @@
                 <VisualStateGroup x:Name="SelectionStates">
                     <VisualState x:Name="Selected">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderItem" Storyboard.TargetProperty="Background">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="selectionBackground" Storyboard.TargetProperty="Background">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TaskItemIsSelectedBackground}" />
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderItem" Storyboard.TargetProperty="BorderBrush">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TaskItemIsSelectedBorder}" />
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource TaskItemIsSelectedBorder}" />
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
@@ -862,10 +867,16 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1.5"
                     Padding="{TemplateBinding Padding}">
-                <ContentPresenter x:Name="PART_Header"
-                                  ContentSource="Header"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                </ContentPresenter>
+                <Border x:Name="selectionBackground"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Opacity="1">
+                    <ContentPresenter x:Name="PART_Header"
+                                      ContentSource="Header"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                    </ContentPresenter>
+                </Border>
+                
             </Border>
 
             <!-- Дочерние элементы -->
@@ -898,8 +909,8 @@
 
             <!-- Не задаём в менеджере визуальных состояний, чтобы обработать отключение родителей (они выделяются, если выделяется дочерний элемент) -->
             <Trigger Property="h:TreeViewHelper.IsMouseDirectlyOverItem" Value="True">
-                <Setter TargetName="borderItem" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
-                <Setter TargetName="borderItem" Property="BorderBrush" Value="{StaticResource TaskItemIsSelectedBorder}" />
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
+                <Setter TargetName="borderItem" Property="BorderBrush" Value="{DynamicResource TaskItemIsSelectedBorder}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -914,7 +925,8 @@
             <Border x:Name="mainBorder" Grid.ColumnSpan="2"
                     Background="{DynamicResource FieldBackground}"
                     BorderBrush="{StaticResource DefaultBorder}"
-                    BorderThickness="1" />
+                    BorderThickness="1">
+            </Border>
             <Path Grid.Column="1"
                   Stroke="{DynamicResource AntiMainColor}"
                   HorizontalAlignment="Center"
