@@ -14,7 +14,7 @@
         </Style>
     </UserControl.Resources>
     
-    <Border x:Name="border" Background="{DynamicResource FieldBackground}" BorderBrush="Blue" BorderThickness="1"
+    <Border x:Name="border" Background="{DynamicResource FieldBackground}" BorderBrush="{StaticResource DefaultBorder}" BorderThickness="1"
             MouseEnter="BorderMouseEnter" MouseLeave="BorderMouseLeave" GotFocus="BorderGotFocus" LostFocus="BorderLostFocus">
         <Grid Margin="1">
             <Grid.ColumnDefinitions>

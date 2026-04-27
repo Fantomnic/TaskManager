@@ -100,7 +100,8 @@
                 </Expander>
 
                 <Button Style="{StaticResource MenuButton}">Экспорт</Button>
-
+                <Button Style="{StaticResource MenuButton}">Импорт</Button>
+                
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource TestCommand}" Visibility="Collapsed">Test</Button>
             </StackPanel>
         </ScrollViewer>
