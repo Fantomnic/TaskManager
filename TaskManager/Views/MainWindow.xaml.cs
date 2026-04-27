@@ -176,8 +176,7 @@ namespace TaskManager.Views
                 }
             }
 
-            // TODO: Тут можно настроить порядок заполнения, например, по дате
-            foreach (var additionalSection in additionalSections)
+            foreach (var additionalSection in additionalSections.OrderBy(s => s.CreationDate))
             {
                 try
                 {

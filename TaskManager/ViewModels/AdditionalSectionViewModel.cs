@@ -9,8 +9,6 @@ namespace TaskManager.ViewModels
     {
         internal AdditionalSectionViewModel(AdditionalSection section) : base(section)
         {
-            //AllTasksViewModels = [.. section.Tasks.Select(CreateTaskViewModel)];
-
             var masterSectionViewModel = Helper.MasterSectionViewModel;
 
             List<TaskObjectViewModel> rootTasksViewModels = [.. section.Tasks.Where(t => t.Parent is null).Select(masterSectionViewModel.FindTaskViewModel).Where(vm => vm is not null)];

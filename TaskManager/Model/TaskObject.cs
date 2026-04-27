@@ -12,7 +12,6 @@ namespace TaskManager.Model
     {
         internal TaskObject(TaskPriorityBase priority, TaskType type) : base()
         {
-            CreationDate = DateTime.Now;
             Status = TaskStatusesInstances.WaitingStatus;
             Priority = priority;
             Type = type;
@@ -20,9 +19,6 @@ namespace TaskManager.Model
         }
 
         #region Свойства
-
-        [DataMember]
-        internal DateTime CreationDate { get; set; }
 
         [DataMember]
         internal DateTime EndDate { get; set; }

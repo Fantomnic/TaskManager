@@ -13,7 +13,11 @@ namespace TaskManager.Model.BaseClasses
         public BaseObject()
         {
             CreateGuid();
+            CreationDate = DateTime.Now;
         }
+
+        [DataMember]
+        internal DateTime CreationDate { get; set; }
 
         [DataMember]
         protected internal Guid Guid { get; protected set; }
