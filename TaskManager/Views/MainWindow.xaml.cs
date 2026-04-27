@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -101,47 +101,117 @@ namespace TaskManager.Views
 
         private void LoadData()
         {
-            string dataDirectory = Helper.GetDataDirectory(Enums.DataDirectory.Root, false);
+            // Сначала копируем файлы из FinishedSections в SourceSections
+            string finishedDirectory = Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections, false);
+            string sourceDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
 
-            if (String.IsNullOrEmpty(dataDirectory))
+            List<string> sourceFiles;
+
+            if (String.IsNullOrEmpty(finishedDirectory))
+            {
+                sourceFiles = [.. Helper.GetAppFiles(sourceDirectory).Select(f => f.FullName)];
+            }
+            else
+            {
+                var finishedFiles = Helper.GetAppFiles(finishedDirectory);
+                ClearDirectory(sourceDirectory);
+                sourceFiles = MoveToDirectory(finishedFiles, sourceDirectory);
+            }
+
+            if (sourceFiles.Count == 0)
                 return;
 
-            var allSectionsFiles = Directory.GetFiles(dataDirectory).Where(f => String.Equals(Path.GetExtension(f), Constants.DataExtension)).ToList();
+            // Теперь считываем информацию
+            string etalonMasterSectionFile = nameof(MasterSection) + Constants.DataExtension;
 
-            if (allSectionsFiles.Count == 0)
+            var masterSectionFile = sourceFiles.FirstOrDefault(f => f.Contains(etalonMasterSectionFile));
+            bool masterSectionInitialized = false;
+
+            if (!String.IsNullOrEmpty(masterSectionFile))
+            {
+                try
+                {
+                    var masterSerialiser = new DataContractSerializer(typeof(MasterSection), [typeof(TaskObject)]);
+
+                    using var stream = new FileStream(masterSectionFile, FileMode.Open);
+                    var value = masterSerialiser.ReadObject(stream);
+
+                    if (value is MasterSection masterSection)
+                    {
+                        var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
+                        InitializeMasterSectionView(masterSectionViewModel);
+                        masterSectionInitialized = true;
+                    }
+                }
+                catch
+                {
+                    // TODO
+                }
+            }
+
+            if (!masterSectionInitialized)
+                InitializeData();
+
+            var additionalSectionsFiles = sourceFiles.Except([masterSectionFile]).ToList();
+
+            if (additionalSectionsFiles.Count == 0)
                 return;
 
-#pragma warning disable SYSLIB0011 // Type or member is obsolete
-            var serialiser = new BinaryFormatter();
-#pragma warning restore SYSLIB0011 // Type or member is obsolete
-
+            var additionalSerialiser = new DataContractSerializer(typeof(AdditionalSection), [typeof(TaskObject)]);
             var additionalSections = new List<AdditionalSection>();
 
-            // Первым должен инициализоваться основной раздел
-            foreach (string sectionFile in allSectionsFiles)
+            foreach (string sectionFile in additionalSectionsFiles)
             {
-                using var stream = new FileStream(sectionFile, FileMode.OpenOrCreate);
-                var value = serialiser.Deserialize(stream);
+                try
+                {
+                    using var stream = new FileStream(sectionFile, FileMode.Open);
+                    var value = additionalSerialiser.ReadObject(stream);
 
-                if (value is AdditionalSection additionalSection)
-                {
-                    additionalSections.Add(additionalSection);
+                    if (value is AdditionalSection additionalSection)
+                        additionalSections.Add(additionalSection);
                 }
-                else if (value is MasterSection masterSection)
+                catch
                 {
-                    var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
-                    InitializeMasterSectionView(masterSectionViewModel);
+                    // TODO
                 }
-                ;
             }
 
-            InitializeData();
-
+            // TODO: Тут можно настроить порядок заполнения, например, по дате
             foreach (var additionalSection in additionalSections)
             {
-                var additionalSectionViewModel = MainViewModel.CreateAdditionalSectionViewModel(additionalSection);
-                NewSectionCommand.AddSectionCore(MainViewModel, sections.Items, additionalSectionViewModel, false);
+                try
+                {
+                    var additionalSectionViewModel = MainViewModel.CreateAdditionalSectionViewModel(additionalSection);
+                    NewSectionCommand.AddSectionCore(MainViewModel, sections.Items, additionalSectionViewModel, false);
+                }
+                catch
+                {
+                    // TODO
+                }
             }
+        }
+
+        private static List<string> MoveToDirectory(List<FileInfo> finishedFiles, string targetDirectoryPath)
+        {
+            var result = new List<string>(finishedFiles.Count);
+
+            foreach (var file in finishedFiles)
+            {
+                string fileName = file.Name;
+                string newPath = Path.Combine(targetDirectoryPath, fileName);
+
+                try
+                {
+                    File.Move(file.FullName, newPath, true);
+                    result.Add(newPath);
+                }
+                catch
+                {
+                    // TODO
+                }
+            }
+
+            return result;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -159,8 +229,25 @@ namespace TaskManager.Views
 
         private void SaveData()
         {
+            ClearDirectory(Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections));
+
             foreach (var sections in MainViewModel.ModelData.AllSections)
-                sections.Serialize(Enums.DataDirectory.Root);
+                sections.Serialize(Enums.DataDirectory.FinishedSections);
+        }
+
+        private static void ClearDirectory(string directoryPath)
+        {
+            foreach (var file in Helper.GetAppFiles(directoryPath))
+            {
+                try
+                {
+                    file.Delete();
+                }
+                catch
+                {
+                    // TODO
+                }
+            }
         }
 
         #region Отображение

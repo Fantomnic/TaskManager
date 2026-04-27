@@ -7,28 +7,9 @@ using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
-    [Serializable]
+    [DataContract]
     internal class TaskObject : BaseObject
     {
-        protected TaskObject(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            CreationDate = info.GetDateTime(nameof(CreationDate));
-            EndDate = info.GetDateTime(nameof(EndDate));
-            Type = (TaskType)info.GetValue(nameof(Type), typeof(TaskType));
-
-            int taskStatusID = info.GetInt32(nameof(TaskStatusID));
-            Status = TaskStatusesInstances.GetTaskStatus(taskStatusID);
-
-            int taskPriorityID = info.GetInt32(nameof(TaskPriorityID));
-            Priority = TaskPrioritiesInstances.GetTaskPriority(taskPriorityID);
-
-            Description = info.GetString(nameof(Description));
-            Comment = info.GetString(nameof(Comment));
-            //AdditionalSection = (AdditionalSection?)info.GetValue(nameof(AdditionalSection), typeof(AdditionalSection));
-            Parent = (TaskObject?)info.GetValue(nameof(Parent), typeof(TaskObject));
-            Children = (List<TaskObject>)info.GetValue(nameof(Children), typeof(List<TaskObject>));
-        }
-
         internal TaskObject(TaskPriorityBase priority, TaskType type) : base()
         {
             CreationDate = DateTime.Now;
@@ -40,22 +21,37 @@ namespace TaskManager.Model
 
         #region Свойства
 
+        [DataMember]
         internal DateTime CreationDate { get; set; }
 
+        [DataMember]
         internal DateTime EndDate { get; set; }
 
+        [DataMember]
         internal TaskType Type { get; set; }
 
         internal TaskStatusBase Status { get; set; }
 
-        internal int TaskStatusID => Status.ID;
+        [DataMember]
+        internal int TaskStatusID
+        {
+            get => Status.ID;
+            set => Status = TaskStatusesInstances.AllStatuses.First(s => s.ID == value);
+        }
 
         internal TaskPriorityBase Priority { get; set; }
 
-        internal int TaskPriorityID => Priority.ID;
+        [DataMember]
+        internal int TaskPriorityID
+        {
+            get => Priority.ID;
+            set => Priority = TaskPrioritiesInstances.AllPriorities.First(p => p.ID == value);
+        }
 
+        [DataMember]
         internal string Description { get; set; }
 
+        [DataMember]
         internal string Comment { get; set; }
 
         /// <summary>Неосновной раздел, к которому принадлежит задача</summary>
@@ -64,8 +60,10 @@ namespace TaskManager.Model
 
         internal bool IsNew { get; set; }
 
+        [DataMember]
         internal TaskObject? Parent { get; set; }
 
+        [DataMember]
         internal List<TaskObject> Children { get; set; } = [];
 
         #endregion Свойства
@@ -109,21 +107,5 @@ namespace TaskManager.Model
 
         /// <summary>Указывает, содержит ли задача указанную задачу</summary>
         internal bool ContainsChild(TaskObject task) => Children.Contains(task, new BaseComparer());
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue(nameof(CreationDate), CreationDate);
-            info.AddValue(nameof(EndDate), EndDate);
-            info.AddValue(nameof(Type), Type);
-            info.AddValue(nameof(TaskStatusID), TaskStatusID);
-            info.AddValue(nameof(TaskPriorityID), TaskPriorityID);
-            info.AddValue(nameof(Description), Description);
-            info.AddValue(nameof(Comment), Comment);
-            //info.AddValue(nameof(AdditionalSection), AdditionalSection);
-            info.AddValue(nameof(Parent), Parent);
-            info.AddValue(nameof(Children), Children);
-        }
     }
 }

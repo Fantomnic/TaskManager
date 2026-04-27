@@ -6,21 +6,9 @@ using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
 {
-    [Serializable]
+    [DataContract]
     internal abstract class Section : BaseObject
     {
-        protected Section(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            Tasks = (List<TaskObject>)info.GetValue(nameof(Tasks), typeof(List<TaskObject>));
-            DefaultTaskType = (TaskType)info.GetValue(nameof(DefaultTaskType), typeof(TaskType));
-
-            int defaultPriorityID = info.GetInt32(nameof(DefaultPriorityID));
-            DefaultPriority = TaskPrioritiesInstances.GetTaskPriority(defaultPriorityID);
-
-            Comment = info.GetString(nameof(Comment));
-            DefaultReleaseDays = info.GetInt32(nameof(DefaultReleaseDays));
-        }
-
         public Section(string name) : base()
         {
             Name = name;
@@ -31,17 +19,26 @@ namespace TaskManager.Model
 
         internal abstract bool IsMasterSection { get; }
 
+        [DataMember]
         /// <summary>Все задачи раздела</summary>
-        internal List<TaskObject> Tasks { get; } = [];
+        internal List<TaskObject> Tasks { get; private set; } = [];
 
+        [DataMember]
         internal TaskType DefaultTaskType { get; set; }
 
         internal TaskPriorityBase DefaultPriority { get; set; }
 
-        internal int DefaultPriorityID => DefaultPriority.ID;
+        [DataMember]
+        internal int DefaultPriorityID
+        {
+            get => DefaultPriority.ID;
+            set => DefaultPriority = TaskPrioritiesInstances.AllPriorities.First(p => p.ID == value);
+        }
 
+        [DataMember]
         internal string Comment { get; set; }
 
+        [DataMember]
         internal int DefaultReleaseDays { get; set; }
 
         #endregion Свойства
@@ -71,16 +68,5 @@ namespace TaskManager.Model
         internal virtual bool RemoveTask(TaskObject task) => Tasks.RemoveAll(t => t.Guid == task.Guid) > 0;
 
         internal bool ContainsTask(TaskObject task) => Tasks.Contains(task, new BaseComparer());
-        
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue(nameof(Tasks), Tasks);
-            info.AddValue(nameof(DefaultTaskType), DefaultTaskType);
-            info.AddValue(nameof(DefaultPriorityID), DefaultPriorityID);
-            info.AddValue(nameof(Comment), Comment);
-            info.AddValue(nameof(DefaultReleaseDays), DefaultReleaseDays);
-        }
     }
 }

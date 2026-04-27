@@ -10,8 +10,9 @@ namespace TaskManager.Resources
 
         public const string DataDirectoty = "Data";
         public const string TasksDirectoty = "Tasks";
-        public const string SectionsDirectoty = "Sections";
-        public const string DataExtension = ".dtmo";
+        public const string SourceSectionsDirectoty = "SourceSections";
+        public const string FinishedSectionsDirectoty = "FinishedSections";
+        public const string DataExtension = ".dtmx";
 
         #region Текст
 

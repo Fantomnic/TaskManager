@@ -33,7 +33,7 @@ namespace TaskManager.Helpers
 
         internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
         {
-            for (int i = 0; i < 1000;)
+            for (int i = 0; i < 10000;)
             {
                 string result = $"{targetString} {++i}";
 
@@ -43,8 +43,7 @@ namespace TaskManager.Helpers
                 return result;
             }
 
-            // TODO: Обработка исключений
-            throw new Exception("Ааааа!");
+            throw new WarningException("Достигнут лимит инкрементирования");
         }
 
         internal static string GetDataDirectory(DataDirectory dataDirectoryType, bool createIfNotExists = true)
@@ -56,8 +55,8 @@ namespace TaskManager.Helpers
             string targetDirectory = dataDirectoryType switch
             {
                 DataDirectory.Root => dataDirectory,
-                DataDirectory.Tasks => Path.Combine(dataDirectory, Constants.TasksDirectoty),
-                DataDirectory.Sections => Path.Combine(dataDirectory, Constants.SectionsDirectoty),
+                DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsDirectoty),
+                DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsDirectoty),
                 _ => throw new NotImplementedException()
             };
 
@@ -78,7 +77,7 @@ namespace TaskManager.Helpers
             if (target == GenereateGuidTarget.None)
                 return result;
 
-            IEnumerable<BaseSerializableObject> collection = target switch
+            IEnumerable<BaseObject> collection = target switch
             {
                 GenereateGuidTarget.Task => ModelData.BaseSection.Tasks,
                 GenereateGuidTarget.Section => ModelData.AllSections,
@@ -92,6 +91,12 @@ namespace TaskManager.Helpers
                 else
                     return result;
             }
+        }
+
+        internal static List<FileInfo> GetAppFiles(string directoryPath)
+        {
+            var directoryInfo = new DirectoryInfo(directoryPath);
+            return [.. directoryInfo.GetFiles().Where(f => String.Equals(f.Extension, Constants.DataExtension))];
         }
 
         internal static T GetCommandInstance<T>() where T : BaseCommand

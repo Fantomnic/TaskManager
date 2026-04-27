@@ -1,20 +1,18 @@
 ﻿using System.Runtime.Serialization;
 using TaskManager.Helpers.Exceptions;
+using TaskManager.Resources;
 
 namespace TaskManager.Model
 {
-    [Serializable]
+    [DataContract]
     internal sealed class MasterSection : Section
     {
-        private MasterSection(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-
-        }
-
         internal MasterSection(string name) : base(name)
         {
 
         }
+
+        internal override string FileName => nameof(MasterSection) + Constants.DataExtension;
 
         internal override bool IsMasterSection => true;
 
@@ -32,11 +30,6 @@ namespace TaskManager.Model
         internal override bool RemoveTask(TaskObject task)
         {
             throw new WarningException("Нельзя удалить задачу из основного раздела");
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
         }
     }
 }

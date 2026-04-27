@@ -24,8 +24,8 @@ namespace TaskManager.Commands
             {
                 mainWindow.sections.Items.Remove(tabItem);
 
-                string targetDirectory = Helper.GetDataDirectory(Enums.DataDirectory.Root);
-                string fileName = Path.Combine(targetDirectory, sectionViewModel.Section.Guid + Constants.DataExtension);
+                string targetDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
+                string fileName = Path.Combine(targetDirectory, sectionViewModel.Section.FileName);
 
                 File.Delete(fileName);
             }

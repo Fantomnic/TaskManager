@@ -29,9 +29,8 @@
         internal enum DataDirectory
         {
             Root,
-            Tasks,
-            Sections,
-            Settings,
+            SourceSections,
+            FinishedSections,
         }
 
         internal enum GenereateGuidTarget
