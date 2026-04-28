@@ -19,6 +19,7 @@ namespace TaskManager.ViewModels
         private ObservableCollection<TaskObjectViewModel> _childrenViewModels = [];
         private bool _isSelected;
         private bool _calendarIsEnabled;
+        private bool _isExpired;
 
         //public TaskObjectViewModel()
         //{
@@ -148,6 +149,17 @@ namespace TaskManager.ViewModels
                 OnPropertyChanged(nameof(IsNew));
             }
         }
+
+        public bool IsExpired
+        {
+            get => _isExpired;
+            set
+            {
+                _isExpired = value;
+                OnPropertyChanged(nameof(IsExpired));
+            }
+        }
+
 
         public TaskObjectViewModel? ParentViewModel
         {

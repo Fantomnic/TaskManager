@@ -231,6 +231,7 @@ namespace TaskManager.Views
             LoadData();
             InitializeData();
             Settings.FillFromConfig();
+            UpdateDateTimer.Start();
         }
 
         // TODO: Изменить на событие перед закрытием

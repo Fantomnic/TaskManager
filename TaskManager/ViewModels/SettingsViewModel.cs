@@ -14,6 +14,7 @@ namespace TaskManager.ViewModels
         private string _defaultTaskName;
         private bool _confirmDeleteSection;
         private bool _confirmCompleteTask;
+        private bool _autoRenewalTasks;
         private FontSet _fontSettings;
         private Themes _theme;
 
@@ -27,6 +28,7 @@ namespace TaskManager.ViewModels
             _defaultTaskName = Settings.DefaultTaskName;
             _confirmDeleteSection = Settings.ConfirmDeleteSection;
             _confirmCompleteTask = Settings.ConfirmCompleteTask;
+            _autoRenewalTasks = Settings.AutoRenewalTasks;
             _theme = Settings.Theme;
 
             var currentFont = Settings.FontSettings;
@@ -111,6 +113,16 @@ namespace TaskManager.ViewModels
             {
                 _confirmCompleteTask = value;
                 OnPropertyChanged(nameof(ConfirmCompleteTask));
+            }
+        }
+
+        public bool AutoRenewalTasks
+        {
+            get => _autoRenewalTasks;
+            set
+            {
+                _autoRenewalTasks = value;
+                OnPropertyChanged(nameof(AutoRenewalTasks));
             }
         }
 

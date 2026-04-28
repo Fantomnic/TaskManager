@@ -63,5 +63,27 @@ namespace TaskManager.ViewModels
 
             SelectedTaskViewModel = VisibleTasksViewModels.FirstOrDefault(vm => vm.TaskObject == currentTask);
         }
+
+        internal void MidnightUpdateTasks()
+        {
+            var nowDate = DateTime.Now.Date;
+
+            foreach (var taskViewModel in AllTasksViewModels.Where(t => t.TaskStatus.CalendarIsEnabled))
+            {
+                if (taskViewModel.EndDate >= nowDate)
+                    continue;
+
+                if (Settings.AutoRenewalTasks)
+                {
+                    int offset = taskViewModel.AdditionalSectionViewModel?.DefaultReleaseDays ?? DefaultReleaseDays;
+
+                    taskViewModel.EndDate = nowDate.AddDays(offset);
+                    taskViewModel.IsExpired = false;
+                    continue;
+                }
+
+                taskViewModel.IsExpired = true;
+            }
+        }
     }
 }

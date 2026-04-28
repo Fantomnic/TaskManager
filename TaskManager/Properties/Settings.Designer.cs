@@ -322,5 +322,17 @@ namespace TaskManager.Properties {
                 this["ConfirmCompleteTask"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoRenewalTasks {
+            get {
+                return ((bool)(this["AutoRenewalTasks"]));
+            }
+            set {
+                this["AutoRenewalTasks"] = value;
+            }
+        }
     }
 }

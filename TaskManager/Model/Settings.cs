@@ -50,6 +50,7 @@ namespace TaskManager.Model
 
         internal static bool ConfirmCompleteTask { get; set; }
 
+        internal static bool AutoRenewalTasks { get; set; }
 
         internal static void FillFromViewModel(SettingsViewModel settingsViewModel)
         {
@@ -61,6 +62,8 @@ namespace TaskManager.Model
             DefaultTaskName = settingsViewModel.DefaultTaskName;
             ConfirmDeleteSection = settingsViewModel.ConfirmDeleteSection;
             ConfirmCompleteTask = settingsViewModel.ConfirmCompleteTask;
+            AutoRenewalTasks = settingsViewModel.AutoRenewalTasks;
+
             FontSettings.CopyFrom(settingsViewModel.FontSettings);
             ChangeTheme(settingsViewModel.Theme);
         }
@@ -79,6 +82,7 @@ namespace TaskManager.Model
             DefaultTaskName = "Новая задача";
             ConfirmDeleteSection = true;
             ConfirmCompleteTask = true;
+            AutoRenewalTasks = false;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = true;
             TaskStatusesInstances.CompletedStatus.TaskVisible = true;
@@ -114,6 +118,7 @@ namespace TaskManager.Model
             DefaultTaskName = _appSettings.DefaultTaskName;
             ConfirmDeleteSection = _appSettings.ConfirmDeleteSection;
             ConfirmCompleteTask = _appSettings.ConfirmCompleteTask;
+            AutoRenewalTasks = _appSettings.AutoRenewalTasks;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
             TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
@@ -150,6 +155,7 @@ namespace TaskManager.Model
             _appSettings.DefaultTaskName = DefaultTaskName;
             _appSettings.ConfirmDeleteSection = ConfirmDeleteSection;
             _appSettings.ConfirmCompleteTask = ConfirmCompleteTask;
+            _appSettings.AutoRenewalTasks = AutoRenewalTasks;
 
             _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
             _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;

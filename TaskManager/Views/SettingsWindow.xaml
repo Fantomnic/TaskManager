@@ -106,10 +106,12 @@
                     </DockPanel>
                     
                     <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
-                                                Style="{StaticResource BaseCheckBox}">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
+                                                Style="{StaticResource BaseCheckBox}"
+                                                IsChecked="{Binding AutoRenewalTasks}">Автоматически продлевать срок</ctrl:CheckBoxWithItemStyle>
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="6" Grid.ColumnSpan="2"
-                            Style="{StaticResource BaseCheckBox}" IsChecked="{Binding ConfirmCompleteTask}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
+                                                Style="{StaticResource BaseCheckBox}"
+                                                IsChecked="{Binding ConfirmCompleteTask}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
         </StackPanel>
