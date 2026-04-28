@@ -60,7 +60,7 @@ namespace TaskManager.Model.BaseClasses
 
         public static bool operator ==(BaseObject? baseObject1, BaseObject? baseObject2) => baseObject1?.Guid == baseObject2?.Guid;
 
-        public static bool operator !=(BaseObject? baseObject1, BaseObject? baseObject2) => baseObject1?.Guid != baseObject2?.Guid;
+        public static bool operator !=(BaseObject? baseObject1, BaseObject? baseObject2) => !(baseObject1 == baseObject2);
 
         internal class BaseComparer : IEqualityComparer<BaseObject>
         {

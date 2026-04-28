@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskPriorities;
 using static TaskManager.Helpers.Enums;
@@ -200,8 +199,8 @@ namespace TaskManager.ViewModels
         //    return filteredList;
         //}
 
-        public static bool operator ==(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => sectionViewModel1?.Section == sectionViewModel2?.Section;
+        public static bool operator ==(SectionViewModel? sectionViewModel1, SectionViewModel? sectionViewModel2) => sectionViewModel1?.Section == sectionViewModel2?.Section;
 
-        public static bool operator !=(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => sectionViewModel1?.Section != sectionViewModel2?.Section;
+        public static bool operator !=(SectionViewModel sectionViewModel1, SectionViewModel sectionViewModel2) => !(sectionViewModel1 == sectionViewModel2);
     }
 }

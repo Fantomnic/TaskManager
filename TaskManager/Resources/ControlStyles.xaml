@@ -68,6 +68,9 @@
             <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
                 <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
             </DataTrigger>
+            <DataTrigger Binding="{Binding IsExpired}" Value="True">
+                <Setter Property="BorderBrush" Value="Red"></Setter>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -100,6 +103,9 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
                 <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsExpired}" Value="True">
+                <Setter Property="BorderBrush" Value="Red"></Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>

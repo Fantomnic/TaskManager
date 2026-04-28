@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.ViewModels
@@ -20,11 +18,6 @@ namespace TaskManager.ViewModels
         private bool _isSelected;
         private bool _calendarIsEnabled;
         private bool _isExpired;
-
-        //public TaskObjectViewModel()
-        //{
-        //    TaskObject = new() { Name = Settings.GetDefaultTaskName() };
-        //}
 
         internal TaskObjectViewModel(TaskObject taskObject)
         {
@@ -347,10 +340,10 @@ namespace TaskManager.ViewModels
             return null;
         }
 
-        public static bool operator ==(TaskObjectViewModel taskObjectViewModel1, TaskObjectViewModel taskObjectViewModel2)
+        public static bool operator ==(TaskObjectViewModel? taskObjectViewModel1, TaskObjectViewModel? taskObjectViewModel2)
             => taskObjectViewModel1?.TaskObject == taskObjectViewModel2?.TaskObject;
 
-        public static bool operator !=(TaskObjectViewModel taskObjectViewModel1, TaskObjectViewModel taskObjectViewModel2)
-            => taskObjectViewModel1?.TaskObject != taskObjectViewModel2?.TaskObject;
+        public static bool operator !=(TaskObjectViewModel? taskObjectViewModel1, TaskObjectViewModel? taskObjectViewModel2)
+            => !(taskObjectViewModel1 == taskObjectViewModel2);
     }
 }

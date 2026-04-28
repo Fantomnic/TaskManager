@@ -64,6 +64,9 @@ namespace TaskManager.Model
             ConfirmCompleteTask = settingsViewModel.ConfirmCompleteTask;
             AutoRenewalTasks = settingsViewModel.AutoRenewalTasks;
 
+            if (AutoRenewalTasks)
+                Helper.MasterSectionViewModel.MidnightUpdateTasks();
+
             FontSettings.CopyFrom(settingsViewModel.FontSettings);
             ChangeTheme(settingsViewModel.Theme);
         }

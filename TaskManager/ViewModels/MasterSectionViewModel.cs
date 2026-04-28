@@ -66,18 +66,18 @@ namespace TaskManager.ViewModels
 
         internal void MidnightUpdateTasks()
         {
-            var nowDate = DateTime.Now.Date;
+            var nowDay = DateTime.Now.Date;
 
             foreach (var taskViewModel in AllTasksViewModels.Where(t => t.TaskStatus.CalendarIsEnabled))
             {
-                if (taskViewModel.EndDate >= nowDate)
+                if (taskViewModel.EndDate >= nowDay)
                     continue;
 
                 if (Settings.AutoRenewalTasks)
                 {
                     int offset = taskViewModel.AdditionalSectionViewModel?.DefaultReleaseDays ?? DefaultReleaseDays;
 
-                    taskViewModel.EndDate = nowDate.AddDays(offset);
+                    taskViewModel.EndDate = nowDay.AddDays(offset);
                     taskViewModel.IsExpired = false;
                     continue;
                 }

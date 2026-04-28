@@ -47,7 +47,20 @@ namespace TaskManager.Helpers
                     return;
 
                 timer.Stop();
-                Helper.MasterSectionViewModel.MidnightUpdateTasks();
+
+                try
+                {
+                    Helper.MasterSectionViewModel.MidnightUpdateTasks();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    // Запускаем новый день
+                    Start();
+                }
             }
         }
     }
