@@ -78,7 +78,6 @@ namespace TaskManager.ViewModels
                     int offset = taskViewModel.AdditionalSectionViewModel?.DefaultReleaseDays ?? DefaultReleaseDays;
 
                     taskViewModel.EndDate = nowDay.AddDays(offset);
-                    taskViewModel.IsExpired = false;
                     continue;
                 }
 

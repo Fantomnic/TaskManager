@@ -57,6 +57,7 @@ namespace TaskManager.ViewModels
             set
             {
                 TaskObject.EndDate = value;
+                IsExpired = TaskObject.EndDate < DateTime.Now.Date;
                 OnPropertyChanged(nameof(EndDate));
             }
         }
