@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="TaskManager.Installer" Language="1033" Version="1.0.0.0" Manufacturer="None" UpgradeCode="652a1125-a9f0-4a4c-95ae-2446931c93ad">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="TaskManager.Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <!--<ComponentRef Id="ApplicationShortcut"/>-->
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="TaskManager" />
+			</Directory>
+      <!--<Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="TaskManager"/>
+      </Directory>-->
+    </Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ProductComponent">
+        <File Source="$(var.TaskManager.TargetPath)" />
+      </Component>
+      <Component Id="WinFormsHelperComponent">
+        <File Source="$(var.WinFormsHelper.TargetPath)" />
+      </Component>
+		</ComponentGroup>
+	</Fragment>
+
+  <!--<Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="4285672b-9f23-441a-bc3a-e2f1b7409f91">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Task Manager"
+                  Target="[#TaskManager.exe]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\OpenSource\TaskManager" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>-->
+</Wix>
