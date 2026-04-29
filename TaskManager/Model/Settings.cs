@@ -133,6 +133,8 @@ namespace TaskManager.Model
             MaxSectionLength = _appSettings.MaxSectionLength;
             MaxTaskLength = _appSettings.MaxTaskLength;
 
+            Helper.MasterSectionViewModel.MidnightUpdateTasks();
+
             TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
             TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
             TaskStatusesInstances.DeferredStatus.TaskVisible = _appSettings.DeferredStatusVisible;

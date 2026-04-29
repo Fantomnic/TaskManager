@@ -28,7 +28,8 @@
                                  ItemContainerStyle="{StaticResource AdditionalTaskItem}"
                                  SelectedItemChanged="StretchingTreeViewSelectedItemChanged"
                                  MouseDown="TasksContainerMouseDown"
-                                 Background="{DynamicResource InnerBackground}">
+                                 Background="{DynamicResource InnerBackground}"
+                                 Padding="{x:Static res:Constants.UniformMarginBase}">
             <ctrl:StretchingTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenViewModels}">
                     <TextBlock Style="{StaticResource TaskItemWithTextIndication}" Text="{Binding Path=Name}"></TextBlock>
