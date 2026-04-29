@@ -334,5 +334,29 @@ namespace TaskManager.Properties {
                 this["AutoRenewalTasks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int MaxSectionLength {
+            get {
+                return ((int)(this["MaxSectionLength"]));
+            }
+            set {
+                this["MaxSectionLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int MaxTaskLength {
+            get {
+                return ((int)(this["MaxTaskLength"]));
+            }
+            set {
+                this["MaxTaskLength"] = value;
+            }
+        }
     }
 }

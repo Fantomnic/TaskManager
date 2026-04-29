@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Views
@@ -30,6 +31,12 @@ namespace TaskManager.Views
             if (String.IsNullOrWhiteSpace(name))
             {
                 UIHelper.ShowMessage("Наименование задачи не может быть пустым", MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (name.Length > Settings.MaxTaskLength)
+            {
+                UIHelper.ShowMessage($"Наименование задачи не может превышать длину в {Helper.GetNSymbolsString(Settings.MaxTaskLength)}", MessageBoxImage.Warning);
                 return false;
             }
 

@@ -244,7 +244,6 @@
     </Style>
 
     <!-- Базовые шаблоны: https://www.cyberforum.ru/wpf-silverlight/thread2489276.html?ysclid=mobxksrent316690816 -->
-
     <Style TargetType="{x:Type CalendarItem}" BasedOn="{StaticResource BaseStyle}" x:Key="BaseCalendarItem">
         <Setter Property="Margin" Value="0,3,0,3"/>
         <Setter Property="Template">

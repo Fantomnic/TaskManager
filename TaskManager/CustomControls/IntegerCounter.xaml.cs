@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -8,12 +7,14 @@ using TaskManager.Helpers;
 
 namespace TaskManager.CustomControls
 {
+    // TODO: Недоработано под отрицательыне значения
     /// <summary>
     /// Interaction logic for IntegerCounter.xaml
     /// </summary>
     public partial class IntegerCounter : UserControl
     {
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue), typeof(int), typeof(IntegerCounter));
+        public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(nameof(MinValue), typeof(int), typeof(IntegerCounter));
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(int), typeof(IntegerCounter));
         public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(IntegerCounter));
 
@@ -39,6 +40,12 @@ namespace TaskManager.CustomControls
             set => SetValue(MaxValueProperty, value);
         }
 
+        public int MinValue
+        {
+            get => (int)GetValue(MinValueProperty);
+            set => SetValue(MinValueProperty, value);
+        }
+
         public int Value
         {
             get => (int)GetValue(ValueProperty);
@@ -56,7 +63,21 @@ namespace TaskManager.CustomControls
             if (MaxValue == 0)
                 MaxValue = 999;
 
-            DigitalTextTextChangedCore(digitalText);
+            if (MaxValue < MinValue)
+                MaxValue = MinValue;
+
+            SetNewValue(GetValidateValue(Value));
+        }
+
+        private int GetValidateValue(int sourceValue)
+        {
+            if (sourceValue > MaxValue)
+                return MaxValue;
+
+            if (sourceValue < MinValue)
+                return MinValue;
+
+            return sourceValue;
         }
 
         private void DigitalTextSizeChanged(object sender, SizeChangedEventArgs e)
@@ -82,18 +103,23 @@ namespace TaskManager.CustomControls
         {
             string newString = textBox.Text;
 
+            bool needTrim = newString.StartsWith("0") && newString.Length > 1;
+            string trimString = needTrim ? newString.TrimStart('0') : newString;
+
             if (String.IsNullOrWhiteSpace(newString))
             {
-                SetNewValue(0);
+                SetNewValue(MinValue);
                 return;
             }
 
-            if (!Int32.TryParse(textBox.Text, out int newInt))
+            if (!Int32.TryParse(trimString, out int newInt))
                 SetNewValue(Value);
             else if (newInt > MaxValue)
                 SetNewValue(MaxValue);
+            else if (newInt < MinValue)
+                SetNewValue(MinValue);
             else
-                SetNewValue(newInt, false);
+                SetNewValue(newInt, needTrim);
         }
 
         private void UpClick(object sender, RoutedEventArgs e)
@@ -106,7 +132,7 @@ namespace TaskManager.CustomControls
 
         private void DownClick(object sender, RoutedEventArgs e)
         {
-            if (!Int32.TryParse(digitalText.Text, out int currentInt) || currentInt == 0)
+            if (!Int32.TryParse(digitalText.Text, out int currentInt) || currentInt == MinValue)
                 return;
 
             SetNewValue(--currentInt);

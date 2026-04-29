@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.ViewModels;
 
@@ -53,6 +54,12 @@ namespace TaskManager.Views
             if (String.IsNullOrWhiteSpace(name))
             {
                 UIHelper.ShowMessage("Укажите название раздела", MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (name.Length > Settings.MaxSectionLength)
+            {
+                UIHelper.ShowMessage($"Наименование раздела не может превышать длину в {Helper.GetNSymbolsString(Settings.MaxSectionLength)}", MessageBoxImage.Warning);
                 return false;
             }
 

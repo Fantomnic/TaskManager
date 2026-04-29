@@ -1383,7 +1383,6 @@
                             Content="{TemplateBinding Content}">
             </ContentControl>
         </Border>
-        
     </ControlTemplate>
 
     <!-- Шаблон для "статических" кнопок меню в боковой панели -->

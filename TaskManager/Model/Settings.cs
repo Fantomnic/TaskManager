@@ -52,6 +52,10 @@ namespace TaskManager.Model
 
         internal static bool AutoRenewalTasks { get; set; }
 
+        internal static int MaxSectionLength { get; set; }
+
+        internal static int MaxTaskLength { get; set; }
+
         internal static void FillFromViewModel(SettingsViewModel settingsViewModel)
         {
             SetDefaultSectionName = settingsViewModel.SetDefaultSectionName;
@@ -63,6 +67,8 @@ namespace TaskManager.Model
             ConfirmDeleteSection = settingsViewModel.ConfirmDeleteSection;
             ConfirmCompleteTask = settingsViewModel.ConfirmCompleteTask;
             AutoRenewalTasks = settingsViewModel.AutoRenewalTasks;
+            MaxSectionLength = settingsViewModel.MaxSectionLength;
+            MaxTaskLength = settingsViewModel.MaxTaskLength;
 
             if (AutoRenewalTasks)
                 Helper.MasterSectionViewModel.MidnightUpdateTasks();
@@ -86,6 +92,8 @@ namespace TaskManager.Model
             ConfirmDeleteSection = true;
             ConfirmCompleteTask = true;
             AutoRenewalTasks = false;
+            MaxSectionLength = 50;
+            MaxTaskLength = 50;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = true;
             TaskStatusesInstances.CompletedStatus.TaskVisible = true;
@@ -122,6 +130,8 @@ namespace TaskManager.Model
             ConfirmDeleteSection = _appSettings.ConfirmDeleteSection;
             ConfirmCompleteTask = _appSettings.ConfirmCompleteTask;
             AutoRenewalTasks = _appSettings.AutoRenewalTasks;
+            MaxSectionLength = _appSettings.MaxSectionLength;
+            MaxTaskLength = _appSettings.MaxTaskLength;
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
             TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
@@ -159,6 +169,8 @@ namespace TaskManager.Model
             _appSettings.ConfirmDeleteSection = ConfirmDeleteSection;
             _appSettings.ConfirmCompleteTask = ConfirmCompleteTask;
             _appSettings.AutoRenewalTasks = AutoRenewalTasks;
+            _appSettings.MaxSectionLength = MaxSectionLength;
+            _appSettings.MaxTaskLength = MaxTaskLength;
 
             _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
             _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;

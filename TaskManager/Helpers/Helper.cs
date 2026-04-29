@@ -99,6 +99,24 @@ namespace TaskManager.Helpers
             return [.. directoryInfo.GetFiles().Where(f => String.Equals(f.Extension, Constants.DataExtension))];
         }
 
+        // Возвращает текст "n символ(а/ов)" с нужным окончанием
+        internal static string GetNSymbolsString(int count)
+        {
+            if (count >= 5 && count <= 20)
+                return $"{count} символов";
+
+            string countString = count.ToString();
+
+            int lastNumber = Int32.Parse(countString[^1..]);
+
+            return lastNumber switch
+            {
+                1 => $"{count} символ",
+                2 or 3 or 4 => $"{count} символа",
+                _ => $"{count} символов"
+            };
+        }
+
         internal static T GetCommandInstance<T>() where T : BaseCommand
         {
             string key;

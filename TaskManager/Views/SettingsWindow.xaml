@@ -59,7 +59,7 @@
 
                     <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
                         <TextBlock Style="{StaticResource FieldDescription}">Максимальная длина:</TextBlock>
-                        <ctrl:IntegerCounter VerticalAlignment="Center" HorizontalAlignment="Right" MaxValue="255"></ctrl:IntegerCounter>
+                        <ctrl:IntegerCounter VerticalAlignment="Center" HorizontalAlignment="Right" MaxValue="255" MinValue="4" Value="{Binding MaxSectionLength,Mode=TwoWay}"></ctrl:IntegerCounter>
                     </DockPanel>
 
                     <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
@@ -102,7 +102,7 @@
 
                     <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
                         <TextBlock Style="{StaticResource FieldDescription}">Максимальная длина:</TextBlock>
-                        <ctrl:IntegerCounter VerticalAlignment="Center" HorizontalAlignment="Right" MaxValue="255"></ctrl:IntegerCounter>
+                        <ctrl:IntegerCounter VerticalAlignment="Center" HorizontalAlignment="Right" MaxValue="255" MinValue="4" Value="{Binding MaxTaskLength,Mode=TwoWay}"></ctrl:IntegerCounter>
                     </DockPanel>
                     
                     <ctrl:CheckBoxWithItemStyle Grid.Row="5" Grid.ColumnSpan="2"
