@@ -162,19 +162,22 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource TitleDescription}">Описание</TextBlock>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,0,2,0">
                     <Button x:Name="cancelButton" Style="{StaticResource ServiceButton}" Visibility="Collapsed" Click="CancelEditDescription">Отменить</Button>
                     <Button x:Name="editButton" Style="{StaticResource ServiceButton}" Click="EditDescription">Редактировать</Button>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Background="{DynamicResource InnerBackground}">
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2"
+                              Style="{StaticResource MarginScrollViewer}"
+                              VerticalScrollBarVisibility="Auto"
+                              Background="{DynamicResource InnerBackground}">
                     <TextBox x:Name="descriptionField"
                              Style="{StaticResource BaseTextBox}"
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
                              IsReadOnly="True"
-                             Margin="{x:Static res:Constants.UniformMarginBase}"
-                             Text="{Binding Path=Description,UpdateSourceTrigger=PropertyChanged}">
+                             Text="{Binding Path=Description,UpdateSourceTrigger=PropertyChanged}"
+                             Margin="{x:Static res:Constants.UniformMarginBase}">
                     </TextBox>
                 </ScrollViewer>
             </Grid>
@@ -200,16 +203,20 @@
                         Style="{StaticResource ServiceButton}"
                         MinWidth="150" MaxWidth="{x:Static res:Constants.MaxWidthServiceButtonSpecial}"
                         HorizontalAlignment="Right"
-                        Click="AddComment">Добавить комментарий</Button>
+                        Click="AddComment"
+                        Margin="3,2,5,2">Добавить комментарий</Button>
 
-                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Background="{DynamicResource InnerBackground}">
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2"
+                              Style="{StaticResource MarginScrollViewer}"
+                              VerticalScrollBarVisibility="Auto"
+                              Background="{DynamicResource InnerBackground}">
                     <TextBox x:Name="commentsField"
                              Style="{StaticResource BaseTextBox}"
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
                              IsReadOnly="True"
-                             Margin="{x:Static res:Constants.UniformMarginBase}"
-                             Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                             Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged}"
+                             Margin="{x:Static res:Constants.UniformMarginBase}"></TextBox>
                 </ScrollViewer>
             </Grid>
         </Border>

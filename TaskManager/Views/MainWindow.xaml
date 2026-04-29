@@ -21,14 +21,15 @@
         </Grid.ColumnDefinitions>
 
         <!-- Выдвигающееся меню -->
-        <ScrollViewer Style="{DynamicResource BaseScrollViewer}" x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource MenuGradientBackground}"
+        <ScrollViewer x:Name="menu" Panel.ZIndex="1" VerticalScrollBarVisibility="Auto" Background="{DynamicResource MenuGradientBackground}"
                       Width="0" HorizontalAlignment="Left" MouseLeave="MenuMouseLeave">
             <StackPanel>
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource NewSectionCommand}">Добавить раздел</Button>
 
                 <Expander Template="{DynamicResource ExpanderTemplate}"
                           Style="{StaticResource MenuButtonCommon}"
-                          Header="Фильтры">
+                          Header="Фильтры"
+                          IsExpanded="True">
                     <StackPanel>
                         <GroupBox Style="{StaticResource MenuGroupBox}" Header="Индикация">
                             <StackPanel>

@@ -44,6 +44,10 @@
     <SolidColorBrush Color="Black" x:Key="BlackGrayBorder" />
     <SolidColorBrush Color="Black" x:Key="BlackBlueBorder" />
     <SolidColorBrush Color="#FF3168F7" x:Key="TaskItemIsSelectedBorder" />
+
+    <!-- Скорллбар -->
+    <SolidColorBrush Color="White" x:Key="ScrollBarBackground" />
+    <SolidColorBrush Color="#FFEBF3F3" x:Key="ScrollBarElementsBackground" />
     
     <!-- Цвета статусов -->
     <SolidColorBrush Color="#FFDFDFDF" x:Key="WaitingStatusBackground" />
