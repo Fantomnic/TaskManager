@@ -12,11 +12,6 @@ namespace TaskManager.Views
     public partial class SectionPropertyWindow : WindowWithBottomButtons
     {
         private readonly SectionViewModel _sectionViewModel;
-        private string _newSectionName;
-        private string _newComment;
-        private TaskPriorityBase _newDefaultPriority;
-        private Enums.TaskType _newDefaultTaskType;
-        private int _newDefaultReleaseDays;
 
         internal SectionPropertyWindow(SectionViewModel sectionViewModel, bool isNew = false)
         {
@@ -29,22 +24,21 @@ namespace TaskManager.Views
 
         private void InitializeFields()
         {
-            sectionName.Text = _newSectionName = _sectionViewModel.Name;
-            commentField.Text = _newComment = _sectionViewModel.Comment;
-            priorityList.SelectedItem = _newDefaultPriority = _sectionViewModel.DefaultPriority;
-            typeList.SelectedItem = _newDefaultTaskType = _sectionViewModel.DefaultTaskType;
+            sectionName.Text = _sectionViewModel.Name;
+            commentField.Text = _sectionViewModel.Comment;
+            priorityList.SelectedItem = _sectionViewModel.DefaultPriority;
+            typeList.SelectedItem = _sectionViewModel.DefaultTaskType;
 
-            _newDefaultReleaseDays = _sectionViewModel.DefaultReleaseDays;
             endDateCounter.SetNewValue(_sectionViewModel.DefaultReleaseDays);
         }
 
         private void OnCloseWithOK()
         {
-            _newSectionName = sectionName.Text;
-            _newComment = commentField.Text;
-            _newDefaultPriority = (TaskPriorityBase)priorityList.SelectedItem;
-            _newDefaultTaskType = (Enums.TaskType)typeList.SelectedItem;
-            _newDefaultReleaseDays = endDateCounter.Value;
+            _sectionViewModel.Name = sectionName.Text;
+            _sectionViewModel.Comment = commentField.Text;
+            _sectionViewModel.DefaultPriority = (TaskPriorityBase)priorityList.SelectedItem;
+            _sectionViewModel.DefaultTaskType = (Enums.TaskType)typeList.SelectedItem;
+            _sectionViewModel.DefaultReleaseDays = endDateCounter.Value;
         }
 
         protected override bool ValidateOK()
@@ -72,15 +66,6 @@ namespace TaskManager.Views
             OnCloseWithOK();
 
             return true;
-        }
-
-        internal void SaveToViewModel()
-        {
-            _sectionViewModel.Name = _newSectionName;
-            _sectionViewModel.Comment = _newComment;
-            _sectionViewModel.DefaultPriority = _newDefaultPriority;
-            _sectionViewModel.DefaultTaskType = _newDefaultTaskType;
-            _sectionViewModel.DefaultReleaseDays = _newDefaultReleaseDays;
         }
     }
 }

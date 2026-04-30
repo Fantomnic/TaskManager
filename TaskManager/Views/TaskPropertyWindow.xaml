@@ -1,0 +1,50 @@
+﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.TaskPropertyWindow"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:local="clr-namespace:TaskManager.Views"
+                               xmlns:model="clr-namespace:TaskManager.Model"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
+                               mc:Ignorable="d"
+                               Title="Свойства" 
+                               Style="{StaticResource LittleWindow}"
+                               WindowStartupLocation="CenterOwner"
+                               ShowMinMaxButtons="False">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Margin="{x:Static res:Constants.UniformMarginBase}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource FieldDescription}">Наименование:</TextBlock>
+                <TextBox x:Name="taskName" Grid.Column="1" Style="{StaticResource BaseTextBoxAlignmentMargin}"></TextBox>
+
+                <GroupBox Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BaseGroupBox}" VerticalAlignment="Top">
+                    <GroupBox.Header>
+                        <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">О задаче</TextBlock>
+                    </GroupBox.Header>
+                    <local:AboutTaskView></local:AboutTaskView>
+                </GroupBox>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
+        </StackPanel>
+    </Grid>
+</local:WindowWithBottomButtons>

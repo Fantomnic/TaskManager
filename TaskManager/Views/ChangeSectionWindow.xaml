@@ -6,84 +6,25 @@
                                xmlns:local="clr-namespace:TaskManager.Views"
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
-                               xmlns:sys="clr-namespace:System;assembly=mscorlib"
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
-                               Title="Менеджер неосновного раздела задачи" WindowStartupLocation="CenterOwner"
+                               Title="Менеджер неосновного раздела задачи"
+                               WindowStartupLocation="CenterOwner"
                                Style="{StaticResource LittleWindow}"
                                ShowMinMaxButtons="False">
 
-    <!-- Вынес сюда, чтобы привязаться к длине поля через имя ЭУ.
-    Привязка с помощью RelativeSource почему-то не работает -->
-    <local:WindowWithBottomButtons.Resources>
-        <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None" x:Key="PreviewLabel">
-            <VisualBrush.Visual>
-                <Label Content="Нет"
-                       Style="{StaticResource BaseStyle}"
-                       Opacity="0.75"
-                       Background="{DynamicResource FieldBackgroundReadOnly}"
-                       Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
-            </VisualBrush.Visual>
-        </VisualBrush>
-
-        <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxAlignmentMargin}" x:Key="LineTextBoxWithHint">
-            <Style.Triggers>
-                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                    <Setter Property="Background" Value="{StaticResource PreviewLabel}" />
-                </Trigger>
-                <Trigger Property="Text" Value="{x:Null}">
-                    <Setter Property="Background" Value="{StaticResource PreviewLabel}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </local:WindowWithBottomButtons.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <!-- TODO: Сделать GroupBox -->
         <StackPanel>
             <GroupBox Style="{StaticResource BaseGroupBox}">
                 <GroupBox.Header>
                     <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">О задаче</TextBlock>
                 </GroupBox.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
-                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
-                        <RowDefinition MinHeight="{x:Static res:Constants.FieldAreaHeight}"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Style="{StaticResource FieldDescription}">Текущий раздел:</TextBlock>
-                    <TextBox x:Name="sectionTextBox"
-                             Grid.Column="1"
-                             Style="{StaticResource LineTextBoxWithHint}"
-                             IsReadOnly="True"
-                             Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
-                    </TextBox>
-
-                    <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">Входит в задачу:</TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1"
-                             Style="{StaticResource LineTextBoxWithHint}"
-                             IsReadOnly="True"
-                             Text="{Binding Path=ParentViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
-                    </TextBox>
-
-                    <ctrl:CheckBoxWithItemStyle Grid.Row="2" Grid.ColumnSpan="2"
-                              Style="{StaticResource FlowDirectionCheckBox}"
-                              IsChecked="{Binding HasChildren,Mode=OneWay}"
-                              IsEnabled="False"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Left">Имеет подзадачи</ctrl:CheckBoxWithItemStyle>
-                </Grid>
+                <local:AboutTaskView></local:AboutTaskView>
             </GroupBox>
 
             <GroupBox Style="{StaticResource BaseGroupBox}">

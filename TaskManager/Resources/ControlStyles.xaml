@@ -55,6 +55,7 @@
             <Setter.Value>
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
                 <ContextMenu>
+                    <MenuItem Style="{StaticResource ShowTaskPropertyCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource ChangeSectionCommandMenuItem}" IsEnabled="{Binding ChangeSectionEnabled}"></MenuItem>
                     <MenuItem Style="{StaticResource AcceptCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource RejectCommandMenuItem}"></MenuItem>
@@ -82,6 +83,7 @@
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
+                    <MenuItem Style="{StaticResource ShowTaskPropertyCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource ChangeSectionCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource AcceptCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource RejectCommandMenuItem}"></MenuItem>

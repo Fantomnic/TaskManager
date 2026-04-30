@@ -24,6 +24,7 @@
     <cmd:DoneTaskCommand x:Key="DoneTaskCommand" />
     <cmd:CompleteTaskCommand x:Key="CompleteTaskCommand" />
     <cmd:DeleteSectionCommand x:Key="DeleteSectionCommand" />
+    <cmd:ShowTaskPropertyCommand x:Key="ShowTaskPropertyCommand" />
     <cmd:DeleteTaskCommand x:Key="DeleteTaskCommand" />
     <cmd:NewSectionCommand x:Key="NewSectionCommand" />
     <cmd:NewTaskCommand x:Key="NewTaskCommand" />

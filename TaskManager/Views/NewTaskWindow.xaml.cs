@@ -27,26 +27,7 @@ namespace TaskManager.Views
         protected override bool ValidateOK()
         {
             string name = taskName.Text;
-
-            if (String.IsNullOrWhiteSpace(name))
-            {
-                UIHelper.ShowMessage("Наименование задачи не может быть пустым", MessageBoxImage.Warning);
-                return false;
-            }
-
-            if (name.Length > Settings.MaxTaskLength)
-            {
-                UIHelper.ShowMessage($"Наименование задачи не может превышать длину в {Helper.GetNSymbolsString(Settings.MaxTaskLength)}", MessageBoxImage.Warning);
-                return false;
-            }
-
-            if (Helper.GetAllTasks().Select(t => t.Name).Contains(name))
-            {
-                UIHelper.ShowMessage($"Задача с наименованием \"{name}\" уже существует", MessageBoxImage.Warning);
-                return false;
-            }
-
-            return true;
+            return Helper.CheckSaveTaskName(name);
         }
 
         internal void OpenEditDescription() => taskProperty.OpenEditDescription();

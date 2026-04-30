@@ -24,6 +24,12 @@
     </Style>
 
     <!-- Команды контекстного меню для задач -->
+    <!-- Свойства -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="ShowTaskPropertyCommandMenuItem">
+        <Setter Property="Header" Value="Свойства"></Setter>
+        <Setter Property="Command" Value="{StaticResource ShowTaskPropertyCommand}"></Setter>
+    </Style>
+
     <!-- Изменить раздел -->
     <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="ChangeSectionCommandMenuItem">
         <Setter Property="Header" Value="Изменить раздел"></Setter>

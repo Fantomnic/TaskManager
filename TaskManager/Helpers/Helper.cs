@@ -117,6 +117,29 @@ namespace TaskManager.Helpers
             };
         }
 
+        internal static bool CheckSaveTaskName(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                UIHelper.ShowMessage("Наименование задачи не может быть пустым", MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (name.Length > Settings.MaxTaskLength)
+            {
+                UIHelper.ShowMessage($"Наименование задачи не может превышать длину в {Helper.GetNSymbolsString(Settings.MaxTaskLength)}", MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (GetAllTasks().Select(t => t.Name).Contains(name))
+            {
+                UIHelper.ShowMessage($"Задача с наименованием \"{name}\" уже существует", MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
         internal static T GetCommandInstance<T>() where T : BaseCommand
         {
             string key;

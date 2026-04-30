@@ -23,7 +23,6 @@ namespace TaskManager.Commands
             if (windowProperty.ShowDialog() != true)
                 return;
 
-            windowProperty.SaveToViewModel();
             AddSectionCore(mainViewModel, mainWindow.sections.Items, sectionViewModel);
         }
 

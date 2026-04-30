@@ -13,8 +13,7 @@ namespace TaskManager.Commands
 
             var windowProperty = new SectionPropertyWindow(sectionViewModel);
 
-            if (windowProperty.ShowDialog() == true)
-                windowProperty.SaveToViewModel();
+            windowProperty.ShowDialog();
         }
     }
 }
