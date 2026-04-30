@@ -7,6 +7,7 @@
                     xmlns:model="clr-namespace:TaskManager.Model"
                     xmlns:st="clr-namespace:TaskManager.Model.TaskStatuses"
                     xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
+                    xmlns:prop="clr-namespace:TaskManager.Properties"
                     mc:Ignorable="d"
                     Title="Трекер задач" WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
@@ -29,7 +30,7 @@
                 <Expander Template="{DynamicResource ExpanderTemplate}"
                           Style="{StaticResource MenuButtonCommon}"
                           Header="Фильтры"
-                          IsExpanded="True">
+                          IsExpanded="{Binding Source={x:Static prop:Settings.Default},Path=FiltersAreExpanded}">
                     <StackPanel>
                         <GroupBox Style="{StaticResource MenuGroupBox}" Header="Индикация">
                             <StackPanel>

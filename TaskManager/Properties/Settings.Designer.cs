@@ -370,5 +370,17 @@ namespace TaskManager.Properties {
                 this["ConfirmDeleteTask"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FiltersAreExpanded {
+            get {
+                return ((bool)(this["FiltersAreExpanded"]));
+            }
+            set {
+                this["FiltersAreExpanded"] = value;
+            }
+        }
     }
 }
