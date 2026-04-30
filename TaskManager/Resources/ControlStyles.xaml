@@ -61,6 +61,7 @@
                     <MenuItem Style="{StaticResource DeferCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource DoneCommandMenuItem}"></MenuItem>
                     <MenuItem Style="{StaticResource CompleteCommandMenuItem}"></MenuItem>
+                    <MenuItem Style="{StaticResource DeleteTaskCommandMenuItem}"></MenuItem>
                 </ContextMenu>
             </Setter.Value>
         </Setter>

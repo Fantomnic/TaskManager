@@ -48,6 +48,8 @@ namespace TaskManager.Model
 
         internal static bool ConfirmDeleteSection { get; set; }
 
+        internal static bool ConfirmDeleteTask { get; set; }
+
         internal static bool ConfirmCompleteTask { get; set; }
 
         internal static bool AutoRenewalTasks { get; set; }
@@ -65,6 +67,7 @@ namespace TaskManager.Model
             DefaultSectionName = settingsViewModel.DefaultSectionName;
             DefaultTaskName = settingsViewModel.DefaultTaskName;
             ConfirmDeleteSection = settingsViewModel.ConfirmDeleteSection;
+            ConfirmDeleteTask = settingsViewModel.ConfirmDeleteTask;
             ConfirmCompleteTask = settingsViewModel.ConfirmCompleteTask;
             AutoRenewalTasks = settingsViewModel.AutoRenewalTasks;
             MaxSectionLength = settingsViewModel.MaxSectionLength;
@@ -90,6 +93,7 @@ namespace TaskManager.Model
             DefaultSectionName = "Новый раздел";
             DefaultTaskName = "Новая задача";
             ConfirmDeleteSection = true;
+            ConfirmDeleteTask = true;
             ConfirmCompleteTask = true;
             AutoRenewalTasks = false;
             MaxSectionLength = 50;
@@ -128,6 +132,7 @@ namespace TaskManager.Model
             DefaultSectionName = _appSettings.DefaultSectionName;
             DefaultTaskName = _appSettings.DefaultTaskName;
             ConfirmDeleteSection = _appSettings.ConfirmDeleteSection;
+            ConfirmDeleteTask = _appSettings.ConfirmDeleteTask;
             ConfirmCompleteTask = _appSettings.ConfirmCompleteTask;
             AutoRenewalTasks = _appSettings.AutoRenewalTasks;
             MaxSectionLength = _appSettings.MaxSectionLength;
@@ -169,6 +174,7 @@ namespace TaskManager.Model
             _appSettings.DefaultSectionName = DefaultSectionName;
             _appSettings.DefaultTaskName = DefaultTaskName;
             _appSettings.ConfirmDeleteSection = ConfirmDeleteSection;
+            _appSettings.ConfirmDeleteTask = ConfirmDeleteTask;
             _appSettings.ConfirmCompleteTask = ConfirmCompleteTask;
             _appSettings.AutoRenewalTasks = AutoRenewalTasks;
             _appSettings.MaxSectionLength = MaxSectionLength;

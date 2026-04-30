@@ -358,5 +358,17 @@ namespace TaskManager.Properties {
                 this["MaxTaskLength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ConfirmDeleteTask {
+            get {
+                return ((bool)(this["ConfirmDeleteTask"]));
+            }
+            set {
+                this["ConfirmDeleteTask"] = value;
+            }
+        }
     }
 }

@@ -29,7 +29,10 @@ namespace TaskManager.Model
 
         internal override bool RemoveTask(TaskObject task)
         {
-            throw new WarningException("Нельзя удалить задачу из основного раздела");
+            if (task.AdditionalSection is not null)
+                throw new WarningException("Нельзя удалить задачу, которая содержится в неосновном разделе");
+
+            return base.RemoveTask(task);
         }
     }
 }

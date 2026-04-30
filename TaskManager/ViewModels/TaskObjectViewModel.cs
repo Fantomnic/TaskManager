@@ -310,15 +310,26 @@ namespace TaskManager.ViewModels
             return result;
         }
 
-        internal void RemoveAllChildrenViewModels(bool removeParent = false)
+        internal void RemoveAllChildrenViewModels(bool removeParent = false, bool recursive = true)
         {
             foreach (var childViewModel in ChildrenViewModels)
-                childViewModel.RemoveAllChildrenViewModels(true);
+            {
+                if (recursive)
+                    childViewModel.RemoveAllChildrenViewModels(true);
+                else
+                    childViewModel.SetParentViewModel(null);
+            }
 
-            ChildrenViewModels.Clear();
+            RemoveAllChildrenCore();
 
             if (removeParent)
                 SetParentViewModel(null);
+        }
+
+        private void RemoveAllChildrenCore()
+        {
+            TaskObject.Children.Clear();
+            ChildrenViewModels.Clear();
         }
 
         internal TaskObjectViewModel GetRootTaskViewModel()

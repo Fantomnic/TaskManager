@@ -13,6 +13,7 @@ namespace TaskManager.ViewModels
         private string _defaultSectionName;
         private string _defaultTaskName;
         private bool _confirmDeleteSection;
+        private bool _confirmDeleteTask;
         private bool _confirmCompleteTask;
         private bool _autoRenewalTasks;
         internal static int _maxSectionLength;
@@ -29,6 +30,7 @@ namespace TaskManager.ViewModels
             _defaultSectionName = Settings.DefaultSectionName;
             _defaultTaskName = Settings.DefaultTaskName;
             _confirmDeleteSection = Settings.ConfirmDeleteSection;
+            _confirmDeleteTask = Settings.ConfirmDeleteTask;
             _confirmCompleteTask = Settings.ConfirmCompleteTask;
             _autoRenewalTasks = Settings.AutoRenewalTasks;
             _maxSectionLength = Settings.MaxSectionLength;
@@ -107,6 +109,16 @@ namespace TaskManager.ViewModels
             {
                 _confirmDeleteSection = value;
                 OnPropertyChanged(nameof(ConfirmDeleteSection));
+            }
+        }
+
+        public bool ConfirmDeleteTask
+        {
+            get => _confirmDeleteTask;
+            set
+            {
+                _confirmDeleteTask = value;
+                OnPropertyChanged(nameof(ConfirmDeleteTask));
             }
         }
 

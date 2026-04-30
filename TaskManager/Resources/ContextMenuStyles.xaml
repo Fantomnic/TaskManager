@@ -109,6 +109,12 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Удалить задачу -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="DeleteTaskCommandMenuItem">
+        <Setter Property="Header" Value="Удалить"></Setter>
+        <Setter Property="Command" Value="{StaticResource DeleteTaskCommand}"></Setter>
+    </Style>
+
     <!-- Команды контекстного меню для разделов -->
     <!-- Свойства -->
     <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemWithDataContext}" x:Key="PropertyMenuItem">

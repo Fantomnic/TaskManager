@@ -34,7 +34,12 @@ namespace TaskManager.ViewModels
             if (!Section.RemoveTask(taskViewModel.TaskObject))
                 return false;
 
-            if (taskViewModel is not null && AllTasksViewModels.Remove(taskViewModel))
+            if (taskViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
+                parentViewModel.RemoveChildViewModel(taskViewModel);
+
+            taskViewModel.RemoveAllChildrenViewModels(recursive: false);
+
+            if (AllTasksViewModels.Remove(taskViewModel))
                 RefreshVisibleTaskViewModels();
 
             return true;

@@ -119,7 +119,7 @@
                               Grid.Row="1" Grid.ColumnSpan="3"
                               IsEnabled="{Binding ElementName=changeButton,Path=IsChecked}"
                               Style="{StaticResource BaseCheckBox}"
-                              Margin="3,0,3,0">Перенести всю цепочку задач</ctrl:CheckBoxWithItemStyle>
+                              Margin="3,0,3,0">Перенести вместе с родительскими задачами</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
 

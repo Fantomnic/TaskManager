@@ -86,6 +86,8 @@
                         <RowDefinition Height="7"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="7"></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <ctrl:CheckBoxWithItemStyle Grid.ColumnSpan="2"
@@ -112,6 +114,9 @@
                     <ctrl:CheckBoxWithItemStyle Grid.Row="6" Grid.ColumnSpan="2"
                                                 Style="{StaticResource BaseCheckBox}"
                                                 IsChecked="{Binding ConfirmCompleteTask}">Подтверждать завершение</ctrl:CheckBoxWithItemStyle>
+
+                    <ctrl:CheckBoxWithItemStyle Grid.Row="8" Grid.ColumnSpan="2"
+                                                Style="{StaticResource BaseCheckBox}" IsChecked="{Binding ConfirmDeleteTask}">Подтверждать удаление</ctrl:CheckBoxWithItemStyle>
                 </Grid>
             </GroupBox>
         </StackPanel>

@@ -1,4 +1,7 @@
-﻿using TaskManager.Helpers;
+﻿using System.Threading.Tasks;
+using TaskManager.Helpers;
+using TaskManager.Helpers.Exceptions;
+using TaskManager.Model;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Commands
@@ -7,11 +10,17 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            //if (parameter is not TaskObjectViewModel taskObjectViewModel)
-            //    return;
+            if (parameter is not TaskObjectViewModel taskObjectViewModel)
+                return;
 
-            //var currentSection = Helper.MainViewModel.SelectedSectionViewModel;
-            //currentSection.RemoveTask(taskObjectViewModel.TaskObject);
+            if (taskObjectViewModel.AdditionalSectionViewModel is not null)
+                throw new WarningException("Нельзя удалить задачу, которая содержится в неосновном разделе");
+
+            if (Settings.ConfirmDeleteTask && !UIHelper.ShowMessage($"Удалить задачу \"{taskObjectViewModel.Name}\"?", System.Windows.MessageBoxImage.Question))
+                return;
+
+            var masterSectionViewModel = Helper.MasterSectionViewModel;
+            masterSectionViewModel.RemoveTaskViewModel(taskObjectViewModel);
         }
     }
 }
