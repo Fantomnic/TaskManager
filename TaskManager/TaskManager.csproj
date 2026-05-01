@@ -8,6 +8,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>False</UseWindowsForms>
     <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Resources\Icons\TaskManager.ico</ApplicationIcon>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,10 @@
     <None Remove="Resources\Images\DarkPlus.png" />
     <None Remove="Resources\Images\DarkSettingsIcon.png" />
     <None Remove="Resources\Images\QuestionPromo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\TaskManager.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,10 +73,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Icons\" />
   </ItemGroup>
 
 </Project>

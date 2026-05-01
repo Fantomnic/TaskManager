@@ -1,49 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="TaskManager.Installer" Language="1033" Version="1.0.0.0" Manufacturer="None" UpgradeCode="652a1125-a9f0-4a4c-95ae-2446931c93ad">
+  <?define ProductName="TaskManager" ?>
+  <?define Manufacturer="None" ?>
+  
+  <!-- Русский язык: 1033 -> 1049 + ru-RU в свойствах проекта -->
+	<Product Id="*" Name="$(var.ProductName)" Language="1049" Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="652a1125-a9f0-4a4c-95ae-2446931c93ad">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="TaskManager.Installer" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-      <!--<ComponentRef Id="ApplicationShortcut"/>-->
+    <!-- Компоненты программы, которые будут установлены -->
+		<Feature Id="ProductFeature" Title="$(var.ProductName)" Level="1">
+      <!--<ComponentGroupRef Id="ProductComponents" />-->
+      <ComponentRef Id="MainAppComponent"/>
+      <ComponentRef Id="MainAppConfigComponent"/>
+      <ComponentRef Id="ApplicationMenuComponent"/>
 		</Feature>
-	</Product>
 
+    <!-- Ссылка на файл лицензии -->
+    <!--<WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>-->
+
+    <!-- Используем предустановленный набор страниц из WixUIExtension -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION"></Property>
+    <UIRef Id="WixUI_InstallDir"/>
+	</Product>
+  
+  <!-- Директории для установки -->
 	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="TaskManager" />
-			</Directory>
-      <!--<Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="TaskManager"/>
-      </Directory>-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Папка с программой -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)"></Directory>
+      </Directory>
+      <!-- Меню Пуск -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+          <Component Id="ApplicationMenuComponent" Guid="4285672b-9f23-441a-bc3a-e2f1b7409f91">
+            <Shortcut Id="ApplicationMenuShortcut"
+                      Name="Планировщик задач"
+                      Description="$(var.ProductName)"
+                      Target="[INSTALLLOCATION]TaskManager.exe"
+                      WorkingDirectory="INSTALLLOCATION"/>
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKCU"
+                           Key="Software\$(var.Manufacturer)\$(var.ProductName)"
+                           Name="installed"
+                           Type="integer"
+                           Value="1"
+                           KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
     </Directory>
 	</Fragment>
 
+  <!-- Файлы для установки -->
 	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="ProductComponent">
-        <File Source="$(var.TaskManager.TargetPath)" />
+    <DirectoryRef Id="INSTALLLOCATION" FileSource="$(var.TaskManager.TargetDir)publish\win-x86\">
+      <Component Id="MainAppComponent">
+        <File Name="TaskManager.exe" />
       </Component>
-      <Component Id="WinFormsHelperComponent">
-        <File Source="$(var.WinFormsHelper.TargetPath)" />
-      </Component>
-		</ComponentGroup>
-	</Fragment>
-
-  <!--<Fragment>
-    <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" Guid="4285672b-9f23-441a-bc3a-e2f1b7409f91">
-        <Shortcut Id="ApplicationStartMenuShortcut"
-                  Name="Task Manager"
-                  Target="[#TaskManager.exe]"
-                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
-        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
-        <RegistryValue Root="HKCU" Key="Software\OpenSource\TaskManager" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      <Component Id="MainAppConfigComponent">
+        <File Name="TaskManager.dll.config" />
       </Component>
     </DirectoryRef>
-  </Fragment>-->
+	</Fragment>
+
+  <!--<ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
+    <Component Id="MainAppComponent">
+      <File Source="$(var.TaskManager.TargetDir)publish/win-x86/TaskManager.exe" />
+    </Component>
+    <Component Id="MainAppConfigComponent">
+      <File Source="$(var.TaskManager.TargetDir)publish/win-x86/TaskManager.dll.config" />
+    </Component>
+  </ComponentGroup>-->
 </Wix>

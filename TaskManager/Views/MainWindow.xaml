@@ -9,7 +9,7 @@
                     xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                     xmlns:prop="clr-namespace:TaskManager.Properties"
                     mc:Ignorable="d"
-                    Title="Трекер задач" WindowStartupLocation="CenterScreen"
+                    Title="Планировщик задач" WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
                     Loaded="OnLoaded"
                     Closed="OnClosed">
