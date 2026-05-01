@@ -18,8 +18,6 @@ namespace TaskManager.Helpers
 
         internal static MasterSectionViewModel MasterSectionViewModel => MainViewModel.MasterSectionViewModel;
 
-        internal static MainModel ModelData => MainViewModel.ModelData;
-
         internal static Section? GetSectionFromTabItem(TabItem? tabItem)
             => GetSectionViewModelFromTabItem(tabItem)?.Section;
 
@@ -30,7 +28,7 @@ namespace TaskManager.Helpers
 
         internal static List<TaskObjectViewModel> GetAllTasksViewModels() => [.. MasterSectionViewModel.AllTasksViewModels];
 
-        internal static List<TaskObject> GetAllTasks() => [.. ModelData.BaseSection.Tasks];
+        internal static List<TaskObject> GetAllTasks() => [.. DataHelper.ModelData.BaseSection.Tasks];
 
         internal static string GetStringWithCounter(string targetString, IEnumerable<string> sourceStrings)
         {
@@ -47,33 +45,6 @@ namespace TaskManager.Helpers
             throw new WarningException("Достигнут лимит инкрементирования");
         }
 
-        internal static string GetDataDirectory(DataDirectory dataDirectoryType, bool createIfNotExists = true)
-        {
-            // При установке, скажем, в Program Files, потребуется запуск от имени администратора
-            //string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            string appDataSystem = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appDataDirectory = Path.Combine(appDataSystem, Assembly.GetExecutingAssembly().GetName().Name ?? String.Empty);
-            string dataDirectory = Path.Combine(appDataDirectory, Constants.DataFolder);
-
-            string targetDirectory = dataDirectoryType switch
-            {
-                DataDirectory.Root => dataDirectory,
-                DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsFolder),
-                DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsFolder),
-                _ => throw new NotImplementedException()
-            };
-
-            if (Directory.Exists(targetDirectory))
-                return targetDirectory;
-
-            if (!createIfNotExists)
-                return String.Empty;
-
-            Directory.CreateDirectory(targetDirectory);
-            return targetDirectory;
-        }
-
         internal static Guid GenereateGuid(GenereateGuidTarget target)
         {
             Guid result = Guid.NewGuid();
@@ -83,8 +54,8 @@ namespace TaskManager.Helpers
 
             IEnumerable<BaseObject> collection = target switch
             {
-                GenereateGuidTarget.Task => ModelData.BaseSection.Tasks,
-                GenereateGuidTarget.Section => ModelData.AllSections,
+                GenereateGuidTarget.Task => DataHelper.ModelData.BaseSection.Tasks,
+                GenereateGuidTarget.Section => DataHelper.ModelData.AllSections,
                 _ => throw new NotImplementedException()
             };
 

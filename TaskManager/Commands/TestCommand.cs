@@ -6,7 +6,7 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            foreach (var sections in Helper.ModelData.AllSections)
+            foreach (var sections in DataHelper.ModelData.AllSections)
                 sections.Serialize(Enums.DataDirectory.Root);
         }
     }

@@ -9,11 +9,7 @@ namespace TaskManager.ViewModels
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         internal MainViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-        {
-            ModelData = new();
-        }
-
-        internal MainModel ModelData { get; }
+        { }
 
         /// <summary>Список всех разделов трекера</summary>
         public List<SectionViewModel> SectionsViewModels { get; set; } = [];
@@ -23,12 +19,10 @@ namespace TaskManager.ViewModels
 
         internal MasterSectionViewModel MasterSectionViewModel => SectionsViewModels.OfType<MasterSectionViewModel>().First();
 
-        //public ListBox? TasksList => UIHelper.GetCurrentSectionView()?.tasksList;
-
         /// <summary>Создать основной раздел (с моделью представления)</summary>
         internal MasterSectionViewModel CreateMasterSection()
         {
-            var newSection = ModelData.CreateMasterSection();
+            var newSection = DataHelper.ModelData.CreateMasterSection();
             return CreateMasterSectionViewModel(newSection);
         }
 
@@ -46,7 +40,7 @@ namespace TaskManager.ViewModels
         /// <summary>Добавить раздел (с моделью представления)</summary>
         internal void AddSectionViewModel(SectionViewModel newSectionViewModel)
         {
-            ModelData.AddSection(newSectionViewModel.Section);
+            DataHelper.ModelData.AddSection(newSectionViewModel.Section);
             SectionsViewModels.Add(newSectionViewModel);
             newSectionViewModel.IsNew = false;
         }
@@ -57,7 +51,7 @@ namespace TaskManager.ViewModels
             if (sectionViewModel is not AdditionalSectionViewModel additionalSectionViewModel)
                 return false;
 
-            if (!ModelData.RemoveSection(additionalSectionViewModel.Section))
+            if (!DataHelper.ModelData.RemoveSection(additionalSectionViewModel.Section))
                 return false;
 
             var rootTasks = additionalSectionViewModel.AllRootTasksViewModels.ToList();
@@ -75,7 +69,7 @@ namespace TaskManager.ViewModels
 
         internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
         {
-            var sections = ModelData.AllSections;
+            var sections = DataHelper.ModelData.AllSections;
 
             if (ignoredSections is not null)
                 sections = sections.FindAll(s => !ignoredSections.Contains(s, new BaseComparer()));

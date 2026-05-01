@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,7 @@ using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
+using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Views
 {
@@ -103,8 +105,8 @@ namespace TaskManager.Views
         private void LoadData()
         {
             // Сначала копируем файлы из FinishedSections в SourceSections
-            string finishedDirectory = Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections, false);
-            string sourceDirectory = Helper.GetDataDirectory(Enums.DataDirectory.SourceSections);
+            string finishedDirectory = DataHelper.GetDataDirectory(DataDirectory.FinishedSections, false);
+            string sourceDirectory = DataHelper.GetDataDirectory(DataDirectory.SourceSections);
 
             List<string> sourceFiles;
             var errors = new StringBuilder();
@@ -123,7 +125,7 @@ namespace TaskManager.Views
                 }
                 else
                 {
-                    ClearDirectory(sourceDirectory);
+                    DataHelper.ClearDirectory(sourceDirectory);
                     sourceFiles = MoveToDirectory(finishedFiles, sourceDirectory, ref errors);
                 }
             }
@@ -232,45 +234,18 @@ namespace TaskManager.Views
             InitializeData();
             Settings.FillFromConfig();
             UpdateDateTimer.Start();
+
+            DataHelper.DataIsLoaded = true;
         }
 
-        // TODO: Изменить на событие перед закрытием
-        private void OnClosed(object sender, EventArgs e)
+        private void OnClosing(object sender, CancelEventArgs e)
         {
             Settings.SaveToConfig();
-            SaveData();
-        }
 
-        private void SaveData()
-        {
-            string finishedDirectoryPath = Helper.GetDataDirectory(Enums.DataDirectory.FinishedSections);
-            ClearDirectory(finishedDirectoryPath);
+            throw new NotImplementedException();
 
-            try
-            {
-                foreach (var sections in MainViewModel.ModelData.AllSections)
-                    sections.Serialize(Enums.DataDirectory.FinishedSections);
-            }
-            catch
-            {
-                ClearDirectory(finishedDirectoryPath);
-                UIHelper.ShowMessage("Не удалось сохранить данные разделов", MessageBoxImage.Error, "Ошибка сохранения данных");
-            }
-        }
-
-        private static void ClearDirectory(string directoryPath)
-        {
-            foreach (var file in Helper.GetAppFiles(directoryPath))
-            {
-                try
-                {
-                    file.Delete();
-                }
-                catch
-                {
-                    // TODO
-                }
-            }
+            if (DataHelper.SaveData(DataDirectory.FinishedSections))
+                DataHelper.DataIsSaved = true;
         }
 
         #region Отображение

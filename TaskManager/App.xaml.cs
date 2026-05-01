@@ -25,7 +25,25 @@ namespace TaskManager
             else
                 UIHelper.ShowMessage(exception.Message, MessageBoxImage.Error, "Необработанное исключение");
 
-            e.Handled = true; // Предотвращает стандартное завершение приложения
+            if (DataHelper.DataIsLoaded)
+                e.Handled = true; // Предотвращает стандартное завершение приложения
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (!DataHelper.DataIsSaved)
+            {
+                try
+                {
+                    DataHelper.SaveData(Enums.DataDirectory.Autosave, false);
+                }
+                catch
+                {
+                    // Игнорируем
+                }
+            }
+
+            base.OnExit(e);
         }
     }
 }

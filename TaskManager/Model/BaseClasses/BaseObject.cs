@@ -29,9 +29,9 @@ namespace TaskManager.Model.BaseClasses
 
         public override string ToString() => Name;
 
-        internal void Serialize(DataDirectory dataDirectory)
+        internal void Serialize(DataDirectory dataDirectoryType)
         {
-            string targetDirectory = Helper.GetDataDirectory(dataDirectory);
+            string targetDirectory = DataHelper.GetDataDirectory(dataDirectoryType);
             string fileName = Path.Combine(targetDirectory, FileName);
 
             List<Type> types = this is Section ? [typeof(TaskObject)] : [];

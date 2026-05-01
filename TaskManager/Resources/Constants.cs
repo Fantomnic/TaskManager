@@ -11,6 +11,7 @@ namespace TaskManager.Resources
         public const string DataFolder = "Data";
         public const string SourceSectionsFolder = "SourceSections";
         public const string FinishedSectionsFolder = "FinishedSections";
+        public const string AutosaveFolder = "Autosave";
         public const string DataExtension = ".dtmx";
 
         #region Текст

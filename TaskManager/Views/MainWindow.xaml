@@ -11,8 +11,7 @@
                     mc:Ignorable="d"
                     Title="Планировщик задач" WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
-                    Loaded="OnLoaded"
-                    Closed="OnClosed">
+                    Loaded="OnLoaded" Closing="OnClosing">
                     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>
