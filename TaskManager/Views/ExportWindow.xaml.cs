@@ -1,0 +1,103 @@
+﻿using Microsoft.Win32;
+using System.IO;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using TaskManager.Helpers;
+using TaskManager.Model.BaseClasses;
+using TaskManager.Resources;
+using TaskManager.ViewModels;
+
+namespace TaskManager.Views
+{
+    /// <summary>
+    /// Interaction logic for ExportWindow.xaml
+    /// </summary>
+    public partial class ExportWindow : WindowWithBottomButtons
+    {
+        private const string _successMessage = "Данные успешно сохранены";
+
+        private readonly ExportViewModel _exportViewModel;
+
+        internal ExportWindow()
+        {
+            InitializeComponent();
+            DataContext = _exportViewModel = new ExportViewModel();
+            sectionsExportList.SelectedItem = Helper.MasterSectionViewModel;
+        }
+
+        private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _exportViewModel.RefreshTasksViewModels(GetSelectedSections());
+
+            if (_exportViewModel.TasksViewModels.FirstOrDefault() is TaskObjectViewModel firstTaskViewModel)
+                tasksExportList.SelectedItem = firstTaskViewModel;
+        }
+
+        private IEnumerable<SectionViewModel> GetSelectedSections() => sectionsExportList.SelectedItems.OfType<SectionViewModel>();
+
+        private IEnumerable<TaskObjectViewModel> GetSelectedTasks() => tasksExportList.SelectedItems.OfType<TaskObjectViewModel>();
+
+        protected override void ButtonOKClick(object sender, RoutedEventArgs e)
+        {
+            if (!ValidateOK())
+                return;
+
+            var errors = new StringBuilder();
+
+            if (autosave.IsChecked != true)
+            {
+                var saveDialog = new OpenFolderDialog();
+
+                if (saveDialog.ShowDialog() != true)
+                    return;
+
+                string targetFolder = saveDialog.FolderName;
+                IEnumerable<BaseObject>? objectsToSerialize = null;
+
+                if (exportSections.IsChecked == true)
+                    objectsToSerialize = GetSelectedSections().Select(vm => vm.Section);
+                else if (exportTasks.IsChecked == true)
+                    objectsToSerialize = GetSelectedTasks().Select(vm => vm.TaskObject);
+
+                if (objectsToSerialize is not null)
+                {
+                    foreach (var @object in objectsToSerialize)
+                    {
+                        string fileName = useName.IsChecked == true ? @object.Name + Constants.DataExtension : @object.FileName;
+                        string resultPath = Path.Combine(targetFolder, fileName);
+
+                        try
+                        {
+                            if (replaceExists.IsChecked == true || !File.Exists(resultPath))
+                                @object.Serialize(resultPath);
+                        }
+                        catch
+                        {
+                            if (errors.Length == 0)
+                                errors.AppendLine("Ошибка сохранения следующих объектов:");
+
+                            errors.AppendLine(@object.Name);
+                        }
+                    }
+                }
+            }
+
+            DialogResult = true;
+            Close();
+
+            if (autosave.IsChecked == true)
+            {
+                if (DataHelper.SaveData(Enums.DataDirectory.Autosave, out string resultDirectory))
+                   UIHelper.ShowMessage($"{_successMessage} в папку {resultDirectory}", MessageBoxImage.Information);
+            }
+            else
+            {
+                if (errors.Length > 0)
+                    UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Warning);
+                else
+                    UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
+            }
+        }
+    }
+}

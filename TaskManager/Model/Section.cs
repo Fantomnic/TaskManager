@@ -7,7 +7,7 @@ using static TaskManager.Helpers.Enums;
 namespace TaskManager.Model
 {
     [DataContract]
-    internal abstract class Section : BaseObject
+    public abstract class Section : BaseObject
     {
         public Section(string name) : base()
         {

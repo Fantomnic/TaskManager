@@ -47,10 +47,19 @@
         <Setter Property="Margin" Value="2"></Setter>
     </Style>
 
-    <!-- Стиль элемента списка (основной раздел) -->
-    <Style TargetType="ListBoxItem" x:Key="MasterTaskItem">
+    <!-- Общий стиль задачи списка -->
+    <Style TargetType="ListBoxItem" x:Key="BaseTaskListItem">
         <Setter Property="Template" Value="{StaticResource ListBoxItemTemplate}"></Setter>
         <Setter Property="BorderThickness" Value="1.5"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
+                <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Стиль элемента списка (основной раздел) -->
+    <Style TargetType="ListBoxItem" BasedOn="{StaticResource BaseTaskListItem}" x:Key="MasterTaskItem">
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <!-- У меню DataContext - это TaskObjectViewModel (элемент списка) -->
@@ -67,9 +76,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByStatus}" Value="True">
-                <Setter Property="Background" Value="{Binding Path=TaskStatus.Background}"></Setter>
-            </DataTrigger>
             <DataTrigger Binding="{Binding IsExpired}" Value="True">
                 <Setter Property="BorderBrush" Value="Red"></Setter>
             </DataTrigger>

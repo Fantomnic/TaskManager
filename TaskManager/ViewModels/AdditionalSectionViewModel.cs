@@ -5,7 +5,7 @@ using TaskManager.Model;
 namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления неосновного раздела</summary>
-    internal class AdditionalSectionViewModel : SectionViewModel
+    public class AdditionalSectionViewModel : SectionViewModel
     {
         internal AdditionalSectionViewModel(AdditionalSection section) : base(section)
         {
@@ -107,7 +107,7 @@ namespace TaskManager.ViewModels
                 rootTaskViewModel = SelectedTaskViewModel.GetRootTaskViewModel();
 #pragma warning restore CS8604 // Possible null reference argument.
 
-            var newCollection = GetFilteredTaskViewModels(AllRootTasksViewModels);
+            var newCollection = Helper.GetFilteredTaskViewModels(AllRootTasksViewModels);
 
             VisibleRootTasksViewModels.Clear();
 

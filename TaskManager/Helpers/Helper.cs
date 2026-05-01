@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Commands;
@@ -14,7 +13,7 @@ namespace TaskManager.Helpers
 {
     public static class Helper
     {
-        internal static MainViewModel MainViewModel => UIHelper.MainWindow.MainViewModel;
+        public static MainViewModel MainViewModel => UIHelper.MainWindow.MainViewModel;
 
         internal static MasterSectionViewModel MasterSectionViewModel => MainViewModel.MasterSectionViewModel;
 
@@ -113,6 +112,42 @@ namespace TaskManager.Helpers
             }
 
             return true;
+        }
+
+        internal static List<TaskObjectViewModel> GetFilteredTaskViewModels(List<TaskObjectViewModel> sourceList)
+        {
+            var filteredList = sourceList.FindAll(t => t.TaskStatus.TaskVisible
+                && (!Settings.Instanse.ShowTodayTasks || t.TaskObject.CreationDate.Date == DateTime.Now.Date));
+
+            IOrderedEnumerable<TaskObjectViewModel> sortedCollection;
+
+            if (Settings.Instanse.SortByName)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.Name);
+            }
+            else if (Settings.Instanse.SortByEndDate)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.TaskObject.EndDate);
+            }
+            else if (Settings.Instanse.SortByStartDate)
+            {
+                sortedCollection = filteredList.OrderBy(t => t.TaskObject.CreationDate);
+            }
+            else
+            {
+                if (Settings.Instanse.SortByStatus)
+                    sortedCollection = filteredList.OrderBy(t => t.TaskStatus.ID);
+                else if (Settings.Instanse.SortByPriority)
+                    sortedCollection = filteredList.OrderBy(t => t.TaskPriority.ID);
+                else
+                    return filteredList;
+
+                sortedCollection = sortedCollection.ThenBy(t => t.TaskObject.CreationDate);
+            }
+
+            var ticks = sortedCollection.Select(t => t.TaskObject.CreationDate);
+
+            return [.. Settings.Instanse.DescendingSort ? sortedCollection.Reverse() : sortedCollection];
         }
 
         internal static T GetCommandInstance<T>() where T : BaseCommand

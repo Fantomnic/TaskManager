@@ -1,0 +1,123 @@
+﻿<local:WindowWithBottomButtons x:Class="TaskManager.Views.ExportWindow"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:local="clr-namespace:TaskManager.Views"
+                               xmlns:model="clr-namespace:TaskManager.Model"
+                               xmlns:res="clr-namespace:TaskManager.Resources"
+                               xmlns:h="clr-namespace:TaskManager.Helpers"
+                               xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
+                               mc:Ignorable="d"
+                               Title="Экспорт"
+                               WindowStartupLocation="CenterOwner"
+                               Style="{StaticResource MiddleWindow}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Margin="{x:Static res:Constants.UniformMarginBase}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <GroupBox Style="{StaticResource BaseGroupBox}">
+                    <GroupBox.Header>
+                        <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Экспортировать</TextBlock>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <RadioButton x:Name="exportTasks"
+                                     GroupName="Indication"
+                                     Style="{StaticResource BaseRadioButton}"
+                                     IsChecked="True">Задачи</RadioButton>
+                        <RadioButton x:Name="exportSections"
+                                     GroupName="Indication"
+                                     Style="{StaticResource BaseRadioButton}">Разделы</RadioButton>
+                        <RadioButton x:Name="autosave"
+                                     GroupName="Indication"
+                                     Style="{StaticResource BaseRadioButton}">Сделать резервную копию</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Style="{StaticResource BaseGroupBox}">
+                    <GroupBox.Header>
+                        <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Настройки</TextBlock>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <ctrl:CheckBoxWithItemStyle x:Name="replaceExists"
+                                                    Style="{StaticResource BaseCheckBox}"
+                                                    IsChecked="true"
+                                                    Content="Заменять существующие файлы"
+                                                    ToolTip="Если галочка выключена, то при наличии существущего файла сохраняемые будут игнорироваться">
+                        </ctrl:CheckBoxWithItemStyle>
+                        <ctrl:CheckBoxWithItemStyle x:Name="useName"
+                                                    Style="{StaticResource BaseCheckBox}"
+                                                    IsChecked="true"
+                                                    Content="Использовать наименование для имени файла"
+                                                    ToolTip="Если галочка выключена, то наименование файла будет состоять из уникального идентификатора">
+                        </ctrl:CheckBoxWithItemStyle>
+                    </StackPanel>
+                </GroupBox>
+
+                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="{x:Static res:Constants.MinTasksListWidth}"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="{x:Static res:Constants.MinTasksListWidth}"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{Binding Source={x:Static model:Settings.FontSettings},Path=ButtonAreaHeight}"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource TitleDescription}">Задачи</TextBlock>
+                    <ListBox x:Name="tasksExportList" Grid.Row="1"
+                             SelectionMode="Extended"
+                             ItemsSource="{Binding TasksViewModels}"
+                             ItemContainerStyle="{StaticResource BaseTaskListItem}"
+                             Background="{DynamicResource InnerBackground}"
+                             Padding="{x:Static res:Constants.UniformMarginBase}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource TaskItemWithTextIndication}" Text="{Binding Path=Name}" Margin="4,0,0,0"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
+                                  HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
+                    
+                    <TextBlock Style="{StaticResource TitleDescription}" Grid.Column="2">Разделы</TextBlock>
+                    <ListBox x:Name="sectionsExportList" Grid.Row="1" Grid.Column="2"
+                             SelectionMode="Extended"
+                             ItemsSource="{Binding Source={x:Static h:Helper.MainViewModel},Path=SectionsViewModels}"
+                             ItemContainerStyle="{StaticResource BaseTaskListItem}"
+                             Background="{DynamicResource InnerBackground}"
+                             Padding="{x:Static res:Constants.UniformMarginBase}"
+                             SelectionChanged="SectionsSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource BaseStyleAlignment}" Text="{Binding Path=Name}" Margin="4,0,0,0"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
+        </StackPanel>
+    </Grid>
+</local:WindowWithBottomButtons>

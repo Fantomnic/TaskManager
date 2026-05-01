@@ -34,11 +34,16 @@ namespace TaskManager.Model.BaseClasses
             string targetDirectory = DataHelper.GetDataDirectory(dataDirectoryType);
             string fileName = Path.Combine(targetDirectory, FileName);
 
+            Serialize(fileName);
+        }
+
+        internal void Serialize(string targetFileName)
+        {
             List<Type> types = this is Section ? [typeof(TaskObject)] : [];
 
             var serialiser = new DataContractSerializer(GetType(), types);
 
-            using (var stream = new FileStream(fileName, FileMode.OpenOrCreate))
+            using (var stream = new FileStream(targetFileName, FileMode.OpenOrCreate))
             {
                 serialiser.WriteObject(stream, this);
             };

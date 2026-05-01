@@ -4,7 +4,7 @@ using static TaskManager.Model.BaseClasses.BaseObject;
 
 namespace TaskManager.ViewModels
 {
-    internal class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         internal MainViewModel()

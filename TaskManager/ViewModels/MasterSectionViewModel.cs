@@ -59,7 +59,7 @@ namespace TaskManager.ViewModels
         internal override void RefreshVisibleTaskViewModels()
         {
             var currentTask = SelectedTaskViewModel?.TaskObject;
-            var newCollection = GetFilteredTaskViewModels(AllTasksViewModels);
+            var newCollection = Helper.GetFilteredTaskViewModels(AllTasksViewModels);
 
             VisibleTasksViewModels.Clear();
 

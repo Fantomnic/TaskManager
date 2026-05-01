@@ -8,7 +8,7 @@ using static TaskManager.Helpers.Enums;
 namespace TaskManager.Model
 {
     [DataContract(IsReference = true)]
-    internal class TaskObject : BaseObject
+    public class TaskObject : BaseObject
     {
         internal TaskObject(TaskPriorityBase priority, TaskType type) : base()
         {

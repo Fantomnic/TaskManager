@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace TaskManager.ViewModels
 {
     /// <summary>Базовый класс для всех моделей представления приложения</summary>
-    internal abstract class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

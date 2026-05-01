@@ -16,22 +16,25 @@ namespace TaskManager.Helpers
         internal static MainModel ModelData { get; } = new();
 
         internal static bool SaveData(DataDirectory dataDirectoryType, bool showMessageOnError = true)
+            => SaveData(dataDirectoryType, out _, showMessageOnError);
+
+        internal static bool SaveData(DataDirectory dataDirectoryType, out string savedDirectoryPath, bool showMessageOnError = true)
         {
-            string finishedDirectoryPath = GetDataDirectory(dataDirectoryType);
+            savedDirectoryPath = GetDataDirectory(dataDirectoryType);
 
             if (dataDirectoryType != DataDirectory.Autosave)
-                ClearDirectory(finishedDirectoryPath);
+                ClearDirectory(savedDirectoryPath);
 
             try
             {
-                foreach (var sections in ModelData.AllSections)
-                    sections.Serialize(dataDirectoryType);
+                foreach (var section in ModelData.AllSections)
+                    section.Serialize(dataDirectoryType);
             }
             catch
             {
                 if (showMessageOnError)
                 {
-                    ClearDirectory(finishedDirectoryPath);
+                    ClearDirectory(savedDirectoryPath);
                     UIHelper.ShowMessage("Не удалось сохранить данные разделов", MessageBoxImage.Error, "Ошибка сохранения данных");
                 }
 

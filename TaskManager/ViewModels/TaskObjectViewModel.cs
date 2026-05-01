@@ -9,7 +9,7 @@ using static TaskManager.Helpers.Enums;
 namespace TaskManager.ViewModels
 {
     /// <summary>Модель представления свойств задачи</summary>
-    internal class TaskObjectViewModel : BaseViewModel
+    public class TaskObjectViewModel : BaseViewModel
     {
         private AdditionalSectionViewModel? _additionalSectionViewModel;
         private bool _changeSectionEnabled;
