@@ -8,10 +8,9 @@ namespace TaskManager.Resources
         public const double WindowButtonWidth = 45;
         //public static readonly double WindowIconWidth;
 
-        public const string DataDirectoty = "Data";
-        public const string TasksDirectoty = "Tasks";
-        public const string SourceSectionsDirectoty = "SourceSections";
-        public const string FinishedSectionsDirectoty = "FinishedSections";
+        public const string DataFolder = "Data";
+        public const string SourceSectionsFolder = "SourceSections";
+        public const string FinishedSectionsFolder = "FinishedSections";
         public const string DataExtension = ".dtmx";
 
         #region Текст

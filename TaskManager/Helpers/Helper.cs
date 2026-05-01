@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Commands;
@@ -48,15 +49,18 @@ namespace TaskManager.Helpers
 
         internal static string GetDataDirectory(DataDirectory dataDirectoryType, bool createIfNotExists = true)
         {
-            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // При установке, скажем, в Program Files, потребуется запуск от имени администратора
+            //string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            string dataDirectory = Path.Combine(appDirectory, Constants.DataDirectoty);
+            string appDataSystem = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataSystem, Assembly.GetExecutingAssembly().GetName().Name ?? String.Empty);
+            string dataDirectory = Path.Combine(appDataDirectory, Constants.DataFolder);
 
             string targetDirectory = dataDirectoryType switch
             {
                 DataDirectory.Root => dataDirectory,
-                DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsDirectoty),
-                DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsDirectoty),
+                DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsFolder),
+                DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsFolder),
                 _ => throw new NotImplementedException()
             };
 
