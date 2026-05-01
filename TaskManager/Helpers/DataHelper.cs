@@ -55,7 +55,7 @@ namespace TaskManager.Helpers
                 DataDirectory.Root => dataDirectory,
                 DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsFolder),
                 DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsFolder),
-                DataDirectory.Autosave => Path.Combine(dataDirectory, $"{Constants.AutosaveFolder}\\{DateTime.Now}"),
+                DataDirectory.Autosave => Path.Combine(dataDirectory, $"{Constants.AutosaveFolder}\\{DateTime.Now:dd.MM.yyyy HH-mm-ss}"),
                 _ => throw new NotImplementedException()
             };
 

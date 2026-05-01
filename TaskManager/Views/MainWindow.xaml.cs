@@ -242,8 +242,6 @@ namespace TaskManager.Views
         {
             Settings.SaveToConfig();
 
-            throw new NotImplementedException();
-
             if (DataHelper.SaveData(DataDirectory.FinishedSections))
                 DataHelper.DataIsSaved = true;
         }
