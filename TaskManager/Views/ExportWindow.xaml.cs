@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Resources;
 using TaskManager.ViewModels;
@@ -21,7 +22,18 @@ namespace TaskManager.Views
 
         internal ExportWindow()
         {
-            InitializeComponent();
+            Settings.SettingsInstanse.NotResetIndication = true;
+
+            try
+            {
+                // Почему-то иногда при инициализации устанавливается false в выбранный в меню выриант индикации
+                InitializeComponent();
+            }
+            finally
+            {
+                Settings.SettingsInstanse.NotResetIndication = false;
+            }
+            
             DataContext = _exportViewModel = new ExportViewModel();
             sectionsExportList.SelectedItem = Helper.MasterSectionViewModel;
         }
@@ -44,41 +56,49 @@ namespace TaskManager.Views
                 return;
 
             var errors = new StringBuilder();
+            bool hasSerializedObjects = false;
 
             if (autosave.IsChecked != true)
             {
+                var objectsToSerialize = new List<BaseObject>();
+
+                if (exportSections.IsChecked == true)
+                    objectsToSerialize = [.. GetSelectedSections().Select(vm => vm.Section)];
+                else if (exportTasks.IsChecked == true)
+                    objectsToSerialize = [.. GetSelectedTasks().Select(vm => vm.TaskObject)];
+
+                if (objectsToSerialize.Count == 0)
+                {
+                    UIHelper.ShowMessage("Выберите объекты для экспорта", MessageBoxImage.Warning);
+                    return;
+                }
+
                 var saveDialog = new OpenFolderDialog();
 
                 if (saveDialog.ShowDialog() != true)
                     return;
 
                 string targetFolder = saveDialog.FolderName;
-                IEnumerable<BaseObject>? objectsToSerialize = null;
 
-                if (exportSections.IsChecked == true)
-                    objectsToSerialize = GetSelectedSections().Select(vm => vm.Section);
-                else if (exportTasks.IsChecked == true)
-                    objectsToSerialize = GetSelectedTasks().Select(vm => vm.TaskObject);
-
-                if (objectsToSerialize is not null)
+                foreach (var @object in objectsToSerialize)
                 {
-                    foreach (var @object in objectsToSerialize)
+                    string fileName = useName.IsChecked == true ? @object.Name + Constants.DataExtension : @object.FileName;
+                    string resultPath = Path.Combine(targetFolder, fileName);
+
+                    try
                     {
-                        string fileName = useName.IsChecked == true ? @object.Name + Constants.DataExtension : @object.FileName;
-                        string resultPath = Path.Combine(targetFolder, fileName);
-
-                        try
+                        if (replaceExists.IsChecked == true || !File.Exists(resultPath))
                         {
-                            if (replaceExists.IsChecked == true || !File.Exists(resultPath))
-                                @object.Serialize(resultPath);
+                            @object.Serialize(resultPath);
+                            hasSerializedObjects = true;
                         }
-                        catch
-                        {
-                            if (errors.Length == 0)
-                                errors.AppendLine("Ошибка сохранения следующих объектов:");
+                    }
+                    catch
+                    {
+                        if (errors.Length == 0)
+                            errors.AppendLine("Ошибка сохранения следующих объектов:");
 
-                            errors.AppendLine(@object.Name);
-                        }
+                        errors.AppendLine(@object.Name);
                     }
                 }
             }
@@ -95,7 +115,7 @@ namespace TaskManager.Views
             {
                 if (errors.Length > 0)
                     UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Warning);
-                else
+                else if (hasSerializedObjects)
                     UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
             }
         }

@@ -391,12 +391,16 @@ namespace TaskManager.Model
             private bool _showTodayTasks;
 
             #region Индикация
+            internal static bool NotResetIndication { get; set; }
 
             public bool IndicateByStatus
             {
                 get => _indicateByStatus;
                 set
                 {
+                    if (NotResetIndication)
+                        return;
+
                     _indicateByStatus = value;
                     OnPropertyChanged(nameof(IndicateByStatus));
                 }
@@ -407,6 +411,9 @@ namespace TaskManager.Model
                 get => _indicateByPriority;
                 set
                 {
+                    if (NotResetIndication)
+                        return;
+
                     _indicateByPriority = value;
                     OnPropertyChanged(nameof(IndicateByPriority));
                 }
@@ -417,6 +424,9 @@ namespace TaskManager.Model
                 get => _noneIndicate;
                 set
                 {
+                    if (NotResetIndication)
+                        return;
+
                     _noneIndicate = value;
                     OnPropertyChanged(nameof(NoneIndicate));
                 }

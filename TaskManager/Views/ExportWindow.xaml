@@ -50,7 +50,7 @@
 
                 <GroupBox Grid.Column="1" Style="{StaticResource BaseGroupBox}">
                     <GroupBox.Header>
-                        <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Настройки</TextBlock>
+                        <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Параметры</TextBlock>
                     </GroupBox.Header>
                     <StackPanel>
                         <ctrl:CheckBoxWithItemStyle x:Name="replaceExists"

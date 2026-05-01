@@ -23,7 +23,7 @@
         <Image x:Name="icon" Width="50" VerticalAlignment="Center" Margin="5,5,0,5"></Image>
 
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="{x:Static res:Constants.UniformMarginBase}">
-            <TextBlock x:Name="message" Style="{StaticResource BaseStyle}" TextWrapping="Wrap" Margin="0,3,3,3" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="message" Style="{StaticResource BaseStyle}" TextWrapping="Wrap" Margin="3" VerticalAlignment="Center"></TextBlock>
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">

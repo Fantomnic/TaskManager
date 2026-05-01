@@ -9,7 +9,8 @@
                     xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                     xmlns:prop="clr-namespace:TaskManager.Properties"
                     mc:Ignorable="d"
-                    Title="Планировщик задач" WindowStartupLocation="CenterScreen"
+                    Title="Планировщик задач"
+                    WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
                     Loaded="OnLoaded" Closing="OnClosing">
                     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
