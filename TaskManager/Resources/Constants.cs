@@ -42,7 +42,6 @@ namespace TaskManager.Resources
         {
             _workingAreaHeight = DisplayManager.GetWorkingAreaHeight();
             _workingAreaWidth = DisplayManager.GetWorkingAreaWidth();
-            //WindowIconWidth = WindowButtonWidth * 3;
         }
 
         #region Главное окно

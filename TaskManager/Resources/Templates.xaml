@@ -940,12 +940,13 @@
     <ControlTemplate TargetType="v:CustomWindow" x:Key="WindowTemplate">
         <Grid Background="{DynamicResource WindowBackground}">
             <Grid.RowDefinitions>
+                <RowDefinition x:Name="topPanelRow" Height="0"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             
             <!-- Верхняя панель -->
-            <Grid>
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -1008,7 +1009,7 @@
             </Grid>
             
             <!-- Содержимое окна -->
-            <Border Grid.Row="1" Margin="{TemplateBinding Margin}">
+            <Border Grid.Row="2" Margin="{TemplateBinding Margin}">
                 <ContentPresenter Content="{TemplateBinding Content}"/>
             </Border>
         </Grid>
@@ -1017,6 +1018,9 @@
             <Trigger Property="ShowMinMaxButtons" Value="False">
                 <Setter TargetName="minButton" Property="Visibility" Value="Hidden"/>
                 <Setter TargetName="maxButton" Property="Visibility" Value="Hidden"/>
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="topPanelRow" Property="MinHeight" Value="7"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
