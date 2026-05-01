@@ -6,7 +6,9 @@ namespace TaskManager.Resources
     public static class Constants
     {
         public const double WindowButtonWidth = 45;
-        //public static readonly double WindowIconWidth;
+
+        // Минимальное значение для максимальной длины; ограничение снизу для наименований не реализовано
+        public const int MinNameLength = 4;
 
         public const string DataFolder = "Data";
         public const string SourceSectionsFolder = "SourceSections";
