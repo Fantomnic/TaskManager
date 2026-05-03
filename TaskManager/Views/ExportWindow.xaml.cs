@@ -58,7 +58,7 @@ namespace TaskManager.Views
             var errors = new StringBuilder();
             bool hasSerializedObjects = false;
 
-            if (autosave.IsChecked != true)
+            if (backup.IsChecked != true)
             {
                 var objectsToSerialize = new List<BaseObject>();
                 string extension = Constants.XmlExtension;
@@ -113,7 +113,7 @@ namespace TaskManager.Views
             DialogResult = true;
             Close();
 
-            if (autosave.IsChecked == true)
+            if (backup.IsChecked == true)
             {
                 if (DataHelper.SaveData(Enums.DataDirectory.BackupWithDate, out string resultDirectory))
                    UIHelper.ShowMessage($"{_successMessage} в папку {resultDirectory}", MessageBoxImage.Information);
@@ -125,6 +125,36 @@ namespace TaskManager.Views
                 else if (hasSerializedObjects)
                     UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
             }
+        }
+
+        private void ExportTasksChecked(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            parametersGroup.Visibility = Visibility.Visible;
+            tasksExportList.Visibility = Visibility.Visible;
+            sectionsExportList.Visibility = Visibility.Visible;
+        }
+
+        private void ExportSectionsChecked(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            parametersGroup.Visibility = Visibility.Visible;
+            tasksExportList.Visibility = Visibility.Hidden;
+            sectionsExportList.Visibility = Visibility.Visible;
+        }
+
+        private void BackupChecked(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            parametersGroup.Visibility = Visibility.Hidden;
+            tasksExportList.Visibility = Visibility.Hidden;
+            sectionsExportList.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -38,17 +38,19 @@
                         <RadioButton x:Name="exportTasks"
                                      GroupName="Indication"
                                      Style="{StaticResource BaseRadioButton}"
+                                     Checked="ExportTasksChecked"
                                      IsChecked="True">Задачи</RadioButton>
                         <RadioButton x:Name="exportSections"
                                      GroupName="Indication"
-                                     Style="{StaticResource BaseRadioButton}">Разделы</RadioButton>
-                        <RadioButton x:Name="autosave"
+                                     Style="{StaticResource BaseRadioButton}"
+                                     Checked="ExportSectionsChecked">Разделы</RadioButton>
+                        <RadioButton x:Name="backup"
                                      GroupName="Indication"
-                                     Style="{StaticResource BaseRadioButton}">Сделать резервную копию</RadioButton>
+                                     Style="{StaticResource BaseRadioButton}" Checked="BackupChecked">Сделать резервную копию</RadioButton>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Grid.Column="1" Style="{StaticResource BaseGroupBox}">
+                <GroupBox x:Name="parametersGroup" Grid.Column="1" Style="{StaticResource BaseGroupBox}">
                     <GroupBox.Header>
                         <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Параметры</TextBlock>
                     </GroupBox.Header>
@@ -57,13 +59,13 @@
                                                     Style="{StaticResource BaseCheckBox}"
                                                     IsChecked="true"
                                                     Content="Заменять существующие файлы"
-                                                    ToolTip="Если галочка выключена, то при наличии существущего файла сохраняемые будут игнорироваться">
+                                                    ToolTip="Если флаг не установлен, то при наличии существущего файла сохраняемые будут игнорироваться">
                         </ctrl:CheckBoxWithItemStyle>
                         <ctrl:CheckBoxWithItemStyle x:Name="useName"
                                                     Style="{StaticResource BaseCheckBox}"
                                                     IsChecked="true"
                                                     Content="Использовать наименование для имени файла"
-                                                    ToolTip="Если галочка выключена, то наименование файла будет состоять из уникального идентификатора">
+                                                    ToolTip="Если флаг не установлен, то наименование файла будет состоять из уникального идентификатора">
                         </ctrl:CheckBoxWithItemStyle>
                     </StackPanel>
                 </GroupBox>
@@ -80,7 +82,7 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource TitleDescription}">Задачи</TextBlock>
+                    <TextBlock Style="{StaticResource TitleDescription}" Visibility="{Binding ElementName=tasksExportList,Path=Visibility}">Задачи</TextBlock>
                     <ListBox x:Name="tasksExportList" Grid.Row="1"
                              SelectionMode="Extended"
                              ItemsSource="{Binding TasksViewModels}"
@@ -96,8 +98,8 @@
 
                     <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
                                   HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
-                    
-                    <TextBlock Style="{StaticResource TitleDescription}" Grid.Column="2">Разделы</TextBlock>
+
+                    <TextBlock Style="{StaticResource TitleDescription}" Grid.Column="2" Visibility="{Binding ElementName=sectionsExportList,Path=Visibility}">Разделы</TextBlock>
                     <ListBox x:Name="sectionsExportList" Grid.Row="1" Grid.Column="2"
                              SelectionMode="Extended"
                              ItemsSource="{Binding Source={x:Static h:Helper.MainViewModel},Path=SectionsViewModels}"
