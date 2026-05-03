@@ -36,6 +36,7 @@ namespace TaskManager.Model
         internal void ReplaceMasterSection(MasterSection newMasterSection)
         {
             AllSections.Remove(BaseSection);
+            AllSections.Add(newMasterSection);
             BaseSection = newMasterSection;
         }
 

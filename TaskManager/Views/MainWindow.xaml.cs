@@ -189,6 +189,7 @@ namespace TaskManager.Views
             {
                 InitializeMasterSectionViewCore(masterSectionViewModel);
                 MainViewModel.ReplaceMasterSectionViewModel(masterSectionViewModel);
+                masterSectionViewModel.RefreshVisibleTaskViewModels();
             }
             else
             {

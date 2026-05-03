@@ -5,6 +5,7 @@ using System.Windows;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Resources;
+using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Views
@@ -62,6 +63,9 @@ namespace TaskManager.Views
 
                 var mainWindow = UIHelper.MainWindow;
 
+                var currentSelectedSectionViewModel = mainWindow.MainViewModel.SelectedSectionViewModel;
+                var additionalSelectedSection = currentSelectedSectionViewModel.IsMasterSection ? null : currentSelectedSectionViewModel.Section;
+
                 mainWindow.MainViewModel.RemoveAllAdditionalSections();
 
                 DataHelper.GetAnyObjectsFromFiles(sourceFiles, out var masterSection, out var additionalSections, out _);
@@ -70,6 +74,9 @@ namespace TaskManager.Views
                     mainWindow.CreateAndInitializeMasterSectionViewModel(masterSection, true);
 
                 mainWindow.LoadAdditionalSectionsCore(additionalSections, ref errors);
+
+                if (additionalSelectedSection is not null && mainWindow.MainViewModel.FindSectionViewModel(additionalSelectedSection) is SectionViewModel newSelectionSectionViewModel)
+                    mainWindow.MainViewModel.SelectedSectionViewModel = newSelectionSectionViewModel;
 
                 static void ShowMessageDataNotFound() => UIHelper.ShowMessage("Данные для восстановления не найдены", MessageBoxImage.Warning);
             }
@@ -100,13 +107,13 @@ namespace TaskManager.Views
                 DataHelper.TryGetObjectsFromFiles<AdditionalSection>(selectedFiles, out var additionalSections, out string errorMessage, out var errorFiles, false);
             }
 
+            DialogResult = true;
+            Close();
+
             if (errors.Length > 0)
                 UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Warning, "Ошибка загрузки данных");
             else
                 UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
-
-            DialogResult = true;
-            Close();
         }
     }
 }
