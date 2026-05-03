@@ -3,6 +3,7 @@ using TaskManager.Helpers.Exceptions;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
 using TaskManager.Model.TaskStatuses;
+using TaskManager.Resources;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -19,6 +20,8 @@ namespace TaskManager.Model
         }
 
         #region Свойства
+
+        internal override string FileName => Guid.ToString() + Constants.TaskDataExtension;
 
         [DataMember]
         internal DateTime EndDate { get; set; }

@@ -33,6 +33,12 @@ namespace TaskManager.Model
             AllSections.Add(newSection);
         }
 
+        internal void ReplaceMasterSection(MasterSection newMasterSection)
+        {
+            AllSections.Remove(BaseSection);
+            BaseSection = newMasterSection;
+        }
+
         internal bool ContainsSection(Section section) => AllSections.Contains(section, new BaseComparer());
 
         /// <summary>Удалить раздел, если он неосновной</summary>

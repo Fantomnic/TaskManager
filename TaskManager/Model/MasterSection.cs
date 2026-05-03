@@ -12,7 +12,7 @@ namespace TaskManager.Model
 
         }
 
-        internal override string FileName => nameof(MasterSection) + Constants.DataExtension;
+        internal override string FileName => GetFileName();
 
         internal override bool IsMasterSection => true;
 
@@ -34,5 +34,7 @@ namespace TaskManager.Model
 
             return base.RemoveTask(task);
         }
+
+        internal static string GetFileName() => nameof(MasterSection) + Constants.SectionDataExtension;
     }
 }

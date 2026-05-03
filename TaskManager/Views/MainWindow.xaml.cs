@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,15 +90,20 @@ namespace TaskManager.Views
             if (_masterSectionWasInitialized)
                 return;
 
-            // Устанавливаем для вкладки, чтобы распространялось ещё и на хедер
-            masterSection.DataContext = masterSectionViewModel;
-            var masterSectionView = UIHelper.GetSectionViewFromTabItem(masterSection);
-            masterSectionView.InitializeData(masterSectionViewModel);
+            InitializeMasterSectionViewCore(masterSectionViewModel);
 
             MainViewModel.AddSectionViewModel(masterSectionViewModel);
             MainViewModel.SelectedSectionViewModel = masterSectionViewModel;
 
             _masterSectionWasInitialized = true;
+        }
+
+        internal void InitializeMasterSectionViewCore(MasterSectionViewModel masterSectionViewModel)
+        {
+            // Устанавливаем для вкладки, чтобы распространялось ещё и на хедер
+            masterSection.DataContext = masterSectionViewModel;
+            var masterSectionView = UIHelper.GetSectionViewFromTabItem(masterSection);
+            masterSectionView.InitializeData(masterSectionViewModel);
         }
 
         private void LoadData()
@@ -130,11 +134,19 @@ namespace TaskManager.Views
                 }
             }
 
+            LoadDataCore(sourceFiles, ref errors);
+
+            if (errors.Length > 0)
+                UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Error, "Ошибка загрузки данных");
+        }
+
+        internal void LoadDataCore(List<string> sourceFiles, ref StringBuilder errors)
+        {
             if (sourceFiles.Count == 0)
                 return;
 
             // Теперь считываем информацию
-            string etalonMasterSectionFile = nameof(MasterSection) + Constants.DataExtension;
+            string etalonMasterSectionFile = MasterSection.GetFileName();
 
             var masterSectionFile = sourceFiles.FirstOrDefault(f => f.Contains(etalonMasterSectionFile));
             bool masterSectionInitialized = false;
@@ -143,15 +155,9 @@ namespace TaskManager.Views
             {
                 try
                 {
-                    var masterSerialiser = new DataContractSerializer(typeof(MasterSection), [typeof(TaskObject)]);
-
-                    using var stream = new FileStream(masterSectionFile, FileMode.Open);
-                    var value = masterSerialiser.ReadObject(stream);
-
-                    if (value is MasterSection masterSection)
+                    if (DataHelper.TryGetObjectFromFile<MasterSection>(masterSectionFile, out var masterSection, out _))
                     {
-                        var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
-                        InitializeMasterSectionView(masterSectionViewModel);
+                        CreateAndInitializeMasterSectionViewModel(masterSection);
                         masterSectionInitialized = true;
                     }
                 }
@@ -169,25 +175,29 @@ namespace TaskManager.Views
             if (additionalSectionsFiles.Count == 0)
                 return;
 
-            var additionalSerialiser = new DataContractSerializer(typeof(AdditionalSection), [typeof(TaskObject)]);
-            var additionalSections = new List<AdditionalSection>();
+            if (!DataHelper.TryGetObjectsFromFiles<AdditionalSection>(additionalSectionsFiles, out var additionalSections, out string errorMessage, out _, false))
+                errors.AppendLine(errorMessage);
 
-            foreach (string sectionFile in additionalSectionsFiles)
+            LoadAdditionalSectionsCore(additionalSections, ref errors);
+        }
+
+        internal void CreateAndInitializeMasterSectionViewModel(MasterSection masterSection, bool replace = false)
+        {
+            var masterSectionViewModel = MainViewModel.CreateMasterSectionViewModel(masterSection);
+
+            if (replace)
             {
-                try
-                {
-                    using var stream = new FileStream(sectionFile, FileMode.Open);
-                    var value = additionalSerialiser.ReadObject(stream);
-
-                    if (value is AdditionalSection additionalSection)
-                        additionalSections.Add(additionalSection);
-                }
-                catch
-                {
-                    errors.AppendLine($"- Не удалось загрузить данные файла \"{Path.GetFileName(sectionFile)}\"");
-                }
+                InitializeMasterSectionViewCore(masterSectionViewModel);
+                MainViewModel.ReplaceMasterSectionViewModel(masterSectionViewModel);
             }
+            else
+            {
+                InitializeMasterSectionView(masterSectionViewModel);
+            }
+        }
 
+        internal void LoadAdditionalSectionsCore(List<AdditionalSection> additionalSections, ref StringBuilder errors)
+        {
             foreach (var additionalSection in additionalSections.OrderBy(s => s.CreationDate))
             {
                 try
@@ -200,9 +210,6 @@ namespace TaskManager.Views
                     errors.AppendLine($"- Ошибка добавления раздела \"{additionalSection.Name}\"");
                 }
             }
-
-            if (errors.Length > 0)
-                UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Error, "Ошибка загрузки данных");
         }
 
         private static List<string> MoveToDirectory(List<FileInfo> finishedFiles, string targetDirectoryPath, ref StringBuilder errors)

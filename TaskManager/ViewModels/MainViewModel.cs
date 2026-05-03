@@ -45,6 +45,24 @@ namespace TaskManager.ViewModels
             newSectionViewModel.IsNew = false;
         }
 
+        internal void ReplaceMasterSectionViewModel(MasterSectionViewModel newMasterSectionViewModel)
+        {
+            DataHelper.ModelData.ReplaceMasterSection((MasterSection)newMasterSectionViewModel.Section);
+            SectionsViewModels.Remove(MasterSectionViewModel);
+            SectionsViewModels.Add(newMasterSectionViewModel);
+            newMasterSectionViewModel.IsNew = false;
+        }
+
+        internal void RemoveAllAdditionalSections()
+        {
+            var additionalSections = SectionsViewModels.OfType<AdditionalSectionViewModel>().ToList();
+
+            foreach (var sectionViewModel in additionalSections)
+                RemoveSectionViewModel(sectionViewModel);
+
+            UIHelper.RemoveAllAdditionalTabItems();
+        }
+
         /// <summary>Удалить раздел (с моделью представления), если он неосновной</summary>
         internal bool RemoveSectionViewModel(SectionViewModel sectionViewModel)
         {

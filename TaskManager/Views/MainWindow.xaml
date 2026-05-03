@@ -102,7 +102,7 @@
                 </Expander>
 
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource ExportCommand}">Экспорт</Button>
-                <Button Style="{StaticResource MenuButton}">Импорт</Button>
+                <Button Style="{StaticResource MenuButton}" Command="{StaticResource ImportCommand}">Импорт</Button>
                 
                 <Button Style="{StaticResource MenuButton}" Command="{StaticResource TestCommand}" Visibility="Collapsed">Test</Button>
             </StackPanel>

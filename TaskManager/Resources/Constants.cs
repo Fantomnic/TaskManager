@@ -13,8 +13,10 @@ namespace TaskManager.Resources
         public const string DataFolder = "Data";
         public const string SourceSectionsFolder = "SourceSections";
         public const string FinishedSectionsFolder = "FinishedSections";
-        public const string AutosaveFolder = "Autosave";
-        public const string DataExtension = ".dtmx";
+        public const string BackupFolder = "Backup";
+        public const string XmlExtension = ".xml";
+        public const string SectionDataExtension = ".sdtmx";
+        public const string TaskDataExtension = ".tdtmx";
 
         #region Текст
 

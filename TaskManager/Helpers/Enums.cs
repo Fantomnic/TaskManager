@@ -31,7 +31,8 @@
             Root,
             SourceSections,
             FinishedSections,
-            Autosave,
+            Backup,
+            BackupWithDate,
         }
 
         internal enum GenereateGuidTarget

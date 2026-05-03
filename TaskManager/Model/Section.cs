@@ -2,6 +2,7 @@
 using TaskManager.Helpers.Exceptions;
 using TaskManager.Model.BaseClasses;
 using TaskManager.Model.TaskPriorities;
+using TaskManager.Resources;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Model
@@ -16,6 +17,8 @@ namespace TaskManager.Model
         }
 
         #region Свойства
+
+        internal override string FileName => Guid.ToString() + Constants.SectionDataExtension;
 
         internal abstract bool IsMasterSection { get; }
 

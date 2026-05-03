@@ -67,10 +67,10 @@ namespace TaskManager.Helpers
             }
         }
 
-        internal static List<FileInfo> GetAppFiles(string directoryPath)
+        internal static List<FileInfo> GetAppFiles(string directoryPath, string extension = Constants.SectionDataExtension)
         {
             var directoryInfo = new DirectoryInfo(directoryPath);
-            return [.. directoryInfo.GetFiles().Where(f => String.Equals(f.Extension, Constants.DataExtension))];
+            return [.. directoryInfo.GetFiles().Where(f => String.Equals(f.Extension, extension))];
         }
 
         // Возвращает текст "n символ(а/ов)" с нужным окончанием

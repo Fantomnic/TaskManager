@@ -35,7 +35,7 @@ namespace TaskManager
             {
                 try
                 {
-                    DataHelper.SaveData(Enums.DataDirectory.Autosave, false);
+                    DataHelper.SaveData(Enums.DataDirectory.BackupWithDate, false);
                 }
                 catch
                 {

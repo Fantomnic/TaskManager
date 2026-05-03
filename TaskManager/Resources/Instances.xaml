@@ -32,6 +32,7 @@
     <cmd:ShowSectionPropertyCommand x:Key="ShowSectionPropertyCommand" />
     <cmd:MakeRootCommand x:Key="MakeRootCommand" />
     <cmd:ExportCommand x:Key="ExportCommand" />
+    <cmd:ImportCommand x:Key="ImportCommand" />
     
     <cmd:TestCommand x:Key="TestCommand" />
 

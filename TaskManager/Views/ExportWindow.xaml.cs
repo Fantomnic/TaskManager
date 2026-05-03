@@ -61,11 +61,18 @@ namespace TaskManager.Views
             if (autosave.IsChecked != true)
             {
                 var objectsToSerialize = new List<BaseObject>();
+                string extension = Constants.XmlExtension;
 
                 if (exportSections.IsChecked == true)
+                {
                     objectsToSerialize = [.. GetSelectedSections().Select(vm => vm.Section)];
+                    extension = Constants.SectionDataExtension;
+                }
                 else if (exportTasks.IsChecked == true)
+                {
                     objectsToSerialize = [.. GetSelectedTasks().Select(vm => vm.TaskObject)];
+                    extension = Constants.TaskDataExtension;
+                }
 
                 if (objectsToSerialize.Count == 0)
                 {
@@ -82,7 +89,7 @@ namespace TaskManager.Views
 
                 foreach (var @object in objectsToSerialize)
                 {
-                    string fileName = useName.IsChecked == true ? @object.Name + Constants.DataExtension : @object.FileName;
+                    string fileName = useName.IsChecked == true ? @object.Name + extension : @object.FileName;
                     string resultPath = Path.Combine(targetFolder, fileName);
 
                     try
@@ -108,7 +115,7 @@ namespace TaskManager.Views
 
             if (autosave.IsChecked == true)
             {
-                if (DataHelper.SaveData(Enums.DataDirectory.Autosave, out string resultDirectory))
+                if (DataHelper.SaveData(Enums.DataDirectory.BackupWithDate, out string resultDirectory))
                    UIHelper.ShowMessage($"{_successMessage} в папку {resultDirectory}", MessageBoxImage.Information);
             }
             else

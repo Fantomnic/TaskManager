@@ -1,13 +1,17 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text;
 using System.Windows;
 using TaskManager.Model;
+using TaskManager.Model.BaseClasses;
 using TaskManager.Resources;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
 {
-    internal class DataHelper
+    internal static class DataHelper
     {
         internal static bool DataIsLoaded { get; set; }
 
@@ -22,7 +26,7 @@ namespace TaskManager.Helpers
         {
             savedDirectoryPath = GetDataDirectory(dataDirectoryType);
 
-            if (dataDirectoryType != DataDirectory.Autosave)
+            if (dataDirectoryType != DataDirectory.BackupWithDate)
                 ClearDirectory(savedDirectoryPath);
 
             try
@@ -58,7 +62,8 @@ namespace TaskManager.Helpers
                 DataDirectory.Root => dataDirectory,
                 DataDirectory.SourceSections => Path.Combine(dataDirectory, Constants.SourceSectionsFolder),
                 DataDirectory.FinishedSections => Path.Combine(dataDirectory, Constants.FinishedSectionsFolder),
-                DataDirectory.Autosave => Path.Combine(dataDirectory, $"{Constants.AutosaveFolder}\\{DateTime.Now:dd.MM.yyyy HH-mm-ss}"),
+                DataDirectory.Backup => Path.Combine(dataDirectory, Constants.BackupFolder),
+                DataDirectory.BackupWithDate => Path.Combine(dataDirectory, $"{Constants.BackupFolder}\\{DateTime.Now:dd.MM.yyyy HH-mm-ss}"),
                 _ => throw new NotImplementedException()
             };
 
@@ -85,6 +90,112 @@ namespace TaskManager.Helpers
                     // TODO
                 }
             }
+        }
+
+        internal static void GetAnyObjectsFromFiles(List<string> files,
+            out MasterSection? masterSection,
+            out List<AdditionalSection> additionalSections,
+            out List<TaskObject> taskObjects)
+        {
+            masterSection = null;
+            additionalSections = [];
+            taskObjects = [];
+
+            var sectionsFiles = new List<string>();
+            var tasksFiles = new List<string>();
+
+            foreach (var file in files)
+            {
+                string fileExtension = Path.GetExtension(file);
+
+                if (String.Equals(fileExtension, Constants.SectionDataExtension, StringComparison.OrdinalIgnoreCase))
+                    sectionsFiles.Add(file);
+                else if (String.Equals(fileExtension, Constants.TaskDataExtension, StringComparison.OrdinalIgnoreCase))
+                    tasksFiles.Add(file);
+            }
+
+            if (sectionsFiles.Count > 0
+                && !TryGetObjectsFromFiles(sectionsFiles, out additionalSections, out _, out var errorFiles, false)
+                && TryGetObjectsFromFiles<MasterSection>(errorFiles, out var masterSections, out _, out _, false))
+            {
+                masterSection = masterSections.FirstOrDefault();
+            }
+
+            if (tasksFiles.Count > 0)
+                TryGetObjectsFromFiles(tasksFiles, out taskObjects, out _, out _, false);
+
+        }
+
+        internal static bool TryGetObjectFromFile<T>(string file, out T result, out string errorMessage, bool throwOnError = true)
+            where T : BaseObject
+        {
+            result = null;
+            errorMessage = String.Empty;
+
+            try
+            {
+                var serialiser = new DataContractSerializer(typeof(T), [typeof(TaskObject)]);
+
+                using var stream = new FileStream(file, FileMode.Open);
+                var value = serialiser.ReadObject(stream);
+
+                if (value is T targetTypeObject)
+                {
+                    result = targetTypeObject;
+                    return true;
+                }
+            }
+            catch
+            {
+                errorMessage = $"Не удалось загрузить данные из файла {file}";
+
+                if (throwOnError)
+                    throw new InvalidOperationException(errorMessage);
+            }
+
+            return false;
+        }
+
+        internal static bool TryGetObjectsFromFiles<T>(List<string> files,
+            out List<T> result,
+            out string errorMessage,
+            out List<string> errorFiles,
+            bool throwOnError = true)
+                where T : BaseObject
+        {
+            result = [];
+            errorMessage = String.Empty;
+            errorFiles = [];
+
+            var serialiser = new DataContractSerializer(typeof(T), [typeof(TaskObject)]);
+
+            foreach (string file in files)
+            {
+                try
+                {
+                    using var stream = new FileStream(file, FileMode.Open);
+                    var value = serialiser.ReadObject(stream);
+
+                    if (value is T targetTypeObject)
+                        result.Add(targetTypeObject);
+                }
+                catch
+                {
+                    errorFiles.Add(file);
+                }
+            }
+
+            if (errorFiles.Count > 0)
+            {
+                errorMessage = "Не удалось загрузить данные из файлов" + Environment.NewLine + String.Join("," + Environment.NewLine, errorFiles);
+
+                if (throwOnError)
+                    throw new InvalidOperationException(errorMessage);
+
+                return false;
+            }
+
+            return result.Count > 0;
         }
     }
 }

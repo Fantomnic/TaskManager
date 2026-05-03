@@ -31,6 +31,14 @@ namespace TaskManager.Helpers
         internal static TabItem? GetTabItemWithSectionViewModel(SectionViewModel sectionViewModel)
             => MainWindow.sections.Items.OfType<TabItem>().FirstOrDefault(t => Helper.GetSectionViewModelFromTabItem(t) == sectionViewModel);
 
+        internal static void RemoveAllAdditionalTabItems()
+        {
+            var items = MainWindow.sections.Items;
+
+            while (items.Count > 1)
+                items.RemoveAt(1);
+        }
+
         internal static SectionView GetCurrentSectionView() => GetSectionViewFromTabItem(MainWindow.sections.SelectedItem as TabItem);
 
         internal static bool ShowMessage(string message, MessageBoxImage icon = MessageBoxImage.None, string? caption = null)

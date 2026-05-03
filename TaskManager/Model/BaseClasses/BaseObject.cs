@@ -22,7 +22,7 @@ namespace TaskManager.Model.BaseClasses
         [DataMember]
         protected internal Guid Guid { get; protected set; }
 
-        internal virtual string FileName => Guid.ToString() + Constants.DataExtension;
+        internal virtual string FileName => Guid.ToString() + Constants.XmlExtension;
 
         [DataMember]
         public virtual string Name { get; set; }
