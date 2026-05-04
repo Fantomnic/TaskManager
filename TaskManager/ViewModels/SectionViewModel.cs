@@ -103,7 +103,7 @@ namespace TaskManager.ViewModels
 
         private void SetTaskIsSelected(bool isSelected)
         {
-            if (_selectedTaskViewModel is not null)
+            if (_selectedTaskViewModel is not null && IsMasterSection is false)
                 _selectedTaskViewModel.IsSelected = isSelected;
         }
 
