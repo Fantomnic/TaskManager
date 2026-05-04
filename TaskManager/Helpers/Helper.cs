@@ -189,4 +189,16 @@ namespace TaskManager.Helpers
         internal static T GetResource<T>(string key) where T : class
             => Application.Current.Resources[key] as T ?? throw new WarningException("Не удалось получить команду из ресурсов");
     }
+
+    internal class AddChildrenSettings
+    {
+        internal bool CheckAllParents { get; set; } = true;
+
+        internal bool RemoveFromRoot { get; set; } = true;
+
+        internal bool ThrowOnError { get; set; } = true;
+
+        // Настройка для ViewModel
+        internal bool ReturnIfModelAddIsFalse { get; set; }
+    }
 }

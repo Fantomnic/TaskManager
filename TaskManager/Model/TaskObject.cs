@@ -67,25 +67,27 @@ namespace TaskManager.Model
 
         #endregion Свойства
 
-        internal void AddChild(TaskObject child, bool throwOnError = true)
+        internal bool AddChild(TaskObject child, bool checkAllParents = true, bool throwOnError = true)
         {
             if (ContainsChild(child))
             {
                 if (throwOnError)
                     throw new WarningException("Данная подзадача уже добавлена");
 
-                return;
+                return false;
             }
 
-            if (GetAllParents(this).Any(p => p.ContainsChild(child)))
+            if (GetAllParents(this).Any(p => checkAllParents && p.ContainsChild(child) || p == child))
             {
                 if (throwOnError)
                     throw new WarningException("Данная подзадача содержит задачу, в которую происходит добавление");
 
-                return;
+                return false;
             }
 
             Children.Add(child);
+
+            return true;
         }
 
         /// <summary>Удалить подзадачу</summary>

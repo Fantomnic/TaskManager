@@ -275,24 +275,29 @@ namespace TaskManager.ViewModels
         }
 
         /// <summary>Добавить подзадачу к задаче</summary>
-        internal void AddChildViewModel(TaskObjectViewModel childViewModel, bool removeFromRoot = true, bool throwOnError = true)
+        internal bool AddChildViewModel(TaskObjectViewModel childViewModel, AddChildrenSettings? addSettings = null)
         {
+            addSettings ??= new();
+
             var child = childViewModel.TaskObject;
 
             if (child == TaskObject || ChildrenViewModels.Contains(childViewModel))
-                return;
+                return false;
 
-            TaskObject.AddChild(child, throwOnError);
+            if (!TaskObject.AddChild(child, addSettings.CheckAllParents, addSettings.ThrowOnError) && addSettings.ReturnIfModelAddIsFalse)
+                return false;
 
-            ChildrenViewModels.Add(childViewModel);
-
-            if (removeFromRoot && childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
+            if (addSettings.RemoveFromRoot && childViewModel.AdditionalSectionViewModel is AdditionalSectionViewModel currentSectionViewModel)
                 currentSectionViewModel.RemoveRootTaskViewModel(childViewModel, false);
 
             if (childViewModel.ParentViewModel is TaskObjectViewModel parentViewModel)
                 parentViewModel.RemoveChildViewModel(childViewModel);
 
+            ChildrenViewModels.Add(childViewModel);
+
             childViewModel.SetParentViewModel(this);
+
+            return true;
         }
 
         /// <summary>Удалить подзадачу</summary>

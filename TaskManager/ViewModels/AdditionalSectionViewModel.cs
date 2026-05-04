@@ -31,7 +31,7 @@ namespace TaskManager.ViewModels
                 foreach (var child in children)
                 {
                     if (masterSectionViewModel.FindTaskViewModel(child) is TaskObjectViewModel childViewModel)
-                        taskViewModel.AddChildViewModel(childViewModel, false, false);
+                        taskViewModel.AddChildViewModel(childViewModel, new() { RemoveFromRoot = false, ThrowOnError = false });
                 }
 
                 FillChildren(taskViewModel.ChildrenViewModels, masterSectionViewModel);

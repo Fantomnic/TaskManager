@@ -118,7 +118,7 @@
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
                 <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Создать задачу"
-                        Command="{StaticResource NewTaskCommand}" CommandParameter="{Binding TasksList}">
+                        Command="{StaticResource NewTaskCommand}">
                     <Image Style="{DynamicResource NewTaskIcon}"/>
                 </Button>
                 <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Действия"

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using TaskManager.CustomControls;
+using TaskManager.Helpers;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Resources
@@ -52,7 +53,10 @@ namespace TaskManager.Resources
                 return;
             }
 
-            targetTaskViewModel.AddChildViewModel(sourceTaskViewModel);
+            if (targetTaskViewModel.AddChildViewModel(sourceTaskViewModel, new() { CheckAllParents = false, ThrowOnError = false, ReturnIfModelAddIsFalse = true }))
+                Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
+            else
+                UIHelper.ShowMessage("Данная задача уже содержится в цепочке", MessageBoxImage.Warning);
 
             e.Handled = true;
         }
