@@ -301,7 +301,7 @@
                                 Content="{TemplateBinding Content}"
                                 CanContentScroll="{TemplateBinding CanContentScroll}"
                                 Margin="{TemplateBinding Padding}"/>
-            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1"
+            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" Grid.RowSpan="2"
                        Style="{StaticResource BaseScrollBar}"
                        AutomationProperties.AutomationId="VerticalScrollBar"
                        Maximum="{TemplateBinding ScrollableHeight}"
@@ -967,7 +967,7 @@
                            Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Title}"   
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           FontSize="16"
+                           FontSize="18"
                            FontWeight="Bold"
                            Foreground="{DynamicResource WindowTitleForeground}">
                 </TextBlock>

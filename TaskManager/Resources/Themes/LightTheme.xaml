@@ -58,8 +58,8 @@
     <SolidColorBrush Color="#9954CC" x:Key="CompletedStatusBackground" />
 
     <!-- Цвета приоритетов -->
-    <SolidColorBrush Color="#FF00CF00" x:Key="LowPriorityForeground" />
-    <SolidColorBrush Color="#FF889815" x:Key="PostLowPriorityForeground" />
+    <SolidColorBrush Color="#FF00D700" x:Key="LowPriorityForeground" />
+    <SolidColorBrush Color="#FF16B18F" x:Key="PostLowPriorityForeground" />
     <SolidColorBrush Color="#FFEEBE25" x:Key="MiddlePriorityForeground" />
     <SolidColorBrush Color="#FFFF8202" x:Key="PreHighPriorityForeground" />
     <SolidColorBrush Color="Red" x:Key="HighPriorityForeground" />
@@ -70,5 +70,6 @@
     </LinearGradientBrush>
 
     <SolidColorBrush Color="#FFE3E300" x:Key="TodayCalendarDateBackground"></SolidColorBrush>
-    
+
+    <ImageSource x:Key="ImageBackgroundPath">/Resources/Images/LightQuestionPromo.png</ImageSource>
 </ResourceDictionary>

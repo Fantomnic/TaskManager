@@ -126,6 +126,16 @@
         <Setter Property="Stretch" Value="Fill"></Setter>
     </Style>
 
+    <!-- Стиль, отвечающий за отображение "пустой" задачи (фона) -->
+    <Style TargetType="Canvas" x:Shared="False" x:Key="EmptyTaskStyle">
+        <Setter Property="Visibility" Value="{Binding Path=VisibilityEmptyTaskImage}"></Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="{DynamicResource ImageBackgroundPath}" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,0.5,1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Стиль элемента комбобокса (в выпадающем списке) -->
     <Style TargetType="ComboBoxItem" x:Key="ComboBoxItem">
         <Setter Property="Template" Value="{StaticResource ListBoxItemTemplate}"></Setter>

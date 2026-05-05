@@ -17,6 +17,7 @@
     <None Remove="Resources\Images\DarkMenuIcon.png" />
     <None Remove="Resources\Images\DarkPlus.png" />
     <None Remove="Resources\Images\DarkSettingsIcon.png" />
+    <None Remove="Resources\Images\LightQuestionPromo.png" />
     <None Remove="Resources\Images\QuestionPromo.png" />
   </ItemGroup>
 
@@ -44,6 +45,7 @@
     <Resource Include="Resources\Images\DarkSettingsIcon.png" />
     <Resource Include="Resources\Images\LightPlus.png" />
     <Resource Include="Resources\Images\LightMenuIcon.png" />
+    <Resource Include="Resources\Images\LightQuestionPromo.png" />
     <Resource Include="Resources\Images\QuestionPromo.png" />
     <Resource Include="Resources\Images\LightSettingsIcon.png" />
   </ItemGroup>

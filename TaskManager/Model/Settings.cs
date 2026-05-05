@@ -104,8 +104,8 @@ namespace TaskManager.Model
             ConfirmDeleteTask = true;
             ConfirmCompleteTask = true;
             AutoRenewalTasks = false;
-            MaxSectionLength = 50;
-            MaxTaskLength = 50;
+            MaxSectionLength = 100;
+            MaxTaskLength = 100;
 
             if (PrioritiesSetID != 0)
             {

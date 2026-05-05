@@ -59,7 +59,7 @@
 
     <!-- Цвета приоритетов -->
     <SolidColorBrush Color="#FF00B700" x:Key="LowPriorityForeground" />
-    <SolidColorBrush Color="#FF82A916" x:Key="PostLowPriorityForeground" />
+    <SolidColorBrush Color="#FF1CB589" x:Key="PostLowPriorityForeground" />
     <SolidColorBrush Color="#FFD4D422" x:Key="MiddlePriorityForeground" />
     <SolidColorBrush Color="#FFE3910E" x:Key="PreHighPriorityForeground" />
     <SolidColorBrush Color="#FFED2929" x:Key="HighPriorityForeground" />
@@ -70,5 +70,6 @@
     </LinearGradientBrush>
 
     <SolidColorBrush Color="#FFA0A000" x:Key="TodayCalendarDateBackground"></SolidColorBrush>
-    
+
+    <ImageSource x:Key="ImageBackgroundPath">/Resources/Images/QuestionPromo.png</ImageSource>
 </ResourceDictionary>
