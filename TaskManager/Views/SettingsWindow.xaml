@@ -140,7 +140,6 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Структура данных</TextBlock>
                 </GroupBox.Header>
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -150,8 +149,7 @@
                     <TextBlock Style="{StaticResource FieldDescription}">Приоритизация:</TextBlock>
                     <ComboBox Grid.Column="1"
                               Style="{StaticResource BaseComboBox}"
-                              SelectedIndex="{Binding PrioritiesSetID}"
-                              Margin="3,0,3,0">
+                              SelectedIndex="{Binding PrioritiesSetID}">
                         <sys:String>Трёхступенчатая</sys:String>
                         <sys:String>Пятиступенчатая</sys:String>
 
