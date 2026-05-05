@@ -8,6 +8,7 @@
     <h:ThemeConverter x:Key="ThemeConverter" />
     <h:FontIDConverter x:Key="FontIDConverter" />
     <h:DateConverter x:Key="DateConverter" />
+    <h:IntegerConverter x:Key="IntegerConverter" />
     
     <!-- Команды -->
     <!-- Прим.: Таким способом нельзя создать экземпляр вложенного класса.

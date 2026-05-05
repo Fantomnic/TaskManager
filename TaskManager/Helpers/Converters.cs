@@ -65,19 +65,18 @@ namespace TaskManager.Helpers
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is not DateTime dateTime)
-                return "Ошибка отображения";
-
-            return dateTime.ToString("dd.MM.yyyy");
-        }
+            => value is DateTime dateTime ? dateTime.ToString("dd.MM.yyyy") : "Ошибка отображения";
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (DateTime.TryParse(value?.ToString(), out DateTime result))
-                return result;
+            => DateTime.TryParse(value?.ToString(), out DateTime result) ? result : DependencyProperty.UnsetValue;
+    }
 
-            return DependencyProperty.UnsetValue;
-        }
+    public class IntegerConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => value is int result ? result.ToString() : "Ошибка отображения";
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => Int32.TryParse(value?.ToString(), out int result) ? result : DependencyProperty.UnsetValue;
     }
 }

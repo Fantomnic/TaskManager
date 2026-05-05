@@ -53,6 +53,9 @@ namespace TaskManager.Model
         [DataMember]
         internal string Comment { get; set; }
 
+        [DataMember]
+        internal int ExecutionsCount { get; set; }
+
         /// <summary>Неосновной раздел, к которому принадлежит задача</summary>
         /// <remarks>По умолчанию все задачи хранятся в базовом разделе. Если значение = null, то, кроме базового, ни в каком другом разделе её нет</remarks> 
         internal AdditionalSection? AdditionalSection { get; set; }

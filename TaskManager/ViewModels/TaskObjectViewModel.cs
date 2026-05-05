@@ -146,6 +146,16 @@ namespace TaskManager.ViewModels
             }
         }
 
+        public int ExecutionsCount
+        {
+            get => TaskObject.ExecutionsCount;
+            set
+            {
+                TaskObject.ExecutionsCount = value;
+                OnPropertyChanged(nameof(ExecutionsCount));
+            }
+        }
+
         public AdditionalSectionViewModel? AdditionalSectionViewModel
         {
             get => _additionalSectionViewModel;

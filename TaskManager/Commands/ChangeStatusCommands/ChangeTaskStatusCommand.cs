@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata;
-using TaskManager.Helpers;
+﻿using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.ViewModels;
@@ -14,10 +13,19 @@ namespace TaskManager.Commands
 
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is not TaskObjectViewModel taskObjectViewModel || taskObjectViewModel.TaskObject is not TaskObject taskObject)
+            if (!ValidateParameter(parameter, out var taskObjectViewModel, out var taskObject))
                 return;
 
             ExecuteImplementCore(taskObjectViewModel, taskObject);
+        }
+
+        protected static bool ValidateParameter(object? parameter, out TaskObjectViewModel taskObjectViewModel, out TaskObject taskObject)
+        {
+#pragma warning disable CS8601 // Possible null reference assignment.
+            taskObjectViewModel = parameter as TaskObjectViewModel;
+            taskObject = taskObjectViewModel?.TaskObject;
+#pragma warning restore CS8601 // Possible null reference assignment.
+            return taskObjectViewModel is not null && taskObject is not null;
         }
 
         internal bool ExecuteImplementCore(TaskObjectViewModel taskObjectViewModel, TaskObject taskObject)

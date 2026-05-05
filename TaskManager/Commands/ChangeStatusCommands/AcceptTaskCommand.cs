@@ -13,12 +13,12 @@ namespace TaskManager.Commands
 
         internal override void ExecuteImplement(object? parameter)
         {
-            if (parameter is not TaskObjectViewModel taskObjectViewModel || taskObjectViewModel.TaskObject is not TaskObject taskObject)
+            if (!ValidateParameter(parameter, out var taskObjectViewModel, out var taskObject) || !ExecuteImplementCore(taskObjectViewModel, taskObject))
                 return;
 
             var sourceStatus = taskObject.Status;
 
-            if (!ExecuteImplementCore(taskObjectViewModel, taskObject) || sourceStatus == TaskStatusesInstances.WaitingStatus || sourceStatus == TaskStatusesInstances.DeferredStatus)
+            if (sourceStatus == TaskStatusesInstances.WaitingStatus || sourceStatus == TaskStatusesInstances.DeferredStatus)
                 return;
 
             var currentSection = Helper.MainViewModel.SelectedSectionViewModel;

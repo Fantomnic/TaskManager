@@ -1,11 +1,10 @@
-﻿using TaskManager.Helpers;
-using TaskManager.Model;
+﻿using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Commands
 {
-    public class CompleteTaskCommand : ChangeTaskStatusCommand
+    public class CompleteTaskCommand : DoneTaskCommand
     {
         private protected override TaskStatusBase _targetStatus => TaskStatusesInstances.CompletedStatus;
 

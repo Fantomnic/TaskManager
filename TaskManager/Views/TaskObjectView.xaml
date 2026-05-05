@@ -143,7 +143,10 @@
                                 Style="{StaticResource completedCountStyle}">
                         <TextBlock Style="{StaticResource FieldDescription}">Количество выполнений:</TextBlock>
                         <TextBox Style="{StaticResource FullReadOnlyLine}"
-                                 BorderThickness="1.5" Foreground="{DynamicResource TitleForeground}" BorderBrush="Black">0</TextBox>
+                                 BorderThickness="1.5"
+                                 BorderBrush="Black"
+                                 Foreground="{DynamicResource TitleForeground}"
+                                 Text="{Binding Path=ExecutionsCount,Converter={StaticResource IntegerConverter}}"></TextBox>
                     </StackPanel>
                 </Grid>
             </Grid>

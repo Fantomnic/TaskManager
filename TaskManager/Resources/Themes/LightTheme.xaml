@@ -58,10 +58,10 @@
     <SolidColorBrush Color="#9954CC" x:Key="CompletedStatusBackground" />
 
     <!-- Цвета приоритетов -->
-    <SolidColorBrush Color="#FF00C000" x:Key="LowPriorityForeground" />
-    <SolidColorBrush Color="#FF85AB2E" x:Key="PostLowPriorityForeground" />
-    <SolidColorBrush Color="#FFF0BA43" x:Key="MiddlePriorityForeground" />
-    <SolidColorBrush Color="#FFF68919" x:Key="PreHighPriorityForeground" />
+    <SolidColorBrush Color="#FF00CF00" x:Key="LowPriorityForeground" />
+    <SolidColorBrush Color="#FF889815" x:Key="PostLowPriorityForeground" />
+    <SolidColorBrush Color="#FFEEBE25" x:Key="MiddlePriorityForeground" />
+    <SolidColorBrush Color="#FFFF8202" x:Key="PreHighPriorityForeground" />
     <SolidColorBrush Color="Red" x:Key="HighPriorityForeground" />
     
     <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" x:Key="MenuGradientBackground">
