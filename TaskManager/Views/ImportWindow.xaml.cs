@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Resources;
@@ -28,6 +30,9 @@ namespace TaskManager.Views
                 return;
 
             var errors = new StringBuilder();
+            var mainWindow = UIHelper.MainWindow;
+            var mainViewModel = mainWindow.MainViewModel;
+            var currentSelectedSectionViewModel = mainViewModel.SelectedSectionViewModel;
 
             if (importType.SelectedIndex == 0) // Из резервной копии
             {
@@ -61,42 +66,39 @@ namespace TaskManager.Views
                     return;
                 }
 
-                var mainWindow = UIHelper.MainWindow;
-
-                var currentSelectedSectionViewModel = mainWindow.MainViewModel.SelectedSectionViewModel;
                 var additionalSelectedSection = currentSelectedSectionViewModel.IsMasterSection ? null : currentSelectedSectionViewModel.Section;
 
-                mainWindow.MainViewModel.RemoveAllAdditionalSections();
+                mainViewModel.RemoveAllAdditionalSections();
 
-                DataHelper.GetAnyObjectsFromFiles(sourceFiles, out var masterSection, out var additionalSections, out _);
+                DataHelper.GetAnyObjectsFromFiles(sourceFiles, out var masterSection, out var additionalSections, out _, out _);
 
                 if (masterSection is not null)
                     mainWindow.CreateAndInitializeMasterSectionViewModel(masterSection, true);
 
                 mainWindow.LoadAdditionalSectionsCore(additionalSections, ref errors);
 
-                if (additionalSelectedSection is not null && mainWindow.MainViewModel.FindSectionViewModel(additionalSelectedSection) is SectionViewModel newSelectionSectionViewModel)
-                    mainWindow.MainViewModel.SelectedSectionViewModel = newSelectionSectionViewModel;
+                if (additionalSelectedSection is not null && mainViewModel.FindSectionViewModel(additionalSelectedSection) is SectionViewModel newSelectionSectionViewModel)
+                    mainViewModel.SelectedSectionViewModel = newSelectionSectionViewModel;
 
                 static void ShowMessageDataNotFound() => UIHelper.ShowMessage("Данные для восстановления не найдены", MessageBoxImage.Warning);
             }
             else
             {
-                bool isSections;
+                bool areSections;
 
                 if (importType.SelectedIndex == 1) // Разделы
-                    isSections = true;
+                    areSections = true;
                 else if (importType.SelectedIndex == 2) // Задачи
-                    isSections = false;
+                    areSections = false;
                 else
                     throw new NotImplementedException();
 
-                string extension = isSections ? Constants.SectionDataExtension : Constants.TaskDataExtension;
+                string extension = areSections ? Constants.SectionDataExtension : Constants.TaskDataExtension;
 
                 var openFileDialog = new OpenFileDialog()
                 {
                     Multiselect = true,
-                    Filter = $"Раздел планировщика задач (*{extension})|*{extension}",
+                    Filter = $"Данные планировщика задач (*{extension})|*{extension}",
                 };
 
                 if (openFileDialog.ShowDialog() != true)
@@ -104,7 +106,43 @@ namespace TaskManager.Views
 
                 var selectedFiles = openFileDialog.FileNames.ToList();
 
-                DataHelper.TryGetObjectsFromFiles<AdditionalSection>(selectedFiles, out var additionalSections, out string errorMessage, out var errorFiles, false);
+                DataHelper.GetAnyObjectsFromFiles(selectedFiles, out var newMasterSection, out var additionalSections, out var newTaskObjects, out var errorFiles);
+
+                if (errorFiles.Count > 0)
+                    errors.AppendLine(DataHelper.GetFilesNotLoadedMessage(errorFiles));
+
+                var masterSectionViewModel = mainViewModel.MasterSectionViewModel;
+                var masterSection = (MasterSection)masterSectionViewModel.Section;
+
+                if (areSections)
+                {
+                    if (newMasterSection is not null)
+                        TaskObjectsImportCore(masterSectionViewModel, newMasterSection.Tasks);
+
+                    foreach (var newAdditionalSection in additionalSections.OrderBy(s => s.CreationDate))
+                    {
+                        if (mainViewModel.FindSectionViewModel(newAdditionalSection) is not SectionViewModel existingAdditionalSectionViewModel)
+                        {
+                            var sectionViewModel = mainViewModel.CreateAdditionalSectionViewModel(newAdditionalSection);
+                            NewSectionCommand.AddSectionCore(mainViewModel, mainWindow.sections.Items, sectionViewModel, false);
+                        }
+                        else if (replace.IsChecked == true)
+                        {
+                            foreach (var newTaskObject in newAdditionalSection.Tasks)
+                            {
+                                if (masterSection.FindTaskObject(newTaskObject.Guid) is TaskObject currentTaskObject)
+                                    currentTaskObject.CopyFrom(newTaskObject);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    SectionViewModel targetSectionViewModel = addInCurrentSection.IsChecked == true ? mainViewModel.SelectedSectionViewModel : masterSectionViewModel;
+                    TaskObjectsImportCore(targetSectionViewModel, newTaskObjects);
+                }
+
+                currentSelectedSectionViewModel.RefreshVisibleTaskViewModels();
             }
 
             DialogResult = true;
@@ -114,6 +152,46 @@ namespace TaskManager.Views
                 UIHelper.ShowMessage(errors.ToString(), MessageBoxImage.Warning, "Ошибка загрузки данных");
             else
                 UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
+        }
+
+        private void TaskObjectsImportCore(SectionViewModel targetSectionViewModel, List<TaskObject> newTaskObjects)
+        {
+            foreach (var newTaskObject in newTaskObjects)
+            {
+                if (targetSectionViewModel.Section.FindTaskObject(newTaskObject.Guid) is not TaskObject currentTaskObject)
+                {
+                    var newTaskViewModel = targetSectionViewModel.CreateTaskViewModel(newTaskObject);
+                    targetSectionViewModel.AddTaskViewModel(newTaskViewModel, false);
+                }
+                else if (replace.IsChecked == true)
+                {
+                    currentTaskObject.CopyFrom(newTaskObject);
+                }
+            }
+        }
+
+        private void ComboboxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded || sender is not ComboBox combobox)
+                return;
+
+            int selectedIndex = combobox.SelectedIndex;
+
+            if (selectedIndex == 0) // Из резервной копии
+            {
+                replace.Visibility = Visibility.Collapsed;
+                addInCurrentSection.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedIndex == 1) // Разделы
+            {
+                replace.Visibility = Visibility.Visible;
+                addInCurrentSection.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedIndex == 2) // Задачи
+            {
+                replace.Visibility = Visibility.Visible;
+                addInCurrentSection.Visibility = Visibility.Visible;
+            }
         }
     }
 }

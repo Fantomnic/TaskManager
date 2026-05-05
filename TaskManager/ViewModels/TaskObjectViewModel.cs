@@ -78,8 +78,13 @@ namespace TaskManager.ViewModels
             get => TaskObject.Status;
             set
             {
+                var oldValue = TaskObject.Status;
+
                 TaskObject.Status = value;
                 OnPropertyChanged(nameof(TaskStatus));
+
+                if (oldValue != value)
+                    RefreshAfterChangeStatus();
             }
         }
 
@@ -210,7 +215,7 @@ namespace TaskManager.ViewModels
 
         public bool CompleteCommandVisibility => Helper.GetCommandInstance<CompleteTaskCommand>().CanChange(TaskObject);
 
-        internal void RefreshAfterChangeStatus()
+        private void RefreshAfterChangeStatus()
         {
             RefreshCalendarIsEnabled();
 

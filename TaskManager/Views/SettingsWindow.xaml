@@ -9,7 +9,8 @@
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                xmlns:h="clr-namespace:TaskManager.Helpers"
                                mc:Ignorable="d"
-                               Title="Настройки" WindowStartupLocation="CenterOwner"
+                               Title="Настройки"
+                               WindowStartupLocation="CenterOwner"
                                Style="{StaticResource SettingsWindow}"
                                ShowMinMaxButtons="False">
 

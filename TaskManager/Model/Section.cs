@@ -71,5 +71,7 @@ namespace TaskManager.Model
         internal virtual bool RemoveTask(TaskObject task) => Tasks.RemoveAll(t => t.Guid == task.Guid) > 0;
 
         internal bool ContainsTask(TaskObject task) => Tasks.Contains(task, new BaseComparer());
+
+        internal TaskObject? FindTaskObject(Guid taskGuid) => Tasks.FirstOrDefault(t => t.Guid == taskGuid);
     }
 }

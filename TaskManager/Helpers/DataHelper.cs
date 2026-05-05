@@ -95,11 +95,13 @@ namespace TaskManager.Helpers
         internal static void GetAnyObjectsFromFiles(List<string> files,
             out MasterSection? masterSection,
             out List<AdditionalSection> additionalSections,
-            out List<TaskObject> taskObjects)
+            out List<TaskObject> taskObjects,
+            out List<string> errorFiles)
         {
             masterSection = null;
             additionalSections = [];
             taskObjects = [];
+            errorFiles = [];
 
             var sectionsFiles = new List<string>();
             var tasksFiles = new List<string>();
@@ -115,15 +117,17 @@ namespace TaskManager.Helpers
             }
 
             if (sectionsFiles.Count > 0
-                && !TryGetObjectsFromFiles(sectionsFiles, out additionalSections, out _, out var errorFiles, false)
-                && TryGetObjectsFromFiles<MasterSection>(errorFiles, out var masterSections, out _, out _, false))
+                && !TryGetObjectsFromFiles(sectionsFiles, out additionalSections, out _, out var errorFilesInner, false)
+                && TryGetObjectsFromFiles<MasterSection>(errorFilesInner, out var masterSections, out _, out errorFiles, false))
             {
                 masterSection = masterSections.FirstOrDefault();
             }
 
             if (tasksFiles.Count > 0)
-                TryGetObjectsFromFiles(tasksFiles, out taskObjects, out _, out _, false);
-
+            {
+                TryGetObjectsFromFiles(tasksFiles, out taskObjects, out _, out var errorFilesTasks, false);
+                errorFiles.AddRange(errorFilesTasks);
+            }
         }
 
         internal static bool TryGetObjectFromFile<T>(string file, out T result, out string errorMessage, bool throwOnError = true)
@@ -187,7 +191,7 @@ namespace TaskManager.Helpers
 
             if (errorFiles.Count > 0)
             {
-                errorMessage = "Не удалось загрузить данные из файлов" + Environment.NewLine + String.Join("," + Environment.NewLine, errorFiles);
+                errorMessage = GetFilesNotLoadedMessage(errorFiles);
 
                 if (throwOnError)
                     throw new InvalidOperationException(errorMessage);
@@ -196,6 +200,12 @@ namespace TaskManager.Helpers
             }
 
             return result.Count > 0;
+        }
+
+        internal static string GetFilesNotLoadedMessage(List<string> errorFiles)
+        {
+            string filesEnding = errorFiles.Count > 1 ? "файлов" : "файла";
+            return $"Не удалось загрузить данные из {filesEnding}" + Environment.NewLine + String.Join(";" + Environment.NewLine, errorFiles);
         }
     }
 }

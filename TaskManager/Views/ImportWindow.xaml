@@ -7,6 +7,7 @@
                                xmlns:model="clr-namespace:TaskManager.Model"
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                               xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                mc:Ignorable="d"
                                Title="Импорт"
                                WindowStartupLocation="CenterOwner"
@@ -20,27 +21,49 @@
 
         <Border Margin="{x:Static res:Constants.UniformMarginBase}">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{x:Static res:Constants.DescriptonWidthGridLength}"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                <TextBlock Style="{StaticResource FieldDescription}">Импортировать:</TextBlock>
-                <ComboBox x:Name="importType" Grid.Column="1"
-                          Style="{StaticResource BaseComboBox}"
-                          SelectedIndex="0"
-                          VerticalAlignment="Center"
-                          Margin="3,0,3,0">
-                    <sys:String>Последнюю сохранённую копию</sys:String>
-                    <sys:String>Разделы</sys:String>
-                    <sys:String>Задачи</sys:String>
+                        <TextBlock Style="{StaticResource FieldDescription}">Импортировать:</TextBlock>
+                        <ComboBox x:Name="importType" Grid.Column="1"
+                                  Style="{StaticResource BaseComboBox}"
+                                  SelectedIndex="0"
+                                  VerticalAlignment="Center"
+                                  Margin="3,0,3,0" SelectionChanged="ComboboxSelectionChanged">
+                            <sys:String>Последнюю сохранённую копию</sys:String>
+                            <sys:String>Разделы</sys:String>
+                            <sys:String>Задачи</sys:String>
 
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="1">
+                            <ctrl:CheckBoxWithItemStyle x:Name="replace" Style="{StaticResource BaseCheckBox}" Visibility="Collapsed" IsChecked="True"
+                                                        ToolTip="Если флаг не установлен, то уже добавленные задачи будут игнорироваться"
+                                                        Content="Заменять существующие задачи">
+                            </ctrl:CheckBoxWithItemStyle>
+                            <ctrl:CheckBoxWithItemStyle x:Name="addInCurrentSection" Style="{StaticResource BaseCheckBox}" Visibility="Collapsed" IsChecked="True"
+                                                        ToolTip="Если флаг не установлен, то задачи будут добавлены только в основной раздел"
+                                                        Content="Добавить в текущий раздел">
+                            </ctrl:CheckBoxWithItemStyle>
+                        </StackPanel>
+                        
+                    </Grid>
+
+                    
+                </StackPanel>
             </Grid>
         </Border>
 

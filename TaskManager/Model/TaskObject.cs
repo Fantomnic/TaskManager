@@ -108,5 +108,17 @@ namespace TaskManager.Model
 
         /// <summary>Указывает, содержит ли задача указанную задачу</summary>
         internal bool ContainsChild(TaskObject task) => Children.Contains(task, new BaseComparer());
+
+        internal void CopyFrom(TaskObject taskObject)
+        {
+            //Name = taskObject.Name;
+            CreationDate = taskObject.CreationDate;
+            EndDate = taskObject.EndDate;
+            Type = taskObject.Type;
+            Status = taskObject.Status;
+            Priority = taskObject.Priority;
+            Description = taskObject.Description;
+            Comment = taskObject.Comment;
+        }
     }
 }

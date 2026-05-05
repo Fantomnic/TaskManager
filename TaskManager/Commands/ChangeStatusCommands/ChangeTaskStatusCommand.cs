@@ -31,7 +31,6 @@ namespace TaskManager.Commands
             }
 
             taskObjectViewModel.TaskStatus = _targetStatus;
-            taskObjectViewModel.RefreshAfterChangeStatus();
             Helper.MainViewModel.SelectedSectionViewModel.RefreshVisibleTaskViewModels();
 
             return true;
