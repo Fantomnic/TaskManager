@@ -16,8 +16,9 @@ namespace TaskManager.ViewModels
         private bool _confirmDeleteTask;
         private bool _confirmCompleteTask;
         private bool _autoRenewalTasks;
-        internal static int _maxSectionLength;
-        internal static int _maxTaskLength;
+        internal int _maxSectionLength;
+        internal int _maxTaskLength;
+        internal int _prioritiesSetID;
         private FontSet _fontSettings;
         private Themes _theme;
 
@@ -35,6 +36,7 @@ namespace TaskManager.ViewModels
             _autoRenewalTasks = Settings.AutoRenewalTasks;
             _maxSectionLength = Settings.MaxSectionLength;
             _maxTaskLength = Settings.MaxTaskLength;
+            _prioritiesSetID = Settings.PrioritiesSetID;
             _theme = Settings.Theme;
 
             var currentFont = Settings.FontSettings;
@@ -159,6 +161,16 @@ namespace TaskManager.ViewModels
             {
                 _maxTaskLength = value;
                 OnPropertyChanged(nameof(MaxTaskLength));
+            }
+        }
+
+        public int PrioritiesSetID
+        {
+            get => _prioritiesSetID;
+            set
+            {
+                _prioritiesSetID = value;
+                OnPropertyChanged(nameof(PrioritiesSetID));
             }
         }
 

@@ -382,5 +382,17 @@ namespace TaskManager.Properties {
                 this["FiltersAreExpanded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PrioritiesSetID {
+            get {
+                return ((int)(this["PrioritiesSetID"]));
+            }
+            set {
+                this["PrioritiesSetID"] = value;
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace TaskManager.Views
         {
             sectionName.Text = _sectionViewModel.Name;
             commentField.Text = _sectionViewModel.Comment;
-            priorityList.SelectedItem = _sectionViewModel.DefaultPriority;
+            priorityList.SelectedItem = TaskPrioritiesInstances.GetVisiblePriority(_sectionViewModel.DefaultPriority);
             typeList.SelectedItem = _sectionViewModel.DefaultTaskType;
 
             endDateCounter.SetNewValue(_sectionViewModel.DefaultReleaseDays);

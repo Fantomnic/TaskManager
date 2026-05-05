@@ -93,7 +93,7 @@
                     <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1"
                               Style="{StaticResource BaseComboBox}"
                               ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllPriorities}"
-                              SelectedItem="{Binding TaskPriority}"
+                              SelectedItem="{Binding VisibleTaskPriority}"
                               VerticalAlignment="Center"
                               Margin="3,0,3,0">
                         <ComboBox.ItemTemplate>

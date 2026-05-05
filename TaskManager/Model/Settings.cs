@@ -58,6 +58,8 @@ namespace TaskManager.Model
 
         internal static int MaxTaskLength { get; set; }
 
+        internal static int PrioritiesSetID { get; set; }
+
         internal static void FillFromViewModel(SettingsViewModel settingsViewModel)
         {
             SetDefaultSectionName = settingsViewModel.SetDefaultSectionName;
@@ -72,6 +74,12 @@ namespace TaskManager.Model
             AutoRenewalTasks = settingsViewModel.AutoRenewalTasks;
             MaxSectionLength = settingsViewModel.MaxSectionLength;
             MaxTaskLength = settingsViewModel.MaxTaskLength;
+
+            if (PrioritiesSetID != settingsViewModel.PrioritiesSetID)
+            {
+                PrioritiesSetID = settingsViewModel.PrioritiesSetID;
+                TaskPrioritiesInstances.ResetPriorities(PrioritiesSetID);
+            }
 
             if (AutoRenewalTasks)
                 Helper.MasterSectionViewModel.MidnightUpdateTasks();
@@ -98,6 +106,12 @@ namespace TaskManager.Model
             AutoRenewalTasks = false;
             MaxSectionLength = 50;
             MaxTaskLength = 50;
+
+            if (PrioritiesSetID != 0)
+            {
+                PrioritiesSetID = 0;
+                TaskPrioritiesInstances.ResetPriorities(PrioritiesSetID);
+            }
 
             TaskStatusesInstances.BeginingStatus.TaskVisible = true;
             TaskStatusesInstances.CompletedStatus.TaskVisible = true;
@@ -137,6 +151,9 @@ namespace TaskManager.Model
             AutoRenewalTasks = _appSettings.AutoRenewalTasks;
             MaxSectionLength = _appSettings.MaxSectionLength;
             MaxTaskLength = _appSettings.MaxTaskLength;
+
+            PrioritiesSetID = _appSettings.PrioritiesSetID;
+            TaskPrioritiesInstances.ResetPriorities(PrioritiesSetID);
 
             Helper.MasterSectionViewModel.MidnightUpdateTasks();
 
@@ -179,6 +196,7 @@ namespace TaskManager.Model
             _appSettings.AutoRenewalTasks = AutoRenewalTasks;
             _appSettings.MaxSectionLength = MaxSectionLength;
             _appSettings.MaxTaskLength = MaxTaskLength;
+            _appSettings.PrioritiesSetID = PrioritiesSetID;
 
             _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
             _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;

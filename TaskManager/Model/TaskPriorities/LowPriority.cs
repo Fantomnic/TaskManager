@@ -12,7 +12,7 @@ namespace TaskManager.Model.TaskPriorities
 
         internal override int ID => 1;
 
-        public override string DisplayName => "Низкий";
+        public override string DisplayName => Settings.PrioritiesSetID == 0 ? "Низкий" : "Минимальный";
 
         internal override void ResetForeground()
         {

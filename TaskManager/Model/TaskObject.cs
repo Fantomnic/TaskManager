@@ -34,7 +34,7 @@ namespace TaskManager.Model
         [DataMember]
         internal int TaskStatusID
         {
-            get => Status.ID;
+            get => Status?.ID ?? 1;
             set => Status = TaskStatusesInstances.AllStatuses.First(s => s.ID == value);
         }
 
@@ -43,7 +43,7 @@ namespace TaskManager.Model
         [DataMember]
         internal int TaskPriorityID
         {
-            get => Priority.ID;
+            get => Priority?.ID ?? 1;
             set => Priority = TaskPrioritiesInstances.AllPriorities.First(p => p.ID == value);
         }
 

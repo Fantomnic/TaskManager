@@ -8,6 +8,7 @@
                                xmlns:res="clr-namespace:TaskManager.Resources"
                                xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
                                xmlns:h="clr-namespace:TaskManager.Helpers"
+                               xmlns:sys="clr-namespace:System;assembly=mscorlib"
                                mc:Ignorable="d"
                                Title="Настройки"
                                WindowStartupLocation="CenterOwner"
@@ -134,6 +135,35 @@
 
         <!-- Вторая колонка -->
         <StackPanel Grid.Column="1">
+            <!-- Структура -->
+            <GroupBox Style="{StaticResource SettingsGroupBox}">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Структура данных</TextBlock>
+                </GroupBox.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Style="{StaticResource FieldDescription}">Приоритизация:</TextBlock>
+                    <ComboBox Grid.Column="1"
+                              Style="{StaticResource BaseComboBox}"
+                              SelectedIndex="{Binding PrioritiesSetID}"
+                              Margin="3,0,3,0">
+                        <sys:String>Трёхступенчатая</sys:String>
+                        <sys:String>Пятиступенчатая</sys:String>
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}" Text="{Binding}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
             <!-- Шрифт -->
             <GroupBox Style="{StaticResource SettingsGroupBox}">
                 <GroupBox.Header>

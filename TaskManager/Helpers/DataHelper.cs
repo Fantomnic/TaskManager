@@ -6,7 +6,9 @@ using System.Text;
 using System.Windows;
 using TaskManager.Model;
 using TaskManager.Model.BaseClasses;
+using TaskManager.Model.TaskPriorities;
 using TaskManager.Resources;
+using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
 
 namespace TaskManager.Helpers
@@ -206,6 +208,29 @@ namespace TaskManager.Helpers
         {
             string filesEnding = errorFiles.Count > 1 ? "файлов" : "файла";
             return $"Не удалось загрузить данные из {filesEnding}" + Environment.NewLine + String.Join(";" + Environment.NewLine, errorFiles);
+        }
+
+        internal static class PrioritySaver
+        {
+            private static Dictionary<TaskObjectViewModel, TaskPriorityBase> _data = [];
+
+            internal static void Save()
+                => _data = Helper.MasterSectionViewModel.AllTasksViewModels.ToDictionary(t => t, t => t.TaskPriority);
+
+            internal static void Fill()
+            {
+                try
+                {
+                    TaskObjectViewModel.ChangeMainPriority = false;
+
+                    foreach (var pair in _data)
+                        pair.Key.ChangePriority(pair.Value);
+                }
+                finally
+                {
+                    TaskObjectViewModel.ChangeMainPriority = true;
+                }
+            }
         }
     }
 }

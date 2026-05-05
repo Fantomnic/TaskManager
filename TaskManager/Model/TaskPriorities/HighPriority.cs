@@ -10,9 +10,9 @@ namespace TaskManager.Model.TaskPriorities
             ResetForeground();
         }
 
-        internal override int ID => 3;
+        internal override int ID => 5;
 
-        public override string DisplayName => "Высокий";
+        public override string DisplayName => Settings.PrioritiesSetID == 0 ? "Высокий" : "Максимальный";
 
         internal override void ResetForeground()
         {

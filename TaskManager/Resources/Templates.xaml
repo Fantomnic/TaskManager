@@ -1029,7 +1029,7 @@
     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="TaskItemWithTextIndication">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByPriority}" Value="True">
-                <Setter Property="Foreground" Value="{Binding Path=TaskPriority.Foreground}"></Setter>
+                <Setter Property="Foreground" Value="{Binding Path=VisibleTaskPriority.Foreground}"></Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>

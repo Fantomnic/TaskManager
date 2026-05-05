@@ -18,16 +18,30 @@ namespace TaskManager.ViewModels
         private bool _isSelected;
         private bool _calendarIsEnabled;
         private bool _isExpired;
+        private TaskPriorityBase _visibleTaskPriority;
 
         internal TaskObjectViewModel(TaskObject taskObject)
         {
             TaskObject = taskObject;
+
+            try
+            {
+                ChangeMainPriority = false;
+                ChangePriority(taskObject.Priority);
+            }
+            finally
+            {
+                ChangeMainPriority = true;
+            }
+
             RefreshCalendarIsEnabled();
         }
 
         internal TaskObject TaskObject { get; }
 
         public List<TaskStatusBase> StatusList => TaskObject.Status.Transitions;
+
+        internal static bool ChangeMainPriority { get; set; } = true;
 
         #region Свойства привязки
 
@@ -70,6 +84,20 @@ namespace TaskManager.ViewModels
             {
                 TaskObject.Priority = value;
                 OnPropertyChanged(nameof(TaskPriority));
+            }
+        }
+
+        public TaskPriorityBase VisibleTaskPriority
+        {
+            get => _visibleTaskPriority;
+            set
+            {
+                _visibleTaskPriority = value;
+
+                if (ChangeMainPriority)
+                    TaskPriority = value;
+
+                OnPropertyChanged(nameof(VisibleTaskPriority));
             }
         }
 
@@ -360,6 +388,14 @@ namespace TaskManager.ViewModels
             }
 
             return null;
+        }
+
+        internal void ChangePriority(TaskPriorityBase newPriority)
+        {
+            if (TaskPriority != newPriority)
+                TaskPriority = newPriority;
+
+            VisibleTaskPriority = TaskPrioritiesInstances.GetVisiblePriority(newPriority);
         }
 
         public static bool operator ==(TaskObjectViewModel? taskObjectViewModel1, TaskObjectViewModel? taskObjectViewModel2)

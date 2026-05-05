@@ -77,7 +77,7 @@
                                   ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllPriorities}"
                                   VerticalAlignment="Center"
                                   Margin="3,0,3,0"
-                                  MinWidth="115">
+                                  MinWidth="152">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Style="{StaticResource BaseStyleAlignmentMargin}"
