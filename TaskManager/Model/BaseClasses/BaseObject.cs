@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Xml;
 using TaskManager.Helpers;
 using TaskManager.Resources;
 using static TaskManager.Helpers.Enums;
@@ -43,10 +44,16 @@ namespace TaskManager.Model.BaseClasses
 
             var serialiser = new DataContractSerializer(GetType(), types);
 
-            using (var stream = new FileStream(targetFileName, FileMode.OpenOrCreate))
+            var settings = new XmlWriterSettings
             {
-                serialiser.WriteObject(stream, this);
+                Indent = true,
+                IndentChars = "  ",
+                NamespaceHandling = NamespaceHandling.OmitDuplicates,
+                NewLineOnAttributes = true,
             };
+
+            using var writer = XmlWriter.Create(targetFileName, settings);
+            serialiser.WriteObject(writer, this);
         }
 
         internal void CreateGuid()

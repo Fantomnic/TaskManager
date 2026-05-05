@@ -163,7 +163,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    errors.AppendLine("- Не удалось загрузить данные основного раздела");
+                    errors.AppendLine("Не удалось загрузить данные основного раздела");
                 }
             }
 
@@ -208,7 +208,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    errors.AppendLine($"- Ошибка добавления раздела \"{additionalSection.Name}\"");
+                    errors.AppendLine($"Ошибка добавления раздела \"{additionalSection.Name}\"");
                 }
             }
         }
@@ -229,7 +229,7 @@ namespace TaskManager.Views
                 }
                 catch
                 {
-                    errors.AppendLine($"- Ошибка перемещения файла \"{file.Name}\"");
+                    errors.AppendLine($"Ошибка перемещения файла \"{file.Name}\"");
                 }
             }
 

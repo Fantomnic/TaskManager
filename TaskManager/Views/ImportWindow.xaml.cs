@@ -70,7 +70,10 @@ namespace TaskManager.Views
 
                 mainViewModel.RemoveAllAdditionalSections();
 
-                DataHelper.GetAnyObjectsFromFiles(sourceFiles, out var masterSection, out var additionalSections, out _, out _);
+                DataHelper.GetAnyObjectsFromFiles(sourceFiles, out var masterSection, out var additionalSections, out _, out var errorFiles);
+
+                if (errorFiles.Count > 0)
+                    errors.AppendLine(DataHelper.GetFilesNotLoadedMessage(errorFiles));
 
                 if (masterSection is not null)
                     mainWindow.CreateAndInitializeMasterSectionViewModel(masterSection, true);
