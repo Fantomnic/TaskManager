@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using TaskManager.Helpers;
 
 namespace TaskManager.Views
 {
@@ -22,10 +23,14 @@ namespace TaskManager.Views
             Title = title;
 
             if (!isQuestion)
+            {
+                UIHelper.SetFocus(okButton);
                 return;
+            }
 
             okButton.Content = "Да";
             cancelButton.Visibility = Visibility.Visible;
+            UIHelper.SetFocus(cancelButton);
         }
     }
 }

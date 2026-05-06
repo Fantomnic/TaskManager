@@ -29,13 +29,14 @@
                      TextWrapping="Wrap"
                      BorderThickness="0"
                      IsReadOnly="True"
-                     Margin="3">
+                     Margin="3"
+                     Focusable="False">
             </TextBox>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button x:Name="cancelButton" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick" Visibility="Collapsed">Нет</Button>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="okButton" Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
+            <Button x:Name="cancelButton" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick" Visibility="Collapsed">Нет</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

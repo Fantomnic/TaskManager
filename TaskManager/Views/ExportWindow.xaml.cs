@@ -36,6 +36,8 @@ namespace TaskManager.Views
             
             DataContext = _exportViewModel = new ExportViewModel();
             sectionsExportList.SelectedItem = Helper.MasterSectionViewModel;
+
+            UIHelper.SetFocus(okButton);
         }
 
         private void SectionsSelectionChanged(object sender, SelectionChangedEventArgs e)

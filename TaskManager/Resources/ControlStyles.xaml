@@ -21,6 +21,7 @@
         <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="BorderBrush" Value="{DynamicResource BlackGrayBorder}"></Setter>
         <Setter Property="Margin" Value="{x:Static local:Constants.UniformMarginBase}"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
     </Style>
 
     <!-- Стиль групбокса для настроек -->
@@ -219,6 +220,16 @@
         <Setter Property="Cursor" Value="Arrow"></Setter>
     </Style>
 
+    <!-- Стиль для изменения цвета текста в соответствии с приоритетом -->
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="TaskItemWithTextIndication">
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static model:Settings.Instanse},Path=IndicateByPriority}" Value="True">
+                <Setter Property="Foreground" Value="{Binding Path=VisibleTaskPriority.Foreground}"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Стиль для "кнопок" выдвигающегся меню -->
     <Style TargetType="ContentControl" BasedOn="{StaticResource BaseMenuStyle}" x:Key="MenuButtonCommon">
         <Setter Property="BorderThickness" Value="3"></Setter>
@@ -254,6 +265,9 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Background" Value="{DynamicResource ButtonIsMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="true">

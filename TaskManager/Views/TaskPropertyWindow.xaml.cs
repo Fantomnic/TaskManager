@@ -30,6 +30,8 @@ namespace TaskManager.Views
             InitializeComponent();
             DataContext = _taskObjectViewModel = taskObjectViewModel;
             InitializeFields();
+
+            UIHelper.SetFocus(taskName);
         }
 
         private void InitializeFields()

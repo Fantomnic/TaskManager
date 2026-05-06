@@ -22,6 +22,8 @@ namespace TaskManager.Views
         public ImportWindow()
         {
             InitializeComponent();
+
+            UIHelper.SetFocus(okButton);
         }
 
         protected override void ButtonOKClick(object sender, RoutedEventArgs e)

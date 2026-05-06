@@ -18,6 +18,10 @@ namespace TaskManager.Views
 
             if (currentSectionViewModel.IsMasterSection || currentSectionViewModel.SelectedTaskViewModel is null)
                 addAsChild.IsChecked = addAsChild.IsEnabled = false;
+
+            // Не делаем привязку, т.к. при привязке невозможно управлять CaretIndex
+            taskName.Text = NewTaskObjectViewModel.Name;
+            UIHelper.SetFocus(taskName);
         }
 
         internal TaskObjectViewModel NewTaskObjectViewModel { get; }
@@ -28,6 +32,16 @@ namespace TaskManager.Views
         {
             string name = taskName.Text;
             return Helper.CheckSaveTaskName(name);
+        }
+
+        protected override void ButtonOKClick(object sender, RoutedEventArgs e)
+        {
+            if (!ValidateOK())
+                return;
+
+            NewTaskObjectViewModel.Name = taskName.Text;
+            DialogResult = true;
+            Close();
         }
 
         internal void OpenEditDescription() => taskProperty.OpenEditDescription();

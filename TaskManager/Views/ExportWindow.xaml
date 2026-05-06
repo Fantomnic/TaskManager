@@ -30,27 +30,29 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
+                <!-- Экспортировать -->
                 <GroupBox Style="{StaticResource BaseGroupBox}">
                     <GroupBox.Header>
                         <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Экспортировать</TextBlock>
                     </GroupBox.Header>
                     <StackPanel>
-                        <RadioButton x:Name="exportTasks"
+                        <RadioButton x:Name="backup"
                                      GroupName="Indication"
-                                     Style="{StaticResource BaseRadioButton}"
-                                     Checked="ExportTasksChecked"
-                                     IsChecked="True">Задачи</RadioButton>
+                                     Style="{StaticResource BaseRadioButton}" Checked="BackupChecked"
+                                     IsChecked="True">Сделать резервную копию</RadioButton>
                         <RadioButton x:Name="exportSections"
                                      GroupName="Indication"
                                      Style="{StaticResource BaseRadioButton}"
                                      Checked="ExportSectionsChecked">Разделы</RadioButton>
-                        <RadioButton x:Name="backup"
+                        <RadioButton x:Name="exportTasks"
                                      GroupName="Indication"
-                                     Style="{StaticResource BaseRadioButton}" Checked="BackupChecked">Сделать резервную копию</RadioButton>
+                                     Style="{StaticResource BaseRadioButton}"
+                                     Checked="ExportTasksChecked">Задачи</RadioButton>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox x:Name="parametersGroup" Grid.Column="1" Style="{StaticResource BaseGroupBox}">
+                <!-- Параметры -->
+                <GroupBox x:Name="parametersGroup" Grid.Column="1" Style="{StaticResource BaseGroupBox}" Visibility="Hidden">
                     <GroupBox.Header>
                         <TextBlock Style="{StaticResource FieldDescription}" FontWeight="Bold">Параметры</TextBlock>
                     </GroupBox.Header>
@@ -82,13 +84,15 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
+                    <!-- Задачи -->
                     <TextBlock Style="{StaticResource TitleDescription}" Visibility="{Binding ElementName=tasksExportList,Path=Visibility}">Задачи</TextBlock>
                     <ListBox x:Name="tasksExportList" Grid.Row="1"
                              SelectionMode="Extended"
                              ItemsSource="{Binding TasksViewModels}"
                              ItemContainerStyle="{StaticResource BaseTaskListItem}"
                              Background="{DynamicResource InnerBackground}"
-                             Padding="{x:Static res:Constants.UniformMarginBase}">
+                             Padding="{x:Static res:Constants.UniformMarginBase}"
+                             Visibility="Hidden">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource TaskItemWithTextIndication}" Text="{Binding Path=Name}" Margin="4,0,0,0"/>
@@ -99,6 +103,7 @@
                     <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
                                   HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
 
+                    <!-- Разделы -->
                     <TextBlock Style="{StaticResource TitleDescription}" Grid.Column="2" Visibility="{Binding ElementName=sectionsExportList,Path=Visibility}">Разделы</TextBlock>
                     <ListBox x:Name="sectionsExportList" Grid.Row="1" Grid.Column="2"
                              SelectionMode="Extended"
@@ -106,7 +111,8 @@
                              ItemContainerStyle="{StaticResource BaseTaskListItem}"
                              Background="{DynamicResource InnerBackground}"
                              Padding="{x:Static res:Constants.UniformMarginBase}"
-                             SelectionChanged="SectionsSelectionChanged">
+                             SelectionChanged="SectionsSelectionChanged"
+                             Visibility="Hidden">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Style="{StaticResource BaseStyleAlignment}" Text="{Binding Path=Name}" Margin="4,0,0,0"/>
@@ -117,9 +123,9 @@
             </Grid>
         </Border>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="okButton" Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
             <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
-            <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

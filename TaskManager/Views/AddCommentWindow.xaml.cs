@@ -25,7 +25,7 @@ namespace TaskManager.Views
         {
             InitializeComponent();
 
-            //DataContext = taskObjectViewModel;
+            UIHelper.SetFocus(commentField);
         }
 
         public string Comment { get; private set; }

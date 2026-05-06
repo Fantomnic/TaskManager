@@ -81,5 +81,13 @@ namespace TaskManager.Helpers
             BitmapSource GetIconAsImageCore(Icon icon)
                 => Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
+
+        internal static void SetFocus(UIElement element)
+        {
+            element.Focus();
+
+            if (element is TextBox textBox)
+                textBox.CaretIndex = Int32.MaxValue;
+        }
     }
 }

@@ -113,9 +113,9 @@
             </Grid>
         </Border>
         
-        <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Style="{StaticResource ServiceButton}" Click="ButtonOKClick">OK</Button>
+            <Button Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
         </StackPanel>
     </Grid>
 </local:WindowWithBottomButtons>

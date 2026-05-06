@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.ViewModels;
 
@@ -19,6 +20,8 @@ namespace TaskManager.Views
 
             if (SettingsViewModel.SetDefaultTaskName != true)
                 SetDefaultTaskNameUnchecked();
+
+            UIHelper.SetFocus(cancelButton);
         }
 
         internal SettingsViewModel SettingsViewModel { get; }

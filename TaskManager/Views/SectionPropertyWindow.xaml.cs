@@ -20,6 +20,8 @@ namespace TaskManager.Views
                 : sectionViewModel.IsMasterSection ? "Свойства основного раздела" : "Свойства раздела";
             DataContext = _sectionViewModel = sectionViewModel;
             InitializeFields();
+
+            UIHelper.SetFocus(sectionName);
         }
 
         private void InitializeFields()

@@ -220,7 +220,7 @@
         </StackPanel>
 
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
+            <Button x:Name="cancelButton" DockPanel.Dock="Right" Style="{StaticResource ServiceButton}" Click="ButtonCancelClick">Отмена</Button>
             <Button DockPanel.Dock="Right" Style="{StaticResource ServiceButton}" Click="ButtonOKClick">Применить</Button>
             <Button DockPanel.Dock="Left" Style="{StaticResource ServiceButton}"
                     Click="ResetToDefaultClick"

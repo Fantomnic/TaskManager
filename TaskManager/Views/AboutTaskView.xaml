@@ -16,10 +16,10 @@
         <VisualBrush AlignmentX="Left" AlignmentY="Center" Stretch="None" x:Key="PreviewLabel">
             <VisualBrush.Visual>
                 <Label Content="Нет"
-               Style="{StaticResource BaseStyle}"
-               Opacity="0.75"
-               Background="{DynamicResource FieldBackgroundReadOnly}"
-               Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
+                       Style="{StaticResource BaseStyle}"
+                       Opacity="0.75"
+                       Background="{DynamicResource FieldBackgroundReadOnly}"
+                       Width="{Binding ElementName=sectionTextBox, Path=ActualWidth}"/>
             </VisualBrush.Visual>
         </VisualBrush>
         
@@ -49,10 +49,10 @@
 
         <TextBlock Style="{StaticResource FieldDescription}">Текущий раздел:</TextBlock>
         <TextBox x:Name="sectionTextBox"
-             Grid.Column="1"
-             Style="{StaticResource LineTextBoxWithHint}"
-             IsReadOnly="True"
-             Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
+                 Grid.Column="1"
+                 Style="{StaticResource LineTextBoxWithHint}"
+                 IsReadOnly="True"
+                 Text="{Binding Path=AdditionalSectionViewModel.Name,TargetNullValue=Нет,Mode=OneWay}">
         </TextBox>
 
         <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">Входит в задачу:</TextBlock>
@@ -63,10 +63,10 @@
         </TextBox>
 
         <ctrl:CheckBoxWithItemStyle Grid.Row="2" Grid.ColumnSpan="2"
-              Style="{StaticResource FlowDirectionCheckBox}"
-              IsChecked="{Binding HasChildren,Mode=OneWay}"
-              IsEnabled="False"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Left">Имеет подзадачи</ctrl:CheckBoxWithItemStyle>
+                                    Style="{StaticResource FlowDirectionCheckBox}"
+                                    IsChecked="{Binding HasChildren,Mode=OneWay}"
+                                    IsEnabled="False"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">Имеет подзадачи</ctrl:CheckBoxWithItemStyle>
     </Grid>
 </UserControl>
