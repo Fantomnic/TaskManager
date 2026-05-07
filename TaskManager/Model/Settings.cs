@@ -11,8 +11,6 @@ namespace TaskManager.Model
 {
     internal static class Settings
     {
-        private static Properties.Settings _appSettings = Properties.Settings.Default;
-
         static Settings()
         {
             AvailableFonts =
@@ -25,6 +23,8 @@ namespace TaskManager.Model
 
             FontSettings.CopyFrom(AvailableFonts[1]);
         }
+
+        internal static Properties.Settings AppSettings => Properties.Settings.Default;
 
         public static SettingsInstanse Instanse { get; set; } = new();
 
@@ -129,95 +129,95 @@ namespace TaskManager.Model
 
         internal static void FillFromConfig()
         {
-            int fontSettingsID = _appSettings.FontSettingsID;
+            int fontSettingsID = AppSettings.FontSettingsID;
 
             if (AvailableFonts.FirstOrDefault(f => f.ID == fontSettingsID) is FontSet fontSettings)
                 FontSettings.CopyFrom(fontSettings);
 
-            int themeID = _appSettings.ThemeID;
+            int themeID = AppSettings.ThemeID;
 
             if (Enum.IsDefined(typeof(Themes), themeID))
                 ChangeTheme((Themes)themeID);
 
-            SetDefaultSectionName = _appSettings.SetDefaultSectionName;
-            SetDefaultTaskName = _appSettings.SetDefaultTaskName;
-            IncrementSectionName = _appSettings.IncrementSectionName;
-            IncrementTaskName = _appSettings.IncrementTaskName;
-            DefaultSectionName = _appSettings.DefaultSectionName;
-            DefaultTaskName = _appSettings.DefaultTaskName;
-            ConfirmDeleteSection = _appSettings.ConfirmDeleteSection;
-            ConfirmDeleteTask = _appSettings.ConfirmDeleteTask;
-            ConfirmCompleteTask = _appSettings.ConfirmCompleteTask;
-            AutoRenewalTasks = _appSettings.AutoRenewalTasks;
-            MaxSectionLength = _appSettings.MaxSectionLength;
-            MaxTaskLength = _appSettings.MaxTaskLength;
+            SetDefaultSectionName = AppSettings.SetDefaultSectionName;
+            SetDefaultTaskName = AppSettings.SetDefaultTaskName;
+            IncrementSectionName = AppSettings.IncrementSectionName;
+            IncrementTaskName = AppSettings.IncrementTaskName;
+            DefaultSectionName = AppSettings.DefaultSectionName;
+            DefaultTaskName = AppSettings.DefaultTaskName;
+            ConfirmDeleteSection = AppSettings.ConfirmDeleteSection;
+            ConfirmDeleteTask = AppSettings.ConfirmDeleteTask;
+            ConfirmCompleteTask = AppSettings.ConfirmCompleteTask;
+            AutoRenewalTasks = AppSettings.AutoRenewalTasks;
+            MaxSectionLength = AppSettings.MaxSectionLength;
+            MaxTaskLength = AppSettings.MaxTaskLength;
 
-            PrioritiesSetID = _appSettings.PrioritiesSetID;
+            PrioritiesSetID = AppSettings.PrioritiesSetID;
             TaskPrioritiesInstances.ResetPriorities(PrioritiesSetID);
 
             Helper.MasterSectionViewModel.MidnightUpdateTasks();
 
-            TaskStatusesInstances.BeginingStatus.TaskVisible = _appSettings.BeginingStatusVisible;
-            TaskStatusesInstances.CompletedStatus.TaskVisible = _appSettings.CompletedStatusVisible;
-            TaskStatusesInstances.DeferredStatus.TaskVisible = _appSettings.DeferredStatusVisible;
-            TaskStatusesInstances.RejectedStatus.TaskVisible = _appSettings.RejectedStatusVisible;
-            TaskStatusesInstances.DoneStatus.TaskVisible = _appSettings.DoneStatusVisible;
+            TaskStatusesInstances.BeginingStatus.TaskVisible = AppSettings.BeginingStatusVisible;
+            TaskStatusesInstances.CompletedStatus.TaskVisible = AppSettings.CompletedStatusVisible;
+            TaskStatusesInstances.DeferredStatus.TaskVisible = AppSettings.DeferredStatusVisible;
+            TaskStatusesInstances.RejectedStatus.TaskVisible = AppSettings.RejectedStatusVisible;
+            TaskStatusesInstances.DoneStatus.TaskVisible = AppSettings.DoneStatusVisible;
 
-            Instanse.IndicateByStatus = _appSettings.IndicateByStatus;
-            Instanse.IndicateByPriority = _appSettings.IndicateByPriority;
-            Instanse.NoneIndicate = _appSettings.NoneIndicate;
+            Instanse.IndicateByStatus = AppSettings.IndicateByStatus;
+            Instanse.IndicateByPriority = AppSettings.IndicateByPriority;
+            Instanse.NoneIndicate = AppSettings.NoneIndicate;
 
-            Instanse.SortByStatus = _appSettings.SortByStatus;
-            Instanse.SortByPriority = _appSettings.SortByPriority;
-            Instanse.SortByName = _appSettings.SortByName;
-            Instanse.SortByEndDate = _appSettings.SortByEndDate;
-            Instanse.SortByStartDate = _appSettings.SortByStartDate;
-            Instanse.DescendingSort = _appSettings.DescendingSort;
+            Instanse.SortByStatus = AppSettings.SortByStatus;
+            Instanse.SortByPriority = AppSettings.SortByPriority;
+            Instanse.SortByName = AppSettings.SortByName;
+            Instanse.SortByEndDate = AppSettings.SortByEndDate;
+            Instanse.SortByStartDate = AppSettings.SortByStartDate;
+            Instanse.DescendingSort = AppSettings.DescendingSort;
 
-            Instanse.ShowTodayTasks = _appSettings.ShowTodayTasks;
+            Instanse.ShowTodayTasks = AppSettings.ShowTodayTasks;
 
             RefreshSectionVisibleCore();
         }
 
         internal static void SaveToConfig()
         {
-            _appSettings.FontSettingsID = FontSettings.ID;
-            _appSettings.ThemeID = (int)Theme;
+            AppSettings.FontSettingsID = FontSettings.ID;
+            AppSettings.ThemeID = (int)Theme;
 
-            _appSettings.SetDefaultSectionName = SetDefaultSectionName;
-            _appSettings.SetDefaultTaskName = SetDefaultTaskName;
-            _appSettings.IncrementSectionName = IncrementSectionName;
-            _appSettings.IncrementTaskName = IncrementTaskName;
-            _appSettings.DefaultSectionName = DefaultSectionName;
-            _appSettings.DefaultTaskName = DefaultTaskName;
-            _appSettings.ConfirmDeleteSection = ConfirmDeleteSection;
-            _appSettings.ConfirmDeleteTask = ConfirmDeleteTask;
-            _appSettings.ConfirmCompleteTask = ConfirmCompleteTask;
-            _appSettings.AutoRenewalTasks = AutoRenewalTasks;
-            _appSettings.MaxSectionLength = MaxSectionLength;
-            _appSettings.MaxTaskLength = MaxTaskLength;
-            _appSettings.PrioritiesSetID = PrioritiesSetID;
+            AppSettings.SetDefaultSectionName = SetDefaultSectionName;
+            AppSettings.SetDefaultTaskName = SetDefaultTaskName;
+            AppSettings.IncrementSectionName = IncrementSectionName;
+            AppSettings.IncrementTaskName = IncrementTaskName;
+            AppSettings.DefaultSectionName = DefaultSectionName;
+            AppSettings.DefaultTaskName = DefaultTaskName;
+            AppSettings.ConfirmDeleteSection = ConfirmDeleteSection;
+            AppSettings.ConfirmDeleteTask = ConfirmDeleteTask;
+            AppSettings.ConfirmCompleteTask = ConfirmCompleteTask;
+            AppSettings.AutoRenewalTasks = AutoRenewalTasks;
+            AppSettings.MaxSectionLength = MaxSectionLength;
+            AppSettings.MaxTaskLength = MaxTaskLength;
+            AppSettings.PrioritiesSetID = PrioritiesSetID;
 
-            _appSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
-            _appSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;
-            _appSettings.DeferredStatusVisible = TaskStatusesInstances.DeferredStatus.TaskVisible;
-            _appSettings.RejectedStatusVisible = TaskStatusesInstances.RejectedStatus.TaskVisible;
-            _appSettings.DoneStatusVisible = TaskStatusesInstances.DoneStatus.TaskVisible;
+            AppSettings.BeginingStatusVisible = TaskStatusesInstances.BeginingStatus.TaskVisible;
+            AppSettings.CompletedStatusVisible = TaskStatusesInstances.CompletedStatus.TaskVisible;
+            AppSettings.DeferredStatusVisible = TaskStatusesInstances.DeferredStatus.TaskVisible;
+            AppSettings.RejectedStatusVisible = TaskStatusesInstances.RejectedStatus.TaskVisible;
+            AppSettings.DoneStatusVisible = TaskStatusesInstances.DoneStatus.TaskVisible;
 
-            _appSettings.IndicateByStatus = Instanse.IndicateByStatus;
-            _appSettings.IndicateByPriority = Instanse.IndicateByPriority;
-            _appSettings.NoneIndicate = Instanse.NoneIndicate;
+            AppSettings.IndicateByStatus = Instanse.IndicateByStatus;
+            AppSettings.IndicateByPriority = Instanse.IndicateByPriority;
+            AppSettings.NoneIndicate = Instanse.NoneIndicate;
 
-            _appSettings.SortByStatus = Instanse.SortByStatus;
-            _appSettings.SortByPriority = Instanse.SortByPriority;
-            _appSettings.SortByName = Instanse.SortByName;
-            _appSettings.SortByEndDate = Instanse.SortByEndDate;
-            _appSettings.SortByStartDate = Instanse.SortByStartDate;
-            _appSettings.DescendingSort = Instanse.DescendingSort;
+            AppSettings.SortByStatus = Instanse.SortByStatus;
+            AppSettings.SortByPriority = Instanse.SortByPriority;
+            AppSettings.SortByName = Instanse.SortByName;
+            AppSettings.SortByEndDate = Instanse.SortByEndDate;
+            AppSettings.SortByStartDate = Instanse.SortByStartDate;
+            AppSettings.DescendingSort = Instanse.DescendingSort;
 
-            _appSettings.ShowTodayTasks = Instanse.ShowTodayTasks;
+            AppSettings.ShowTodayTasks = Instanse.ShowTodayTasks;
 
-            _appSettings.Save();
+            AppSettings.Save();
         }
 
         internal static string GetDefaultTaskName()

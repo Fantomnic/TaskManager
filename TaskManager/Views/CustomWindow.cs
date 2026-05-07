@@ -115,6 +115,11 @@ namespace TaskManager.Views
 
         private void ExecutedMaximizeCommand(object sender, ExecutedRoutedEventArgs e)
         {
+            MaximizeCore();
+        }
+
+        protected void MaximizeCore()
+        {
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;
             else

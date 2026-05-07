@@ -82,8 +82,10 @@ namespace TaskManager.ViewModels
             return true;
         }
 
-        internal SectionViewModel? FindSectionViewModel(Section section)
-            => SectionsViewModels.FirstOrDefault(vm => vm.Section == section);
+        internal SectionViewModel? FindSectionViewModel(Section section) => FindSectionViewModel(section.Guid);
+
+        internal SectionViewModel? FindSectionViewModel(Guid sectionGuid)
+            => SectionsViewModels.FirstOrDefault(vm => vm.Section.Guid == sectionGuid);
 
         internal List<string> GetSectionsNames(IEnumerable<Section>? ignoredSections = null)
         {

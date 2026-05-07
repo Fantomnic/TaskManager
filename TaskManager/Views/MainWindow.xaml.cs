@@ -9,7 +9,6 @@ using TaskManager.Commands;
 using TaskManager.Helpers;
 using TaskManager.Model;
 using TaskManager.Model.TaskStatuses;
-using TaskManager.Resources;
 using TaskManager.ViewModels;
 using static TaskManager.Helpers.Enums;
 
@@ -244,14 +243,36 @@ namespace TaskManager.Views
             UpdateDateTimer.Start();
 
             DataHelper.DataIsLoaded = true;
+
+            FillFromConfigForMainWindow();
         }
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
+            SaveToConfigForMainWindow();
             Settings.SaveToConfig();
 
             if (DataHelper.SaveData(DataDirectory.FinishedSections))
                 DataHelper.DataIsSaved = true;
+        }
+
+        private void FillFromConfigForMainWindow()
+        {
+            if (Settings.AppSettings.StartOnFullWindow)
+                MaximizeCore();
+
+            if (MainViewModel.FindSectionViewModel(Settings.AppSettings.InitialSelectedSection) is AdditionalSectionViewModel initialSectionViewModel)
+                sections.SelectedItem = UIHelper.GetTabItemWithSectionViewModel(initialSectionViewModel);
+        }
+
+        private void SaveToConfigForMainWindow()
+        {
+            if (WindowState == WindowState.Maximized)
+                Settings.AppSettings.StartOnFullWindow = true;
+            else if (WindowState == WindowState.Normal)
+                Settings.AppSettings.StartOnFullWindow = false;
+
+            Settings.AppSettings.InitialSelectedSection = MainViewModel.SelectedSectionViewModel.Section.Guid;
         }
 
         #region Отображение

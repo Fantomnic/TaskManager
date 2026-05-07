@@ -95,5 +95,11 @@
     <Setting Name="PrioritiesSetID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="StartOnFullWindow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InitialSelectedSection" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
