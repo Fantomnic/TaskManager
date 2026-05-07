@@ -524,10 +524,11 @@
                               IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                               Padding="{TemplateBinding Padding}"
                               Style="{StaticResource ExpanderDownHeaderStyle}"
-                              Background="Transparent">
+                              Background="Transparent"
+                              Focusable="False">
                 </ToggleButton>
                 <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom"
-                                  Focusable="false"
+                                  Focusable="False"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                   Margin="{TemplateBinding Padding}"
@@ -1036,11 +1037,15 @@
                 Width="{TemplateBinding Width}" >
             <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                            Content="{TemplateBinding Content}">
+                            Content="{TemplateBinding Content}"
+                            Focusable="False">
             </ContentControl>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="menuButtonBorder" Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="true">
                 <Setter TargetName="menuButtonBorder" Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
             </Trigger>
         </ControlTemplate.Triggers>

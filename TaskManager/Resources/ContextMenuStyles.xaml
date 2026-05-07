@@ -136,6 +136,7 @@
 
     <!-- Контекстное меню для заголовка основного раздела -->
     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="MasterSectionHeaderContextMenu">
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
@@ -147,6 +148,7 @@
 
     <!-- Контекстное меню для заголовков неосновных разделов -->
     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="AdditionalSectionHeaderContextMenu">
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>

@@ -176,6 +176,7 @@
     <!-- Стиль чекбокса для выдвигающегося меню -->
     <Style TargetType="ctrl:CheckBoxWithItemStyle" BasedOn="{StaticResource BaseCheckBox}" x:Key="BaseMenuCheckBox">
         <Setter Property="TextBlockStyle" Value="{StaticResource TextsMenuStyle}"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
     </Style>
 
     <!-- Стиль радиокнопки (общий) -->
@@ -193,6 +194,7 @@
         <Setter Property="Background" Value="{DynamicResource FieldBackground}"></Setter>
         <Setter Property="FontSize" Value="{x:Static local:Constants.StandartMenuFont}"></Setter>
         <Setter Property="Foreground" Value="{DynamicResource TextForeground}"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
     </Style>
 
     <!-- Стиль текстбокса (общий) -->
@@ -243,6 +245,7 @@
     <!--TODO: Сделать конвертер для задания пропорциональной высоты кнопки относительно панели-->
     <Style TargetType="Button" BasedOn="{StaticResource MenuButtonCommon}" x:Key="MenuButton">
         <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+        <Setter Property="Focusable" Value="False"></Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Background" Value="{DynamicResource MenuButtonIsMouseOverBackground}" />
@@ -743,19 +746,23 @@
         </Setter>
     </Style>
 
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="TaskTabHeader">
+        <Setter Property="Focusable" Value="False"></Setter>
+    </Style>
+    
     <!-- Вкладки в свойствах задачи 
     Используем разделение, чтобы для каждого раздела создавался свой экземпляр -->
     <col:ArrayList x:Shared="False" x:Key="TaskTabHeaders">
         <TabItem>
             <TabItem.Header>
-                <TextBlock Style="{StaticResource BaseStyleAlignment}">Info</TextBlock>
+                <TextBlock Style="{StaticResource TaskTabHeader}">Info</TextBlock>
             </TabItem.Header>
             <v:TaskObjectView DataContext="{Binding Path=SelectedTaskViewModel}"></v:TaskObjectView>
         </TabItem>
 
         <TabItem>
             <TabItem.Header>
-                <TextBlock Style="{StaticResource BaseStyleAlignment}" ToolTip="В текущей версии приложения данный функционал не реализован">Файлы</TextBlock>
+                <TextBlock Style="{StaticResource TaskTabHeader}" ToolTip="В текущей версии приложения данный функционал не реализован">Файлы</TextBlock>
             </TabItem.Header>
         </TabItem>
     </col:ArrayList>

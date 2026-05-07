@@ -81,11 +81,12 @@
                     <TextBox Grid.Column="1"
                              Style="{StaticResource BaseTextBoxAlignmentMargin}"
                              IsReadOnly="True"
+                             Focusable="False"
                              Text="{Binding Path=CreationDate,Mode=OneWay,Converter={StaticResource DateConverter}}"/>
 
                     <!-- Статус -->
                     <TextBlock Grid.Row="1" Style="{StaticResource FieldDescription}">Статус:</TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FullReadOnlyLine}"
+                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FullReadOnlyLine}" Focusable="False"
                              Text="{Binding Path=TaskStatus.DisplayName,Mode=OneWay}" Background="{Binding Path=TaskStatus.Background}"/>
 
                     <!-- Приоритет -->
@@ -187,7 +188,8 @@
         </Border>
 
         <!-- Сплиттер -->
-        <GridSplitter Grid.Row="2" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
+        <GridSplitter Grid.Row="2" ShowsPreview="False" Height="3" Focusable="False"
+                      HorizontalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
         
         <!-- Комментарии -->
         <Border Grid.Row="3" BorderThickness="2" BorderBrush="#FF4EBFC8" Margin="1">

@@ -100,7 +100,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
+                    <!-- Сплиттер -->
+                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3" Focusable="False"
                                   HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{DynamicResource WindowBackground}"/>
 
                     <!-- Разделы -->
