@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctrl="clr-namespace:TaskManager.CustomControls">
+    
+    <!-- Шаблон для всех чекбоксов -->
+    <ControlTemplate TargetType="ctrl:CheckBoxWithItemStyle" x:Key="CheckBoxTemplate">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="Stretch" >
+            <Border Style="{StaticResource BaseScale}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Margin="{TemplateBinding Margin}"
+                    Width="14"
+                    Height="14">
+                <Grid>
+                    <Grid Name="nullBlock"
+                          Background="{TemplateBinding Foreground}"
+                          Visibility="Collapsed" />
+                    <Path Name="eliCheck"
+                          Stretch="Uniform"
+                          Width="15"
+                          Height="10"
+                          Fill="{TemplateBinding Foreground}"
+                          Data="F1 M 9.3,1.14 L 4.39,8.49 L 4.22,8.49 L 0,4.85 L 1.19,3.29 L 3.97,5.68 L 7.77,0 L 9.3,1.14 Z"
+                          Visibility="Collapsed"/>
+                    <!--Data="F1 M 9.97498,1.22334 L 4.6983,9.09834 L 4.52164,9.09834 L 0,5.19331 L 1.27664,3.52165 L 4.255,6.08833 L 8.33331,0 L 9.97498,1.22334 Z"-->
+                </Grid>
+            </Border>
+            <TextBlock Style="{Binding RelativeSource={RelativeSource TemplatedParent},Path=TextBlockStyle,Mode=TwoWay}" Text="{TemplateBinding Content}"></TextBlock>
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ButtonIsPressedBackground}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource FieldBackgroundReadOnly}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource FieldIsFocusedBorderReadOnly}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="eliCheck" Property="Visibility" Value="Visible"></Setter>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="{x:Null}">
+                <Setter TargetName="nullBlock" Property="Visibility" Value="Visible"></Setter>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonIsMouseOverBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+</ResourceDictionary>

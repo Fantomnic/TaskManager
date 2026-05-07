@@ -1,0 +1,148 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctrl="clr-namespace:TaskManager.CustomControls"
+                    xmlns:h="clr-namespace:TaskManager.Helpers">
+
+    <!-- Шаблон кнопки-экспандера элемента дерева -->
+    <ControlTemplate TargetType="ToggleButton" x:Key="ExpanderTreeButton">
+        <Grid Width="15" Height="13" Background="Transparent">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CheckStates">
+                    <VisualState x:Name="Checked">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Collapsed" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Expanded" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Unchecked" />
+
+                    <VisualState x:Name="Indeterminate" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- Значок при скрытии потомков -->
+            <Path x:Name="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1" Data="M 4 0 L 8 4 L 4 8 Z"
+              Fill="{DynamicResource AntiMainColor}">
+            </Path>
+
+            <!-- Значок при показе потомков -->
+            <Path x:Name="Expanded" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1" Data="M 0 4 L 8 4 L 4 8 Z" Visibility="Hidden" 
+              Fill="{DynamicResource AntiMainColor}">
+            </Path>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- Шаблон элемента дерева (неосновной раздел) -->
+    <ControlTemplate TargetType="ctrl:StretchingTreeViewItem" x:Key="TreeViewItemTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="19" Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!-- Менеджер визуальных состояний -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="SelectionStates">
+                    <VisualState x:Name="Selected">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="selectionBackground" Storyboard.TargetProperty="Background">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TaskItemIsSelectedBackground}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderItem" Storyboard.TargetProperty="BorderBrush">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource TaskItemIsSelectedBorder}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <!-- Добавлено, чтобы происходил сброс -->
+                    <VisualState x:Name="Unselected" />
+
+                    <!-- Чтобы не происходило сброса при смене фокуса -->
+                    <!--<VisualState x:Name="SelectedInactive" />-->
+                </VisualStateGroup>
+
+                <VisualStateGroup x:Name="ExpansionStates">
+                    <VisualState x:Name="Expanded">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemsHost" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Collapsed"></VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- Кнопка-экспандер -->
+            <ToggleButton x:Name="expander"
+                          Focusable="False"
+                          Template="{StaticResource ExpanderTreeButton}"
+                          ClickMode="Press"
+                          IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+
+            <!-- Рамка, в которой содержится заголовок родителя -->
+            <Border x:Name="borderItem"
+                    Grid.Column="1"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1.5"
+                    Padding="{TemplateBinding Padding}">
+                <Border x:Name="selectionBackground"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Opacity="1">
+                    <ContentPresenter x:Name="PART_Header"
+                                      ContentSource="Header"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                    </ContentPresenter>
+                </Border>
+            </Border>
+
+            <!-- Дочерние элементы -->
+            <ItemsPresenter x:Name="itemsHost" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <!-- Если родитель пустой, то скрываем кнопку-экспандер -->
+            <Trigger Property="HasItems" Value="false">
+                <Setter TargetName="expander" Property="Visibility" Value="Hidden" />
+            </Trigger>
+
+            <!-- Мультитриггер для задания минимальной ширины -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="HasHeader" Value="false" />
+                    <Condition Property="Width" Value="Auto" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Header" Property="MinWidth" Value="75" />
+            </MultiTrigger>
+
+            <!-- Мультитриггер для задания минимальной высоты -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="HasHeader" Value="false" />
+                    <Condition Property="Height" Value="Auto" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Header" Property="MinHeight" Value="19" />
+            </MultiTrigger>
+
+            <!-- Не задаём в менеджере визуальных состояний, чтобы обработать отключение родителей (они выделяются, если выделяется дочерний элемент) -->
+            <Trigger Property="h:TreeViewHelper.IsMouseDirectlyOverItem" Value="True">
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
+                <Setter TargetName="borderItem" Property="BorderBrush" Value="{DynamicResource TaskItemIsSelectedBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+</ResourceDictionary>

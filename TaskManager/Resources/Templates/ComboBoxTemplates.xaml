@@ -1,0 +1,75 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Шаблон отображаемой части комбобокса -->
+    <ControlTemplate TargetType="ToggleButton" x:Key="ToggleButtonComboBoxTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" MaxWidth="20"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="mainBorder" Grid.ColumnSpan="2"
+                    Background="{DynamicResource FieldBackground}"
+                    BorderBrush="{StaticResource DefaultBorder}"
+                    BorderThickness="1">
+            </Border>
+            <Path Grid.Column="1"
+                  Stroke="{DynamicResource AntiMainColor}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M 0 0 L 0 1 L 3 3 L 6 1 L 6 0 L 3 2.5 Z"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="mainBorder" Property="BorderBrush" Value="{StaticResource FieldIsMouseOverBorder}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="mainBorder" Property="BorderBrush" Value="{StaticResource FieldIsFocusedBorder}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="mainBorder" Property="Background" Value="{DynamicResource FieldBackgroundReadOnly}"/>
+                <Setter TargetName="mainBorder" Property="BorderBrush" Value="{DynamicResource FieldIsFocusedBorderReadOnly}"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="mainBorder" Property="BorderBrush" Value="{StaticResource FieldIsFocusedBorder}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Шаблон всего комбобокса (с выпадающим списком) -->
+    <ControlTemplate TargetType="ComboBox" x:Key="ComboBoxTemplate">
+        <Grid>
+            <ToggleButton Template="{StaticResource ToggleButtonComboBoxTemplate}"
+                          IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent},Path=IsDropDownOpen,Mode=TwoWay}">
+            </ToggleButton>
+            <ContentPresenter Name="ContentSite"
+                              IsHitTestVisible="False"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                              Margin="3">
+            </ContentPresenter>
+
+            <!-- Если нужна возможность ввода данных -->
+            <!--<TextBox Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>-->
+
+            <Popup Name="Popup"
+                   Placement="Bottom"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   PopupAnimation="Slide">
+                <Grid SnapsToDevicePixels="True"
+                      MinWidth="{TemplateBinding ActualWidth}"
+                      MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                      Background="{DynamicResource InnerBackground}">
+                    <Border BorderThickness="1" BorderBrush="Black"></Border>
+                    <ScrollViewer SnapsToDevicePixels="True">
+                        <StackPanel IsItemsHost="True" />
+                    </ScrollViewer>
+                </Grid>
+            </Popup>
+        </Grid>
+    </ControlTemplate>
+
+</ResourceDictionary>

@@ -13,7 +13,18 @@
                 <ResourceDictionary Source="/Resources/Themes/GeneralThemesResources.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
                 <!-- ====== Templates ====== -->
+                <ResourceDictionary Source="/Resources/Templates/ButtonTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/CheckBoxTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/ComboBoxTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/ContextMenuTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/DatePickerTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/ExpanderTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/GroupBoxTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/ListBoxTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/RadioButtonTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates/ScrollViewerTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/TreeViewTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/WindowTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates.xaml" />
                 <!-- ======================= -->
                 <ResourceDictionary Source="/Resources/WindowStyles.xaml" />

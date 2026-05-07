@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Шаблон элемента списка (основной раздел) 
+        А также для элементов списка комбобоксов -->
+    <ControlTemplate TargetType="ListBoxItem" x:Key="ListBoxItemTemplate">
+        <Border x:Name="listBoxItemBorder"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Margin="{TemplateBinding Margin}"
+                Height="{TemplateBinding Height}"
+                Width="{TemplateBinding Width}">
+            <Border x:Name="selectionBackground"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Opacity="1">
+                <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Focusable="False">
+                </ContentControl>
+            </Border>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsMouseOverBackground}" />
+                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{StaticResource TaskItemIsMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter TargetName="selectionBackground" Property="Background" Value="{StaticResource TaskItemIsSelectedBackground}" />
+                <Setter TargetName="listBoxItemBorder" Property="BorderBrush" Value="{DynamicResource TaskItemIsSelectedBorder}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+</ResourceDictionary>
