@@ -30,9 +30,18 @@ namespace TaskManager.Views
 
         internal MainViewModel MainViewModel { get; }
 
-        private void MenuClick(object sender, RoutedEventArgs e) => StartMenuAnimation();
+        private void MenuClick(object sender, RoutedEventArgs e)
+        {
+            StartMenuAnimation();
+            ResetMenuButtonsFocus();
+            SetMenuButtonsFocusable(false);
+        }
 
-        private void MenuMouseLeave(object sender, MouseEventArgs e) => StartMenuAnimation(true);
+        private void MenuMouseLeave(object sender, MouseEventArgs e)
+        {
+            StartMenuAnimation(true);
+            SetMenuButtonsFocusable(true);
+        }
 
         private void StartMenuAnimation(bool closing = false)
         {
@@ -273,6 +282,37 @@ namespace TaskManager.Views
                 Settings.AppSettings.StartOnFullWindow = false;
 
             Settings.AppSettings.InitialSelectedSection = MainViewModel.SelectedSectionViewModel.Section.Guid;
+        }
+
+        private void WindowMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ResetMenuButtonsFocus();
+        }
+
+        internal void ResetMenuButtonsFocus()
+        {
+            UIElement focusedButton;
+
+            if (createTaskButton.IsFocused)
+                focusedButton = createTaskButton;
+            else if (actionButton.IsFocused)
+                focusedButton = actionButton;
+            else if (settingsButton.IsFocused)
+                focusedButton = settingsButton;
+            else if (helpButton.IsFocused)
+                focusedButton = helpButton;
+            else
+                return;
+
+            UIHelper.ResetFocus(focusedButton);
+        }
+
+        internal void SetMenuButtonsFocusable(bool value)
+        {
+            createTaskButton.Focusable = value;
+            actionButton.Focusable = value;
+            settingsButton.Focusable = value;
+            helpButton.Focusable = value;
         }
 
         #region Отображение

@@ -34,6 +34,7 @@
     <cmd:MakeRootCommand x:Key="MakeRootCommand" />
     <cmd:ExportCommand x:Key="ExportCommand" />
     <cmd:ImportCommand x:Key="ImportCommand" />
+    <cmd:ShowHelpCommand x:Key="ShowHelpCommand" />
     
     <cmd:TestCommand x:Key="TestCommand" />
 

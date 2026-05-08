@@ -1,5 +1,5 @@
-﻿using TaskManager.Model;
-using TaskManager.Model.TaskStatuses;
+﻿using TaskManager.Helpers;
+using TaskManager.Model;
 using TaskManager.Views;
 
 namespace TaskManager.Commands
@@ -10,10 +10,10 @@ namespace TaskManager.Commands
         {
             var settingsWindow = new SettingsWindow();
 
-            if (settingsWindow.ShowDialog() != true)
-                return;
+            if (settingsWindow.ShowDialog() == true)
+                Settings.FillFromViewModel(settingsWindow.SettingsViewModel);
 
-            Settings.FillFromViewModel(settingsWindow.SettingsViewModel);
+            UIHelper.MainWindow.ResetMenuButtonsFocus();
         }
     }
 }

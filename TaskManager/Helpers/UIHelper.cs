@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using TaskManager.Helpers.Exceptions;
@@ -77,12 +78,20 @@ namespace TaskManager.Helpers
             };
         }
 
-        internal static void SetFocus(UIElement element)
+        internal static void SetFocus(UIElement? element)
         {
-            element.Focus();
+            element?.Focus();
 
             if (element is TextBox textBox)
                 textBox.CaretIndex = Int32.MaxValue;
+        }
+
+        internal static void ResetFocus(UIElement? element)
+        {
+            if (element is null)
+                return;
+
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(element), null);
         }
     }
 }

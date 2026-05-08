@@ -12,7 +12,7 @@
                     Title="Планировщик задач"
                     WindowStartupLocation="CenterScreen"
                     Style="{StaticResource MainWindow}"
-                    Loaded="OnLoaded" Closing="OnClosing">
+                    Loaded="OnLoaded" Closing="OnClosing" MouseDown="WindowMouseDown">
                     <!-- WindowStartupLocation не является DependencyProperty, поэтому нельзя его задать через стиль -->
 
     <Grid>
@@ -117,19 +117,20 @@
 
             <!-- Боковое меню со значками -->
             <DockPanel LastChildFill="False">
-                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Создать задачу"
+                <Button x:Name="createTaskButton" DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Создать задачу"
                         Command="{StaticResource NewTaskCommand}">
                     <Image Style="{DynamicResource NewTaskIcon}"/>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Действия"
+                <Button x:Name="actionButton" DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Действия"
                         Click="MenuClick">
                     <Image Style="{DynamicResource MenuActionsIcon}"></Image>
                 </Button>
-                <Button DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Настройки"
+                <Button x:Name="settingsButton" DockPanel.Dock="Top" Style="{StaticResource MenuButtonIcon}" ToolTip="Настройки"
                         Command="{StaticResource OpenSettingsCommand}">
                     <Image Style="{DynamicResource SettingsIcon}"></Image>
                 </Button>
-                <Button DockPanel.Dock="Bottom" Style="{StaticResource MenuButtonIcon}" ToolTip="Справка">
+                <Button x:Name="helpButton" DockPanel.Dock="Bottom" Style="{StaticResource MenuButtonIcon}" ToolTip="Справка"
+                        Command="{StaticResource ShowHelpCommand}">
                     <Image Style="{DynamicResource AppInfoIcon}"></Image>
                 </Button>
             </DockPanel>
