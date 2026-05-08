@@ -280,11 +280,11 @@
     </Style>
 
     <!-- Базовые шаблоны: https://www.cyberforum.ru/wpf-silverlight/thread2489276.html?ysclid=mobxksrent316690816 -->
-    <Style TargetType="{x:Type CalendarItem}" BasedOn="{StaticResource BaseStyle}" x:Key="BaseCalendarItem">
+    <Style TargetType="CalendarItem" BasedOn="{StaticResource BaseStyle}" x:Key="BaseCalendarItem">
         <Setter Property="Margin" Value="0,3,0,3"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type CalendarItem}">
+                <ControlTemplate TargetType="CalendarItem">
                     <ControlTemplate.Resources>
                         <!-- Строка с днями недели -->
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
@@ -749,7 +749,27 @@
     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseStyleAlignment}" x:Key="TaskTabHeader">
         <Setter Property="Focusable" Value="False"></Setter>
     </Style>
-    
+
+    <!-- Стиль для ScrollViewer'а (общий) -->
+    <Style TargetType="ScrollViewer">
+        <Setter Property="Template" Value="{StaticResource BaseScrollViewerTemplate}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Стиль для ScrollViewer'а с отступом скролла -->
+    <Style TargetType="ScrollViewer" x:Key="MarginScrollViewer">
+        <Setter Property="Template" Value="{StaticResource MarginScrollViewerTemplate}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Вкладки в свойствах задачи 
     Используем разделение, чтобы для каждого раздела создавался свой экземпляр -->
     <col:ArrayList x:Shared="False" x:Key="TaskTabHeaders">

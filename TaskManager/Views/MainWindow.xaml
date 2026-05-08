@@ -135,7 +135,7 @@
             </DockPanel>
 
             <!-- Задачи (разделы добавляются в коде) -->
-            <TabControl x:Name="sections" Grid.Column="1"
+            <TabControl Style="{DynamicResource TabControlStyle}" x:Name="sections" Grid.Column="1"
                         SelectionChanged="SectionsSelectionChanged"
                         Background="{DynamicResource WindowBackground}">
                 <TabItem x:Name="masterSection">

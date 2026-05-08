@@ -13,8 +13,6 @@ namespace TaskManager.Helpers
     {
         internal static MainWindow MainWindow => (MainWindow)Application.Current.MainWindow;
 
-        // У основного раздела ListBox, и там ContentControl
-        // У неосновного сразу AdditionalSectionView
         internal static SectionView GetSectionViewFromTabItem(TabItem? tabItem)
         {
             var content = tabItem?.Content;
@@ -77,9 +75,6 @@ namespace TaskManager.Helpers
                 MessageBoxImage.Question => "Вопрос",
                 _ => throw new NotImplementedException()
             };
-
-            BitmapSource GetIconAsImageCore(Icon icon)
-                => Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
         internal static void SetFocus(UIElement element)

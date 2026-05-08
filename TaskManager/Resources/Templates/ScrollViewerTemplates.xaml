@@ -339,24 +339,44 @@
         </Grid>
     </ControlTemplate>
 
-    <!-- Стиль для ScrollViewer'а (общий) -->
-    <Style TargetType="ScrollViewer">
-        <Setter Property="Template" Value="{StaticResource BaseScrollViewerTemplate}"></Setter>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <!-- Стиль для ScrollViewer'а с отступом скролла -->
-    <Style TargetType="ScrollViewer" x:Key="MarginScrollViewer">
-        <Setter Property="Template" Value="{StaticResource MarginScrollViewerTemplate}"></Setter>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+    <!-- Шаблон для ScrollViewer'а для вкладок табконтрола -->
+    <ControlTemplate TargetType="ScrollViewer" x:Key="TabScrollControl">
+        <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="1"
+                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                    CanHorizontallyScroll="False"
+                                    CanVerticallyScroll="False"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Content}"
+                                    Margin="{TemplateBinding Padding}"/>
+            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                       Style="{StaticResource BaseScrollBar}"
+                       AutomationProperties.AutomationId="HorizontalScrollBar"
+                       Cursor="Arrow"
+                       Maximum="{TemplateBinding ScrollableWidth}"
+                       Minimum="0"
+                       Orientation="Horizontal" 
+                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                       ViewportSize="{TemplateBinding ViewportWidth}"/>
+            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1"
+                       Style="{StaticResource BaseScrollBar}"
+                       AutomationProperties.AutomationId="VerticalScrollBar"
+                       Cursor="Arrow"
+                       Maximum="{TemplateBinding ScrollableHeight}"
+                       Minimum="0"
+                       Visibility="Collapsed"
+                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                       ViewportSize="{TemplateBinding ViewportHeight}"/>
+        </Grid>
+    </ControlTemplate>
 
 </ResourceDictionary>

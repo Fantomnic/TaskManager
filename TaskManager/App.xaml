@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Resources/Templates/ListBoxTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates/RadioButtonTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates/ScrollViewerTemplates.xaml" />
+                <ResourceDictionary Source="/Resources/Templates/TabControlTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates/TreeViewTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates/WindowTemplates.xaml" />
                 <ResourceDictionary Source="/Resources/Templates.xaml" />
