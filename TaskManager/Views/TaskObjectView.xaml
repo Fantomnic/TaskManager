@@ -81,7 +81,6 @@
                     <TextBox Grid.Column="1"
                              Style="{StaticResource BaseTextBoxAlignmentMargin}"
                              IsReadOnly="True"
-                             Focusable="False"
                              Text="{Binding Path=CreationDate,Mode=OneWay,Converter={StaticResource DateConverter}}"/>
 
                     <!-- Статус -->
