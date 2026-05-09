@@ -305,6 +305,7 @@ namespace TaskManager.Views
                 return;
 
             UIHelper.ResetFocus(focusedButton);
+            Keyboard.ClearFocus();
         }
 
         internal void SetMenuButtonsFocusable(bool value)

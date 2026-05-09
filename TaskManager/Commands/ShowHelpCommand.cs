@@ -1,4 +1,5 @@
-﻿using TaskManager.Helpers;
+﻿using System.Diagnostics;
+using TaskManager.Helpers;
 
 namespace TaskManager.Commands
 {
@@ -6,7 +7,11 @@ namespace TaskManager.Commands
     {
         internal override void ExecuteImplement(object? parameter)
         {
-            
+            var processStartInfo = new ProcessStartInfo("Resources\\Планировщик задач – Справка.pdf");
+            processStartInfo.UseShellExecute = true;
+
+            Process.Start(processStartInfo);
+
             UIHelper.MainWindow.ResetMenuButtonsFocus();
         }
     }
