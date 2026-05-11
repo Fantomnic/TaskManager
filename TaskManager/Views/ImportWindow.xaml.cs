@@ -122,10 +122,13 @@ namespace TaskManager.Views
                 if (areSections)
                 {
                     if (newMasterSection is not null)
-                        TaskObjectsImportCore(masterSectionViewModel, newMasterSection.Tasks);
+                        TaskObjectsImportCore(masterSectionViewModel, newMasterSection.Tasks, replace.IsChecked == true);
 
                     foreach (var newAdditionalSection in additionalSections.OrderBy(s => s.CreationDate))
                     {
+                        if (newMasterSection is null)
+                            TaskObjectsImportCore(masterSectionViewModel, newAdditionalSection.Tasks, false);
+
                         if (mainViewModel.FindSectionViewModel(newAdditionalSection) is not SectionViewModel existingAdditionalSectionViewModel)
                         {
                             var sectionViewModel = mainViewModel.CreateAdditionalSectionViewModel(newAdditionalSection);
@@ -144,7 +147,7 @@ namespace TaskManager.Views
                 else
                 {
                     SectionViewModel targetSectionViewModel = addInCurrentSection.IsChecked == true ? mainViewModel.SelectedSectionViewModel : masterSectionViewModel;
-                    TaskObjectsImportCore(targetSectionViewModel, newTaskObjects);
+                    TaskObjectsImportCore(targetSectionViewModel, newTaskObjects, replace.IsChecked == true);
                 }
 
                 currentSelectedSectionViewModel.RefreshVisibleTaskViewModels();
@@ -159,7 +162,7 @@ namespace TaskManager.Views
                 UIHelper.ShowMessage(_successMessage, MessageBoxImage.Information);
         }
 
-        private void TaskObjectsImportCore(SectionViewModel targetSectionViewModel, List<TaskObject> newTaskObjects)
+        private void TaskObjectsImportCore(SectionViewModel targetSectionViewModel, List<TaskObject> newTaskObjects, bool replaceIfExists)
         {
             foreach (var newTaskObject in newTaskObjects)
             {
@@ -168,7 +171,7 @@ namespace TaskManager.Views
                     var newTaskViewModel = targetSectionViewModel.CreateTaskViewModel(newTaskObject);
                     targetSectionViewModel.AddTaskViewModel(newTaskViewModel, false);
                 }
-                else if (replace.IsChecked == true)
+                else if (replaceIfExists)
                 {
                     currentTaskObject.CopyFrom(newTaskObject);
                 }
