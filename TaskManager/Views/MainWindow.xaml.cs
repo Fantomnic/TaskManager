@@ -258,6 +258,9 @@ namespace TaskManager.Views
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
+            if (!DataHelper.DataIsLoaded)
+                return;
+
             SaveToConfigForMainWindow();
             Settings.SaveToConfig();
 

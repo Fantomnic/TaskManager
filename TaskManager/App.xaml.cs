@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Threading;
 using TaskManager.Helpers;
 using TaskManager.Helpers.Exceptions;
@@ -12,6 +13,14 @@ namespace TaskManager
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            var processes = Process.GetProcesses();
+
+            if (processes.Count(p => p.ProcessName == "TaskManager") > 1)
+            {
+                Shutdown();
+                return;
+            }
+
             Current.DispatcherUnhandledException += CurrentDispatcherUnhandledException;
             base.OnStartup(e);
         }
