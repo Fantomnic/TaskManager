@@ -92,7 +92,7 @@
                     <TextBlock Grid.Row="2" Style="{StaticResource FieldDescription}">Приоритет:</TextBlock>
                     <ComboBox x:Name="priorityList" Grid.Row="2" Grid.Column="1"
                               Style="{StaticResource BaseComboBox}"
-                              ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllPriorities}"
+                              ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllCurrentPriorities}"
                               SelectedItem="{Binding VisibleTaskPriority}"
                               VerticalAlignment="Center"
                               Margin="3,0,3,0">

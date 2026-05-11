@@ -15,7 +15,9 @@
       <!--<ComponentGroupRef Id="ProductComponents" />-->
       <ComponentRef Id="MainAppComponent"/>
       <ComponentRef Id="MainAppConfigComponent"/>
+      <ComponentRef Id="HelpComponent"/>
       <ComponentRef Id="ApplicationMenuComponent"/>
+      <ComponentRef Id="ApplicationDesktopComponent"/>
 		</Feature>
 
     <!-- Ссылка на файл лицензии -->
@@ -39,13 +41,28 @@
           <Component Id="ApplicationMenuComponent" Guid="4285672b-9f23-441a-bc3a-e2f1b7409f91">
             <Shortcut Id="ApplicationMenuShortcut"
                       Name="Планировщик задач"
-                      Description="$(var.ProductName)"
                       Target="[INSTALLLOCATION]TaskManager.exe"
                       WorkingDirectory="INSTALLLOCATION"/>
-            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+            <RemoveFolder Id="RemoveMenuShortcut" On="uninstall"/>
             <RegistryValue Root="HKCU"
                            Key="Software\$(var.Manufacturer)\$(var.ProductName)"
-                           Name="installed"
+                           Name="installed_menu_shortcut"
+                           Type="integer"
+                           Value="1"
+                           KeyPath="yes"/>
+          </Component>
+        </Directory>
+        <!-- Рабочий стол -->
+        <Directory Id="DesktopFolder">
+          <Component Id="ApplicationDesktopComponent" Guid="3783ddd6-fbab-44f3-a0c8-5098ab229def">
+            <Shortcut Id="ApplicationDesktopShortcut"
+                      Name="Планировщик задач"
+                      Target="[INSTALLLOCATION]TaskManager.exe"
+                      WorkingDirectory="INSTALLLOCATION"/>
+            <RemoveFolder Id="RemoveDesktopShortcut" On="uninstall"/>
+            <RegistryValue Root="HKCU"
+                           Key="Software\$(var.Manufacturer)\$(var.ProductName)"
+                           Name="installed_desktop_shortcut"
                            Type="integer"
                            Value="1"
                            KeyPath="yes"/>
@@ -59,11 +76,16 @@
 	<Fragment>
     <DirectoryRef Id="INSTALLLOCATION" FileSource="$(var.TaskManager.TargetDir)publish\win-x86\">
       <Component Id="MainAppComponent">
-        <File Name="TaskManager.exe" />
+        <File Name="TaskManager.exe"/>
       </Component>
       <Component Id="MainAppConfigComponent">
-        <File Name="TaskManager.dll.config" />
+        <File Name="TaskManager.dll.config"/>
       </Component>
+      <Directory Id="ResourcesDirectory" Name="Resources" FileSource="$(var.TaskManager.TargetDir)publish\win-x86\Resources\">
+        <Component Id="HelpComponent">
+          <File Id='Help' DiskId='1' Name="Планировщик задач – Справка.pdf"/>
+        </Component>
+      </Directory>
     </DirectoryRef>
 	</Fragment>
 

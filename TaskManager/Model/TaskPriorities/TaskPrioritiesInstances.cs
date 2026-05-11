@@ -33,11 +33,15 @@ namespace TaskManager.Model.TaskPriorities
                 HighPriority,
             ];
 
-            AllPriorities = [.. _prioritiesList5];
+            AllCurrentPriorities = [.. _prioritiesList5];
         }
 
+        /// <summary>Все приоритеты, которые могут быть использованы в приложении</summary>
+        internal static List<TaskPriorityBase> AllPriorities => _prioritiesList5;
+
         // Сначала загружаем все приоритеты, т.к. они используются при инициализации видов - до загрузки данных
-        public static ObservableCollection<TaskPriorityBase> AllPriorities { get; }
+        /// <summary>Список приоритетов в соответствии с текущим используемым набором приоритетов</summary>
+        public static ObservableCollection<TaskPriorityBase> AllCurrentPriorities { get; }
 
         /// <summary>Приоритет "Низкий"/"Минимальный"</summary>
         internal static LowPriority LowPriority { get; }
@@ -58,19 +62,19 @@ namespace TaskManager.Model.TaskPriorities
         {
             PrioritySaver.Save();
 
-            AllPriorities.Clear();
+            AllCurrentPriorities.Clear();
 
             var collection = Settings.PrioritiesSetID == 0 ? _prioritiesList3 : _prioritiesList5;
 
             foreach (var item in collection)
-                AllPriorities.Add(item);
+                AllCurrentPriorities.Add(item);
 
             PrioritySaver.Fill();
         }
 
         internal static void ResetForegrounds()
         {
-            foreach (var priority in AllPriorities)
+            foreach (var priority in AllCurrentPriorities)
                 priority.ResetForeground();
         }
 

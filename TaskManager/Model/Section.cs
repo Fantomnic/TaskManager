@@ -35,7 +35,10 @@ namespace TaskManager.Model
         internal int DefaultPriorityID
         {
             get => DefaultPriority.ID;
-            set => DefaultPriority = TaskPrioritiesInstances.AllPriorities.First(p => p.ID == value);
+            set
+            {
+                DefaultPriority = TaskPrioritiesInstances.AllPriorities.First(p => p.ID == value);
+            }
         }
 
         [DataMember]

@@ -39,7 +39,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BeginingStatusVisible" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ShowTodayTasks" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -78,13 +78,13 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AutoRenewalTasks" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MaxSectionLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">50</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="MaxTaskLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">50</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="ConfirmDeleteTask" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

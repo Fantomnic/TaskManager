@@ -169,7 +169,7 @@ namespace TaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool BeginingStatusVisible {
             get {
                 return ((bool)(this["BeginingStatusVisible"]));
@@ -325,7 +325,7 @@ namespace TaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoRenewalTasks {
             get {
                 return ((bool)(this["AutoRenewalTasks"]));
@@ -337,7 +337,7 @@ namespace TaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int MaxSectionLength {
             get {
                 return ((int)(this["MaxSectionLength"]));
@@ -349,7 +349,7 @@ namespace TaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int MaxTaskLength {
             get {
                 return ((int)(this["MaxTaskLength"]));

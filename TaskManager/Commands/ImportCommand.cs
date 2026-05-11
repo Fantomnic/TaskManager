@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TaskManager.Helpers;
 using TaskManager.Views;
 
 namespace TaskManager.Commands
@@ -12,7 +8,9 @@ namespace TaskManager.Commands
         internal override void ExecuteImplement(object? parameter)
         {
             var importWindow = new ImportWindow();
-            importWindow.ShowDialog();
+
+            if (importWindow.ShowDialog() == true)
+                Helper.MasterSectionViewModel.MidnightUpdateTasks();
         }
     }
 }

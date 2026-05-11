@@ -74,7 +74,7 @@
                         <TextBlock Style="{StaticResource FieldDescription}">Приоритет по умолчанию:</TextBlock>
                         <ComboBox x:Name="priorityList"
                                   Style="{StaticResource BaseComboBox}"
-                                  ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllPriorities}"
+                                  ItemsSource="{x:Static pr:TaskPrioritiesInstances.AllCurrentPriorities}"
                                   VerticalAlignment="Center"
                                   Margin="3,0,3,0"
                                   MinWidth="152">
