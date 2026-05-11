@@ -21,7 +21,7 @@
 		</Feature>
 
     <!-- Ссылка на файл лицензии -->
-    <!--<WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>-->
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="Agreement.rtf"/>
 
     <!-- Используем предустановленный набор страниц из WixUIExtension -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION"></Property>
